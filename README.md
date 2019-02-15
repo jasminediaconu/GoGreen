@@ -37,7 +37,7 @@ Personal Development Plan:
 - Learning how to program as a team
 
 ## Name: Svetoslav Stanoev
-![Svetoslav Nikolaev Stanoev](Svetoslav.jpg)<br/>
+![Svetoslav Nikolaev Stanoev](Svetoslav.JPG)<br/>
 Personal Development plan:
 - Broaden programming skills
 - Getting together in a team and working on a project

@@ -16,6 +16,11 @@ Personal Development Plan:
 -
 -
 
+## Name: Gino Tramontina
+![Gino Tramontina](GinoTramontina.jpg)
+Personal Development Plan:
+- Getting used to working in a team
+- Get better at programming
 
 ## Name:
 ![name]()

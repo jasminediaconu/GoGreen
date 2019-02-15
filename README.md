@@ -1,7 +1,7 @@
 # CSE1105 Group 72
 
 ## Name: Wout Haakman
-![Wout Haakman](WoutHaakman.jpg)
+![Wout Haakman](WoutHaakman.jpg)<br/>
 Personal Development Plan:
 - Learn to work as a team
 - Not being afraid to ask questions
@@ -9,7 +9,7 @@ Personal Development Plan:
 - Making a sweet Java application
 
 ## Name: Giuliano Forghieri
-![Giuliano Forghieri](gforghieri.jpg)
+![Giuliano Forghieri](gforghieri.jpg)<br/>
 Personal Development Plan:
 -
 -
@@ -17,7 +17,7 @@ Personal Development Plan:
 -
 
 ## Name: Gino Tramontina
-![Gino Tramontina](GinoTramontina.jpg)
+![Gino Tramontina](GinoTramontina.jpg)<br/>
 Personal Development Plan:
 - Getting used to working in a team
 - Get better at programming
@@ -28,5 +28,16 @@ Personal Development Plan:
 - Learn how to improve teamwork
 - Learn how to program better and more efficiently
 - Become better at managing and organising
+
+## Name: Jan Willem Eriks
+![Jan Willem Eriks](jan_willem.jpg)<br/>
+Personal Development Plan:
+- Learning how to work with and program graphics in Java
+- Learning how to use Git
+- Learning how to program as a team
+
 ## Name:
-![name]()
+![name]()<br/>
+
+## Name:
+![name]()<br/>

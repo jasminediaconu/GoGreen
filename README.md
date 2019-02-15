@@ -8,8 +8,14 @@ Personal Development Plan:
 - Being able to help teammembers wherever possible
 - Making a sweet Java application
 
-## Name:
-![name]()
+## Name: Giuliano Forghieri
+![Giuliano Forghieri](gforghieri.jpg)
+Personal Development Plan:
+-
+-
+-
+-
+
 
 ## Name:
 ![name]()

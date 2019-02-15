@@ -22,8 +22,11 @@ Personal Development Plan:
 - Getting used to working in a team
 - Get better at programming
 
-## Name:
-![name]()
-
+## Name: Mandy Chang
+![Mandy Chang](MandyChang.jpeg)
+Personal Development Plan:
+- Learn how to improve teamwork
+- Learn how to program better and more efficiently
+- Become better at managing and organising
 ## Name:
 ![name]()

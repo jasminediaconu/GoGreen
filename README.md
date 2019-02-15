@@ -23,7 +23,7 @@ Personal Development Plan:
 - Get better at programming
 
 ## Name: Jan Willem Eriks
-!Jan Willem Eriks(jan_willem.jpg)
+![Jan Willem Eriks](jan_willem.jpg)
 Personal Development Plan:
 - Learning how to work with and program graphics in Java
 - Learning how to use Git

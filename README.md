@@ -22,6 +22,13 @@ Personal Development Plan:
 - Getting used to working in a team
 - Get better at programming
 
+## Name: Mandy Chang
+![Mandy Chang](MandyChang.jpeg)<br/>
+Personal Development Plan:
+- Learn how to improve teamwork
+- Learn how to program better and more efficiently
+- Become better at managing and organising
+
 ## Name: Jan Willem Eriks
 ![Jan Willem Eriks](jan_willem.jpg)<br/>
 Personal Development Plan:
@@ -29,11 +36,14 @@ Personal Development Plan:
 - Learning how to use Git
 - Learning how to program as a team
 
+## Name: Svetoslav Stanoev
+![Svetoslav Nikolaev Stanoev](Svetoslav.JPG)<br/>
+Personal Development plan:
+- Broaden programming skills
+- Getting together in a team and working on a project
+
 ## Name:
 ![Jasmine Diaconu](jasmine_diaconu.jpg)<br/>
 Personal Development Plan:
 - Learning how to work in a team
 - Improving my coding skills
-
-## Name:
-![name]()<br/>

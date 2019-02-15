@@ -30,7 +30,10 @@ Personal Development Plan:
 - Learning how to program as a team
 
 ## Name:
-![name]()<br/>
+![Jasmine Diaconu](jasmine_diaconu.jpg)<br/>
+Personal Development Plan:
+- Learning how to work in a team
+- Improving my coding skills
 
 ## Name:
 ![name]()<br/>

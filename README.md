@@ -8,8 +8,11 @@ Personal Development Plan:
 - Being able to help teammembers wherever possible
 - Making a sweet Java application
 
-## Name:
-![name]()
+## Name: Gino Tramontina
+![Gino Tramontina](GinoTramontina.jpg)
+Personal Development Plan:
+- Getting used to working in a team
+- Get better at programming
 
 ## Name:
 ![name]()

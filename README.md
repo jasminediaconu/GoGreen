@@ -29,8 +29,8 @@ Personal Development Plan:
 - Learning how to use Git
 - Learning how to program as a team
 
-## Name: Svetoslav Stanoev
-![Svetoslav Nikolaev Stanoev]()<br/>
+## Name: 
+![]()<br/>
 
 ## Name:
 ![name]()<br/>

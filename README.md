@@ -23,7 +23,7 @@ Personal Development Plan:
 - Get better at programming
 
 ## Name: Mandy Chang
-![Mandy Chang](MandyChang.jpeg)
+![Mandy Chang](MandyChang.jpeg)<br/>
 Personal Development Plan:
 - Learn how to improve teamwork
 - Learn how to program better and more efficiently

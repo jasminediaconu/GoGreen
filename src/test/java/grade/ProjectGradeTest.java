@@ -1,6 +1,6 @@
 package grade;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ProjectGradeTest {
@@ -12,7 +12,7 @@ public class ProjectGradeTest {
 
         double grade = ProjectGrade.calculateGrade(true, true, 7.5);
 
-        Assert.assertEquals(7.5, grade, DELTA);
+        Assertions.assertEquals(7.5, grade, DELTA);
     }
 
     @Test
@@ -20,7 +20,7 @@ public class ProjectGradeTest {
 
         double grade = ProjectGrade.calculateGrade(true, false, 7.5);
 
-        Assert.assertEquals(1, grade, DELTA);
+        Assertions.assertEquals(1, grade, DELTA);
     }
 
     @Test
@@ -28,21 +28,21 @@ public class ProjectGradeTest {
 
         double grade = ProjectGrade.calculateGrade(false, true, 7.5);
 
-        Assert.assertEquals(1, grade, DELTA);
+        Assertions.assertEquals(1, grade, DELTA);
     }
 
     @Test
     public void testTaIsNotHappy() {
-        Assert.assertFalse(ProjectGrade.taIsHappy(false));
+        Assertions.assertFalse(ProjectGrade.taIsHappy(false));
     }
 
     @Test
     public void testTaIsHappy() {
-        Assert.assertTrue(ProjectGrade.taIsHappy(true));
+        Assertions.assertTrue(ProjectGrade.taIsHappy(true));
     }
 
     @Test
     public void testIsUsingLambda() {
-        Assert.assertTrue(ProjectGrade.usesLambda());
+        Assertions.assertTrue(ProjectGrade.usesLambda());
     }
 }

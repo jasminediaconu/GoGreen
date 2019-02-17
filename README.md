@@ -11,7 +11,7 @@ Personal Development Plan:
 ## Name: Giuliano Forghieri
 ![Giuliano Forghieri](gforghieri.jpg)<br/>
 Personal Development Plan:
--
+- 
 -
 -
 -

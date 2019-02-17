@@ -9,7 +9,7 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .idea
-OOP-Project.iml
+*.iml
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar

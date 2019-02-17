@@ -10,6 +10,9 @@ buildNumber.properties
 .mvn/timing.properties
 .idea
 *.iml
+.metadata
+.classpath
+.project
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar

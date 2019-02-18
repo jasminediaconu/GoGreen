@@ -48,7 +48,7 @@ Steps:
 - I will read guides, ask others and practice how to use technical documentation effectively
 - I will research and watch tutorials on specific technologies
 
-## Name: Gino Tramontina
+## Name: Gino Tramontina, gtramontina
 ![Gino Tramontina](/images/readmePictures/GinoTramontina.jpg)<br/>
 Personal Development Plan:
 

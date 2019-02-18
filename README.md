@@ -109,7 +109,7 @@ Personal Development Plan:
 - Learning how to use Git
 - Learning how to program as a team
 
-## Name: Svetoslav Stanoev 
+## Name: Svetoslav Stanoev NetId- sstanoev
 ![Svetoslav Stanoev](/images/readmePictures/Svetoslav.JPG)<br/>
 Personal Development Plan:
 *Strong points and weak points

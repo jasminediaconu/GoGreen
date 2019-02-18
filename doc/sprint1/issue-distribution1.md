@@ -59,5 +59,6 @@
 	* Totalamount of CO2saved
 	* CO2 per activity
 	* hashed_password
-	* (EXTRA) Please make new bullet-points for any other feature you worked on
-	* Don't forget to write tests for the code (Tools: mokito being used for at least 5 different test classes, ECLemma in Eclipse min 80% test coverage need 95% for max score)
+
+* (EXTRA) Please make new bullet-points for any other feature you worked on 
+* Don't forget to write tests for the code (Tools: mokito being used for at least 5 different test classes, ECLemma in Eclipse min 80% test coverage need 95% for max score)

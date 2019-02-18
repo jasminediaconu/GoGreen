@@ -25,16 +25,16 @@ Personal Development Plan:
 
 Good at:
  
-- test
-- test
-- test
-
+- Planning, organizing
+- Helping other team members
+- Ideas regarding design, user experience/flow
+- Work ethic
 
 Seeking improvement:
 
-- test
-- test
-- test
+- Programming skills
+- To be able to absorb/retain large amounts of information faster
+- To be able to use documentation/stack overflow effectively
 
 Goals:
 
@@ -44,9 +44,9 @@ Goals:
 
 Steps:
 
-- test
-- test
-- test
+- I will take on technical challenges, to improve my programming skills.
+- I will read guides, ask others and practice how to use technical documentation effectively
+- I will research and watch tutorials on specific technologies
 
 ## Name: Gino Tramontina
 ![Gino Tramontina](/images/readmePictures/GinoTramontina.jpg)<br/>

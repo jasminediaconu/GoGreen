@@ -60,9 +60,11 @@ Personal Development Plan:
 ## Name: Svetoslav Stanoev
 ![Svetoslav Stanoev](/images/readmePictures/Svetoslav.JPG)<br/>
 Personal Development Plan:
+*Strong points and weak points
 - Communicative and motivated
 - Communication is key in a good execution of a team project
 - Weaker points in me are lack of programming skills and procrastination
+*Plan to achive my goal 
 - My goal is to make an awesome app and have fun with my team
 - I need to stop being lazy that's my biggest problem
 

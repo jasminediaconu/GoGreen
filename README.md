@@ -65,6 +65,27 @@ Personal Development plan:
 
 ## Name:
 ![Jasmine Diaconu](/images/readmePictures/jasmine_diaconu.jpg)<br/>
-Personal Development Plan:
-- Learning how to work in a team
-- Improving my coding skills
+Personal Development Plan: 
+
+Good at:
+ 
+- Programming
+- Problem solving
+- Creative
+
+Seeking improvement:
+
+- Organizational skills
+- Coding skills
+
+Goals:
+
+- To learn how to work in a team
+- To make a great application
+
+Steps:
+
+- Make a well organized plan
+- Google, search for information, learn how to use the available resources
+- Code
+- Ask for help when stuck/discuss with the team when needed

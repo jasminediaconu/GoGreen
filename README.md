@@ -46,9 +46,28 @@ Personal Development Plan:
 ## Name: Mandy Chang
 ![Mandy Chang](/images/readmePictures/MandyChang.jpeg)<br/>
 Personal Development Plan:
+
+Good at:
+- Communicating
+- Being creative
+- Helping others
+
+Seeking improvement:
+- Programming skills
+- Management skills
+
+Goals:
 - Learn how to improve teamwork
 - Learn how to program better and more efficiently
 - Become better at managing and organising
+
+Steps:
+- Programming: doing some code every week
+- Programming: watching how others solve problems
+- Programming: asking for help
+- Managing: read notes from others
+- Managing: be secretary/chair for a meeting
+- Managing: use "issues" and "agenda" every week
 
 ## Name: Jan Willem Eriks
 ![Jan Willem Eriks](/images/readmePictures/jan_willem.jpg)<br/>

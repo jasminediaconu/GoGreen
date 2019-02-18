@@ -40,8 +40,30 @@ Steps:
 ## Name: Gino Tramontina
 ![Gino Tramontina](/images/readmePictures/GinoTramontina.jpg)<br/>
 Personal Development Plan:
-- Getting used to working in a team
-- Get better at programming
+
+Good at:
+ 
+- Searching for information on Google
+- Java (kind of)
+
+
+Seeking improvement:
+
+- Teamwork
+- Programming skills
+
+Goals:
+
+- To get better at teamwork
+- To enhance my programming skills
+- To make a cool program
+
+Steps:
+
+- practice programming
+- work together with the rest
+- programming
+
 
 ## Name: Mandy Chang
 ![Mandy Chang](/images/readmePictures/MandyChang.jpeg)<br/>

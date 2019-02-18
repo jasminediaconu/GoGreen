@@ -46,9 +46,28 @@ Personal Development Plan:
 ## Name: Mandy Chang
 ![Mandy Chang](/images/readmePictures/MandyChang.jpeg)<br/>
 Personal Development Plan:
+
+Good at:
+- Communicating
+- Being creative
+- Helping others
+
+Seeking improvement:
+- Programming skills
+- Management skills
+
+Goals:
 - Learn how to improve teamwork
 - Learn how to program better and more efficiently
 - Become better at managing and organising
+
+Steps:
+- Programming: doing some code every week
+- Programming: watching how others solve problems
+- Programming: asking for help
+- Managing: read notes from others
+- Managing: be secretary/chair for a meeting
+- Managing: use "issues" and "agenda" every week
 
 ## Name: Jan Willem Eriks
 ![Jan Willem Eriks](/images/readmePictures/jan_willem.jpg)<br/>
@@ -58,10 +77,16 @@ Personal Development Plan:
 - Learning how to program as a team
 
 ## Name: Svetoslav Stanoev
-![Svetoslav Nikolaev Stanoev](/images/readmePictures/Svetoslav.JPG)<br/>
-Personal Development plan:
-- Broaden programming skills
-- Getting together in a team and working on a project
+![Svetoslav Stanoev](/images/readmePictures/Svetoslav.JPG)<br/>
+Personal Development Plan:
+*Strong points and weak points
+- Communicative and motivated
+- Communication is key in a good execution of a team project
+- Weaker points in me are lack of programming skills and procrastination
+*Plan to achive my goal 
+- My goal is to make an awesome app and have fun with my team
+- I need to stop being lazy that's my biggest problem
+
 
 ## Name:
 ![Jasmine Diaconu](/images/readmePictures/jasmine_diaconu.jpg)<br/>

@@ -10,10 +10,32 @@ Personal Development Plan:
 
 ## Name: Giuliano Forghieri
 ![Giuliano Forghieri](/images/readmePictures/gforghieri.jpg)<br/>
-Personal Development Plan:
+Personal Development Plan: 
+
+Good at:
+ 
+- test
+- test
+- test
+
+
+Seeking improvement:
+
+- test
+- test
+- test
+
+Goals:
+
 - To learn how to build software in a team
 - To improve my technical skills
 - To make this project something that I can be proud of
+
+Steps:
+
+- test
+- test
+- test
 
 ## Name: Gino Tramontina
 ![Gino Tramontina](/images/readmePictures/GinoTramontina.jpg)<br/>

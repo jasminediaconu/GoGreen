@@ -105,9 +105,25 @@ Steps:
 ## Name: Jan Willem Eriks
 ![Jan Willem Eriks](/images/readmePictures/jan_willem.jpg)<br/>
 Personal Development Plan:
-- Learning how to work with and program graphics in Java
-- Learning how to use Git
-- Learning how to program as a team
+
+Good at:
+- Java
+- Learning
+
+Seeking improvement:
+- Team work skills
+- Git and GitLab
+
+Goals:
+- Learn how to use JavaFX
+- Learn how to program as team member
+
+Steps:
+- JavaFX: program almost daily
+- JavaFX: discuss how to implement things
+- JavaFX: asking others for help
+- Team: discuss with others and ask for help
+- Git: trying advanced functions during this quarter
 
 ## Name: Svetoslav Stanoev, sstanoev
 ![Svetoslav Stanoev](/images/readmePictures/Svetoslav.JPG)<br/>

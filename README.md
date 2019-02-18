@@ -2,11 +2,21 @@
 
 ## Name: Wout Haakman
 ![Wout Haakman](/images/readmePictures/WoutHaakman.jpg)<br/>
-Personal Development Plan:
-- Learn to work as a team
-- Not being afraid to ask questions
-- Being able to help teammembers wherever possible
-- Making a sweet Java application
+#### Personal Development Plan:
+##### 2 strong points:
+- Good at programming, I have some years of programming and I am a quick learner.
+- Can explain material to others well, I like helping other people and I think I am good at helping with questions.
+
+##### My goals:
+- Improve teamwork skills, <br/>
+	I want to learn how to work better in a team.
+	I want to achieve this by communicating better,
+	Asking questions when needed,
+	Making sure everybody is on the same line and understands most of what is happening in the team.
+- Become a scrum amateur,
+	I want to better understand how scrums work.
+	I want to achieve this by investing more time to efficiently divide tasks on the time board,
+	And by learning from mistakes from the past sprint.
 
 ## Name: Giuliano Forghieri
 ![Giuliano Forghieri](/images/readmePictures/gforghieri.jpg)<br/>

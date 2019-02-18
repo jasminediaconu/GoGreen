@@ -19,7 +19,7 @@
 	And by learning from mistakes from the past sprint.
 
 
-## Name: Giuliano Forghieri
+## Name: Giuliano Forghieri (NetID: gforghieri)
 ![Giuliano Forghieri](/images/readmePictures/gforghieri.jpg)<br/>
 Personal Development Plan: 
 

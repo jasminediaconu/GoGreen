@@ -36,10 +36,14 @@ Personal Development Plan:
 - Learning how to program as a team
 
 ## Name: Svetoslav Stanoev
-![Svetoslav Nikolaev Stanoev](/images/readmePictures/Svetoslav.JPG)<br/>
-Personal Development plan:
-- Broaden programming skills
-- Getting together in a team and working on a project
+![Svetoslav Stanoev](/images/readmePictures/Svetoslav.JPG)<br/>
+Personal Development Plan:
+- Communicative and motivated
+- Communication is key in a good execution of a team project
+- Weaker points in me are lack of programming skills and procrastination
+- My goal is to make an awesome app and have fun with my team
+- I need to stop being lazy that's my biggest problem
+
 
 ## Name:
 ![Jasmine Diaconu](/images/readmePictures/jasmine_diaconu.jpg)<br/>

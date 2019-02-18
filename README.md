@@ -1,6 +1,6 @@
 # CSE1105 Group 72
 
-## Name: Wout Haakman
+## Name: Wout Haakman, whaakman
 ![Wout Haakman](/images/readmePictures/WoutHaakman.jpg)<br/>
 #### Personal Development Plan:
 ##### 2 strong points:
@@ -48,7 +48,7 @@ Steps:
 - I will read guides, ask others and practice how to use technical documentation effectively
 - I will research and watch tutorials on specific technologies
 
-## Name: Gino Tramontina
+## Name: Gino Tramontina, gtramontina
 ![Gino Tramontina](/images/readmePictures/GinoTramontina.jpg)<br/>
 Personal Development Plan:
 
@@ -76,7 +76,7 @@ Steps:
 - programming
 
 
-## Name: Mandy Chang
+## Name: Mandy Chang, mchang
 ![Mandy Chang](/images/readmePictures/MandyChang.jpeg)<br/>
 Personal Development Plan:
 
@@ -105,11 +105,27 @@ Steps:
 ## Name: Jan Willem Eriks
 ![Jan Willem Eriks](/images/readmePictures/jan_willem.jpg)<br/>
 Personal Development Plan:
-- Learning how to work with and program graphics in Java
-- Learning how to use Git
-- Learning how to program as a team
 
-## Name: Svetoslav Stanoev
+Good at:
+- Java
+- Learning
+
+Seeking improvement:
+- Team work skills
+- Git and GitLab
+
+Goals:
+- Learn how to use JavaFX
+- Learn how to program as team member
+
+Steps:
+- JavaFX: program almost daily
+- JavaFX: discuss how to implement things
+- JavaFX: asking others for help
+- Team: discuss with others and ask for help
+- Git: trying advanced functions during this quarter
+
+## Name: Svetoslav Stanoev, sstanoev
 ![Svetoslav Stanoev](/images/readmePictures/Svetoslav.JPG)<br/>
 Personal Development Plan:
 *Strong points and weak points
@@ -121,7 +137,7 @@ Personal Development Plan:
 - I need to stop being lazy that's my biggest problem
 
 
-## Name:
+## Name: Jasmine Diaconu (NetID: jdiaconu)
 ![Jasmine Diaconu](/images/readmePictures/jasmine_diaconu.jpg)<br/>
 Personal Development Plan: 
 

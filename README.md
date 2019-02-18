@@ -1,6 +1,6 @@
 # CSE1105 Group 72
 
-## Name: Wout Haakman
+## Name: Wout Haakman, whaakman
 ![Wout Haakman](/images/readmePictures/WoutHaakman.jpg)<br/>
 #### Personal Development Plan:
 ##### 2 strong points:
@@ -76,7 +76,7 @@ Steps:
 - programming
 
 
-## Name: Mandy Chang
+## Name: Mandy Chang, mchang
 ![Mandy Chang](/images/readmePictures/MandyChang.jpeg)<br/>
 Personal Development Plan:
 
@@ -109,7 +109,7 @@ Personal Development Plan:
 - Learning how to use Git
 - Learning how to program as a team
 
-## Name: Svetoslav Stanoev
+## Name: Svetoslav Stanoev NetId- sstanoev
 ![Svetoslav Stanoev](/images/readmePictures/Svetoslav.JPG)<br/>
 Personal Development Plan:
 *Strong points and weak points

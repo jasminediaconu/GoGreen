@@ -76,7 +76,7 @@ Steps:
 - programming
 
 
-## Name: Mandy Chang
+## Name: Mandy Chang NetID: 4896203
 ![Mandy Chang](/images/readmePictures/MandyChang.jpeg)<br/>
 Personal Development Plan:
 

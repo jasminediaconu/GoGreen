@@ -1,6 +1,8 @@
 # Task and Issue distribution SPRINT 1
 
-## Login Screen: (Giuliano)
+## `1st DEMO DEADLINE 25th February: working client and server communication`
+
+### Login Screen: (Giuliano)
 * A mockup login screen which lets you in if you enter a specific username and password.
 * Designed in Javafx using the JFoenix library
 * Close windows after successful login
@@ -10,7 +12,7 @@
 * Don't forget to write tests for the code (Tools: mokito being used for at least 5 different test classes, ECLemma in Eclipse min 80% test coverage need 95% for max score)
 * (EXTRA) test
 
-## Main Screen/Agenda: (Jasmine)
+### Main Screen/Agenda: (Jasmine)
 * Window size: XGA = 1024 x 768 pixels.
 * Not focusing on looks but try to make it look like JASMINE's design on DISCORD
 * Designed in Javafx using the JFoenix library
@@ -20,7 +22,7 @@
 * Make window non re-sizable
 * Don't forget to write tests for the code (Tools: mokito being used for at least 5 different test classes, ECLemma in Eclipse min 80% test coverage need 95% for max score)
 
-## Server: (Wout)
+### Server: (Wout)
 * Working client and server communication
 * Proper hashing
 * Accept multiple clients
@@ -28,7 +30,7 @@
 * At boot-up have some server setting loading up; naming, server-profile
 * Don't forget to write tests for the code (Tools: mokito being used for at least 5 different test classes, ECLemma in Eclipse min 80% test coverage need 95% for max score)
 
-## Design the rest of the screens: (Mandy)
+### Design the rest of the screens: (Mandy)
 * Designing a theme for the application, consistent color scheme, fonts: minimalistic, modern, green, white, brown
 * Design each screen of the application: (user profile, agenda, leaderboard etc.)
 * How we could actually implement the design into Javafx using the JFoenix library
@@ -36,21 +38,21 @@
 * Window size: XGA = 1024 x 768 pixels.
 * Don't forget to write tests for the code (Tools: mokito being used for at least 5 different test classes, ECLemma in Eclipse min 80% test coverage need 95% for max score)
 
-## User Profile: (Jan Willem)
+### User Profile: (Jan Willem)
 * Window size: XGA = 1024 x 768 pixels.
 * Make window non re-sizable
 * What kind of data-structures should we use?
 * (EXTRA) Please make new bullet-points for any other feature you worked on
 * Don't forget to write tests for the code (Tools: mokito being used for at least 5 different test classes, ECLemma in Eclipse min 80% test coverage need 95% for max score)
 
-## CO2 emmission integration: (Gino)
+### CO2 emmission integration: (Gino)
 * Inventory/database off all the items possible
 * Should we use a WEB API/database or just locally stored database
 * How to distribute CO2 scores in the system.
 * (EXTRA) Please make new bullet-points for any other feature you worked on
 * Don't forget to write tests for the code (Tools: mokito being used for at least 5 different test classes, ECLemma in Eclipse min 80% test coverage need 95% for max score)
 
-## Database of users (Svetoslav)
+### Database of users (Svetoslav)
 * Should contain:
 
 	* user_ID

@@ -1,10 +1,10 @@
-##Personal Development Plan
+## Personal Development Plan
 
 This document is a framework for you to help decide on a goal to achieve and a plan on how to achieve it.
 We expect your goal to be well thought out and to have reasonable steps attached to this. 
 This framework will help you with this, but is not mandatory.
 
-##Step 1: Develop a goal
+## Step 1: Develop a goal
 What are two of your strong points?
 Do you have examples of this?
 How is this point shown in a team?
@@ -13,7 +13,7 @@ Do you have examples of this?
 How is this point shown in a team?
 Can you make a core quadrant of this?
 
-##Step 2: Create plan to achieve your goal
+## Step 2: Create plan to achieve your goal
 G - Goal
 
 What is your learning goal during this course?

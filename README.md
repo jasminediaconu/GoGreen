@@ -121,7 +121,7 @@ Personal Development Plan:
 - I need to stop being lazy that's my biggest problem
 
 
-## Name:
+## Name: Jasmine Diaconu (NetID: jdiaconu)
 ![Jasmine Diaconu](/images/readmePictures/jasmine_diaconu.jpg)<br/>
 Personal Development Plan: 
 

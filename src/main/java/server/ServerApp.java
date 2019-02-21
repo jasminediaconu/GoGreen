@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class ServerApp {
-	
+
 	/**
 	 * Starts the web application
 	 * @param args

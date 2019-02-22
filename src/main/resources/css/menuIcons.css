@@ -1,0 +1,11 @@
+#user {
+    -fx-background-image: url("../images/mockup.png");
+}
+
+#logout {
+    -fx-background-image: url("../images/logout.png");
+}
+
+#settings {
+    -fx-background-image: url("../images/settings.png");
+}

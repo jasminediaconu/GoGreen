@@ -23,7 +23,7 @@ public class LoginController {
 	 */
 	@RequestMapping("/login")
 	public String[] getResponse(@RequestParam String username, @RequestParam String password) {
-		if(username.equals("username") && password.equals("password"))
+		if(username.equals("username") && password.equals("5f4dcc3b5aa765d61d8327deb882cf99"))
 			return new String[]{username, password};
 		return null;
 	}

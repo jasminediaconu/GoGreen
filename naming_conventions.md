@@ -1,15 +1,15 @@
-#Naming conventions
+# Naming conventions
 
-##Classes:
+## Classes:
 All capitals for each word e.q.  TestingClass
 No underscores
 Be very exact about the naming of the class, make it understandable what the class is for
 
-##Variables:
+## Variables:
 Camelcase starting with lowercase numPerRow
 Same as classes. Don't use underscores and be exact about the naming
 
-##Functions:
+## Functions:
 Same as variables. Camelcase except for first letter, don't use underscores and be exact about the naming
 
 ## Packages:
@@ -24,7 +24,7 @@ src/main.java.client.login.LogInScreen.java
 src/main.java.server.Main.java
 etc.
 
-##Branches:
+## Branches:
 Keep it short
 Don't use spaces
 Copy name from Issue page, from GitLab when possible

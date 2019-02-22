@@ -22,10 +22,10 @@ public class LoginController {
 	 * @return a response as a String
 	 */
 	@RequestMapping("/login")
-	public String getResponse(@RequestParam String username, @RequestParam String password) {
+	public String[] getResponse(@RequestParam String username, @RequestParam String password) {
 		if(username.equals("username") && password.equals("password"))
-			return "Welcome back, username";
-		return "What?! I don't know you";
+			return new String[]{username, password};
+		return null;
 	}
 	
 }

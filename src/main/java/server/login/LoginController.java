@@ -4,6 +4,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /**
  * This class handles the REST controlling for any login request.
  * It will check the username and password and returns a String to handle the webpage
@@ -13,18 +18,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class LoginController {
 
-	// TODO Bundle with database and look up whether the user exists
 	/**
 	 * This function handles the request mapping for a user going to the /login url.
-	 * Requires two parameters, namely the username and password.
+	 * Requires two parameters, namely the username and hashed password.
+	 * It will make a query that goes through the db to check if the user exists and returns the id if that is the case.
 	 * @param username
 	 * @param password
 	 * @return a response as a String
 	 */
 	@RequestMapping("/login")
-	public String[] getResponse(@RequestParam String username, @RequestParam String password) {
-		if(username.equals("username") && password.equals("5f4dcc3b5aa765d61d8327deb882cf99"))
-			return new String[]{username, password};
+	public String getResponse(@RequestParam String username, @RequestParam String password) {
+		try{
+			Connection con = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
+			Statement statement = con.createStatement();
+
+			String query = "SELECT user_id FROM user_login WHERE username = '" + username + "' AND password = '" + password + "';";
+			ResultSet result = statement.executeQuery(query);
+			while(result.next()) {
+				return result.getString("user_id");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		return null;
 	}
 	

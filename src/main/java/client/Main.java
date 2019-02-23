@@ -15,7 +15,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		login("username", "passrd");
+		login("Wout Haakman", "wouthaakman");
 	}
 
 	/**
@@ -31,11 +31,11 @@ public class Main {
 			return;
 
 		RestTemplate rt = new RestTemplate();
-		String[] result = rt.getForObject(url + "?username=" + username + "&password=" + hashedPassword, String[].class);
+		String result = rt.getForObject(url + "?username=" + username + "&password=" + hashedPassword, String.class);
 		if(result == null)
 			System.out.println("Wrong username or password");
 		else
-			System.out.println("Welcome back " + result[0] + ", " + result[1]);
+			System.out.println(result);
 	}
 
 	/**

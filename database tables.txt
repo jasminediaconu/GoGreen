@@ -1,0 +1,34 @@
+create table if not exists user_follows;
+user_id SERIAL not null
+following_id integer not null
+
+CREATE table IF NOT EXISTS user_activities
+activity_id SERIAL not null 
+user_id SERIAL not null 
+item_id SERIAL not null 
+date not null date
+SUPER KEY (activity_id)
+
+CREATE table IF NOT EXISTS items;
+item_id SERIAL not null 
+name TEXT not null 
+type TEXT not null
+CO2 DOUBLE not null 
+SUPER KEY (item_id)
+
+CREATE table IF NOT EXISTS user_profile; 
+user_id SERIAL not null 
+country TEXT not null 
+car TEXT not null 
+total_points integer not null 
+ 
+
+CREATE table IF NOT EXISTS transportation;
+activity_id SERIAL not null 
+distance float not null 
+
+CREATE table IF NOT EXISTS food_items;
+activity_id SERIAL not null 
+amount FLOAT not null 
+volume FLOAT not null 
+

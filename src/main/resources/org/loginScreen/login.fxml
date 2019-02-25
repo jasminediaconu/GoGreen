@@ -87,11 +87,23 @@
                               <Insets left="50.0" top="10.0" />
                            </VBox.margin>
                         </HBox>
-                        <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="61.0" style="-fx-background-color: black;" text="Login" textFill="WHITE">
+                        <HBox prefHeight="90.0" prefWidth="360.0">
+                           <children>
+                              <VBox prefHeight="90.0" prefWidth="89.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="66.0" style="-fx-background-color: black;" text="Login" textFill="WHITE" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="68.0" text="Sign Up" />
+                                 </children>
+                              </VBox>
+                           </children>
                            <VBox.margin>
-                              <Insets left="50.0" top="60.0" />
+                              <Insets left="50.0" top="50.0" />
                            </VBox.margin>
-                        </Button>
+                        </HBox>
 
                           </children>
                   </VBox>

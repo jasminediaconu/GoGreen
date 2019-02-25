@@ -9,7 +9,7 @@
 * `On closing the client and reopening it, it is able to request the data from the server and show it to the user`
 
 ## General Tasks:
-* Sprint review (Team review o)
+* Sprint review (Jan Willem, team review it)
 * issue-distribution2 (Giuliano)
 * Weekly checkstyle and jacoco upload (Giuliano)
 * Implement all features on Issue board according to RUBRIC and Moscow (Giuliano)

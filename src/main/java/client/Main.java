@@ -16,6 +16,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		login("Wout Haakman", "wouthaakman");
+		System.out.println(hashString("password"));
 	}
 
 	/**
@@ -27,7 +28,7 @@ public class Main {
 	 */
 	public static void login(String username, String password){
 		String hashedPassword = hashString(password);
-		if(hashedPassword == null)
+		if(username == null || hashedPassword == null)
 			return;
 
 		RestTemplate rt = new RestTemplate();
@@ -44,6 +45,8 @@ public class Main {
 	 * @return a hashed password as type String
 	 */
 	public static String hashString(String message){
+		if(message == null)
+			return null;
 		String generatedMessage= null;
 		try{
 			MessageDigest md = MessageDigest.getInstance("MD5");

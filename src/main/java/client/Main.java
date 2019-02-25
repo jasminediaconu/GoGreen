@@ -47,7 +47,7 @@ public class Main {
     public static String hashString(String message){
         if(message == null)
             return null;
-        String generatedMessage= null;
+        String generatedMessage = null;
         try{
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(message.getBytes());

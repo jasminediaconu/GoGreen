@@ -18,29 +18,29 @@ import java.sql.Statement;
 @RestController
 public class LoginController {
 
-	/**
-	 * This function handles the request mapping for a user going to the /login url.
-	 * Requires two parameters, namely the username and hashed password.
-	 * It will make a query that goes through the db to check if the user exists and returns the id if that is the case.
-	 * @param username
-	 * @param password
-	 * @return a response as a String
-	 */
-	@RequestMapping("/login")
-	public String getResponse(@RequestParam String username, @RequestParam String password) {
-		try{
-			Connection con = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
-			Statement statement = con.createStatement();
+    /**
+     * This function handles the request mapping for a user going to the /login url.
+     * Requires two parameters, namely the username and hashed password.
+     * It will make a query that goes through the db to check if the user exists and returns the id if that is the case.
+     * @param username
+     * @param password
+     * @return a response as a String
+     */
+    @RequestMapping("/login")
+    public String getResponse(@RequestParam String username, @RequestParam String password) {
+        try{
+            Connection con = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
+            Statement statement = con.createStatement();
 
-			String query = "SELECT user_id FROM user_login WHERE username = '" + username + "' AND password = '" + password + "';";
-			ResultSet result = statement.executeQuery(query);
-			while(result.next()) {
-				return result.getString("user_id");
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
+            String query = "SELECT user_id FROM user_login WHERE username = '" + username + "' AND password = '" + password + "';";
+            ResultSet result = statement.executeQuery(query);
+            while(result.next()) {
+                return result.getString("user_id");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

@@ -1,11 +1,14 @@
-package client;
+package client.windows;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MainScreen extends Application {
 
@@ -15,11 +18,12 @@ public class MainScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("mainScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("fxml/mainScreen.fxml"));
         primaryStage.setTitle("GoGreen");
         primaryStage.setScene(new Scene(root, 1024, 768));
         primaryStage.setResizable(false);
         primaryStage.show();
         primaryStage.getIcons().add(new Image("images/icon.png"));
     }
+
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXNodesList?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<fx:root fx:id="agenda" onDragDetected="#selectedButton" prefHeight="688.0" prefWidth="1030.0" style="-fx-background-color: #ffffff;" type="Pane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.ControllerAgenda">
+   <children>
+      <Pane id="agenda" layoutX="405.0" layoutY="113.0" prefHeight="463.0" prefWidth="456.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10 10 10 10;" stylesheets="@../css/agenda.css">
+         <children>
+            <ImageView layoutX="195.0" layoutY="432.0">
+               <image>
+                  <Image url="@../images/arrow_down.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Text fill="#95e743" layoutX="553.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
+         <font>
+            <Font name="Century Gothic" size="61.0" />
+         </font>
+      </Text>
+      <ImageView layoutX="449.0" layoutY="25.0">
+         <image>
+            <Image url="@../images/agenda.png" />
+         </image>
+      </ImageView>
+      <JFXNodesList layoutX="742.0" layoutY="615.0" prefHeight="0.0" prefWidth="0.0" />
+      <ImageView layoutX="946.0" layoutY="612.0">
+         <image>
+            <Image url="@../images/button.png" />
+         </image>
+      </ImageView>
+   </children>
+</fx:root>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="720.0" style="-fx-background-color: transparent;" stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 15;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox id="leftVBOX" prefHeight="550.0" prefWidth="360.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" stylesheets="@loginStyle.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="551.0" fitWidth="360.0">
+                           <image>
+                              <Image url="@img/rounded-login.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="550.0" prefWidth="360.0" HBox.hgrow="ALWAYS">
+
+                          <children>
+
+                             <fx:include source="titleBar.fxml" />
+                        <VBox alignment="CENTER_LEFT" prefHeight="14.0" prefWidth="300.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 2em;" text="We are Green">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </Text>
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="50.0" right="10.0" top="80.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" prefHeight="16.0" prefWidth="302.0">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1em;" text="Welcome Back, Please login to your account." />
+                           </children>
+                           <VBox.margin>
+                              <Insets left="50.0" />
+                           </VBox.margin>
+                        </VBox>
+                        <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="49.0" prefWidth="250.0" style="-fx-background-color: #f2ffe5; -fx-background-radius: 30;">
+                           <children>
+                              <TextField maxWidth="-Infinity" prefWidth="250.0" style="-fx-background-color: transparent; -fx-border-color: gr;" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </TextField>
+                              <FontAwesomeIcon>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </FontAwesomeIcon>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="50.0" top="20.0" />
+                           </VBox.margin>
+                        </HBox>
+
+                          </children>
+                  </VBox>
+               </children>
+               <StackPane.margin>
+                  <Insets />
+               </StackPane.margin>
+            </HBox>
+         </children>
+         <effect>
+            <DropShadow />
+         </effect>
+      </StackPane>
+   </children>
+</AnchorPane>

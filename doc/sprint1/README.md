@@ -1,1 +1,0 @@
-Link to sprint review template document: https://docs.google.com/spreadsheets/d/1metJoVw9oqXTY3Y49SjSHOa0DU1hIkxA5irYRt_cT9g/edit?usp=sharing

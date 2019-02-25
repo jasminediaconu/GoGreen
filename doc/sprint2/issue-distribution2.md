@@ -1,6 +1,10 @@
-# Task and Issue distribution SPRINT 1
+# Task and Issue distribution SPRINT 2
 
-## `1st DEMO DEADLINE 25th February: working client and server communication`
+## `2nd DEMO DEADLINE 18th March: full workflow flow "Eating a vegetarian meal" (click button to register meal, send a request to the server, store it and persists it. :
+* * The full workflow of "Eating a vegetarian meal" is implemented
+* User clicks on a button to indicate that they bought a vegetarian meal
+* The server stores this data in a file or database
+* On closing the client and reopening it, it is able to request the data from the server and show it to the user`
 
 ### Login Screen: (Giuliano)
 * A mockup login screen which lets you in if you enter a specific username and password.

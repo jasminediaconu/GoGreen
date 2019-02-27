@@ -2,3 +2,20 @@ FontAwesomeIcon {
 -fx-cursor:hand;
 }
 
+Button {
+    -fx-cursor:hand;
+}
+
+#already {
+    -fx-cursor:hand;
+}
+
+#close:hover {
+    -fx-fill: #ff0000;
+}
+
+/*.root {*/
+    /*-fx-background-radius: 50;*/
+/*}*/
+
+

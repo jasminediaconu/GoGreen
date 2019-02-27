@@ -5,16 +5,16 @@ import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class ControllerMainScreen {
+
+    // Main screen
+    @FXML
+    private javafx.scene.layout.AnchorPane mainPane;
 
     // Logout button
     @FXML
@@ -47,7 +47,7 @@ public class ControllerMainScreen {
      * When a menu button is clicked the pane changes and the selected menu tab is highlighted.
      */
     @FXML
-    private void selectedButton() {
+    private void selectedButton() throws IOException {
 
         FadeTransition ft;
         // If the button is focused change the active pane and the color
@@ -58,54 +58,64 @@ public class ControllerMainScreen {
             ft.setFromValue(0.6);
             ft.setToValue(1.0);
             ft.play();
+
+            agenda = FXMLLoader.load(this.getClass().getResource("/fxml/agenda.fxml"));
+            mainPane.getChildren().add(agenda);
+            agenda.toBack();
         }
         if (profileButton.isFocused()) {
             profileButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
-
-            profile.setVisible(true);
 
             ft = new FadeTransition(Duration.millis(1000), profileButton);
             ft.setFromValue(0.6);
             ft.setToValue(1.0);
             ft.play();
+
+            profile = FXMLLoader.load(this.getClass().getResource("/fxml/profile.fxml"));
+            mainPane.getChildren().add(profile);
+            profile.toBack();
         }
         if (overviewButton.isFocused()) {
             overviewButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
-
-            overview.setVisible(true);
 
             ft = new FadeTransition(Duration.millis(1000), overviewButton);
             ft.setFromValue(0.6);
             ft.setToValue(1.0);
             ft.play();
+
+            overview = FXMLLoader.load(this.getClass().getResource("/fxml/overview.fxml"));
+            mainPane.getChildren().add(overview);
+            overview.toBack();
         }
         if (leaderboardButton.isFocused()) {
             leaderboardButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
-
-            leaderboard.setVisible(true);
 
             ft = new FadeTransition(Duration.millis(1000), leaderboardButton);
             ft.setFromValue(0.6);
             ft.setToValue(1.0);
             ft.play();
+
+            leaderboard = FXMLLoader.load(this.getClass().getResource("/fxml/leaderboard.fxml"));
+            mainPane.getChildren().add(leaderboard);
+            leaderboard.toBack();
         }
 
         // If the button is not focused set the defaut background
         if (!agendaButton.isFocused()) {
             agendaButton.setStyle("-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
-            agenda.setVisible(false);
+            mainPane.getChildren().remove(agenda);
         }
         if (!profileButton.isFocused()) {
             profileButton.setStyle("-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
-            profile.setVisible(false);
+            mainPane.getChildren().remove(profile);
         }
         if (!overviewButton.isFocused()) {
             overviewButton.setStyle("-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
-            overview.setVisible(false);
+            mainPane.getChildren().remove(overview);
         }
         if (!leaderboardButton.isFocused()) {
             leaderboardButton.setStyle("-fx-background-color:#8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
-            leaderboard.setVisible(false);
+            mainPane.getChildren().remove(leaderboard);
         }
     }
 

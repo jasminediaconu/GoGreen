@@ -1,26 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXNodesList?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: #9af795;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.ControllerMainScreen">
+<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: null;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.ControllerMainScreen">
     <children>
         <AnchorPane layoutX="-1.0" layoutY="-7.0" prefHeight="87.0" prefWidth="1024.0" style="-fx-background-color: #95E743;">
             <children>
@@ -43,142 +34,6 @@
                </stylesheets>
             </ComboBox>
             </children></AnchorPane>
-      <Pane fx:id="overview" layoutX="-6.0" layoutY="80.0" onDragDetected="#selectedButton" prefHeight="688.0" prefWidth="1030.0" style="-fx-background-color: #ffffff;">
-         <children>
-            <ImageView layoutX="436.0" layoutY="25.0">
-               <image>
-                  <Image url="@../images/chart.png" />
-               </image>
-            </ImageView>
-            <JFXNodesList layoutX="742.0" layoutY="615.0" prefHeight="0.0" prefWidth="0.0" />
-            <Text fill="#95e743" layoutX="538.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" wrappingWidth="293.9101963043213">
-               <font>
-                  <Font name="Century Gothic" size="61.0" />
-               </font>
-            </Text>
-            <LineChart horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="449.0" layoutY="132.0" prefHeight="318.0" prefWidth="401.0">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </LineChart>
-         </children>
-      </Pane>
-        <Pane fx:id="profile" layoutY="80.0" prefHeight="689.0" prefWidth="1025.0" style="-fx-background-color: #ffffff;">
-         <children>
-            <ImageView layoutX="449.0" layoutY="25.0">
-               <image>
-                  <Image url="@../images/resume.png" />
-               </image>
-            </ImageView>
-            <Text fill="#95e743" layoutX="551.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" wrappingWidth="293.9101963043213">
-               <font>
-                  <Font name="Century Gothic" size="61.0" />
-               </font>
-            </Text>
-            <Text layoutX="551.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="196.40003525388238">
-               <font>
-                  <Font name="Century Gothic" size="36.0" />
-               </font>
-            </Text>
-            <Text layoutX="551.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points:" wrappingWidth="196.40003525388238">
-               <font>
-                  <Font name="Century Gothic" size="36.0" />
-               </font>
-            </Text>
-            <Text layoutX="357.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Car:" wrappingWidth="196.40003525388238">
-               <font>
-                  <Font name="Century Gothic" size="18.0" />
-               </font>
-            </Text>
-            <Text layoutX="357.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Land:" wrappingWidth="196.40003525388238">
-               <font>
-                  <Font name="Century Gothic" size="18.0" />
-               </font>
-            </Text>
-            <Text layoutX="357.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average reduced:" wrappingWidth="196.40003525388238">
-               <font>
-                  <Font name="Century Gothic" size="18.0" />
-               </font>
-            </Text>
-            <Circle fill="#c4c4c4" layoutX="421.0" layoutY="262.0" radius="100.0" stroke="#c4c4c4" strokeType="INSIDE" />
-            <JFXButton layoutX="551.0" layoutY="340.0" prefHeight="44.0" prefWidth="173.0" stylesheets="@../css/changePictureButton.css" text="Change picture" textAlignment="CENTER" textFill="#95e743">
-               <font>
-                  <Font name="Century Gothic" size="18.0" />
-               </font>
-            </JFXButton>
-         </children>
-      </Pane>
-        <Pane fx:id="leaderboard" layoutY="80.0" prefHeight="689.0" prefWidth="1025.0" style="-fx-background-color: #ffffff;">
-         <children>
-            <ImageView layoutX="363.0" layoutY="25.0">
-               <image>
-                  <Image url="@../images/trophy.png" />
-               </image>
-            </ImageView>
-            <Text fill="#95e743" layoutX="479.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" wrappingWidth="400.99998335453154">
-               <font>
-                  <Font name="Century Gothic" size="61.0" />
-               </font>
-            </Text>
-            <Pane id="agenda" layoutX="336.0" layoutY="125.0" prefHeight="463.0" prefWidth="565.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10 10 10 10;" stylesheets="@../css/agenda.css">
-               <children>
-                  <Text fill="#8c8686" layoutX="80.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Global" wrappingWidth="125.67272984981537">
-                     <font>
-                        <Font name="Century Gothic" size="36.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#8c8686" layoutX="340.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Following" wrappingWidth="173.0000070799041">
-                     <font>
-                        <Font name="Century Gothic" size="36.0" />
-                     </font>
-                  </Text>
-                  <ImageView layoutX="250.0" layoutY="429.0">
-                     <image>
-                        <Image url="@../images/arrow_down.png" />
-                     </image>
-                  </ImageView>
-                  <JFXTextField layoutX="80.0" layoutY="106.0" prefHeight="35.0" prefWidth="380.0" text="Search...">
-                     <font>
-                        <Font name="Century Gothic" size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXButton id="search" layoutX="460.0" layoutY="100.0" prefHeight="44.0" prefWidth="50.0" style="-fx-background-color: null;" stylesheets="@../css/menuIcons.css" text=" " />
-               </children>
-            </Pane>
-         </children>
-      </Pane>
-        <Pane fx:id="agenda" layoutX="-6.0" layoutY="80.0" onDragDetected="#selectedButton" prefHeight="688.0" prefWidth="1030.0" style="-fx-background-color: #ffffff;">
-            <children>
-                <Pane id="agenda" layoutX="405.0" layoutY="113.0" prefHeight="463.0" prefWidth="456.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10 10 10 10;" stylesheets="@../css/agenda.css">
-               <children>
-                  <ImageView layoutX="195.0" layoutY="432.0">
-                     <image>
-                        <Image url="@../images/arrow_down.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-                <Text fill="#95e743" layoutX="553.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
-                    <font>
-                        <Font name="Century Gothic" size="61.0" />
-                    </font>
-                </Text>
-                <ImageView layoutX="449.0" layoutY="25.0">
-                    <image>
-                        <Image url="@../images/agenda.png" />
-                    </image>
-                </ImageView>
-                <JFXNodesList layoutX="742.0" layoutY="615.0" prefHeight="0.0" prefWidth="0.0" />
-            <ImageView layoutX="946.0" layoutY="612.0">
-               <image>
-                  <Image url="@../images/button.png" />
-               </image>
-            </ImageView>
-            </children>
-        </Pane>
         <AnchorPane id="slide" fx:id="menuBar" layoutX="-1.0" layoutY="80.0" prefHeight="689.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" stylesheets="@../css/slide.css">
             <children>
             <JFXButton fx:id="agendaButton" buttonType="RAISED" layoutY="39.0" onAction="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/menuButtons.css" text="Agenda" textFill="#95e743">

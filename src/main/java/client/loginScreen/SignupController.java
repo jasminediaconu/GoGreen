@@ -1,4 +1,4 @@
-package org.loginScreen;
+package client.loginScreen;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 
 public class SignupController implements Initializable {

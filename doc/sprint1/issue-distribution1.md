@@ -21,6 +21,8 @@
 * A window popup when clicked on username/settings
 * Make window non re-sizable
 * Don't forget to write tests for the code (Tools: mokito being used for at least 5 different test classes, ECLemma in Eclipse min 80% test coverage need 95% for max score)
+* (EXTRA) Make the buttons clickable (when a button is clicked it will be highlighted and the active screen will change)
+* (EXTRA) Implement Mandy's design
 
 ### Server: (Wout)
 * Working client and server communication

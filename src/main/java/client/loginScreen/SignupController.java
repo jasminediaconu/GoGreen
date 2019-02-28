@@ -8,7 +8,10 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -16,26 +19,20 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
-import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 
 public class SignupController implements Initializable {
 
+    double x = 0, y = 0;
+
     @FXML
     private FontAwesomeIcon close;
-
     @FXML
     private TextField tf_username;
-
     @FXML
     private TextField tf_email;
-
     @FXML
     private PasswordField pf_password;
-
-    double x = 0, y = 0;
 
     @FXML
     void close(MouseEvent event) {
@@ -95,7 +92,7 @@ public class SignupController implements Initializable {
             Statement statement = connection.createStatement();
 
             int status = statement.executeUpdate("insert into users (username, email, password)" +
-                    "values ('"+username+"','"+email+"','"+password+"')");
+                    "values ('" + username + "','" + email + "','" + password + "')");
 
             if (status > 0) {
                 System.out.println("user registered ");
@@ -109,15 +106,8 @@ public class SignupController implements Initializable {
 
     }
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
-
-
-
-
 
 
     }

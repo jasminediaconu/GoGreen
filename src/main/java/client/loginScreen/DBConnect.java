@@ -21,14 +21,13 @@ public class DBConnect {
         String connectString = "jdbc:sqlite:data.sqlite";
 
 
-
         Connection connection = null;
 
         try {
             try {
                 Class.forName("org.sqlite.JDBC");
             } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                e.printStackTrace();
             }
             connection = DriverManager.getConnection(connectString);
         } catch (SQLException e) {

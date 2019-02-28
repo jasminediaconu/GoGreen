@@ -1,12 +1,6 @@
 package client;
 
-import com.google.gson.Gson;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
+import org.springframework.web.client.RestTemplate;
 
 import java.security.MessageDigest;
 
@@ -18,7 +12,7 @@ import java.security.MessageDigest;
  */
 public class Main {
 
-    private static String requestUrl = "https://group72.herokuapp.com/login";
+    private static String url = "https://group72.herokuapp.com/login";
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
@@ -37,26 +31,12 @@ public class Main {
         if(username == null || hashedPassword == null)
             return;
 
-        Gson gson = new Gson();
-
-        try{
-            CloseableHttpClient client = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost(requestUrl);
-
-            String json = gson.toJson(new String[]{username, hashedPassword});
-            StringEntity entity = new StringEntity(json);
-            httpPost.setEntity(entity);
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
-
-            CloseableHttpResponse response = client.execute(httpPost);
-            System.out.println("\n\n\nMessage!!!");
-            System.out.println(new BasicResponseHandler().handleResponse(response) + ", it works");
-            client.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
+        RestTemplate rt = new RestTemplate();
+        String result = rt.getForObject(url + "?username=" + username + "&password=" + hashedPassword, String.class);
+        if(result == null)
+            System.out.println("Wrong username or password");
+        else
+            System.out.println(result);
     }
 
     /**

@@ -1,20 +1,19 @@
 package client.windows;
 
-import javafx.animation.FadeTransition;
+import animatefx.animation.FadeIn;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
 import java.io.IOException;
 
 public class ControllerMainScreen {
 
     // Main screen
-    @FXML
-    private javafx.scene.layout.AnchorPane mainPane;
+    @FXML private javafx.scene.layout.AnchorPane mainPane;
+    @FXML private javafx.scene.layout.Pane welcomePane;
 
     // Logout button
     @FXML
@@ -48,16 +47,11 @@ public class ControllerMainScreen {
      */
     @FXML
     private void selectedButton() throws IOException {
-
-        FadeTransition ft;
+        mainPane.getChildren().remove(welcomePane);
         // If the button is focused change the active pane and the color
         if (agendaButton.isFocused()) {
             agendaButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
-
-            ft = new FadeTransition(Duration.millis(1000), agendaButton);
-            ft.setFromValue(0.6);
-            ft.setToValue(1.0);
-            ft.play();
+            new FadeIn(agendaButton).play();
 
             agenda = FXMLLoader.load(this.getClass().getResource("/fxml/agenda.fxml"));
             mainPane.getChildren().add(agenda);
@@ -66,10 +60,7 @@ public class ControllerMainScreen {
         if (profileButton.isFocused()) {
             profileButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
 
-            ft = new FadeTransition(Duration.millis(1000), profileButton);
-            ft.setFromValue(0.6);
-            ft.setToValue(1.0);
-            ft.play();
+            new FadeIn(profileButton).play();
 
             profile = FXMLLoader.load(this.getClass().getResource("/fxml/profile.fxml"));
             mainPane.getChildren().add(profile);
@@ -78,10 +69,7 @@ public class ControllerMainScreen {
         if (overviewButton.isFocused()) {
             overviewButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
 
-            ft = new FadeTransition(Duration.millis(1000), overviewButton);
-            ft.setFromValue(0.6);
-            ft.setToValue(1.0);
-            ft.play();
+            new FadeIn(overviewButton).play();
 
             overview = FXMLLoader.load(this.getClass().getResource("/fxml/overview.fxml"));
             mainPane.getChildren().add(overview);
@@ -90,10 +78,7 @@ public class ControllerMainScreen {
         if (leaderboardButton.isFocused()) {
             leaderboardButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
 
-            ft = new FadeTransition(Duration.millis(1000), leaderboardButton);
-            ft.setFromValue(0.6);
-            ft.setToValue(1.0);
-            ft.play();
+            new FadeIn(leaderboardButton).play();
 
             leaderboard = FXMLLoader.load(this.getClass().getResource("/fxml/leaderboard.fxml"));
             mainPane.getChildren().add(leaderboard);
@@ -103,6 +88,7 @@ public class ControllerMainScreen {
         // If the button is not focused set the defaut background
         if (!agendaButton.isFocused()) {
             agendaButton.setStyle("-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
+            mainPane.getChildren().remove(welcomePane);
             mainPane.getChildren().remove(agenda);
         }
         if (!profileButton.isFocused()) {
@@ -131,7 +117,6 @@ public class ControllerMainScreen {
     /**
      * When the toggle button is pressed, the menu bar will be hidden/shown.
      */
-
     @FXML
     private void toggleMenuShowHide() {
         if (toggleButton.isSelected()) {

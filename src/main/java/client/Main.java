@@ -10,6 +10,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.nio.charset.StandardCharsets;
+import java.util.regex.Pattern;
 
 /**
  * The Main class of the GoGreen application.
@@ -22,8 +23,8 @@ public class Main {
     private static String requestUrl = "https://group72.herokuapp.com/";
 
     public static void main(String[] args) {
-        //login("WoutHaakman", "wouthaakman");
-        signUp("FredRogers", "mrrogers");
+        login("WoutHaakman", "wouthaakman");
+        //signUp("FredRogers", "mrrogers");
     }
 
     /**
@@ -48,17 +49,16 @@ public class Main {
     /**
      * This function takes in a username and password, both of type String.
      * It will call the hashString function to hash the password for safe HTTP responses.
-     * This function will also call the checkValidUsername function to check if the username is fit for the database.
+     * If the username and/or password don't have the proper syntax, defined by the pattern used in the 2nd line of the function, it will return.
      * If the server responds with the correct result it will print this to the console, if not valid it will print an error notifying the sign up was not successful.
      * @param username
      * @param password
      */
     public static void signUp(String username, String password){
         String hashedPassword = hashString(password);
-        if(username == null || hashedPassword == null)
+        Pattern pattern = Pattern.compile("[A-Za-z0-9_]+");
+        if(username == null || hashedPassword == null || !pattern.matcher(username).matches() || !pattern.matcher(password).matches())
             return;
-
-        //TODO: check if username is valid by calling function checkValidUsername
 
         String preResponse = sendRequestToServer("signup", new Gson().toJson(new String[]{username, hashedPassword}));
         boolean response = Boolean.parseBoolean(preResponse);

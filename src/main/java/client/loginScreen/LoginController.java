@@ -1,4 +1,4 @@
-package client.loginScreen;
+package client.loginscreen;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

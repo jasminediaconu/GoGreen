@@ -1,4 +1,4 @@
-package client.loginScreen;
+package client.loginscreen;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

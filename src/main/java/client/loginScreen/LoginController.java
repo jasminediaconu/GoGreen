@@ -76,17 +76,7 @@ public class LoginController implements Initializable {
 
         if (resultSet.next()) {
             Parent root = FXMLLoader.load(getClass().getResource("mainScreenDummy.fxml"));
-
-            Node node = (Node) event.getSource();
-
-            Stage stage = (Stage) node.getScene().getWindow();
-
-            Scene scene = new Scene(root);
-
-            stage.setScene(scene);
-
-            scene.setFill(Color.TRANSPARENT);
-
+            fillSceneTransparent(root, event);
         }
     }
 
@@ -94,7 +84,10 @@ public class LoginController implements Initializable {
     private void signup(MouseEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("signup.fxml"));
-
+        fillSceneTransparent(root, event);
+    }
+    
+    private void fillSceneTransparent(Parent root, MouseEvent event){
         Node node = (Node) event.getSource();
 
         Stage stage = (Stage) node.getScene().getWindow();
@@ -104,7 +97,6 @@ public class LoginController implements Initializable {
         stage.setScene(scene);
 
         scene.setFill(Color.TRANSPARENT);
-
     }
 
 

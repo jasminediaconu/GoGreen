@@ -58,13 +58,13 @@ public class ControllerMainScreen {
     private int state = -1;
 
     //init
-    public ControllerMainScreen(){
+    public ControllerMainScreen() {
         try {
             profile = FXMLLoader.load(this.getClass().getResource("/client/windows/fxml/profile.fxml"));
             agenda = FXMLLoader.load(this.getClass().getResource("/client/windows/fxml/agenda.fxml"));
             overview = FXMLLoader.load(this.getClass().getResource("/client/windows/fxml/overview.fxml"));
             leaderboard = FXMLLoader.load(this.getClass().getResource("/client/windows/fxml/leaderboard.fxml"));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -83,9 +83,9 @@ public class ControllerMainScreen {
     @FXML
     private void selectedButton() throws IOException {
         //if button is selected remove welcome screen
-        String buttonUpCss = "-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;";
-        String buttonDownCss = "-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;";
-        if(welcome) {
+        String css = "-fx-background-color:#ffffff;-fx-text-fill:#95e743;-jfx-button-type:RAISED;";
+        String css2 = "-fx-background-color:#8C8686;-fx-text-fill:white;-jfx-button-type:FLAT;";
+        if (welcome) {
             mainPane.getChildren().remove(welcomePane);
             welcome = false;
         }
@@ -93,7 +93,7 @@ public class ControllerMainScreen {
         FadeTransition ft;
         // If the button is focused change the active pane and the color
         if (agendaButton.isFocused() && state != 0) {
-            agendaButton.setStyle(buttonUpCss);
+            agendaButton.setStyle(css);
 
             ft = new FadeTransition(Duration.millis(1000), agendaButton);
             ft.setFromValue(0.6);
@@ -106,7 +106,7 @@ public class ControllerMainScreen {
             state = 0;
         }
         if (profileButton.isFocused() && state != 1) {
-            profileButton.setStyle(buttonUpCss);
+            profileButton.setStyle(css);
 
             ft = new FadeTransition(Duration.millis(1000), profileButton);
             ft.setFromValue(0.6);
@@ -118,7 +118,7 @@ public class ControllerMainScreen {
             state = 1;
         }
         if (overviewButton.isFocused() && state != 2) {
-            overviewButton.setStyle(buttonUpCss);
+            overviewButton.setStyle(css);
 
             ft = new FadeTransition(Duration.millis(1000), overviewButton);
             ft.setFromValue(0.6);
@@ -130,7 +130,7 @@ public class ControllerMainScreen {
             state = 2;
         }
         if (leaderboardButton.isFocused() && state != 3) {
-            leaderboardButton.setStyle(buttonUpCss);
+            leaderboardButton.setStyle(css);
 
             ft = new FadeTransition(Duration.millis(1000), leaderboardButton);
             ft.setFromValue(0.6);
@@ -144,19 +144,19 @@ public class ControllerMainScreen {
 
         // If the button is not focused set the defaut background
         if (!agendaButton.isFocused()) {
-            agendaButton.setStyle(buttonDownCss);
+            agendaButton.setStyle(css2);
             mainPane.getChildren().remove(agenda);
         }
         if (!profileButton.isFocused()) {
-            profileButton.setStyle(buttonDownCss);
+            profileButton.setStyle(css2);
             mainPane.getChildren().remove(profile);
         }
         if (!overviewButton.isFocused()) {
-            overviewButton.setStyle(buttonDownCss);
+            overviewButton.setStyle(css2);
             mainPane.getChildren().remove(overview);
         }
         if (!leaderboardButton.isFocused()) {
-            leaderboardButton.setStyle(buttonDownCss);
+            leaderboardButton.setStyle(css2);
             mainPane.getChildren().remove(leaderboard);
         }
     }

@@ -22,8 +22,8 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    double x = 0;
-    double y = 0;
+    private double x = 0;
+    private double y = 0;
 
     @FXML
     private TextField tf_username;
@@ -32,7 +32,7 @@ public class LoginController implements Initializable {
     private PasswordField pf_password;
 
     @FXML
-    void close(MouseEvent event) {
+    private void close(MouseEvent event) {
 
         Node node = (Node) event.getSource();
 
@@ -42,13 +42,13 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    void pressed(MouseEvent event) {
+    private void pressed(MouseEvent event) {
         x = event.getSceneX();
         y = event.getSceneY();
     }
 
     @FXML
-    void dragged(MouseEvent event) {
+    private void dragged(MouseEvent event) {
 
         Node node = (Node) event.getSource();
 
@@ -59,7 +59,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    void login(MouseEvent event) throws SQLException, IOException {
+    private void login(MouseEvent event) throws SQLException, IOException {
 
         String username;
         String password;
@@ -91,7 +91,7 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    void signup(MouseEvent event) throws IOException {
+    private void signup(MouseEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("signup.fxml"));
 

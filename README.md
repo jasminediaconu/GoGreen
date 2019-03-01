@@ -19,7 +19,7 @@
 	And by learning from mistakes from the past sprint.
 
 
-## Name: Giuliano Forghieri
+## Name: Giuliano Forghieri, gforghieri
 ![Giuliano Forghieri](/images/readmePictures/gforghieri.jpg)<br/>
 Personal Development Plan: 
 
@@ -137,7 +137,7 @@ Personal Development Plan:
 - I need to stop being lazy that's my biggest problem
 
 
-## Name: Jasmine Diaconu (NetID: jdiaconu)
+## Name: Jasmine Diaconu, jdiaconu
 ![Jasmine Diaconu](/images/readmePictures/jasmine_diaconu.jpg)<br/>
 Personal Development Plan: 
 

@@ -6,11 +6,6 @@ import java.sql.SQLException;
 
 public class DBConnect {
 
-    private DBConnect() {
-
-    }
-
-
     public static DBConnect getInstance() {
 
         return new DBConnect();

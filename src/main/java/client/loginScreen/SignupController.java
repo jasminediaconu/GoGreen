@@ -23,7 +23,8 @@ import java.util.ResourceBundle;
 
 public class SignupController implements Initializable {
 
-    double x = 0, y = 0;
+    private double x = 0;
+    private double y = 0;
 
     @FXML
     private FontAwesomeIcon close;
@@ -35,7 +36,7 @@ public class SignupController implements Initializable {
     private PasswordField pf_password;
 
     @FXML
-    void close(MouseEvent event) {
+    private void close(MouseEvent event) {
 
         Node node = (Node) event.getSource();
 
@@ -45,13 +46,13 @@ public class SignupController implements Initializable {
     }
 
     @FXML
-    void pressed(MouseEvent event) {
+    private void pressed(MouseEvent event) {
         x = event.getSceneX();
         y = event.getSceneY();
     }
 
     @FXML
-    void dragged(MouseEvent event) {
+    private void dragged(MouseEvent event) {
 
         Node node = (Node) event.getSource();
 
@@ -62,7 +63,7 @@ public class SignupController implements Initializable {
     }
 
     @FXML
-    void login(MouseEvent event) throws IOException {
+    private void login(MouseEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
 
@@ -78,7 +79,7 @@ public class SignupController implements Initializable {
     }
 
     @FXML
-    void signup(MouseEvent event) {
+    private void signup(MouseEvent event) {
 
         Connection connection = DBConnect.getInstance().getConnection();
 
@@ -108,7 +109,6 @@ public class SignupController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
 
     }
 }

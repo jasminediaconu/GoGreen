@@ -1,5 +1,4 @@
 package client.windows;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
@@ -8,56 +7,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.IOException;
-
 public class ControllerMainScreen {
 
-    // Main screen
-    @FXML
-    private javafx.scene.layout.AnchorPane mainPane;
-
-    @FXML
-    private javafx.scene.layout.Pane welcomePane;
     private boolean welcome = true;
-
-    // Logout button
-    @FXML
-    private javafx.scene.control.Button logoutButton;
-    // Menu buttons
-    @FXML
-    private javafx.scene.control.Button agendaButton;
-    @FXML
-    private javafx.scene.control.Button profileButton;
-    @FXML
-    private javafx.scene.control.Button overviewButton;
-    @FXML
-    private javafx.scene.control.Button leaderboardButton;
-    // Different panes for different screens
-    @FXML
-    private javafx.scene.layout.Pane agenda;
-    @FXML
-    private javafx.scene.layout.Pane profile;
-    @FXML
-    private javafx.scene.layout.Pane overview;
-    @FXML
-    private javafx.scene.layout.Pane leaderboard;
-
-    // Toggle button
-    @FXML private javafx.scene.control.ToggleButton toggleButton;
-
-    // Menu bar
-    @FXML private javafx.scene.layout.AnchorPane menuBar;
-
-    // Slide effect
-    @FXML private TranslateTransition slide;
-
-    // Line
-    @FXML
-    private javafx.scene.shape.Line line;
-
     private int state = -1;
+    @FXML private javafx.scene.layout.AnchorPane mainPane;
+    @FXML private javafx.scene.layout.Pane welcomePane;
+    @FXML private javafx.scene.control.Button logoutButton;
+    @FXML private javafx.scene.control.Button agendaButton;
+    @FXML private javafx.scene.control.Button profileButton;
+    @FXML private javafx.scene.control.Button overviewButton;
+    @FXML private javafx.scene.control.Button leaderboardButton;
+    @FXML private javafx.scene.layout.Pane agenda;
+    @FXML private javafx.scene.layout.Pane profile;
+    @FXML private javafx.scene.layout.Pane overview;
+    @FXML private javafx.scene.layout.Pane leaderboard;
+    @FXML private javafx.scene.control.ToggleButton toggleButton;
+    @FXML private javafx.scene.layout.AnchorPane menuBar;
+    @FXML private TranslateTransition slide;
+    @FXML private javafx.scene.shape.Line line;
 
-    //init
+    /**
+     * This function links the different screens to their fxml files.
+     */
     public ControllerMainScreen() {
         try {
             profile = FXMLLoader.load(this.getClass().getResource("/client/windows/fxml/profile.fxml"));
@@ -70,7 +42,7 @@ public class ControllerMainScreen {
     }
 
     /**
-     * Logout button closes the window.
+     * The logout button closes the window.
      */
     @FXML
     private void logoutButtonAction() {
@@ -80,16 +52,19 @@ public class ControllerMainScreen {
         stage.close();
     }
 
+    /**
+     * When a button is selected/unselected changes its style and the displayed screen.
+     */
     @FXML
-    private void selectedButton() throws IOException {
+    private void selectedButton() {
         //if button is selected remove welcome screen
         String css = "-fx-background-color:#ffffff;-fx-text-fill:#95e743;-jfx-button-type:RAISED;";
         String css2 = "-fx-background-color:#8C8686;-fx-text-fill:white;-jfx-button-type:FLAT;";
+
         if (welcome) {
             mainPane.getChildren().remove(welcomePane);
             welcome = false;
         }
-
         FadeTransition ft;
         // If the button is focused change the active pane and the color
         if (agendaButton.isFocused() && state != 0) {
@@ -100,7 +75,6 @@ public class ControllerMainScreen {
             ft.setToValue(1.0);
             ft.play();
 
-
             mainPane.getChildren().add(agenda);
             agenda.toBack();
             state = 0;
@@ -108,7 +82,7 @@ public class ControllerMainScreen {
         if (profileButton.isFocused() && state != 1) {
             profileButton.setStyle(css);
 
-            ft = new FadeTransition(Duration.millis(1000), profileButton);
+            ft = new FadeTransition(Duration.millis(1000), agendaButton);
             ft.setFromValue(0.6);
             ft.setToValue(1.0);
             ft.play();
@@ -120,7 +94,7 @@ public class ControllerMainScreen {
         if (overviewButton.isFocused() && state != 2) {
             overviewButton.setStyle(css);
 
-            ft = new FadeTransition(Duration.millis(1000), overviewButton);
+            ft = new FadeTransition(Duration.millis(1000), agendaButton);
             ft.setFromValue(0.6);
             ft.setToValue(1.0);
             ft.play();
@@ -132,7 +106,7 @@ public class ControllerMainScreen {
         if (leaderboardButton.isFocused() && state != 3) {
             leaderboardButton.setStyle(css);
 
-            ft = new FadeTransition(Duration.millis(1000), leaderboardButton);
+            ft = new FadeTransition(Duration.millis(1000), agendaButton);
             ft.setFromValue(0.6);
             ft.setToValue(1.0);
             ft.play();
@@ -142,7 +116,6 @@ public class ControllerMainScreen {
             state = 3;
         }
 
-        // If the button is not focused set the defaut background
         if (!agendaButton.isFocused()) {
             agendaButton.setStyle(css2);
             mainPane.getChildren().remove(agenda);
@@ -164,7 +137,6 @@ public class ControllerMainScreen {
     /**
      * When the toggle button is pressed, the menu bar will be hidden/shown.
      */
-
     @FXML
     private void toggleMenuShowHide() {
         if (toggleButton.isSelected()) {

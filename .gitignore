@@ -16,7 +16,6 @@ buildNumber.properties
 .settings
 .jar
 
-
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
 /bin/

@@ -1,0 +1,5 @@
+.selected {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #95e743;
+    -jfx-button-type: RAISED;
+}

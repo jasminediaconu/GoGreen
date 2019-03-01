@@ -15,6 +15,7 @@ public class ControllerMainScreen {
     // Main screen
     @FXML
     private javafx.scene.layout.AnchorPane mainPane;
+
     @FXML
     private javafx.scene.layout.Pane welcomePane;
     private boolean welcome = true;
@@ -40,15 +41,16 @@ public class ControllerMainScreen {
     private javafx.scene.layout.Pane overview;
     @FXML
     private javafx.scene.layout.Pane leaderboard;
+
     // Toggle button
-    @FXML
-    private javafx.scene.control.ToggleButton toggleButton;
+    @FXML private javafx.scene.control.ToggleButton toggleButton;
+
     // Menu bar
-    @FXML
-    private javafx.scene.layout.AnchorPane menuBar;
+    @FXML private javafx.scene.layout.AnchorPane menuBar;
+
     // Slide effect
-    @FXML
-    private TranslateTransition slide;
+    @FXML private TranslateTransition slide;
+
     // Line
     @FXML
     private javafx.scene.shape.Line line;
@@ -81,6 +83,8 @@ public class ControllerMainScreen {
     @FXML
     private void selectedButton() throws IOException {
         //if button is selected remove welcome screen
+        String buttonUpCss = "-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;";
+        String buttonDownCss = "-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;";
         if(welcome) {
             mainPane.getChildren().remove(welcomePane);
             welcome = false;
@@ -89,7 +93,7 @@ public class ControllerMainScreen {
         FadeTransition ft;
         // If the button is focused change the active pane and the color
         if (agendaButton.isFocused() && state != 0) {
-            agendaButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
+            agendaButton.setStyle(buttonUpCss);
 
             ft = new FadeTransition(Duration.millis(1000), agendaButton);
             ft.setFromValue(0.6);
@@ -102,7 +106,7 @@ public class ControllerMainScreen {
             state = 0;
         }
         if (profileButton.isFocused() && state != 1) {
-            profileButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
+            profileButton.setStyle(buttonUpCss);
 
             ft = new FadeTransition(Duration.millis(1000), profileButton);
             ft.setFromValue(0.6);
@@ -114,7 +118,7 @@ public class ControllerMainScreen {
             state = 1;
         }
         if (overviewButton.isFocused() && state != 2) {
-            overviewButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
+            overviewButton.setStyle(buttonUpCss);
 
             ft = new FadeTransition(Duration.millis(1000), overviewButton);
             ft.setFromValue(0.6);
@@ -126,7 +130,7 @@ public class ControllerMainScreen {
             state = 2;
         }
         if (leaderboardButton.isFocused() && state != 3) {
-            leaderboardButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
+            leaderboardButton.setStyle(buttonUpCss);
 
             ft = new FadeTransition(Duration.millis(1000), leaderboardButton);
             ft.setFromValue(0.6);
@@ -140,19 +144,19 @@ public class ControllerMainScreen {
 
         // If the button is not focused set the defaut background
         if (!agendaButton.isFocused()) {
-            agendaButton.setStyle("-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
+            agendaButton.setStyle(buttonDownCss);
             mainPane.getChildren().remove(agenda);
         }
         if (!profileButton.isFocused()) {
-            profileButton.setStyle("-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
+            profileButton.setStyle(buttonDownCss);
             mainPane.getChildren().remove(profile);
         }
         if (!overviewButton.isFocused()) {
-            overviewButton.setStyle("-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
+            overviewButton.setStyle(buttonDownCss);
             mainPane.getChildren().remove(overview);
         }
         if (!leaderboardButton.isFocused()) {
-            leaderboardButton.setStyle("-fx-background-color:#8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
+            leaderboardButton.setStyle(buttonDownCss);
             mainPane.getChildren().remove(leaderboard);
         }
     }

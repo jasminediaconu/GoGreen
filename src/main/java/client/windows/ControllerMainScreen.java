@@ -3,10 +3,12 @@ package client.windows;
 import animatefx.animation.FadeIn;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 import java.io.IOException;
 
 public class ControllerMainScreen {
@@ -46,60 +48,60 @@ public class ControllerMainScreen {
      * When a menu button is clicked the pane changes and the selected menu tab is highlighted.
      */
     @FXML
-    private void selectedButton() throws IOException {
+    private void selectedButton(ActionEvent event) throws IOException {
         mainPane.getChildren().remove(welcomePane);
         // If the button is focused change the active pane and the color
-        if (agendaButton.isFocused()) {
+
+        if (event.getSource() == agendaButton) {
             agendaButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
             new FadeIn(agendaButton).play();
 
-            agenda = FXMLLoader.load(this.getClass().getResource("/fxml/agenda.fxml"));
+            agenda = FXMLLoader.load(getClass().getResource("client/windows/agenda.fxml"));
             mainPane.getChildren().add(agenda);
             agenda.toBack();
         }
-        if (profileButton.isFocused()) {
+        if (event.getSource() == profileButton) {
             profileButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
 
             new FadeIn(profileButton).play();
 
-            profile = FXMLLoader.load(this.getClass().getResource("/fxml/profile.fxml"));
+            profile = FXMLLoader.load(getClass().getResource("client/windows/profile.fxml"));
             mainPane.getChildren().add(profile);
             profile.toBack();
         }
-        if (overviewButton.isFocused()) {
+        if (event.getSource() == overviewButton) {
             overviewButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
 
             new FadeIn(overviewButton).play();
 
-            overview = FXMLLoader.load(this.getClass().getResource("/fxml/overview.fxml"));
+            overview = FXMLLoader.load(getClass().getResource("client/windows/overview.fxml"));
             mainPane.getChildren().add(overview);
             overview.toBack();
         }
-        if (leaderboardButton.isFocused()) {
+        if (event.getSource() == leaderboardButton) {
             leaderboardButton.setStyle("-fx-background-color: #ffffff; -fx-text-fill: #95e743; -jfx-button-type: RAISED;");
 
             new FadeIn(leaderboardButton).play();
 
-            leaderboard = FXMLLoader.load(this.getClass().getResource("/fxml/leaderboard.fxml"));
+            leaderboard = FXMLLoader.load(getClass().getResource("client/windows/leaderboard.fxml"));
             mainPane.getChildren().add(leaderboard);
             leaderboard.toBack();
         }
 
         // If the button is not focused set the defaut background
-        if (!agendaButton.isFocused()) {
+        if (event.getSource() != agendaButton) {
             agendaButton.setStyle("-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
-            mainPane.getChildren().remove(welcomePane);
             mainPane.getChildren().remove(agenda);
         }
-        if (!profileButton.isFocused()) {
+        if (event.getSource() != profileButton) {
             profileButton.setStyle("-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
             mainPane.getChildren().remove(profile);
         }
-        if (!overviewButton.isFocused()) {
+        if (event.getSource() != overviewButton) {
             overviewButton.setStyle("-fx-background-color: #8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
             mainPane.getChildren().remove(overview);
         }
-        if (!leaderboardButton.isFocused()) {
+        if (event.getSource() != leaderboardButton) {
             leaderboardButton.setStyle("-fx-background-color:#8C8686; -fx-text-fill: white; -jfx-button-type: FLAT;");
             mainPane.getChildren().remove(leaderboard);
         }

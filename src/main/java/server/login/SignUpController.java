@@ -21,30 +21,31 @@ public class SignUpController {
 
     /**
      * This function handles the request mapping for a user going to /signup url.
-     * Requires two parameters, namely the username and hashed password.
+     * Requires two parameters, namely the username, email and hashed password.
      * It will make a query to insert a new user into the database.
-     * @param newUser A String array containing the username and hashed password.
+     * @param newUser A String array containing the username, email and hashed password.
      * @return a boolean value telling the client whether the request was successful.
      */
     @RequestMapping(value="/signup", method= RequestMethod.POST)
     public boolean getResponse(@RequestBody String[] newUser){
         String username = newUser[0];
-        String password = newUser[1];
+        String email = newUser[1];
+        String password = newUser[2];
 
         try{
             Connection con = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
-            PreparedStatement statement = con.prepareStatement("SELECT user_id FROM user_login WHERE username = ? AND password = ?;");
+            PreparedStatement statement = con.prepareStatement("SELECT user_id FROM user_login WHERE username = ?;");
             statement.setString(1, username);
-            statement.setString(2, password);
 
             ResultSet result = statement.executeQuery();
             while(result.next()) {
                 return false;
             }
 
-            statement = con.prepareStatement("INSERT INTO user_login (\"username\", \"password\") VALUES (?, ?);");
+            statement = con.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?);");
             statement.setString(1, username);
-            statement.setString(2, password);
+            statement.setString(2, email);
+            statement.setString(3, password);
             statement.executeUpdate();
 
             return true;

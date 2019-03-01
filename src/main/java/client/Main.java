@@ -23,8 +23,8 @@ public class Main {
     private static String requestUrl = "https://group72.herokuapp.com/";
 
     public static void main(String[] args) {
-        login("WoutHaakman", "wouthaakman");
-        //signUp("FredRogers", "mrrogers");
+        System.out.println(login("WoutHaakman", "wouthaakman"));
+        //System.out.println(signUp("WoutHaakman", "wouthaakman@hotmail.com", "wouthaakman"));
     }
 
     /**
@@ -34,16 +34,19 @@ public class Main {
      * @param username
      * @param password
      */
-    public static void login(String username, String password){
+    public static String login(String username, String password){
         String hashedPassword = hashString(password);
         if(username == null || hashedPassword == null)
-            return;
+            return null;
 
         String response = sendRequestToServer("login", new Gson().toJson(new String[]{username, hashedPassword}));
-        if(response == null)
+        if(response == null) {
             System.out.println("[ERROR] Wrong username or password");
-        else
+            return "fail";
+        }else {
             System.out.println("[INFO] Login returned the following user_id: " + response);
+            return "success: " + response;
+        }
     }
 
     /**
@@ -54,18 +57,25 @@ public class Main {
      * @param username
      * @param password
      */
-    public static void signUp(String username, String password){
+    public static String signUp(String username, String email, String password){
         String hashedPassword = hashString(password);
-        Pattern pattern = Pattern.compile("[A-Za-z0-9_]+");
-        if(username == null || hashedPassword == null || !pattern.matcher(username).matches() || !pattern.matcher(password).matches())
-            return;
+        Pattern stdPattern = Pattern.compile("[A-Za-z0-9_]+");
+        Pattern emailPattern = Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
+        if(username == null || email == null || hashedPassword == null)
+            return null;
 
-        String preResponse = sendRequestToServer("signup", new Gson().toJson(new String[]{username, hashedPassword}));
+        if(!stdPattern.matcher(username).matches() || !emailPattern.matcher(email).matches() || !stdPattern.matcher(password).matches())
+            return "syntax";
+
+        String preResponse = sendRequestToServer("signup", new Gson().toJson(new String[]{username, email, hashedPassword}));
         boolean response = Boolean.parseBoolean(preResponse);
-        if(response)
+        if(response){
             System.out.println("[INFO] The sign up was successful");
-        else
+            return "ok";
+        }else{
             System.out.println("[ERROR] The sign up was not successful");
+            return "fail";
+        }
     }
 
     /**

@@ -22,7 +22,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <mainClass>org.loginScreen.LoginScreen</mainClass>
+        <mainClass>client.loginScreen.LoginScreen</mainClass>
 
         <checkstyle.version>8.17</checkstyle.version>
         <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
@@ -118,6 +118,13 @@
             <version>5.4.0</version>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.25.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -187,7 +194,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>org.loginScreen.LoginScreen</mainClass>
+                    <mainClass>client.loginScreen.LoginScreen</mainClass>
                 </configuration>
             </plugin>
 
@@ -195,6 +202,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+
         </plugins>
 
     </build>

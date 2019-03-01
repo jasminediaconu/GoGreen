@@ -17,15 +17,12 @@ public class MainScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //primaryStage.getIcons().add(new Image("images/icon.png"));
-        var res = getClass().getClassLoader().getResource("client/windows/fxml/mainScreen.fxml");
-        Parent root = FXMLLoader.load(res);
+        Parent root = FXMLLoader.load(getClass().getResource("mainScreen.fxml"));
         primaryStage.setTitle("GoGreen");
         primaryStage.setScene(new Scene(root, 1024, 768));
         primaryStage.setResizable(false);
         primaryStage.show();
         primaryStage.getIcons().add(new Image("client/windows/images/icon.png"));
-
     }
 
 }

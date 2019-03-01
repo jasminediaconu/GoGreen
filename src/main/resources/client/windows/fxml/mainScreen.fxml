@@ -78,17 +78,17 @@
       </Pane>
         <AnchorPane id="slide" fx:id="menuBar" layoutX="-1.0" layoutY="80.0" prefHeight="689.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" stylesheets="@../css/slide.css">
             <children>
-            <JFXButton fx:id="agendaButton" layoutY="39.0" onAction="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" stylesheets="@../css/menuButtons.css" text="Agenda" textFill="WHITE">
+            <JFXButton fx:id="agendaButton" layoutY="39.0" onMouseClicked="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" stylesheets="@../css/menuButtons.css" text="Agenda" textFill="WHITE">
                <font>
                   <Font name="Century Gothic" size="25.0" />
                </font>
             </JFXButton>
-                <JFXButton fx:id="profileButton" layoutY="112.0" onAction="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Profile" textFill="WHITE">
+                <JFXButton fx:id="profileButton" layoutY="112.0" onMouseClicked="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Profile" textFill="WHITE">
                     <font>
                         <Font name="Century Gothic" size="25.0" />
                     </font>
                 </JFXButton>
-                <JFXButton fx:id="overviewButton" layoutY="178.0" onAction="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Overview" textFill="WHITE">
+                <JFXButton fx:id="overviewButton" layoutY="178.0" onMouseClicked="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Overview" textFill="WHITE">
                     <font>
                         <Font name="Century Gothic" size="25.0" />
                     </font>

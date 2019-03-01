@@ -106,4 +106,10 @@ public class LoginController implements Initializable {
         scene.setFill(Color.TRANSPARENT);
 
     }
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

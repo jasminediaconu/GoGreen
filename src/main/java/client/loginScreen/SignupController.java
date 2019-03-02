@@ -1,5 +1,6 @@
 package client.loginScreen;
 
+import client.ServerRequests;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,14 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 
@@ -66,7 +63,29 @@ public class SignupController implements Initializable {
     private void login(MouseEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        fillScene(root, event);
+    }
 
+    @FXML
+    private void signup(MouseEvent event) throws Exception {
+
+        String username = tf_username.getText();
+        String email = tf_email.getText();
+        String password = pf_password.getText();
+
+        String response = ServerRequests.signUp(username, email, password);
+        if(response == null){
+            //USERNAME, EMAIL, OR PASSWORD MISSING
+        }else if(response.equals("fail")){
+            //SIGN UP WAS UNSUCCESSFUL
+        }else if(response.equals("ok")){
+            //GOTO MAIN SCREEN
+            Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
+            fillScene(root, event);
+        }
+    }
+
+    private void fillScene(Parent root, MouseEvent event){
         Node node = (Node) event.getSource();
 
         Stage stage = (Stage) node.getScene().getWindow();
@@ -74,37 +93,6 @@ public class SignupController implements Initializable {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-
-        scene.setFill(Color.TRANSPARENT);
-    }
-
-    @FXML
-    private void signup(MouseEvent event) {
-
-        Connection connection = DBConnect.getInstance().getConnection();
-
-        try {
-
-            String username = tf_username.getText();
-            String email = tf_email.getText();
-            String password = pf_password.getText();
-
-
-            Statement statement = connection.createStatement();
-
-            int status = statement.executeUpdate("insert into users (username, email, password)" +
-                    "values ('" + username + "','" + email + "','" + password + "')");
-
-            if (status > 0) {
-                System.out.println("user registered ");
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
     @Override

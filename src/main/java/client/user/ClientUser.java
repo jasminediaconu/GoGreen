@@ -3,7 +3,7 @@ package client.user;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MainUser extends User {
+public class ClientUser extends User {
 
     private ArrayList<User> friends;
     private int score = -1;
@@ -13,7 +13,7 @@ public class MainUser extends User {
     private Date birthDate = null;
 
 
-    public MainUser() {
+    public ClientUser() {
 
     }
 

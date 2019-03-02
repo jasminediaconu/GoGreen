@@ -1,5 +1,6 @@
 package client.loginScreen;
 
+import client.ServerRequests;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,15 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
@@ -59,35 +55,30 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void login(MouseEvent event) throws SQLException, IOException {
+    private void login(MouseEvent event) throws Exception {
 
-        String username;
-        String password;
+        String username = tf_username.getText();
+        String password = pf_password.getText();
 
-        username = tf_username.getText();
-        password = pf_password.getText();
-
-        Connection connection = DBConnect.getInstance().getConnection();
-
-        Statement statement = connection.createStatement();
-
-        ResultSet resultSet = statement.executeQuery("select * from users where username"
-                + " = '" + username + "' or email = '" + pf_password + "' and password = '" + password + "'");
-
-        if (resultSet.next()) {
-            Parent root = FXMLLoader.load(getClass().getResource("mainScreenDummy.fxml"));
-            fillSceneTransparent(root, event);
+        String response = ServerRequests.login(username, password);
+        if(response == null){
+            //USERNAME OR PASSWORD MISSING
+        }else if(response.equals("fail")){
+            //WRONG USERNAME OR PASSWORD
+        }else if(response.startsWith("success:")){
+            //GOTO MAIN SCREEN
+            Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
+            fillScene(root, event);
         }
     }
 
     @FXML
     private void signup(MouseEvent event) throws IOException {
-
         Parent root = FXMLLoader.load(getClass().getResource("signup.fxml"));
-        fillSceneTransparent(root, event);
+        fillScene(root, event);
     }
     
-    private void fillSceneTransparent(Parent root, MouseEvent event){
+    private void fillScene(Parent root, MouseEvent event){
         Node node = (Node) event.getSource();
 
         Stage stage = (Stage) node.getScene().getWindow();
@@ -95,8 +86,6 @@ public class LoginController implements Initializable {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-
-        scene.setFill(Color.TRANSPARENT);
     }
 
 

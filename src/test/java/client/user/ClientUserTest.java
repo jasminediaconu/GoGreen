@@ -7,12 +7,12 @@ import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainUserTest {
-    MainUser user;
+class ClientUserTest {
+    ClientUser user;
 
     @BeforeEach
     void setUp() {
-        user = new MainUser();
+        user = new ClientUser();
     }
 
     @Test

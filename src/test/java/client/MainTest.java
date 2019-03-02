@@ -1,7 +1,10 @@
 package client;
 
+import com.google.common.hash.Hashing;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.nio.charset.StandardCharsets;
 
 public class MainTest {
 
@@ -11,10 +14,13 @@ public class MainTest {
     }
 
     @Test
-    public void testHashPassword(){
-        Assert.assertEquals("5f4dcc3b5aa765d61d8327deb882cf99", Main.hashString("password"));
+    public void testHashPasswordRaw(){
+        Assert.assertEquals("5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8", Main.hashString("password"));
     }
 
-    //TODO
+    @Test
+    public void testHashPasswordLib(){
+        Assert.assertEquals(Hashing.sha256().hashString("password", StandardCharsets.UTF_8).toString(), Main.hashString("password"));
+    }
 
 }

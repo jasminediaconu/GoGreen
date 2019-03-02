@@ -1,0 +1,45 @@
+# ALL TABLES FOR THE DB
+
+#### USER LOGIN TABLE
+CREATE TABLE IF NOT EXISTS user_login (
+    username VARCHAR(200) PRIMARY KEY, 
+    email TEXT NOT NULL, 
+    passsord VARCHAR(50) NOT NULL, 
+    userID SERIAL
+);
+
+#### USER PROFILE TABLE
+CREATE TABLE IF NOT EXISTS user_profile (
+    userID INTEGER NOT NULL,
+    countryName VARCHAR(25), 
+    carType VARCHAR(25), 
+    carEmissionType VARCHAR(25), 
+    lastOnline DATE DEFAULT CURRENT_DATE, 
+    streakLength INTEGER DEFAULT 0, 
+    solarPower BOOLEAN DEFAULT FALSE, 
+    LEDs BOOLEAN DEFAULT FALSE, 
+    roomTemp INTEGER DEFAULT 21
+);
+
+#### USER FOLLOWS TABLE
+CREATE TABLE IF NOT EXISTS user_follows (
+    userID INTEGER NOT NULL, 
+    followingID INTEGER NOT NULL
+);
+
+#### USER ACTIVITIES TABLE
+CREATE TABLE IF NOT EXISTS user_activities (
+    activityID INTEGER PRIMARY KEY, 
+    userID INTEGER NOT NULL, 
+    itemID INTEGER NOT NULL, 
+    amount FLOAT(2) NOT NULL, 
+    date DATE DEFAULT CURRENT_DATE
+);
+
+#### ITEM TABLE
+CREATE TABLE IF NOT EXISTS items (
+    itemID SERIAL PRIMARY KEY, 
+    name VARCHAR(150) NOT NULL, 
+    type VARCHAR(15) NOT NULL, 
+    co2 FLOAT(5) NOT NULL
+);

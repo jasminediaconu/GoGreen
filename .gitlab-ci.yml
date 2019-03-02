@@ -1,4 +1,0 @@
-java:
-  stage: test
-  script:
-    - mvn verify

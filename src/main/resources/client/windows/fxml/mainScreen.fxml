@@ -16,7 +16,7 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: null;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.ControllerMainScreen">
     <children>
-        <AnchorPane layoutX="-1.0" layoutY="-7.0" prefHeight="87.0" prefWidth="1024.0" style="-fx-background-color: #95E743; -fx-background-radius: 0, 0, 20, 20;">
+        <AnchorPane layoutX="-1.0" layoutY="-7.0" prefHeight="87.0" prefWidth="1024.0" style="-fx-background-color: #95E743; -fx-background-radius: 30 30 0 0;">
             <children>
                 <Button id="logout" fx:id="logoutButton" layoutX="868.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: null;" stylesheets="@../css/menuIcons.css" />
             <Text fill="WHITE" layoutX="79.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="196.4000454093475">
@@ -76,7 +76,7 @@
             </ImageView>
          </children>
       </Pane>
-        <AnchorPane id="slide" fx:id="menuBar" layoutX="-1.0" layoutY="80.0" prefHeight="689.0" prefWidth="209.0" style="-fx-background-color: #888888;" styleClass="#8C8686" stylesheets="@../css/slide.css">
+        <AnchorPane id="slide" fx:id="menuBar" layoutX="-1.0" layoutY="80.0" prefHeight="689.0" prefWidth="209.0" style="-fx-background-color: #888888; -fx-background-radius: 0 0 0 22;" styleClass="#8C8686" stylesheets="@../css/slide.css">
             <children>
             <JFXButton fx:id="agendaButton" layoutY="39.0" onMouseClicked="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" stylesheets="@../css/menuButtons.css" text="Agenda" textFill="WHITE">
                <font>

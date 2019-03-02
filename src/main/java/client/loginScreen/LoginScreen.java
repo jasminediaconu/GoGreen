@@ -11,6 +11,12 @@ import javafx.stage.StageStyle;
 
 public class LoginScreen extends Application {
 
+    /**
+     * This function will start the LoginScreen, and also consecutively the SignupScreen,
+     * by setting the windows settings such as title and scene
+     * @param stage The stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
@@ -20,7 +26,7 @@ public class LoginScreen extends Application {
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
 
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("GoGreen");
         stage.setScene(scene);
         stage.show();
     }

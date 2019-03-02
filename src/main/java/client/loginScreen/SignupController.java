@@ -32,6 +32,10 @@ public class SignupController implements Initializable {
     @FXML
     private PasswordField pf_password;
 
+    /**
+     * This function handles the closing of the window, with the cross button.
+     * @param event MouseEvent type
+     */
     @FXML
     private void close(MouseEvent event) {
 
@@ -42,12 +46,20 @@ public class SignupController implements Initializable {
         stage.close();
     }
 
+    /**
+     * This function will update x and y when the mouse is pressed
+     * @param event MouseEvent type
+     */
     @FXML
     private void pressed(MouseEvent event) {
         x = event.getSceneX();
         y = event.getSceneY();
     }
 
+    /**
+     * This function will change the drag of the scene when the mouse is dragged
+     * @param event MouseEvent type
+     */
     @FXML
     private void dragged(MouseEvent event) {
 
@@ -59,6 +71,11 @@ public class SignupController implements Initializable {
         stage.setY(event.getScreenY() - y);
     }
 
+    /**
+     * This function will switch to the login screen
+     * @param event MouseEvent type
+     * @throws IOException
+     */
     @FXML
     private void login(MouseEvent event) throws IOException {
 
@@ -66,6 +83,12 @@ public class SignupController implements Initializable {
         fillScene(root, event);
     }
 
+    /**
+     * This function will handle the input of username, email, and password when the sign up button is pressed
+     * It will also handle the responses returned by the ServerRequests class given it's query
+     * @param event MouseEvent type
+     * @throws Exception
+     */
     @FXML
     private void signup(MouseEvent event) throws Exception {
 
@@ -74,18 +97,23 @@ public class SignupController implements Initializable {
         String password = pf_password.getText();
 
         String response = ServerRequests.signUp(username, email, password);
-        if(response == null){
+        if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
-        }else if(response.equals("fail")){
+        } else if (response.equals("fail")) {
             //SIGN UP WAS UNSUCCESSFUL
-        }else if(response.equals("ok")){
+        } else if (response.equals("ok")) {
             //GOTO MAIN SCREEN
             Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
             fillScene(root, event);
         }
     }
 
-    private void fillScene(Parent root, MouseEvent event){
+    /**
+     * This function will fill the screen with a new event stage evoked by the root
+     * @param root Parent type
+     * @param event MouseEvent event
+     */
+    private void fillScene(Parent root, MouseEvent event) {
         Node node = (Node) event.getSource();
 
         Stage stage = (Stage) node.getScene().getWindow();
@@ -95,6 +123,11 @@ public class SignupController implements Initializable {
         stage.setScene(scene);
     }
 
+    /**
+     * This function remains unused, but required to stay since this class implements Initializable
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

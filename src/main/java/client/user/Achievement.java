@@ -7,7 +7,7 @@ public abstract class Achievement {
     protected String title = "";
     protected BufferedImage image = null;
 
-    public Achievement(String title, String iamgePath){
+    public Achievement(String title, String iamgePath) {
         this.title = title;
 
         //todo load imaga

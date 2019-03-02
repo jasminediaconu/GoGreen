@@ -75,7 +75,7 @@ public class LoginController implements Initializable {
                 + " = '" + username + "' or email = '" + pf_password + "' and password = '" + password + "'");
 
         if (resultSet.next()) {
-            Parent root = FXMLLoader.load(getClass().getResource("mainScreenDummy.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
             fillSceneTransparent(root, event);
         }
     }
@@ -87,7 +87,7 @@ public class LoginController implements Initializable {
         fillSceneTransparent(root, event);
     }
     
-    private void fillSceneTransparent(Parent root, MouseEvent event){
+    public void fillSceneTransparent(Parent root, MouseEvent event){
         Node node = (Node) event.getSource();
 
         Stage stage = (Stage) node.getScene().getWindow();

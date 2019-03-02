@@ -4,8 +4,15 @@ import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.io.IOException;
 
 public class ControllerMainScreen {
 
@@ -41,15 +48,35 @@ public class ControllerMainScreen {
         }
     }
 
-    /**
-     * The logout button closes the window.
-     */
+//    /**
+//     * The logout button closes the window.
+//     */
+//    @FXML
+//    private void logoutButtonAction() throws IOException {
+//        // get a handle to the stage
+//        Parent root = FXMLLoader.load(getClass().getResource("../loginscreen/login.fxml"));
+//        fillSceneTransparent(root, event);
+//        // do what you have to do
+//    }
+
+
     @FXML
-    private void logoutButtonAction() {
-        // get a handle to the stage
-        Stage stage = (Stage) logoutButton.getScene().getWindow();
-        // do what you have to do
-        stage.close();
+    void logout(MouseEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../loginscreen/login.fxml"));
+       fillSceneTransparent(root, event);
+    }
+
+
+    public void fillSceneTransparent(Parent root, MouseEvent event){
+        Node node = (Node) event.getSource();
+
+        Stage stage = (Stage) node.getScene().getWindow();
+
+        Scene scene = new Scene(root);
+
+        stage.setScene(scene);
+
+        scene.setFill(Color.TRANSPARENT);
     }
 
     /**

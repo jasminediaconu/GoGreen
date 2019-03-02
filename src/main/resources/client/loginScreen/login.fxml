@@ -169,7 +169,7 @@
                            <children>
                               <VBox prefHeight="134.0" prefWidth="161.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="130.0" style="-fx-font-family: Roboto; -fx-font-size: 1.5em; -fx-background-color: #95E743; -fx-font-weight: bold; -fx-background-radius: 5;" text="Login" textFill="WHITE">
+                                    <Button id="login" mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="130.0" style="-fx-font-family: Roboto; -fx-font-size: 1.5em; -fx-font-weight: bold; -fx-background-radius: 5;" stylesheets="@loginStyle.css" text="Login" textFill="WHITE">
                                        <font>
                                           <Font name="Montserrat Regular" size="12.0" />
                                        </font></Button>
@@ -177,7 +177,7 @@
                               </VBox>
                               <VBox prefHeight="134.0" prefWidth="137.0">
                                  <children>
-                                    <Button mnemonicParsing="false" onMouseClicked="#signup" prefHeight="45.0" prefWidth="130.0" style="-fx-border-color: black; -fx-font-size: 1.5em; -fx-background-color: white; -fx-border-radius: 5;" text="Sign Up">
+                                    <Button id="signup" mnemonicParsing="false" onMouseClicked="#signup" prefHeight="45.0" prefWidth="130.0" style="-fx-font-size: 1.5em; -fx-border-radius: 5;" stylesheets="@loginStyle.css" text="Sign Up">
                                        <font>
                                           <Font name="Montserrat Regular" size="12.0" />
                                        </font>

@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 
-public class LoginScreen extends Application {
+public class LoginApp extends Application {
 
     /**
      * The main() method is ignored in correctly deployed JavaFX application.

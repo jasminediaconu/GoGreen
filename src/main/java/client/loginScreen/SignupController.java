@@ -1,5 +1,6 @@
 package client.loginScreen;
 
+import client.ServerRequests;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,14 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ResourceBundle;
 
 
@@ -35,6 +32,10 @@ public class SignupController implements Initializable {
     @FXML
     private PasswordField pf_password;
 
+    /**
+     * This function handles the closing of the window, with the cross button.
+     * @param event MouseEvent type
+     */
     @FXML
     private void close(MouseEvent event) {
 
@@ -45,12 +46,20 @@ public class SignupController implements Initializable {
         stage.close();
     }
 
+    /**
+     * This function will update x and y when the mouse is pressed
+     * @param event MouseEvent type
+     */
     @FXML
     private void pressed(MouseEvent event) {
         x = event.getSceneX();
         y = event.getSceneY();
     }
 
+    /**
+     * This function will change the drag of the scene when the mouse is dragged
+     * @param event MouseEvent type
+     */
     @FXML
     private void dragged(MouseEvent event) {
 
@@ -62,11 +71,49 @@ public class SignupController implements Initializable {
         stage.setY(event.getScreenY() - y);
     }
 
+    /**
+     * This function will switch to the login screen
+     * @param event MouseEvent type
+     * @throws IOException
+     */
     @FXML
     private void login(MouseEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        fillScene(root, event);
+    }
 
+    /**
+     * This function will handle the input of username, email, and password when the sign up button is pressed
+     * It will also handle the responses returned by the ServerRequests class given it's query
+     * @param event MouseEvent type
+     * @throws Exception
+     */
+    @FXML
+    private void signup(MouseEvent event) throws Exception {
+
+        String username = tf_username.getText();
+        String email = tf_email.getText();
+        String password = pf_password.getText();
+
+        String response = ServerRequests.signUp(username, email, password);
+        if (response == null) {
+            //USERNAME, EMAIL, OR PASSWORD MISSING
+        } else if (response.equals("fail")) {
+            //SIGN UP WAS UNSUCCESSFUL
+        } else if (response.equals("ok")) {
+            //GOTO MAIN SCREEN
+            Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
+            fillScene(root, event);
+        }
+    }
+
+    /**
+     * This function will fill the screen with a new event stage evoked by the root
+     * @param root Parent type
+     * @param event MouseEvent event
+     */
+    private void fillScene(Parent root, MouseEvent event) {
         Node node = (Node) event.getSource();
 
         Stage stage = (Stage) node.getScene().getWindow();
@@ -74,39 +121,13 @@ public class SignupController implements Initializable {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
-
-        scene.setFill(Color.TRANSPARENT);
     }
 
-    @FXML
-    private void signup(MouseEvent event) {
-
-        Connection connection = DBConnect.getInstance().getConnection();
-
-        try {
-
-            String username = tf_username.getText();
-            String email = tf_email.getText();
-            String password = pf_password.getText();
-
-
-            Statement statement = connection.createStatement();
-
-            int status = statement.executeUpdate("insert into users (username, email, password)" +
-                    "values ('" + username + "','" + email + "','" + password + "')");
-
-            if (status > 0) {
-                System.out.println("user registered ");
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
-    }
-
+    /**
+     * This function remains unused, but required to stay since this class implements Initializable
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

@@ -3,6 +3,7 @@ package server.login;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import server.ServerApp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -32,10 +33,13 @@ public class LoginController {
             Connection con = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
             Statement statement = con.createStatement();
 
-            String query = "SELECT user_id FROM user_login WHERE username = '" + username + "' AND password = '" + password + "';";
+            String query = "SELECT userid FROM user_login WHERE username = '" + username + "' AND password = '" + password + "';";
             ResultSet result = statement.executeQuery(query);
             while(result.next()) {
-                return result.getString("user_id");
+                String sessionID = ServerApp.createNewSessionID();
+                int userID = Integer.parseInt(result.getString("userid"));
+                ServerApp.addSessionID(username, sessionID);
+                return "{\"sessionID\": " + sessionID + ", \"\"" + userID + "}";
             }
         }catch(Exception e){
             e.printStackTrace();

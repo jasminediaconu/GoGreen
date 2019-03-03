@@ -2,6 +2,7 @@ package client.user;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ClientUser extends User {
 
@@ -66,7 +67,7 @@ public class ClientUser extends User {
      * This function will get whether the user is using solar power
      * @return if the user is using solar power
      */
-    public boolean isSolarPower() {
+    public boolean hasSolarPower() {
         return solarPower;
     }
 
@@ -74,7 +75,7 @@ public class ClientUser extends User {
      * This function will get whether the user is using LEDs
      * @return if the user is using LEDs
      */
-    public boolean isLEDs() {
+    public boolean hasLEDs() {
         return LEDs;
     }
 
@@ -132,5 +133,24 @@ public class ClientUser extends User {
      */
     public void setRoomTemp(int roomTemp) {
         this.roomTemp = roomTemp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClientUser that = (ClientUser) o;
+        return streakLength == that.streakLength &&
+                solarPower == that.solarPower &&
+                LEDs == that.LEDs &&
+                roomTemp == that.roomTemp &&
+                Objects.equals(carType, that.carType) &&
+                Objects.equals(carEmmisionType, that.carEmmisionType) &&
+                Objects.equals(following, that.following);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(carType, carEmmisionType, streakLength, solarPower, LEDs, roomTemp, following);
     }
 }

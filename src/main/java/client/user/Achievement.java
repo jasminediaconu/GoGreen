@@ -1,17 +1,16 @@
 package client.user;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 
-public abstract class Achievement {
+public class Achievement {
 
-    protected String title = "";
-    protected BufferedImage image = null;
+    private String title;
+    private BufferedImage image;
 
-    public Achievement(String title, String iamgePath) {
+    public Achievement(String title, String path) {
         this.title = title;
-
-        //todo load imaga
-
+        this.image = loadImage(path);
     }
 
     public String getTitle() {
@@ -28,5 +27,18 @@ public abstract class Achievement {
 
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+    public void setImagePath(String path){
+        setImage(loadImage(path));
+    }
+
+    public static BufferedImage loadImage(String path){
+        try {
+            return ImageIO.read(Achievement.class.getResourceAsStream("client/user/" + path));
+        }catch(Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

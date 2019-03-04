@@ -246,6 +246,7 @@
                     <configLocation>CSE1105.checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
+
         </plugins>
     </reporting>
 

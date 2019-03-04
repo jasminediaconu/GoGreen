@@ -29,8 +29,6 @@ public class LoginController {
      */
     @RequestMapping(value="/login", method= RequestMethod.POST)
     public String getResponse(@RequestBody String[] user) {
-        ServerApp.checkExpired();
-
         String username = user[0];
         String password = user[1];
 

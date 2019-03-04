@@ -3,10 +3,7 @@ package server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,17 +15,13 @@ import java.util.UUID;
 @SpringBootApplication
 public class ServerApp {
 
-    private static Map<String, LocalTime> sessionTimes = new HashMap<String, LocalTime>();
     private static Map<String, String> sessionNames = new HashMap<String, String>();
-
-    private static LocalTime now;
 
     /**
      * Starts the web application
      * @param args
      */
     public static void main(String[] args) {
-        now = LocalTime.now();
         SpringApplication app = new SpringApplication(ServerApp.class);
         app.run(args);
     }
@@ -47,8 +40,7 @@ public class ServerApp {
      * @param username String type
      */
     public static void addSessionID(String sessionID, String username) {
-        if(!sessionNames.containsKey(username)  && !sessionTimes.containsKey(sessionID)) {
-            sessionTimes.put(sessionID, LocalTime.now());
+        if(!sessionNames.containsKey(username)) {
             sessionNames.put(sessionID, username);
         }
     }
@@ -59,32 +51,6 @@ public class ServerApp {
      */
     public static void removeSessionID(String sessionID){
         sessionNames.remove(sessionID);
-        sessionTimes.remove(sessionID);
-    }
-
-    /**
-     * Updates the time of the given sessionID.
-     * @param sessionID String type
-     */
-    public static void updateSessionTime(String sessionID){
-        sessionTimes.replace(sessionID, LocalTime.now());
-    }
-
-    /**
-     * Checks for all session IDs whether they are expired.
-     */
-    public static void checkExpired(){
-        LocalTime temp = LocalTime.now();
-        if(now.until(temp, ChronoUnit.MINUTES) > 5)
-            now = temp;
-        Iterator iter = sessionTimes.entrySet().iterator();
-        while(iter.hasNext()){
-            Map.Entry entry = (Map.Entry) iter.next();
-            LocalTime time = (LocalTime) entry.getValue();
-            if(time.getHour() < now.getHour() || (time.getMinute() + 5 < now.getMinute() && time.getHour() == now.getHour())){
-                removeSessionID((String) entry.getKey());
-            }
-        }
     }
 
 

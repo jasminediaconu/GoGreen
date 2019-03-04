@@ -29,8 +29,6 @@ public class SignUpController {
      */
     @RequestMapping(value="/signup", method= RequestMethod.POST)
     public String getResponse(@RequestBody String[] newUser){
-        ServerApp.checkExpired();
-
         String username = newUser[0];
         String email = newUser[1];
         String password = newUser[2];

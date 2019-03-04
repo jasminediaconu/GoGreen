@@ -10,11 +10,14 @@ During the lab, multiple people arrived too late. This interfered with the meeti
 To mitigate this, a cake rule was added to push members to be on time
 
 ## Adjustments from previous sprints
- - Increase testing effort
-    - This was not achieved. New agreements have been made.
+ * To do for Mandy
+ * To do for Mandy
 
+ 
 ## Adjustments for next sprint
- - Increase testing effort
- - Add cake rule
+* To do for Mandy
+
 
 ## Reflection on the previous sprint
+* To do for Mandy
+* To do for Mandy

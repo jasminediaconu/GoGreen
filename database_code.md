@@ -4,13 +4,14 @@
 CREATE TABLE IF NOT EXISTS user_login (
     username VARCHAR(200) PRIMARY KEY, 
     email TEXT NOT NULL, 
-    passsord VARCHAR(50) NOT NULL, 
+    password VARCHAR(50) NOT NULL, 
     userID SERIAL
 );
 
 #### USER PROFILE TABLE
 CREATE TABLE IF NOT EXISTS user_profile (
     userID INTEGER NOT NULL,
+    totalCo2 FLOAT(2) DEFAULT 0,
     countryName VARCHAR(25), 
     carType VARCHAR(25), 
     carEmissionType VARCHAR(25), 

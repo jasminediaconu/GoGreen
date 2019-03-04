@@ -15,7 +15,6 @@ buildNumber.properties
 .project
 .settings
 .jar
-.yml
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar

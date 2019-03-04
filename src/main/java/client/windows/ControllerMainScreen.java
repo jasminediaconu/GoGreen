@@ -1,4 +1,5 @@
 package client.windows;
+
 import com.jfoenix.controls.*;
 import javafx.animation.*;
 import javafx.fxml.FXML;
@@ -8,6 +9,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.animation.FadeTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.TranslateTransition;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -18,22 +29,39 @@ public class ControllerMainScreen {
     private boolean welcome = true;
     private int state = -1;
 
+    @FXML
+    private AnchorPane mainPane;
+    @FXML
+    private Pane welcomePane;
 
-    @FXML private javafx.scene.layout.AnchorPane mainPane;
-    @FXML private javafx.scene.layout.Pane welcomePane;
-    @FXML private javafx.scene.control.Button logoutButton;
-    @FXML private javafx.scene.control.Button agendaButton;
-    @FXML private javafx.scene.control.Button profileButton;
-    @FXML private javafx.scene.control.Button overviewButton;
-    @FXML private javafx.scene.control.Button leaderboardButton;
-    @FXML private javafx.scene.layout.Pane agenda;
-    @FXML private javafx.scene.layout.Pane profile;
-    @FXML private javafx.scene.layout.Pane overview;
-    @FXML private javafx.scene.layout.Pane leaderboard;
-    @FXML private javafx.scene.control.ToggleButton toggleButton;
-    @FXML private javafx.scene.layout.AnchorPane menuBar;
-    @FXML private TranslateTransition slide;
-    @FXML private javafx.scene.shape.Line line;
+    @FXML
+    private Pane agenda;
+    @FXML
+    private Pane profile;
+    @FXML
+    private Pane overview;
+    @FXML
+    private Pane leaderboard;
+
+    @FXML
+    private Button logoutButton;
+    @FXML
+    private Button agendaButton;
+    @FXML
+    private Button profileButton;
+    @FXML
+    private Button overviewButton;
+    @FXML
+    private Button leaderboardButton;
+
+    @FXML
+    private ToggleButton toggleButton;
+    @FXML
+    private AnchorPane menuBar;
+    @FXML
+    private TranslateTransition slide;
+    @FXML
+    private Line line;
 
     JFXNodesList nodesList = new JFXNodesList();
 
@@ -62,45 +90,46 @@ public class ControllerMainScreen {
 //        // do what you have to do
 //    }
 
-
-    @FXML
-    void logout(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../loginscreen/login.fxml"));
-       fillSceneTransparent(root, event);
-    }
-
-
-    public void fillSceneTransparent(Parent root, MouseEvent event){
-        Node node = (Node) event.getSource();
-
-        Stage stage = (Stage) node.getScene().getWindow();
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-
-        scene.setFill(Color.TRANSPARENT);
+    private void logoutButtonAction() {
+        Stage stage = (Stage) logoutButton.getScene().getWindow();
+        //TODO Clean up, save stuff to database and close session id
+        stage.close();
     }
 
     /**
-     * When a button is selected/unselected changes its style and the displayed screen.
+     * When a button is selected/unselected, this function changes its style and the displayed screen.
      */
     @FXML
     private void selectedButton() {
         //if button is selected remove welcome screen
-        String css = "-fx-background-color:#ffffff;-fx-text-fill:#95e743;-jfx-button-type:RAISED;";
-        String css2 = "-fx-background-color:#8C8686;-fx-text-fill:white;-jfx-button-type:FLAT;";
 
         if (welcome) {
             mainPane.getChildren().remove(welcomePane);
             welcome = false;
         }
-        FadeTransition ft;
         // If the button is focused change the active pane and the color
-        if (agendaButton.isFocused() && state != 0) {
-            agendaButton.setStyle(css);
+        styleFocused(agendaButton, agenda, 0);
+        styleFocused(profileButton, profile, 1);
+        styleFocused(overviewButton, overview, 2);
+        styleFocused(leaderboardButton, leaderboard, 3);
+    }
 
-            ft = new FadeTransition(Duration.millis(1000), agendaButton);
+
+    /**
+     * This function enables per button checking if it is focused by the user, which in affect will add
+     * or remove a pane from the main screen.
+     *
+     * @param button The button that is checked if it is focused
+     * @param pane   The pane that clicking the button will affect
+     */
+    private void styleFocused(Button button, Pane pane, int stt) {
+        String css1 = "-fx-background-color:#ffffff;-fx-text-fill:#95e743;-jfx-button-type:RAISED;";
+        String css2 = "-fx-background-color:#8C8686;-fx-text-fill:white;-jfx-button-type:FLAT;";
+        FadeTransition ft;
+        if (button.isFocused() && state != stt) {
+            button.setStyle(css1);
+
+            ft = new FadeTransition(Duration.millis(1000), button);
             ft.setFromValue(0.6);
             ft.setToValue(1.0);
             ft.play();
@@ -131,76 +160,34 @@ public class ControllerMainScreen {
             nodesList.setLayoutX(940);
             nodesList.setLayoutY(690);
 
-            mainPane.getChildren().add(agenda);
-            mainPane.getChildren().add(nodesList);
 
-            agenda.toBack();
-            state = 0;
+
+            mainPane.getChildren().add(pane);
+
+            if (pane.equals(agenda)) {
+                mainPane.getChildren().add(nodesList);
+            }
+
+            /**
+             * To remove the plus button from other screens if Agenda is not selected
+             */
+            else if (!pane.equals(agenda)) {
+                mainPane.getChildren().remove(nodesList);
+                nodesList = new JFXNodesList();
+            }
+
+            pane.toBack();
+            state = stt;
         }
-
-        /**
-         * To remove the plus button from other screens if Agenda is not selected
-         */
-        else if (!(agendaButton.isFocused() && state != 0)) {
-            mainPane.getChildren().remove(nodesList);
-            nodesList = new JFXNodesList();
-        }
-
-        if (profileButton.isFocused() && state != 1) {
-            profileButton.setStyle(css);
-
-            ft = new FadeTransition(Duration.millis(1000), agendaButton);
-            ft.setFromValue(0.6);
-            ft.setToValue(1.0);
-            ft.play();
-
-            mainPane.getChildren().add(profile);
-            profile.toBack();
-            state = 1;
-        }
-        if (overviewButton.isFocused() && state != 2) {
-            overviewButton.setStyle(css);
-
-            ft = new FadeTransition(Duration.millis(1000), agendaButton);
-            ft.setFromValue(0.6);
-            ft.setToValue(1.0);
-            ft.play();
-
-            mainPane.getChildren().add(overview);
-            overview.toBack();
-            state = 2;
-        }
-        if (leaderboardButton.isFocused() && state != 3) {
-            leaderboardButton.setStyle(css);
-
-            ft = new FadeTransition(Duration.millis(1000), agendaButton);
-            ft.setFromValue(0.6);
-            ft.setToValue(1.0);
-            ft.play();
-
-            mainPane.getChildren().add(leaderboard);
-            leaderboard.toBack();
-            state = 3;
-        }
-
-        if (!agendaButton.isFocused()) {
-            agendaButton.setStyle(css2);
-            mainPane.getChildren().remove(agenda);
-        }
-        if (!profileButton.isFocused()) {
-            profileButton.setStyle(css2);
-            mainPane.getChildren().remove(profile);
-        }
-        if (!overviewButton.isFocused()) {
-            overviewButton.setStyle(css2);
-            mainPane.getChildren().remove(overview);
-        }
-        if (!leaderboardButton.isFocused()) {
-            leaderboardButton.setStyle(css2);
-            mainPane.getChildren().remove(leaderboard);
+        if (!button.isFocused()) {
+            button.setStyle(css2);
+            mainPane.getChildren().remove(pane);
         }
     }
 
+    /**
+     * Giuliano foodpopup method
+     */
     private void foodPopup() {
 
         JFXPopup pop = new JFXPopup();

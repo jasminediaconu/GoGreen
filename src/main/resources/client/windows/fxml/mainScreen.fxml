@@ -18,7 +18,7 @@
     <children>
         <AnchorPane layoutX="-1.0" layoutY="-7.0" prefHeight="87.0" prefWidth="1024.0" style="-fx-background-color: #95E743; -fx-background-radius: 30 30 0 0;" stylesheets="@../css/agenda.css">
             <children>
-                <Button id="logout" fx:id="logoutButton" layoutX="868.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#logout" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: null;" stylesheets="@../css/menuIcons.css" />
+                <Button id="logout" fx:id="logoutButton" layoutX="868.0" layoutY="15.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="65.0" style="-fx-background-color: null;" stylesheets="@../css/menuIcons.css" />
             <Text fill="WHITE" layoutX="79.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="196.4000454093475">
                <font>
                   <Font name="Century Gothic" size="36.0" />

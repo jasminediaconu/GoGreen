@@ -12,18 +12,11 @@ import javafx.stage.StageStyle;
 public class LoginApp extends Application {
 
     /**
-     * The main() method is ignored in correctly deployed JavaFX application.
-     * main() serves only as fallback in case the application can not be
-     * launched through deployment artifacts, e.g., in IDEs with limited FX
-     * support. NetBeans ignores main().
-     *
-     * @param args the command line arguments
+     * This function will start the LoginScreen, and also consecutively the SignupScreen,
+     * by setting the windows settings such as title and scene
+     * @param stage The stage
+     * @throws Exception
      */
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
@@ -33,7 +26,7 @@ public class LoginApp extends Application {
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
 
-        stage.setTitle("JavaFX and Maven");
+        stage.setTitle("GoGreen");
         stage.setScene(scene);
         stage.show();
     }

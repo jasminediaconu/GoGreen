@@ -34,7 +34,7 @@ public class SignUpController {
 
         try{
             Connection con = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
-            PreparedStatement statement = con.prepareStatement("SELECT user_id FROM user_login WHERE username = ?;");
+            PreparedStatement statement = con.prepareStatement("SELECT userid FROM user_login WHERE username = ?;");
             statement.setString(1, username);
 
             ResultSet result = statement.executeQuery();

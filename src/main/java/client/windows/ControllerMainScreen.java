@@ -1,23 +1,30 @@
 package client.windows;
-import javafx.animation.FadeTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import com.jfoenix.controls.*;
+import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ControllerMainScreen {
 
     private boolean welcome = true;
     private int state = -1;
+
+
     @FXML private javafx.scene.layout.AnchorPane mainPane;
     @FXML private javafx.scene.layout.Pane welcomePane;
     @FXML private javafx.scene.control.Button logoutButton;
@@ -33,6 +40,8 @@ public class ControllerMainScreen {
     @FXML private javafx.scene.layout.AnchorPane menuBar;
     @FXML private TranslateTransition slide;
     @FXML private javafx.scene.shape.Line line;
+
+    JFXNodesList nodesList = new JFXNodesList();
 
     /**
      * This function links the different screens to their fxml files.
@@ -102,10 +111,50 @@ public class ControllerMainScreen {
             ft.setToValue(1.0);
             ft.play();
 
+            JFXButton ssbutton1 = new JFXButton("+");
+            ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
+            ssbutton1.getStyleClass().addAll("animated-option-button", "animated-option-sub-button");
+
+            JFXButton ssbutton2 = new JFXButton("T");
+            ssbutton2.setButtonType(JFXButton.ButtonType.RAISED);
+            ssbutton2.getStyleClass().addAll("animated-option-button", "animated-option-sub-button2");
+            ssbutton2.setId("foodbutton");
+
+
+            JFXButton ssbutton3 = new JFXButton("F");
+            ssbutton3.setButtonType(JFXButton.ButtonType.RAISED);
+            ssbutton3.getStyleClass().addAll("animated-option-button", "animated-option-sub-button3");
+
+            JFXButton ssbutton4 = new JFXButton("E");
+            ssbutton4.setButtonType(JFXButton.ButtonType.RAISED);
+            ssbutton4.getStyleClass().addAll("animated-option-button", "animated-option-sub-button4");
+
+
+
+            nodesList.addAnimatedNode(ssbutton1);
+            nodesList.addAnimatedNode(ssbutton2);
+            nodesList.addAnimatedNode(ssbutton3);
+            nodesList.addAnimatedNode(ssbutton4);
+            nodesList.setSpacing(10);
+            nodesList.setRotate(180);
+            nodesList.setLayoutX(940);
+            nodesList.setLayoutY(690);
+
             mainPane.getChildren().add(agenda);
+            mainPane.getChildren().add(nodesList);
+
             agenda.toBack();
             state = 0;
         }
+
+        /**
+         * To remove the plus button from other screens if Agenda is not selected
+         */
+        else if (!(agendaButton.isFocused() && state != 0)) {
+            mainPane.getChildren().remove(nodesList);
+            nodesList = new JFXNodesList();
+        }
+
         if (profileButton.isFocused() && state != 1) {
             profileButton.setStyle(css);
 
@@ -160,6 +209,12 @@ public class ControllerMainScreen {
             mainPane.getChildren().remove(leaderboard);
         }
     }
+
+    private void foodPopup() {
+
+        JFXPopup pop = new JFXPopup();
+    }
+
 
     /**
      * When the toggle button is pressed, the menu bar will be hidden/shown.

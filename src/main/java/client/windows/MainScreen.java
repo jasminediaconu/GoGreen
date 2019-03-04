@@ -8,12 +8,16 @@ import javafx.stage.Stage;
 
 
 public class MainScreen extends Application {
-
     public static void main(String[] args) {
         launch(args);
     }
 
-    @Override
+    /**
+     * This function will start the Application wrapper for the MainScreen, sets the size and title.
+     * @param primaryStage The primary stage
+     * @throws Exception
+     */
+  @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/mainScreen.fxml"));
         primaryStage.setTitle("GoGreen");

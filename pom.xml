@@ -22,7 +22,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <mainClass>client.loginScreen.LoginScreen</mainClass>
+        <mainClass>client.Main</mainClass>
 
         <checkstyle.version>8.17</checkstyle.version>
         <checkstyle.plugin.version>3.0.0</checkstyle.plugin.version>
@@ -94,6 +94,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>20.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.7</version>
         </dependency>
 
         <dependency>
@@ -207,7 +219,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>client.loginScreen.LoginScreen</mainClass>
+                    <mainClass>client.Main</mainClass>
                 </configuration>
             </plugin>
 
@@ -232,6 +244,7 @@
                     <configLocation>CSE1105.checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
+
         </plugins>
     </reporting>
 

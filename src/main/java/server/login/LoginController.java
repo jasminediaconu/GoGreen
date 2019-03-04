@@ -32,10 +32,10 @@ public class LoginController {
             Connection con = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
             Statement statement = con.createStatement();
 
-            String query = "SELECT user_id FROM user_login WHERE username = '" + username + "' AND password = '" + password + "';";
+            String query = "SELECT userid FROM user_login WHERE username = '" + username + "' AND password = '" + password + "';";
             ResultSet result = statement.executeQuery(query);
             while(result.next()) {
-                return result.getString("user_id");
+                return result.getString("userid");
             }
         }catch(Exception e){
             e.printStackTrace();

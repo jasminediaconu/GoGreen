@@ -1,0 +1,10 @@
+image: maven:latest
+
+stages:
+  -test
+  -static analysis
+
+java:
+  stage: test
+  script:
+    - mvn verify

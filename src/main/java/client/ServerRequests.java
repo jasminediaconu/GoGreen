@@ -90,6 +90,8 @@ public class ServerRequests {
             CloseableHttpResponse response = client.execute(httpPost);
             String msg = new BasicResponseHandler().handleResponse(response);
             client.close();
+            if(msg.length() < 1)
+                msg = null;
             System.out.println("[INFO] The server responded with: " + msg);
             return msg;
         } catch (Exception e) {

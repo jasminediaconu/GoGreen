@@ -1,0 +1,16 @@
+#user {
+    -fx-background-image: url("../images/mockup.png");
+}
+
+#logout {
+    -fx-background-image: url("../images/logout.png");
+}
+
+#settings {
+    -fx-background-image: url("../images/settings.png");
+}
+
+#search {
+    -fx-background-image: url("../images/search.png");
+    -fx-background-color:  #95E743;
+}

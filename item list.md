@@ -3,19 +3,20 @@
 ## Food
 - eat a regular meal  <br> 
 	* base: emission of a meal of junk food per person <br> 
-	* score: x m3 C02 per kg per person <br> 
+	* score: 3.96 kg C02 per kg per person <br> 
 
 - eat a vegetarian meal <br> 
 	* base: emission of a meal of junk food per person <br>  
-	* score: x m3 C02 per kg per person <br> 
+	* score: 2.93 kg C02 per kg per person <br> 
 
 - eat a vegan meal <br> 
 	* base: emission of a meal of junk food per person <br> 
-	* score: x m3 C02 per keg per person <br> 
+	* score: 2.22 kg C02 per kg per person <br> 
 
 - buying local produce(fruit and vegetables) <br> 
-	* base: emission of production + transport to store of imported produce <br> 
-	* score: x m3 C02 per kg of produce <br> 
+	* base: emission transport to store of imported produce <br> 
+	* score: x m3 C02 per kg of produce <br>
+	
 	
 	
 	
@@ -26,22 +27,22 @@
 
 - installing solar panels <br>
 	* base: average power usage <br>
-	* score: 649 g C02 per panel per day(could also be another size of timeframe) <br>
+	* score: 649 g C02 per panel per day <br>
 
 - change to LEDs <br>
 	* base: emission of energy use of an average light bulb <br>
-	* score: 97.35 g C02 per bulb per day(could also be another size of timeframe) <br>
+	* score: 97.35 g C02 per bulb per day <br>
 
 
 
 ## Transport
 - using a bike/ walking instead of using the car <br>
 	* base: emission of car per km (drives on gas; worst case) <br>
-	* score: 160 g C02 per km <br>
+	* score: 350 g C02 per km <br>
 
 - using public transport instead of the car <br>
 	* base: emission of car per km (drives on gas; worst case) <br>
-	* score: 85 g C02 per km  <br>
+	* score: 275 g C02 per km  <br>
 
 - going by car <br>
 	* base: emission of car per km (drives on gas; worst case) <br>
@@ -72,3 +73,8 @@ https://www.thesimpledollar.com/the-light-bulb-showdown-leds-vs-cfls-vs-incandes
 https://www.delijn.be/nl/overdelijn/organisatie/zorgzaam-ondernemen/milieu/co2-uitstoot-voertuigen.html <br>
 https://www.nextgreencar.com/emissions/make-model/ <br>
 https://vanfueldata.vehicle-certification-agency.gov.uk/ <br>
+https://link.springer.com/article/10.1007/s10584-014-1169-1%EF%BB%BF <br>
+
+
+
+

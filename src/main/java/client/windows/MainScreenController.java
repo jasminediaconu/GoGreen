@@ -164,6 +164,7 @@ import java.util.ResourceBundle;
                 ft.setToValue(1.0);
                 ft.play();
 
+                // This code creates the GREEN animated PLUS button to add activities
                 JFXButton ssbutton1 = new JFXButton("+");
                 ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
                 ssbutton1.getStyleClass().addAll("animated-option-button", "animated-option-sub-button");
@@ -184,7 +185,6 @@ import java.util.ResourceBundle;
 
                 nodesList.getStylesheets().add("client/windows/css/agenda.css");
 
-
                 nodesList.addAnimatedNode(ssbutton1);
                 nodesList.addAnimatedNode(ssbutton2);
                 nodesList.addAnimatedNode(ssbutton3);
@@ -200,9 +200,9 @@ import java.util.ResourceBundle;
                     mainPane.getChildren().add(nodesList);
                 }
 
-                /**
-                 * To remove the plus button from other screens if Agenda is not selected
-                 */
+                // Remove the plus  button if Agenda is not the screen the user selected
+                // Assign an empty nodeList to the plus button, so the next time the user clicks Agenda
+                // Only 4 nodes are shown in total when clicking the plus button
                 else if (!pane.equals(agenda)) {
                     mainPane.getChildren().remove(nodesList);
                     nodesList = new JFXNodesList();

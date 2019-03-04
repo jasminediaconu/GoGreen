@@ -8,9 +8,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.AgendaController">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-background-radius: 24 24 24 24;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.AgendaController">
    <children>
-      <Pane fx:id="agenda" layoutX="-2.0" layoutY="45.0" prefHeight="723.0" prefWidth="1025.0" style="-fx-background-color: #ffffff; -fx-border-radius: 0 0 24 24;" stylesheets="@../css/agenda.css">
+      <Pane fx:id="agenda" layoutX="-2.0" layoutY="45.0" prefHeight="723.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 0 24 24;" stylesheets="@../css/agenda.css">
          <children>
             <Pane id="agenda" layoutX="398.0" layoutY="140.0" prefHeight="463.0" prefWidth="456.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10 10 10 10;" stylesheets="@../css/agenda.css">
                <children>

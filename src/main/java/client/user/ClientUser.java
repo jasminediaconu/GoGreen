@@ -28,7 +28,11 @@ public class ClientUser extends User {
      * @param roomtemp the room temperature of the user
      */
     public ClientUser(String username, String country, double totalCo2, String carType, String carEmissionType, int streakLength, boolean solarPower, boolean LEDs, int roomtemp) {
+<<<<<<< HEAD
         //super(username, country, totalCo2);
+=======
+        super(username, country, totalCo2);
+>>>>>>> 2cfeedd74f52b5b9d39659c4705ee6c1c8493b15
         this.carType = carType;
         this.carEmmisionType = carEmissionType;
         this.streakLength = streakLength;

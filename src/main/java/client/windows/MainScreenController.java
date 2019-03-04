@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerMainScreen implements Initializable {
+public class MainScreenController implements Initializable {
 
     private double x = 0;
     private double y = 0;
@@ -63,26 +63,16 @@ public class ControllerMainScreen implements Initializable {
     @FXML
     private Line line;
 
-    private void fillSceneTransparent(Parent root, MouseEvent event){
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        scene.setFill(Color.TRANSPARENT);
-    }
-
     /**
      * This function links the different screens to their fxml files.
      */
-    public ControllerMainScreen(MouseEvent event) {
+    public MainScreenController() {
         try {
             String path = "/client/windows/fxml/";
-            Parent root = FXMLLoader.load(getClass().getResource(path + "mainScreen.fxml"));
             profile = FXMLLoader.load(this.getClass().getResource(path + "profile.fxml"));
             agenda = FXMLLoader.load(this.getClass().getResource(path + "agenda.fxml"));
             overview = FXMLLoader.load(this.getClass().getResource(path + "overview.fxml"));
             leaderboard = FXMLLoader.load(this.getClass().getResource(path + "leaderboard.fxml"));
-            fillSceneTransparent(root, event);
         } catch (IOException e) {
             e.printStackTrace();
         }

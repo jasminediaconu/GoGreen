@@ -63,7 +63,7 @@
                               </VBox>
                               <VBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="78.0">
                                  <children>
-                                    <Text fill="#95e743" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 3em; -fx-font-weight: bold;" text="Green" wrappingWidth="116.825439453125">
+                                    <Text id="green" fill="#95e743" strokeType="OUTSIDE" strokeWidth="0.0" text="Green" wrappingWidth="116.825439453125">
                                        <VBox.margin>
                                           <Insets />
                                        </VBox.margin>

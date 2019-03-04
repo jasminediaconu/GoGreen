@@ -30,7 +30,7 @@
                         <Font name="Century Gothic" size="36.0" />
                      </font>
                   </Text>
-                  <Text fill="#8c8686" layoutX="340.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Following" wrappingWidth="173.0000070799041">
+                  <Text fill="#8c8686" layoutX="325.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Following" wrappingWidth="179.9818186033416">
                      <font>
                         <Font name="Century Gothic" size="36.0" />
                      </font>

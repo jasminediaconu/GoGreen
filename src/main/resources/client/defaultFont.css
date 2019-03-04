@@ -1,7 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
 Text, PasswordField, TextField, JFXButton, Button {
     -fx-font-family: Montserrat;
 }
 
 JFXButton {
     -fx-font-size: 25px;
+}
+
+#green {
+    -fx-font-size: 3em;
+    -fx-font-weight: bold;
 }

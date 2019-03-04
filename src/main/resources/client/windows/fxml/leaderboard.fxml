@@ -45,7 +45,7 @@
                         <Font name="Century Gothic" size="18.0" />
                      </font>
                   </JFXTextField>
-                  <JFXButton id="search" layoutX="460.0" layoutY="100.0" prefHeight="37.0" prefWidth="45.0" style="-fx-background-color: null;" text=" " />
+                  <JFXButton id="search" layoutX="460.0" layoutY="100.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: null;" text=" " />
                </children>
             </Pane>
          </children>

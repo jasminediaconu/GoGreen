@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
+
+Text, PasswordField, TextField, #agendaBtn, #profileBtn, #overviewBtn, #leaderboardBtn, Button {
+    -fx-font-family: Montserrat;
+}
+
+#agendaBtn, #profileBtn, #overviewBtn, #leaderboardBtn {
+    -fx-font-size: 25px;
+}
+
+#green {
+    -fx-font-size: 3em;
+    -fx-font-weight: bold;
+}

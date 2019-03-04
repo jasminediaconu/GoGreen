@@ -34,7 +34,3 @@
 .animated-option-button-sub-button4 {
     -fx-background-color: #95E743;
 }
-
-#plusButton {
-    -fx-graphic: url("../images/button.png");
-}

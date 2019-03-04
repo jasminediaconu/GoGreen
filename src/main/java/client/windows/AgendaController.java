@@ -8,11 +8,11 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerAgenda implements Initializable {
+public class AgendaController implements Initializable {
 
     @FXML
 
-    
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

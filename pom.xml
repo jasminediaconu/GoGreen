@@ -93,7 +93,6 @@
             <version>11.0.2</version>
         </dependency>
 
-
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx</artifactId>

@@ -1,5 +1,5 @@
 FontAwesomeIcon {
--fx-cursor:hand;
+    -fx-cursor:hand;
 }
 
 Button {
@@ -33,8 +33,4 @@ Button {
     -fx-background-color: #73cb1a;
     -fx-text-fill: white;
     -fx-font-weight: bold;
-}
-
-Text, TextField, PasswordField {
-    -fx-font-family: Montserrat;
 }

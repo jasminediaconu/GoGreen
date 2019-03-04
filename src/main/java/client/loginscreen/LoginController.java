@@ -33,7 +33,7 @@ public class LoginController implements Initializable {
      * @param event MouseEvent type
      */
     @FXML
-    private void close(MouseEvent event) {
+    public void close(MouseEvent event) {
 
         Node node = (Node) event.getSource();
 
@@ -73,6 +73,7 @@ public class LoginController implements Initializable {
      * @param event MouseEvent type
      * @throws Exception
      */
+
     @FXML
     private void login(MouseEvent event) throws Exception {
 

@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import server.ServerApp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +13,7 @@ import java.sql.ResultSet;
 
 /**
  * This class handles the REST controlling for any signup request.
- * It will check the username and password for correct syntax, add them to the database and returns a boolean on completion.
+ * It will check the username and password for correct syntax, add them to the database and returns a String on completion.
  * @author wouthaakman
  *
  */
@@ -27,7 +28,9 @@ public class SignUpController {
      * @return a boolean value telling the client whether the request was successful.
      */
     @RequestMapping(value="/signup", method= RequestMethod.POST)
-    public boolean getResponse(@RequestBody String[] newUser){
+    public String getResponse(@RequestBody String[] newUser){
+        ServerApp.checkExpired();
+
         String username = newUser[0];
         String email = newUser[1];
         String password = newUser[2];
@@ -39,7 +42,7 @@ public class SignUpController {
 
             ResultSet result = statement.executeQuery();
             while(result.next()) {
-                return false;
+                return null;
             }
 
             statement = con.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?);");
@@ -48,10 +51,12 @@ public class SignUpController {
             statement.setString(3, password);
             statement.executeUpdate();
 
-            return true;
+            String sessionID = ServerApp.createNewSessionID();
+            ServerApp.addSessionID(sessionID, username);
+            return sessionID;
         }catch(Exception e){
             e.printStackTrace();
-            return false;
+            return null;
         }
     }
 

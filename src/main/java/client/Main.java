@@ -20,11 +20,14 @@ import java.util.regex.Pattern;
  */
 public class Main {
 
+    public static String sessionID;
     private static String requestUrl = "https://group72.herokuapp.com/";
 
     public static void main(String[] args) {
-        System.out.println(login("WoutHaakman", "wouthaakman"));
+        System.out.println(login("WoutHaakman", "test"));
         //System.out.println(signUp("WoutHaakman", "wouthaakman@hotmail.com", "wouthaakman"));
+
+        endSession();
     }
 
     /**
@@ -40,12 +43,14 @@ public class Main {
             return null;
 
         String response = sendRequestToServer("login", new Gson().toJson(new String[]{username, hashedPassword}));
-        if(response == null) {
+        if(response != null) {
+            String[] resArr = response.split("::");
+            System.out.println("[INFO] Login returned the following user_id: " + resArr[1]);
+            sessionID = resArr[0];
+            return "success: " + resArr[0];
+        }else {
             System.out.println("[ERROR] Wrong username or password");
             return "fail";
-        }else {
-            System.out.println("[INFO] Login returned the following user_id: " + response);
-            return "success: " + response;
         }
     }
 
@@ -67,15 +72,23 @@ public class Main {
         if(!stdPattern.matcher(username).matches() || !emailPattern.matcher(email).matches() || !stdPattern.matcher(password).matches())
             return "syntax";
 
-        String preResponse = sendRequestToServer("signup", new Gson().toJson(new String[]{username, email, hashedPassword}));
-        boolean response = Boolean.parseBoolean(preResponse);
-        if(response){
-            System.out.println("[INFO] The sign up was successful");
+        String response = sendRequestToServer("signup", new Gson().toJson(new String[]{username, email, hashedPassword}));
+        if(response != null){
+            sessionID = response;
+            System.out.println("[INFO] The sign up was successful: " + sessionID);
             return "ok";
-        }else{
+        }else {
             System.out.println("[ERROR] The sign up was not successful");
             return "fail";
         }
+    }
+
+    public static String endSession(){
+        String response = sendRequestToServer("end", "");
+        if(response.equals("ok")){
+            System.out.println("[INFO] The session has been ended successfully");
+        }
+        return response;
     }
 
     /**
@@ -98,6 +111,8 @@ public class Main {
             CloseableHttpResponse response = client.execute(httpPost);
             String msg = new BasicResponseHandler().handleResponse(response);
             client.close();
+            if(msg.length() < 1)
+                msg = null;
             System.out.println("[INFO] The server responded with: " + msg);
             return msg;
        }catch(Exception e){

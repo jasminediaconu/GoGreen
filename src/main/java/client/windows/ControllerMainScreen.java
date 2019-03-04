@@ -3,21 +3,15 @@ import com.jfoenix.controls.*;
 import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ControllerMainScreen {
 
@@ -120,7 +114,6 @@ public class ControllerMainScreen {
             ssbutton2.getStyleClass().addAll("animated-option-button", "animated-option-sub-button2");
             ssbutton2.setId("foodbutton");
 
-
             JFXButton ssbutton3 = new JFXButton("F");
             ssbutton3.setButtonType(JFXButton.ButtonType.RAISED);
             ssbutton3.getStyleClass().addAll("animated-option-button", "animated-option-sub-button3");
@@ -128,8 +121,6 @@ public class ControllerMainScreen {
             JFXButton ssbutton4 = new JFXButton("E");
             ssbutton4.setButtonType(JFXButton.ButtonType.RAISED);
             ssbutton4.getStyleClass().addAll("animated-option-button", "animated-option-sub-button4");
-
-
 
             nodesList.addAnimatedNode(ssbutton1);
             nodesList.addAnimatedNode(ssbutton2);

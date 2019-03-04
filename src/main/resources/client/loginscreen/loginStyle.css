@@ -34,3 +34,7 @@ Button {
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+Text, TextField, PasswordField {
+    -fx-font-family: Montserrat;
+}

@@ -11,9 +11,8 @@ import java.util.ResourceBundle;
 public class ControllerAgenda implements Initializable {
 
     @FXML
-    private javafx.scene.layout.Pane agenda;
 
-
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -32,6 +31,9 @@ public class ControllerAgenda implements Initializable {
 //        nodesList.addAnimatedNode(ssbutton1);
 //        nodesList.addAnimatedNode(ssbutton2);
 //        nodesList.addAnimatedNode(ssbutton3);
+
+
+
 
     }
 }

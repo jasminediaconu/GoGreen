@@ -69,11 +69,28 @@ public class ServerRequests {
         }
     }
 
+    /**
+     * This function will update the current session and makes sure the session doesn't become invalid
+     * @return
+     */
+    public static String updateSession(){
+        System.out.println("[INFO] Updating session...");
+        String response = sendRequestToServer("updateSession", new Gson().toJson(Main.sessionID));
+        if(response.equals("ok")){
+            System.out.println("[INFO] Current session has been updated.");
+        }else {
+            System.out.println("[WARNING] Something went wrong updating the session.");
+        }
+        return response;
+    }
+
     public static String endSession(){
         System.out.println("[INFO] Ending session, create a new session to continue or close the application.");
         String response = sendRequestToServer("end", new Gson().toJson(Main.sessionID));
-        if(response.equals("ok")){
-            System.out.println("[INFO] The session has been ended successfully");
+        if(response.equals("ok")) {
+            System.out.println("[INFO] The session has been ended successfully.");
+        }else {
+            System.out.println("[WARNING] Something went wrong ending the session.");
         }
         return response;
     }

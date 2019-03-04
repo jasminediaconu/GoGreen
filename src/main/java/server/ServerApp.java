@@ -63,6 +63,14 @@ public class ServerApp {
     }
 
     /**
+     * Updates the time of the given sessionID.
+     * @param sessionID String type
+     */
+    public static void updateSessionTime(String sessionID){
+        sessionTimes.replace(sessionID, LocalTime.now());
+    }
+
+    /**
      * Checks for all session IDs whether they are expired.
      */
     public static void checkExpired(){
@@ -79,13 +87,6 @@ public class ServerApp {
         }
     }
 
-    /**
-     * Updates the time of the given sessionID.
-     * @param sessionID String type
-     */
-    public static void updateSessionTime(String sessionID){
-        sessionTimes.replace(sessionID, LocalTime.now());
-    }
 
     /**
      CREATE TABLE IF NOT EXISTS user_login (

@@ -8,30 +8,13 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private static final String LEFT = "LEFT";
-
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
-    public void start(Stage stage) {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("profile.fxml"));
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("profile.fxml"));
         stage.setTitle("GoGreen");
-        if (root != null) {
-            stage.setScene(new Scene(root, 1024, 768));
-        }
+        stage.setScene(new Scene(root, 1024, 768));
         stage.setResizable(false);
         stage.show();
-
     }
 
 }

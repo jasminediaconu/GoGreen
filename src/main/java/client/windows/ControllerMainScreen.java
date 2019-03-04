@@ -1,14 +1,27 @@
 package client.windows;
+
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class ControllerMainScreen {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
+public class ControllerMainScreen implements Initializable {
+
+    private double x = 0;
+    private double y = 0;
     private boolean welcome = true;
     private int state = -1;
     @FXML private javafx.scene.layout.AnchorPane mainPane;
@@ -27,18 +40,54 @@ public class ControllerMainScreen {
     @FXML private TranslateTransition slide;
     @FXML private javafx.scene.shape.Line line;
 
+    private void fillSceneTransparent(Parent root, MouseEvent event){
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        scene.setFill(Color.TRANSPARENT);
+    }
+
     /**
      * This function links the different screens to their fxml files.
      */
-    public ControllerMainScreen() {
+    public ControllerMainScreen(MouseEvent event) {
         try {
-            profile = FXMLLoader.load(this.getClass().getResource("/client/windows/fxml/profile.fxml"));
-            agenda = FXMLLoader.load(this.getClass().getResource("/client/windows/fxml/agenda.fxml"));
-            overview = FXMLLoader.load(this.getClass().getResource("/client/windows/fxml/overview.fxml"));
-            leaderboard = FXMLLoader.load(this.getClass().getResource("/client/windows/fxml/leaderboard.fxml"));
-        } catch (Exception e) {
+            String path = "/client/windows/fxml/";
+            Parent root = FXMLLoader.load(getClass().getResource(path + "mainScreen.fxml"));
+            profile = FXMLLoader.load(this.getClass().getResource(path + "profile.fxml"));
+            agenda = FXMLLoader.load(this.getClass().getResource(path + "agenda.fxml"));
+            overview = FXMLLoader.load(this.getClass().getResource(path + "overview.fxml"));
+            leaderboard = FXMLLoader.load(this.getClass().getResource(path + "leaderboard.fxml"));
+            fillSceneTransparent(root, event);
+        } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void close(MouseEvent event) {
+
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
+    }
+
+    @FXML
+    private void pressed(MouseEvent event) {
+        x = event.getSceneX();
+        y = event.getSceneY();
+    }
+
+    @FXML
+    private void dragged(MouseEvent event) {
+
+        Node node = (Node) event.getSource();
+
+        Stage stage = (Stage) node.getScene().getWindow();
+
+        stage.setX(event.getScreenX() - x);
+        stage.setY(event.getScreenY() - y);
     }
 
     /**
@@ -48,10 +97,8 @@ public class ControllerMainScreen {
     private void logoutButtonAction() {
         // get a handle to the stage
         Stage stage = (Stage) logoutButton.getScene().getWindow();
-        // do what you have to do
         stage.close();
     }
-
     /**
      * When a button is selected/unselected changes its style and the displayed screen.
      */
@@ -63,6 +110,7 @@ public class ControllerMainScreen {
 
         if (welcome) {
             mainPane.getChildren().remove(welcomePane);
+            mainPane.setStyle("-fx-background-color:null;");
             welcome = false;
         }
         FadeTransition ft;
@@ -182,5 +230,9 @@ public class ControllerMainScreen {
             leaderboardButton.setVisible(true);
             line.setVisible(true);
         }
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
     }
 }

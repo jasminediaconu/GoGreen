@@ -32,7 +32,7 @@ public class LoginController implements Initializable {
     private PasswordField pf_password;
 
     @FXML
-    private void close(MouseEvent event) {
+    public void close(MouseEvent event) {
 
         Node node = (Node) event.getSource();
 
@@ -75,7 +75,7 @@ public class LoginController implements Initializable {
                 + " = '" + username + "' or email = '" + pf_password + "' and password = '" + password + "'");
 
         if (resultSet.next()) {
-            Parent root = FXMLLoader.load(getClass().getResource("mainScreenDummy.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
             fillSceneTransparent(root, event);
         }
     }

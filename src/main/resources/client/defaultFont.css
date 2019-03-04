@@ -1,0 +1,7 @@
+Text, PasswordField, TextField, JFXButton, Button {
+    -fx-font-family: Montserrat;
+}
+
+JFXButton {
+    -fx-font-size: 25px;
+}

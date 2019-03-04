@@ -37,7 +37,6 @@
             <version>11.0.2</version>
         </dependency>
 
-
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-media</artifactId>
@@ -85,7 +84,6 @@
             <artifactId>javafx-fxml</artifactId>
             <version>11.0.2</version>
         </dependency>
-
 
         <dependency>
             <groupId>de.jensd</groupId>

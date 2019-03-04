@@ -99,6 +99,14 @@
             <version>8.1</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.7</version>
+        </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -144,6 +152,12 @@
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.25.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.victorlaerte</groupId>
+            <artifactId>jfx-asynctask</artifactId>
+            <version>1.0.1</version>
         </dependency>
 
     </dependencies>

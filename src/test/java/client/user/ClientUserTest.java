@@ -11,8 +11,10 @@ class ClientUserTest {
 
     @BeforeEach
     void setUp() {
-        user = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21);
-        user2 = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21);
+//        user = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21);
+//        user2 = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21)
+        user = new ClientUser();
+        user = new ClientUser();
     }
 
     @Test

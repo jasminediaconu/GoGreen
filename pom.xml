@@ -93,16 +93,12 @@
             <version>11.0.2</version>
         </dependency>
 
-<<<<<<< HEAD
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-swing</artifactId>
             <version>11.0.2</version>
         </dependency>
 
-
-=======
->>>>>>> 008b657d1817906aab0b7de1cb76330e93c660ed
         <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx</artifactId>
@@ -171,15 +167,15 @@
         </dependency>
 
         <dependency>
-<<<<<<< HEAD
             <groupId>com.victorlaerte</groupId>
             <artifactId>jfx-asynctask</artifactId>
             <version>1.0.1</version>
-=======
+        </dependency>
+
+        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.5</version>
->>>>>>> 008b657d1817906aab0b7de1cb76330e93c660ed
         </dependency>
 
     </dependencies>

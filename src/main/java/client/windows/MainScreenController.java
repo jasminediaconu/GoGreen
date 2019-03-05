@@ -1,79 +1,57 @@
 package client.windows;
 
 import com.jfoenix.controls.*;
-import javafx.animation.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.control.Button;
-import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
     public class MainScreenController implements Initializable {
-
         private double x = 0;
         private double y = 0;
         private boolean welcome = true;
         private int state = -1;
 
-        @FXML
-        private AnchorPane mainPane;
-        @FXML
-        private Pane welcomePane;
+        @FXML private AnchorPane mainPane;
+        @FXML private Pane welcomePane;
 
-        @FXML
-        private Pane agenda;
-        @FXML
-        private Pane profile;
-        @FXML
-        private Pane overview;
-        @FXML
-        private Pane leaderboard;
+        @FXML private Pane agenda;
+        @FXML private Pane profile;
+        @FXML private Pane overview;
+        @FXML private Pane leaderboard;
 
-        @FXML
-        private Button logoutButton;
-        @FXML
-        private Button agendaButton;
-        @FXML
-        private Button profileButton;
-        @FXML
-        private Button overviewButton;
-        @FXML
-        private Button leaderboardButton;
+        @FXML private Button agendaButton;
+        @FXML private Button profileButton;
+        @FXML private Button overviewButton;
+        @FXML private Button leaderboardButton;
 
-        @FXML
-        private ToggleButton toggleButton;
-        @FXML
-        private AnchorPane menuBar;
-        @FXML
-        private TranslateTransition slide;
-        @FXML
-        private Line line;
+        @FXML private ToggleButton toggleButton;
+        @FXML private AnchorPane menuBar;
+        @FXML private TranslateTransition slide;
+        @FXML private Line line;
 
         JFXNodesList nodesList = new JFXNodesList();
+
+        @FXML  MenuButton user;
+        @FXML MenuItem logoutButton;
 
         /**
          * This function links the different screens to their fxml files.
@@ -90,23 +68,44 @@ import java.util.ResourceBundle;
             }
         }
 
+        /**
+         * This function handles the closing of the window, with the cross button.
+         * @param event MouseEvent type
+         */
         @FXML
         public void close(MouseEvent event) {
-
             Node node = (Node) event.getSource();
             Stage stage = (Stage) node.getScene().getWindow();
             stage.close();
         }
 
+        /**
+         * This function minimizes the window, with the minus button.
+         * @param event MouseEvent type
+         */
+        @FXML
+        public void minimize(MouseEvent event) {
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            stage.setIconified(true);
+        }
+
+        /**
+         * This function will update x and y when the mouse is pressed
+         * @param event MouseEvent type
+         */
         @FXML
         private void pressed(MouseEvent event) {
             x = event.getSceneX();
             y = event.getSceneY();
         }
 
+        /**
+         * This function will change the drag of the scene when the mouse is dragged
+         * @param event MouseEvent type
+         * */
         @FXML
         private void dragged(MouseEvent event) {
-
             Node node = (Node) event.getSource();
 
             Stage stage = (Stage) node.getScene().getWindow();
@@ -116,17 +115,26 @@ import java.util.ResourceBundle;
         }
 
         /**
-         * The logout button closes the window.
+         * This function will disconnect the user from the server and the session will be closed.
+         * This happens after pressing the logout field in the dropdown menu under the user profile image.
          */
         @FXML
-        private void logoutButtonAction() {
-            Stage stage = (Stage) logoutButton.getScene().getWindow();
-
-            //TODO Clean up, save stuff to database and close session id
+        private void logout() throws IOException{
+            Stage stage = (Stage) user.getScene().getWindow();
             stage.close();
-        }
+            Stage login = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/client/loginScreen/login.fxml"));
+            Scene scene = new Scene(root);
+            login.setScene(scene);
+            scene.setFill(Color.TRANSPARENT);
+            login.initStyle(StageStyle.TRANSPARENT);
+            login.show();
+            login.getIcons().add(new Image("client/windows/images/icon.png"));
+            //TODO Clean up, save stuff to database and close session id
+         }
+
         /**
-         * When a button is selected/unselected, this function changes its style and the displayed screen.
+         * When a button from the side menu is selected/unselected, this function changes its style and the displayed window.
          */
         @FXML
         private void selectedButton() {
@@ -228,6 +236,7 @@ import java.util.ResourceBundle;
 
         /**
          * When the toggle button is pressed, the menu bar will be hidden/shown.
+         * This happens after pressing the white cross button on the side menu.
          */
         @FXML
         private void toggleMenuShowHide() {
@@ -275,8 +284,8 @@ import java.util.ResourceBundle;
                 line.setVisible(true);
             }
         }
+
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
-
         }
     }

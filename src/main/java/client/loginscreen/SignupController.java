@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -121,6 +122,9 @@ public class SignupController implements Initializable {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
+
+        scene.setFill(Color.TRANSPARENT);
+
     }
 
     /**

@@ -4,7 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class MainScreen extends Application {
@@ -22,8 +24,10 @@ public class MainScreen extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/mainScreen.fxml"));
         primaryStage.setTitle("GoGreen");
         primaryStage.setScene(new Scene(root, 1024, 768));
+        primaryStage.getScene().setFill(Color.TRANSPARENT);
         primaryStage.setResizable(false);
         primaryStage.show();
+
     }
 
 }

@@ -15,8 +15,11 @@ import java.nio.charset.StandardCharsets;
  */
 public class Main {
 
+    public static String sessionID;
+
     public static void main(String[] args) {
         Application.launch(LoginApp.class, args);
+        ServerRequests.endSession();
     }
 
     /**

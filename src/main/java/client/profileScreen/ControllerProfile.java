@@ -1,10 +1,12 @@
 package client.profileScreen;
 
-import com.victorlaerte.asynctask.AsyncTask;
 import javafx.fxml.FXML;
-import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
+/**
+ * The type Controller profile.
+ */
 public class ControllerProfile {
 
     @FXML
@@ -20,38 +22,81 @@ public class ControllerProfile {
     @FXML
     private Text averageField;
     @FXML
-    private ImageView profileImage;
+    private Circle profileImage;
 
 
+    /**
+     * Instantiates a new Controller profile.
+     */
     public ControllerProfile() {
+    }
 
+    /**
+     * Initialize.
+     */
+    @FXML
+    public void initialize() {
+        RequestProfileTask task = new RequestProfileTask(this);
+        task.setDaemon(false);
+        //task.execute();
     }
 
     @FXML
     private void buttonPressed() {
+
     }
 
-    private class Task extends AsyncTask {
-        @Override
-        public void onPreExecute() {
-
-        }
-
-        @Override
-        public Boolean doInBackground(Object... params) {
-            return true;
-        }
-
-        @Override
-        public void onPostExecute(Object params) {
-
-        }
-
-        @Override
-        public void progressCallback(Object... params) {
-
-        }
+    /**
+     * Gets username field.
+     *
+     * @return the username field
+     */
+    public Text getUsernameField() {
+        return usernameField;
     }
 
+    /**
+     * Gets points field.
+     *
+     * @return the points field
+     */
+    public Text getPointsField() {
+        return pointsField;
+    }
 
+    /**
+     * Gets car field.
+     *
+     * @return the car field
+     */
+    public Text getCarField() {
+        return carField;
+    }
+
+    /**
+     * Gets country field.
+     *
+     * @return the country field
+     */
+    public Text getCountryField() {
+        return countryField;
+    }
+
+    /**
+     * Gets average field.
+     *
+     * @return the average field
+     */
+    public Text getAverageField() {
+        return averageField;
+    }
+
+    /**
+     * Gets profile image.
+     *
+     * @return the profile image
+     */
+    public Circle getProfileImage() {
+        return profileImage;
+    }
 }

@@ -1,43 +1,41 @@
 package client.user;
 
+import com.google.gson.annotations.Expose;
+import javafx.scene.image.Image;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The type Client user.
+ */
 public class ClientUser extends User {
 
+    @Expose
     private String carType;
+    @Expose
     private String carEmmisionType;
+    @Expose
     private int streakLength;
+    @Expose
     private boolean solarPower;
+    @Expose
     private boolean LEDs;
+    @Expose
     private int roomTemp;
+    @Expose(serialize = false, deserialize = false)
+    private Image profileImage;
+    @Expose
+    private String imageURL;
 
-    private List<User> following;
+    private List<User> following = new ArrayList<>();
+
 
     /**
-     * The ClientUser constructor, inherits from User, and has all values the db also has.
-     *
-     * @param username        the username of the user
-     * @param country         the country of the user
-     * @param totalCo2        the total co2 the user has saved
-     * @param carType         the type of car the user has
-     * @param carEmissionType the type of emission of the users car
-     * @param streakLength    the length of the users streak
-     * @param solarPower      whether the user uses solar power
-     * @param LEDs            whether the user uses LEDs in their house
-     * @param roomtemp        the room temperature of the user
+     * Instantiates a new Client user.
      */
-    public ClientUser(String username, String country, double totalCo2, String carType, String carEmissionType, int streakLength, boolean solarPower, boolean LEDs, int roomtemp) {
-        super(username, country, totalCo2);
-        this.carType = carType;
-        this.carEmmisionType = carEmissionType;
-        this.streakLength = streakLength;
-        this.solarPower = solarPower;
-        this.LEDs = LEDs;
-        this.roomTemp = roomtemp;
-
-        following = new ArrayList<User>();
+    public ClientUser() {
     }
 
     /**
@@ -50,7 +48,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users car type to the argument carType
+     * Sets the users car type to the argument carType.
      *
      * @param carType String type
      */
@@ -59,7 +57,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get the users car emission type
+     * This function will get the users car emission type.
      *
      * @return the type of emission of the users car
      */
@@ -86,7 +84,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users streak length to the argument streakLength
+     * Sets the users streak length to the argument streakLength.
      *
      * @param streakLength int type
      */
@@ -95,7 +93,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get whether the user is using solar power
+     * This function will get whether the user is using solar power.
      *
      * @return if the user is using solar power
      */
@@ -104,7 +102,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get whether the user is using LEDs
+     * This function will get whether the user is using LEDs.
      *
      * @return if the user is using LEDs
      */
@@ -113,7 +111,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get the users room temperature
+     * This function will get the users room temperature.
      *
      * @return the temperature of the users room
      */
@@ -122,7 +120,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users room temperature to the argument roomTemp
+     * Sets the users room temperature to the argument roomTemp.
      *
      * @param roomTemp int type
      */
@@ -131,7 +129,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users solar power usage boolean to the argument solarPower
+     * Sets the users solar power usage boolean to the argument solarPower.
      *
      * @param solarPower boolean type
      */
@@ -140,7 +138,34 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users LEDs usage boolean to the argument LEDS
+     * Gets profile image.
+     *
+     * @return the profile image
+     */
+    public Image getProfileImage() {
+        return profileImage;
+    }
+
+    /**
+     * Sets profile image.
+     *
+     * @param profileImage the profile image
+     */
+    public void setProfileImage(Image profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    /**
+     * Gets image url.
+     *
+     * @return the image url
+     */
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    /**
+     * Sets the users LEDs usage boolean to the argument LEDS.
      *
      * @param LEDs boolean type
      */

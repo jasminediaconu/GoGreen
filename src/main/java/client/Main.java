@@ -1,6 +1,7 @@
 package client;
 
 import client.loginscreen.LoginApp;
+import client.user.ClientUser;
 import com.google.common.hash.Hashing;
 import javafx.application.Application;
 
@@ -16,6 +17,7 @@ import java.nio.charset.StandardCharsets;
 public class Main {
 
     public static String sessionID;
+    public static ClientUser clientUser;
 
     public static void main(String[] args) {
         Application.launch(LoginApp.class, args);

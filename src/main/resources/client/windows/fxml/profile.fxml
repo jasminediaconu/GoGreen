@@ -48,7 +48,7 @@
                         <Font name="Century Gothic" size="18.0" />
                     </font>
                 </Text>
-                <Circle fill="#c4c4c4" layoutX="433.0" layoutY="265.0" radius="100.0" stroke="#c4c4c4" strokeType="INSIDE" />
+                <Circle fx:id="profileImage" fill="#c4c4c4" layoutX="433.0" layoutY="265.0" radius="100.0" stroke="#c4c4c4" strokeType="INSIDE" />
                 <JFXButton id="changePicture" fx:id="imageButton" layoutX="563.0" layoutY="343.0" onAction="#buttonPressed" prefHeight="50.0" prefWidth="243.0" text="Change picture" textAlignment="CENTER" textFill="#95e743">
                     <font>
                         <Font name="Century Gothic" size="18.0" />

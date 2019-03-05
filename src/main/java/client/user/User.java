@@ -1,34 +1,33 @@
 package client.user;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * The type User.
  */
-abstract class User {
+public abstract class User {
 
     /**
      * The Username.
      */
+    @Expose
     protected String username = "";
     /**
      * The Country.
      */
+    @Expose
     protected String country = "";
     /**
      * The Total co2.
      */
+    @Expose
     protected double totalCo2 = 0.0;
 
     /**
      * The abstract User constructor, used for all other users that are not the client.
      *
-     * @param username the username of the user
-     * @param country  the country of the user
-     * @param totalCo2 the total co2 the user has saved
      */
-    public User(String username, String country, double totalCo2){
-        this.username = username;
-        this.country = country;
-        this.totalCo2 = totalCo2;
+    public User(){
     }
 
     /**

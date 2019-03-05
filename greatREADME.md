@@ -1,4 +1,4 @@
-#How To Write a great README,  There is a great readme (0.1) - RUBRIC
+# How To Write a great README,  There is a great readme (0.1) - RUBRIC
 
 ## 1. Write an Example, Right Now
 The very first thing that should be written in a readme is a short example code snippet. This snippet should show what your library does, and as little else as possible. In the ideal case, people should be able to infer from your example how your library works.

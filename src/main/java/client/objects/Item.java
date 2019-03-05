@@ -1,6 +1,6 @@
 package client.objects;
 
-public class Item {
+public abstract class Item {
 
     private String name;
     private String type;
@@ -41,4 +41,11 @@ public class Item {
     public double getCo2() {
         return co2;
     }
+
+    /**
+     * This function compares this Item with another Item to check if they are equal.
+     * @param o Object type
+     * @return a boolean, whether they are equal or not
+     */
+    public abstract boolean equals(Object o);
 }

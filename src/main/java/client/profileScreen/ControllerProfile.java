@@ -1,8 +1,14 @@
 package client.profileScreen;
 
+import client.Main;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+
+import java.awt.image.BufferedImage;
 
 /**
  * The type Controller profile.
@@ -36,69 +42,81 @@ public class ControllerProfile {
      */
     @FXML
     public void initialize() {
-        RequestProfileTask task = new RequestProfileTask(this);
-        task.setDaemon(false);
-        task.execute();
+        LoadProfile loadProfile = new LoadProfile(this);
+        loadProfile.setDaemon(false);
+        loadProfile.execute();
     }
 
+    /**
+     * When the change profile button is pressed the user can chose a file.
+     */
     @FXML
     private void buttonPressed() {
+        ImageChooser imageChooser = new ImageChooser();
+        BufferedImage image = imageChooser.getBufferedImage();
+        if (image != null) {
+            Main.clientUser.setProfileImage(SwingFXUtils.toFXImage(image, null));
+            setProfileImage(Main.clientUser.getProfileImage());
 
+            SendProfileImage sendProfileImage = new SendProfileImage(image);
+            sendProfileImage.setDaemon(true);
+            sendProfileImage.execute();
+        }
     }
 
     /**
-     * Gets username field.
+     * Sets username field.
      *
-     * @return the username field
+     * @param username the username
      */
-    public Text getUsernameField() {
-        return usernameField;
+    public void setUsernameField(String username) {
+        usernameField.setText("Username: " + username);
     }
 
     /**
-     * Gets points field.
+     * Sets points field.
      *
-     * @return the points field
+     * @param points the points
      */
-    public Text getPointsField() {
-        return pointsField;
+    public void setPointsField(double points) {
+        pointsField.setText("CO2 Saved: " + points);
     }
 
     /**
-     * Gets car field.
+     * Sets car field.
      *
-     * @return the car field
+     * @param car the car
      */
-    public Text getCarField() {
-        return carField;
+    public void setCarField(String car) {
+        carField.setText("Car: " + car);
     }
 
     /**
-     * Gets country field.
+     * Sets country field.
      *
-     * @return the country field
+     * @param country the country
      */
-    public Text getCountryField() {
-        return countryField;
+    public void setCountryField(String country) {
+        countryField.setText("Country: " + country);
     }
 
     /**
-     * Gets average field.
+     * Sets average field.
      *
-     * @return the average field
+     * @param average the average
      */
-    public Text getAverageField() {
-        return averageField;
+    public void setAverageField(String average) {
+        averageField.setText("Average: " + average);
     }
 
     /**
-     * Gets profile image.
+     * Sets profile image.
      *
-     * @return the profile image
+     * @param image the image
      */
-    public Circle getProfileImage() {
-        return profileImage;
+    public void setProfileImage(Image image) {
+        profileImage.setFill(new ImagePattern(image));
     }
 
-    
+
 }

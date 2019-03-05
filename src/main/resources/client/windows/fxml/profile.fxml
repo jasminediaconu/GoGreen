@@ -28,22 +28,22 @@
                         <Font name="Century Gothic" size="36.0" />
                     </font>
                 </Text>
-                <Text fx:id="pointsField" layoutX="563.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points:" wrappingWidth="196.40003525388238">
+                <Text fx:id="pointsField" layoutX="563.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saved CO2:" wrappingWidth="388.40002888441086">
                     <font>
                         <Font name="Century Gothic" size="36.0" />
                     </font>
                 </Text>
-                <Text fx:id="carField" layoutX="369.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Car:" wrappingWidth="196.40003525388238">
+                <Text fx:id="carField" layoutX="369.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Car:" wrappingWidth="380.4000352538824">
                     <font>
                         <Font name="Century Gothic" size="18.0" />
                     </font>
                 </Text>
-                <Text fx:id="countryField" layoutX="369.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Land:" wrappingWidth="196.40003525388238">
+                <Text fx:id="countryField" layoutX="369.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" wrappingWidth="337.2000193297863">
                     <font>
                         <Font name="Century Gothic" size="18.0" />
                     </font>
                 </Text>
-                <Text fx:id="averageField" layoutX="369.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average reduced:" wrappingWidth="196.40003525388238">
+                <Text fx:id="averageField" layoutX="369.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average reduced:" wrappingWidth="337.20002304685113">
                     <font>
                         <Font name="Century Gothic" size="18.0" />
                     </font>

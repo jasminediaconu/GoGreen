@@ -5,12 +5,13 @@ import client.user.ClientUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.victorlaerte.asynctask.AsyncTask;
 import javafx.scene.image.Image;
-import javafx.scene.paint.ImagePattern;
+
+import java.io.IOException;
 
 /**
  * The type Request profile task.
  */
-public class RequestProfileTask extends AsyncTask {
+public class LoadProfile extends AsyncTask {
 
     private ControllerProfile controller;
     private String json = "";
@@ -20,7 +21,7 @@ public class RequestProfileTask extends AsyncTask {
      *
      * @param controllerProfile the controller profile
      */
-    public RequestProfileTask(ControllerProfile controllerProfile) {
+    public LoadProfile(ControllerProfile controllerProfile) {
         this.controller = controllerProfile;
     }
 
@@ -30,12 +31,12 @@ public class RequestProfileTask extends AsyncTask {
     }
 
     @Override
-    public Boolean doInBackground(Object[] params) {
+    public Boolean doInBackground(Object... params) {
         //todo request data from server
 
         //json = ServerRequests.getProfile();
 
-        ////
+        //////////////////////////////////////////Debug
         ClientUser clientUser = new ClientUser();
         clientUser.setStreakLength(3);
         clientUser.setCarEmmisionType("emType");
@@ -47,15 +48,15 @@ public class RequestProfileTask extends AsyncTask {
         clientUser.setTotalCo2(400d);
         clientUser.setCountry("nethercountry");
         clientUser.setUsername("testName");
+        /////////////////////////////////////////
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
         try {
             json = mapper.writeValueAsString(clientUser);
-            System.out.println("JSON: " + json);
             Main.clientUser = mapper.readValue(json, ClientUser.class);
-        } catch (Exception e) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 
@@ -70,13 +71,12 @@ public class RequestProfileTask extends AsyncTask {
 
     @Override
     public void onPostExecute(Object params) {
-        controller.getUsernameField().setText(Main.clientUser.getUsername());
-        controller.getPointsField().setText("" + Main.clientUser.getTotalCo2());
-        controller.getCarField().setText(Main.clientUser.getCarType()
+        controller.setUsernameField(Main.clientUser.getUsername());
+        controller.setPointsField(Main.clientUser.getTotalCo2());
+        controller.setCountryField(Main.clientUser.getCountry());
+        controller.setCarField(Main.clientUser.getCarType()
                 + " - " + Main.clientUser.getCarEmmisionType());
-        controller.getCountryField().setText(Main.clientUser.getCountry());
-        controller.getProfileImage().setFill(new ImagePattern(Main.clientUser.getProfileImage()));
-
+        controller.setProfileImage(Main.clientUser.getProfileImage());
     }
 
     @Override

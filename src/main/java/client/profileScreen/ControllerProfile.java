@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 
 /**
- *
+ * The type Controller profile.
  */
 public class ControllerProfile implements ProfileListener {
 
@@ -26,6 +26,10 @@ public class ControllerProfile implements ProfileListener {
     private ImageView profileImage;
 
 
+
+    /**
+     * Instantiates a new Controller profile.
+     */
     public ControllerProfile() {
 
     }
@@ -71,7 +75,7 @@ public class ControllerProfile implements ProfileListener {
 
         @Override
         public void onPostExecute(Object params) {
-            System.out.println("hoi_______________");
+
         }
 
         @Override

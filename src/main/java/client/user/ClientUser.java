@@ -17,15 +17,16 @@ public class ClientUser extends User {
 
     /**
      * The ClientUser constructor, inherits from User, and has all values the db also has.
-     * @param username the username of the user
-     * @param country the country of the user
-     * @param totalCo2 the total co2 the user has saved
-     * @param carType the type of car the user has
+     *
+     * @param username        the username of the user
+     * @param country         the country of the user
+     * @param totalCo2        the total co2 the user has saved
+     * @param carType         the type of car the user has
      * @param carEmissionType the type of emission of the users car
-     * @param streakLength the length of the users streak
-     * @param solarPower whether the user uses solar power
-     * @param LEDs whether the user uses LEDs in their house
-     * @param roomtemp the room temperature of the user
+     * @param streakLength    the length of the users streak
+     * @param solarPower      whether the user uses solar power
+     * @param LEDs            whether the user uses LEDs in their house
+     * @param roomtemp        the room temperature of the user
      */
     public ClientUser(String username, String country, double totalCo2, String carType, String carEmissionType, int streakLength, boolean solarPower, boolean LEDs, int roomtemp) {
         super(username, country, totalCo2);
@@ -40,15 +41,26 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get the users car type
-     * @return the type of car the user has
+     * This function will get the users car type.
+     *
+     * @return the type of car the user has.
      */
     public String getCarType() {
         return carType;
     }
 
     /**
+     * Sets the users car type to the argument carType
+     *
+     * @param carType String type
+     */
+    public void setCarType(String carType) {
+        this.carType = carType;
+    }
+
+    /**
      * This function will get the users car emission type
+     *
      * @return the type of emission of the users car
      */
     public String getCarEmmisionType() {
@@ -56,15 +68,35 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get the users streak length
-     * @return the length of the users streak
+     * Sets the users car emission to the argument carEmissionType.
+     *
+     * @param carEmmisionType String type.
+     */
+    public void setCarEmmisionType(String carEmmisionType) {
+        this.carEmmisionType = carEmmisionType;
+    }
+
+    /**
+     * This function will get the users streak length.
+     *
+     * @return the length of the users streak.
      */
     public int getStreakLength() {
         return streakLength;
     }
 
     /**
+     * Sets the users streak length to the argument streakLength
+     *
+     * @param streakLength int type
+     */
+    public void setStreakLength(int streakLength) {
+        this.streakLength = streakLength;
+    }
+
+    /**
      * This function will get whether the user is using solar power
+     *
      * @return if the user is using solar power
      */
     public boolean hasSolarPower() {
@@ -73,6 +105,7 @@ public class ClientUser extends User {
 
     /**
      * This function will get whether the user is using LEDs
+     *
      * @return if the user is using LEDs
      */
     public boolean hasLEDs() {
@@ -81,6 +114,7 @@ public class ClientUser extends User {
 
     /**
      * This function will get the users room temperature
+     *
      * @return the temperature of the users room
      */
     public int getRoomTemp() {
@@ -88,31 +122,17 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users car type to the argument carType
-     * @param carType String type
+     * Sets the users room temperature to the argument roomTemp
+     *
+     * @param roomTemp int type
      */
-    public void setCarType(String carType) {
-        this.carType = carType;
-    }
-
-    /**
-     * Sets the users car emission to the argument carEmissionType
-     * @param carEmmisionType String type
-     */
-    public void setCarEmmisionType(String carEmmisionType) {
-        this.carEmmisionType = carEmmisionType;
-    }
-
-    /**
-     * Sets the users streak length to the argument streakLength
-     * @param streakLength int type
-     */
-    public void setStreakLength(int streakLength) {
-        this.streakLength = streakLength;
+    public void setRoomTemp(int roomTemp) {
+        this.roomTemp = roomTemp;
     }
 
     /**
      * Sets the users solar power usage boolean to the argument solarPower
+     *
      * @param solarPower boolean type
      */
     public void setSolarPower(boolean solarPower) {
@@ -121,18 +141,11 @@ public class ClientUser extends User {
 
     /**
      * Sets the users LEDs usage boolean to the argument LEDS
+     *
      * @param LEDs boolean type
      */
     public void setLEDs(boolean LEDs) {
         this.LEDs = LEDs;
-    }
-
-    /**
-     * Sets the users room temperature to the argument roomTemp
-     * @param roomTemp int type
-     */
-    public void setRoomTemp(int roomTemp) {
-        this.roomTemp = roomTemp;
     }
 
     @Override

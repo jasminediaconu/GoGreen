@@ -2,6 +2,9 @@ package client.profileScreen;
 
 import com.google.gson.Gson;
 
+/**
+ * The type Profile.
+ */
 public class Profile {
 
     private static String userName = "tes";
@@ -15,6 +18,11 @@ public class Profile {
 
     }
 
+    /**
+     * Init.
+     *
+     * @param profileListener the profile listener
+     */
     /*
      * ProfileListener : Provide a listener to be executed when the resources are retreived by the client
      */
@@ -30,26 +38,56 @@ public class Profile {
         }
     }
 
+    /**
+     * Gets car.
+     *
+     * @return the car
+     */
     public static String getCar() {
         return car;
     }
 
+    /**
+     * Gets points.
+     *
+     * @return the points
+     */
     public static int getPoints() {
         return points;
     }
 
+    /**
+     * Gets country.
+     *
+     * @return the country
+     */
     public static String getCountry() {
         return country;
     }
 
+    /**
+     * Is init boolean.
+     *
+     * @return the boolean
+     */
     public static boolean isInit() {
         return init;
     }
 
+    /**
+     * Gets user name.
+     *
+     * @return the user name
+     */
     public static String getUserName() {
         return userName;
     }
 
+    /**
+     * Gets average.
+     *
+     * @return the average
+     */
     public static float getAverage() {
         return average;
     }
@@ -65,11 +103,29 @@ public class Profile {
     }
 
     private class ProfileLoad {
+        /**
+         * The User name.
+         */
         String userName = "tes";
+        /**
+         * The Car.
+         */
         String car = "";
+        /**
+         * The Points.
+         */
         int points = -1;
+        /**
+         * The Country.
+         */
         String country = "";
+        /**
+         * The Average.
+         */
         float average = -1f;
+        /**
+         * The Init.
+         */
         boolean init = false;
     }
 }

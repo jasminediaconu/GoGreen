@@ -1,8 +1,0 @@
-.toggle-button {
-    -fx-background-image: url("../images/cross.png");
-}
-
-.toggle-button:selected {
-    -fx-background-image: url("../images/menu.png");
-}
-

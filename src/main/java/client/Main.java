@@ -1,6 +1,6 @@
 package client;
 
-import client.loginScreen.LoginScreen;
+import client.loginscreen.LoginApp;
 import com.google.common.hash.Hashing;
 import javafx.application.Application;
 
@@ -18,7 +18,7 @@ public class Main {
     public static String sessionID;
 
     public static void main(String[] args) {
-        Application.launch(LoginScreen.class, args);
+        Application.launch(LoginApp.class, args);
         ServerRequests.endSession();
     }
 

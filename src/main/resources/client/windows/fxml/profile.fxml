@@ -5,84 +5,56 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.profileScreen.ControllerProfile">
-   <children>
-<<<<<<< HEAD
-      <Pane fx:id="profile" layoutX="209.0" layoutY="79.0" prefHeight="689.0" prefWidth="815.0">
-=======
-      <Pane fx:id="profile" layoutX="-2.0" layoutY="45.0" prefHeight="723.0" prefWidth="1025.0" style="-fx-background-color: #ffffff; -fx-border-radius: 0 0 24 24;">
->>>>>>> 008b657d1817906aab0b7de1cb76330e93c660ed
-         <children>
-            <ImageView layoutX="439.0" layoutY="40.0">
-               <image>
-                  <Image url="@../images/resume.png" />
-               </image>
-            </ImageView>
-            <Text fill="#95e743" layoutX="541.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" wrappingWidth="293.9101963043213">
-               <font>
-                  <Font name="Century Gothic" size="61.0" />
-               </font>
-            </Text>
-<<<<<<< HEAD
-            <Text fx:id="usernameField" layoutX="357.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="433.2002061523199">
-=======
-            <Text layoutX="563.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="196.40003525388238">
->>>>>>> 008b657d1817906aab0b7de1cb76330e93c660ed
-               <font>
-                  <Font name="Century Gothic" size="36.0" />
-               </font>
-            </Text>
-<<<<<<< HEAD
-            <Text fx:id="pointsField" layoutX="353.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points:" wrappingWidth="196.40003525388238">
-=======
-            <Text layoutX="563.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points:" wrappingWidth="196.40003525388238">
->>>>>>> 008b657d1817906aab0b7de1cb76330e93c660ed
-               <font>
-                  <Font name="Century Gothic" size="36.0" />
-               </font>
-            </Text>
-<<<<<<< HEAD
-            <Text fx:id="carField" layoutX="159.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Car:" wrappingWidth="196.40003525388238">
-=======
-            <Text layoutX="369.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Car:" wrappingWidth="196.40003525388238">
->>>>>>> 008b657d1817906aab0b7de1cb76330e93c660ed
-               <font>
-                  <Font name="Century Gothic" size="18.0" />
-               </font>
-            </Text>
-<<<<<<< HEAD
-            <Text fx:id="countryField" layoutX="159.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Land:" wrappingWidth="196.40003525388238">
-=======
-            <Text layoutX="369.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Land:" wrappingWidth="196.40003525388238">
->>>>>>> 008b657d1817906aab0b7de1cb76330e93c660ed
-               <font>
-                  <Font name="Century Gothic" size="18.0" />
-               </font>
-            </Text>
-<<<<<<< HEAD
-            <Text fx:id="averageField" layoutX="159.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average reduced:" wrappingWidth="196.40003525388238">
-=======
-            <Text layoutX="369.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average reduced:" wrappingWidth="196.40003525388238">
->>>>>>> 008b657d1817906aab0b7de1cb76330e93c660ed
-               <font>
-                  <Font name="Century Gothic" size="18.0" />
-               </font>
-            </Text>
-<<<<<<< HEAD
-            <JFXButton fx:id="imageButton" layoutX="353.0" layoutY="343.0" onAction="#buttonPressed" prefHeight="44.0" prefWidth="173.0" stylesheets="@../css/changePictureButton.css" text="Change picture" textAlignment="CENTER" textFill="#95e743">
-=======
-            <Circle fill="#c4c4c4" layoutX="433.0" layoutY="265.0" radius="100.0" stroke="#c4c4c4" strokeType="INSIDE" />
-            <JFXButton id="changePicture" layoutX="563.0" layoutY="343.0" prefHeight="50.0" prefWidth="243.0" text="Change picture" textAlignment="CENTER" textFill="#95e743">
->>>>>>> 008b657d1817906aab0b7de1cb76330e93c660ed
-               <font>
-                  <Font name="Century Gothic" size="18.0" />
-               </font>
-            </JFXButton>
-            <ImageView fx:id="profileImage" fitHeight="200.0" fitWidth="200.0" layoutX="123.0" layoutY="165.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </Pane>
-   </children>
+    <children>
+        <Pane fx:id="profile" layoutX="-2.0" layoutY="45.0" prefHeight="723.0" prefWidth="1025.0" style="-fx-background-color: #ffffff; -fx-border-radius: 0 0 24 24;">
+            <children>
+                <ImageView layoutX="439.0" layoutY="40.0">
+                    <image>
+                        <Image url="@../images/resume.png" />
+                    </image>
+                </ImageView>
+                <Text fill="#95e743" layoutX="541.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" wrappingWidth="293.9101963043213">
+                    <font>
+                        <Font name="Century Gothic" size="61.0" />
+                    </font>
+                </Text>
+                <Text fx:id="usernameField" layoutX="563.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="388.4000352538824">
+                    <font>
+                        <Font name="Century Gothic" size="36.0" />
+                    </font>
+                </Text>
+                <Text fx:id="pointsField" layoutX="563.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Points:" wrappingWidth="196.40003525388238">
+                    <font>
+                        <Font name="Century Gothic" size="36.0" />
+                    </font>
+                </Text>
+                <Text fx:id="carField" layoutX="369.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Car:" wrappingWidth="196.40003525388238">
+                    <font>
+                        <Font name="Century Gothic" size="18.0" />
+                    </font>
+                </Text>
+                <Text fx:id="countryField" layoutX="369.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Land:" wrappingWidth="196.40003525388238">
+                    <font>
+                        <Font name="Century Gothic" size="18.0" />
+                    </font>
+                </Text>
+                <Text fx:id="averageField" layoutX="369.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average reduced:" wrappingWidth="196.40003525388238">
+                    <font>
+                        <Font name="Century Gothic" size="18.0" />
+                    </font>
+                </Text>
+                <Circle fill="#c4c4c4" layoutX="433.0" layoutY="265.0" radius="100.0" stroke="#c4c4c4" strokeType="INSIDE" />
+                <JFXButton id="changePicture" fx:id="imageButton" layoutX="563.0" layoutY="343.0" onAction="#buttonPressed" prefHeight="50.0" prefWidth="243.0" text="Change picture" textAlignment="CENTER" textFill="#95e743">
+                    <font>
+                        <Font name="Century Gothic" size="18.0" />
+                    </font>
+                </JFXButton>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

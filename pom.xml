@@ -242,8 +242,8 @@
                         </goals>
                         <configuration>
                                 <excludes>
-                                    <exclude>client/loginscreen/**/*</exclude>
-                                    <exclude>client/windows/**/*</exclude>
+                                    <exclude>**/loginscreen/**</exclude>
+                                    <exclude>**/windows/**</exclude>
                                 </excludes>
                             <rules>
                             </rules>
@@ -268,15 +268,14 @@
                     <configLocation>CSE1105.checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
                 <configuration>
                 <excludes>
-                    <exclude>client/loginscreen/**/*</exclude>
-                    <exclude>client/windows/**/*</exclude>
+                    <exclude>**/loginscreen/**</exclude>
+                    <exclude>**/windows/**</exclude>
                 </excludes>
                 </configuration>
             </plugin>

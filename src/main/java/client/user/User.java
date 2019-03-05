@@ -25,9 +25,8 @@ public abstract class User {
 
     /**
      * The abstract User constructor, used for all other users that are not the client.
-     *
      */
-    public User(){
+    public User() {
     }
 
     /**
@@ -53,7 +52,7 @@ public abstract class User {
      *
      * @return returns the total co2 amount of the user
      */
-    public double getTotalCo2(){
+    public double getTotalCo2() {
         return totalCo2;
     }
 
@@ -62,7 +61,7 @@ public abstract class User {
      *
      * @param co2 double to set the total co2 amount to
      */
-    public void setTotalCo2(double co2){
+    public void setTotalCo2(double co2) {
         this.totalCo2 = co2;
     }
 
@@ -71,7 +70,16 @@ public abstract class User {
      *
      * @param co2 double that will be added to the totalCo2 amount
      */
-    public void increaseTotalCo2(double co2){
+    public void increaseTotalCo2(double co2) {
         this.totalCo2 += co2;
+    }
+
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }

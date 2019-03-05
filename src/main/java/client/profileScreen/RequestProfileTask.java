@@ -2,8 +2,7 @@ package client.profileScreen;
 
 import client.Main;
 import client.user.ClientUser;
-import client.user.User;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.victorlaerte.asynctask.AsyncTask;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
@@ -35,9 +34,34 @@ public class RequestProfileTask extends AsyncTask {
         //todo request data from server
 
         //json = ServerRequests.getProfile();
-        Gson gson = new Gson();
-        User user = gson.fromJson(json, User.class);
-        Main.clientUser = (ClientUser) user;
+
+        ////
+        ClientUser clientUser = new ClientUser();
+        clientUser.setStreakLength(3);
+        clientUser.setCarEmmisionType("emType");
+        clientUser.setCarType("carType");
+        clientUser.setLEDs(true);
+        clientUser.setRoomTemp(30);
+        clientUser.setSolarPower(false);
+        clientUser.setImageURL("https://iculture.textopus.nl/wp-content/uploads/2014/06/The-Test-Fun-for-Friends-iPhone-iPad.png");
+        clientUser.setTotalCo2(400d);
+        clientUser.setCountry("nethercountry");
+        clientUser.setUsername("testName");
+
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enableDefaultTyping();
+        try {
+            json = mapper.writeValueAsString(clientUser);
+            System.out.println("JSON: " + json);
+            Main.clientUser = mapper.readValue(json, ClientUser.class);
+        } catch (Exception e) {
+
+        }
+
+
+        ///
+
+
         Image image = null;
         image = new Image(Main.clientUser.getImageURL());
         Main.clientUser.setProfileImage(image);

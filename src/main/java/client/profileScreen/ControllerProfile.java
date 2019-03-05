@@ -38,7 +38,7 @@ public class ControllerProfile {
     public void initialize() {
         RequestProfileTask task = new RequestProfileTask(this);
         task.setDaemon(false);
-        //task.execute();
+        task.execute();
     }
 
     @FXML
@@ -99,4 +99,6 @@ public class ControllerProfile {
     public Circle getProfileImage() {
         return profileImage;
     }
+
+    
 }

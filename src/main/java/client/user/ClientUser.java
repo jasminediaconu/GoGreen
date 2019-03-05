@@ -1,5 +1,6 @@
 package client.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.annotations.Expose;
 import javafx.scene.image.Image;
 
@@ -24,7 +25,8 @@ public class ClientUser extends User {
     private boolean LEDs;
     @Expose
     private int roomTemp;
-    @Expose(serialize = false, deserialize = false)
+
+    @JsonIgnore
     private Image profileImage;
     @Expose
     private String imageURL;
@@ -162,6 +164,16 @@ public class ClientUser extends User {
      */
     public String getImageURL() {
         return imageURL;
+    }
+
+
+    /**
+     * Sets image url.
+     *
+     * @param imageURL the image url
+     */
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     /**

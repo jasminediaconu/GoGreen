@@ -28,12 +28,14 @@ public class ServerRequests {
             return null;
 
         String response = sendRequestToServer("login", new Gson().toJson(new String[]{username, hashedPassword}));
-        if (response == null) {
+        if(response != null) {
+            String[] resArr = response.split("::");
+            System.out.println("[INFO] Login returned the following user_id: " + resArr[1]);
+            Main.sessionID = resArr[0];
+            return "success: " + resArr[0];
+        }else {
             System.out.println("[ERROR] Wrong username or password");
             return "fail";
-        } else {
-            System.out.println("[INFO] Login returned the following user_id: " + response);
-            return "success: " + response;
         }
     }
 
@@ -56,17 +58,26 @@ public class ServerRequests {
         if (!stdPattern.matcher(username).matches() || !emailPattern.matcher(email).matches() || !stdPattern.matcher(password).matches())
             return "syntax";
 
-        System.out.println(username + ", " + email + ", " + password);
-
-        String preResponse = sendRequestToServer("signup", new Gson().toJson(new String[]{username, email, hashedPassword}));
-        boolean response = Boolean.parseBoolean(preResponse);
-        if (response) {
-            System.out.println("[INFO] The sign up was successful");
+        String response = sendRequestToServer("signup", new Gson().toJson(new String[]{username, email, hashedPassword}));
+        if(response != null){
+            Main.sessionID = response;
+            System.out.println("[INFO] The sign up was successful: " + Main.sessionID);
             return "ok";
-        } else {
+        }else {
             System.out.println("[ERROR] The sign up was not successful");
             return "fail";
         }
+    }
+
+    public static String endSession(){
+        System.out.println("[INFO] Ending session, create a new session to continue or close the application.");
+        String response = sendRequestToServer("end", new Gson().toJson(Main.sessionID));
+        if(response.equals("ok")) {
+            System.out.println("[INFO] The session has been ended successfully.");
+        }else {
+            System.out.println("[WARNING] Something went wrong ending the session.");
+        }
+        return response;
     }
 
     /**

@@ -26,7 +26,7 @@ public class Main {
 
     public static void main(String[] args) {
         ServerRequests.getItems();
-        System.out.println(items.get(0).getName());
+        System.out.println(items.get(0).getCo2());
         Application.launch(LoginScreen.class, args);
         ServerRequests.endSession();
     }

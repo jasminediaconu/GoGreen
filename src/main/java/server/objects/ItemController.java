@@ -12,6 +12,12 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles the REST controlling for any item related requests.
+ * It will handle getting all the items from the database.
+ * @author wouthaakman
+ *
+ */
 @RestController
 public class ItemController {
 
@@ -25,6 +31,12 @@ public class ItemController {
         }
     }
 
+    /**
+     * This function will handle retrieving the items from the database,
+     * converting them to ItemClass objects that are inserted in a list and converted to a JSON
+     * This JSON will be send to the client as a response.
+     * @return a JSON String containing the Items in the database
+     */
     @RequestMapping(value="/getItems", method= RequestMethod.POST)
     public String getItems() {
         try{

@@ -3,7 +3,7 @@ package server;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * This class handles the REST controlling for any session end.
+ * This class handles the REST controlling for any session request.
  * It will end the session given a session ID.
  * @author wouthaakman
  *

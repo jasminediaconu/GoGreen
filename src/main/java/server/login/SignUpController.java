@@ -28,7 +28,7 @@ public class SignUpController {
      * @return a boolean value telling the client whether the request was successful.
      */
     @RequestMapping(value="/signup", method= RequestMethod.POST)
-    public String getResponse(@RequestBody String[] newUser){
+    public String signUp(@RequestBody String[] newUser){
         String username = newUser[0];
         String email = newUser[1];
         String password = newUser[2];

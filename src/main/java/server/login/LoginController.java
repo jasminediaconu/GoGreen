@@ -28,7 +28,7 @@ public class LoginController {
      * @return a response as a String
      */
     @RequestMapping(value="/login", method= RequestMethod.POST)
-    public String getResponse(@RequestBody String[] user) {
+    public String login(@RequestBody String[] user) {
         String username = user[0];
         String password = user[1];
 

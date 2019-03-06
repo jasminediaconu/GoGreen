@@ -12,13 +12,12 @@ public class Activity {
 
     /**
      * This is the activity class, all activities will be populated in here.
-     * @param activityID int type
      * @param item Item type
      * @param amount double type
      * @param date LocalDate type
      */
-    public Activity(int activityID, Item item, double amount, LocalDate date) {
-        this.activityID = activityID;
+    public Activity(Item item, double amount, LocalDate date) {
+        this.activityID = -1;
         this.item = item;
         this.amount = amount;
         this.date = date;
@@ -30,6 +29,15 @@ public class Activity {
      */
     public int getActivityID() {
         return activityID;
+    }
+
+    /**
+     * This function will set the activity ID.
+     * This function should be called after the database added the activity, since by default the id is -1.
+     * @param activityID int type
+     */
+    public void setActivityID(int activityID) {
+        this.activityID = activityID;
     }
 
     /**

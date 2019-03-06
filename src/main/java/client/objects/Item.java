@@ -2,20 +2,31 @@ package client.objects;
 
 public abstract class Item {
 
+    private int itemID;
     private String name;
     private String type;
     private double co2;
 
     /**
      * This class stores the information for an Item, data will be retrieved from the database.
+     * @param itemID int type
      * @param name String type
      * @param type String type
      * @param co2 double type
      */
-    public Item(String name, String type, double co2){
+    public Item(int itemID, String name, String type, double co2){
+        this.itemID = itemID;
         this.name = name;
         this.type = type;
         this.co2 = co2;
+    }
+
+    /**
+     * This function will get the item's ID
+     * @return the ID of the item
+     */
+    public int getItemID() {
+        return itemID;
     }
 
     /**

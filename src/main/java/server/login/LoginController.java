@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import server.ServerApp;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 /**
  * This class handles the REST controlling for any login request.
@@ -20,6 +17,16 @@ import java.sql.Statement;
 @RestController
 public class LoginController {
 
+    private static PreparedStatement select;
+
+    static {
+        try{
+            select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE username = ? AND password = ?;");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This function handles the request mapping for a user going to the /login url.
      * Requires two parameters, namely the username and hashed password.
@@ -29,19 +36,18 @@ public class LoginController {
      */
     @RequestMapping(value="/login", method= RequestMethod.POST)
     public String login(@RequestBody String[] user) {
-        String username = user[0];
-        String password = user[1];
-
         try{
-            Connection con = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
-            Statement statement = con.createStatement();
+            String username = user[0];
+            String password = user[1];
 
-            String query = "SELECT userid FROM user_login WHERE username = '" + username + "' AND password = '" + password + "';";
-            ResultSet result = statement.executeQuery(query);
+            select.setString(1, username);
+            select.setString(2, password);
+
+            ResultSet result = select.executeQuery();
             while(result.next()) {
                 String sessionID = ServerApp.createNewSessionID();
                 int userID = Integer.parseInt(result.getString("userid"));
-                ServerApp.addSessionID(sessionID, username);
+                ServerApp.addSessionID(sessionID, userID);
                 return sessionID + "::" + userID;
             }
         }catch(Exception e){

@@ -6,19 +6,19 @@ import java.util.Objects;
 public class Activity {
 
     private int activityID;
-    private Item item;
+    private int itemID;
     private double amount;
     private LocalDate date;
 
     /**
      * This is the activity class, all activities will be populated in here.
-     * @param item Item type
+     * @param itemID int type
      * @param amount double type
      * @param date LocalDate type
      */
-    public Activity(Item item, double amount, LocalDate date) {
+    public Activity(int itemID, double amount, LocalDate date) {
         this.activityID = -1;
-        this.item = item;
+        this.itemID = itemID;
         this.amount = amount;
         this.date = date;
     }
@@ -41,11 +41,11 @@ public class Activity {
     }
 
     /**
-     * This function will get the Item belonging to this Activity
-     * @return the Item of this Activity
+     * This function will get the itemID belonging to this Activity
+     * @return the itemID of this Activity
      */
-    public Item getItem() {
-        return item;
+    public int getItemID() {
+        return itemID;
     }
 
     /**
@@ -76,7 +76,7 @@ public class Activity {
         Activity activity = (Activity) o;
         return activityID == activity.activityID &&
                 Double.compare(activity.amount, amount) == 0 &&
-                Objects.equals(item, activity.item) &&
+                itemID == activity.itemID &&
                 Objects.equals(date, activity.date);
     }
 
@@ -86,6 +86,6 @@ public class Activity {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(activityID, item, amount, date);
+        return Objects.hash(activityID, itemID, amount, date);
     }
 }

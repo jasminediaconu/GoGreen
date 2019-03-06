@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import server.ServerApp;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
@@ -20,6 +18,18 @@ import java.sql.ResultSet;
 @RestController
 public class SignUpController {
 
+    private static PreparedStatement select;
+    private static PreparedStatement insert;
+
+    static {
+        try{
+            select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE username = ?;");
+            insert = ServerApp.dbConnection.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?) SELECT SCOPE_IDENTITY();");
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This function handles the request mapping for a user going to /signup url.
      * Requires two parameters, namely the username, email and hashed password.
@@ -29,28 +39,25 @@ public class SignUpController {
      */
     @RequestMapping(value="/signup", method= RequestMethod.POST)
     public String signUp(@RequestBody String[] newUser){
-        String username = newUser[0];
-        String email = newUser[1];
-        String password = newUser[2];
-
         try{
-            Connection con = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
-            PreparedStatement statement = con.prepareStatement("SELECT userid FROM user_login WHERE username = ?;");
-            statement.setString(1, username);
+            String username = newUser[0];
+            String email = newUser[1];
+            String password = newUser[2];
 
-            ResultSet result = statement.executeQuery();
+            select.setString(1, username);
+
+            ResultSet result = select.executeQuery();
             while(result.next()) {
                 return null;
             }
 
-            statement = con.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?);");
-            statement.setString(1, username);
-            statement.setString(2, email);
-            statement.setString(3, password);
-            statement.executeUpdate();
+            insert.setString(1, username);
+            insert.setString(2, email);
+            insert.setString(3, password);
+            int resultID = insert.executeUpdate();
 
             String sessionID = ServerApp.createNewSessionID();
-            ServerApp.addSessionID(sessionID, username);
+            ServerApp.addSessionID(sessionID, resultID);
             return sessionID;
         }catch(Exception e){
             e.printStackTrace();

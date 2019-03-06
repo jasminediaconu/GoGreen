@@ -4,11 +4,12 @@ public class Energy extends Item {
 
     /**
      * This class stores the information for an Energy object, data will be retrieved from the database.
+     * @param itemID int type
      * @param name String type
      * @param co2 double type
      */
-    public Energy(String name, double co2) {
-        super(name, "energy", co2);
+    public Energy(int itemID, String name, double co2) {
+        super(itemID, name, "energy", co2);
     }
 
     /**
@@ -22,6 +23,7 @@ public class Energy extends Item {
         if (o == null || getClass() != o.getClass()) return false;
         Energy energy = (Energy) o;
         return energy.getName().equals(this.getName()) &&
+                energy.getItemID() == this.getItemID() &&
                 energy.getType().equals(this.getType()) &&
                 Double.compare(energy.getCo2(), this.getCo2()) == 0;
     }

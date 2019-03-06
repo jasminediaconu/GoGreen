@@ -1,7 +1,6 @@
 package client.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gson.annotations.Expose;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -13,22 +12,15 @@ import java.util.Objects;
  */
 public class ClientUser extends User {
 
-    @Expose
     private String carType;
-    @Expose
     private String carEmmisionType;
-    @Expose
     private int streakLength;
-    @Expose
     private boolean solarPower;
-    @Expose
     private boolean LEDs;
-    @Expose
     private int roomTemp;
 
     @JsonIgnore
     private Image profileImage;
-    @Expose
     private String imageURL;
 
     private List<User> following = new ArrayList<>();
@@ -186,10 +178,10 @@ public class ClientUser extends User {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ClientUser that = (ClientUser) o;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ClientUser that = (ClientUser) obj;
         return streakLength == that.streakLength &&
                 solarPower == that.solarPower &&
                 LEDs == that.LEDs &&

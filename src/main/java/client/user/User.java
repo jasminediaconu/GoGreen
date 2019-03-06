@@ -10,17 +10,14 @@ public abstract class User {
     /**
      * The Username.
      */
-    @Expose
     protected String username = "";
     /**
      * The Country.
      */
-    @Expose
     protected String country = "";
     /**
      * The Total co2.
      */
-    @Expose
     protected double totalCo2 = 0.0;
 
     /**
@@ -75,10 +72,20 @@ public abstract class User {
     }
 
 
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
     public void setUsername(String username) {
         this.username = username;
     }
 
+    /**
+     * Sets country.
+     *
+     * @param country the country
+     */
     public void setCountry(String country) {
         this.country = country;
     }

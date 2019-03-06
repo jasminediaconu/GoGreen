@@ -48,26 +48,41 @@ public class LoadProfile extends AsyncTask {
         clientUser.setTotalCo2(400d);
         clientUser.setCountry("nethercountry");
         clientUser.setUsername("testName");
-        /////////////////////////////////////////
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.enableDefaultTyping();
         try {
             json = mapper.writeValueAsString(clientUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ///////////////////////////////////////// end of Debug
+
+
+        setClientUser(json);
+        return true;
+    }
+
+    /**
+     * Init the client User from json.
+     *
+     * @param json the json retrieved from the server.
+     */
+    void setClientUser(String json) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.enableDefaultTyping();
+        try {
             Main.clientUser = mapper.readValue(json, ClientUser.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-
-        ///
-
-
-        Image image = null;
-        image = new Image(Main.clientUser.getImageURL());
-        Main.clientUser.setProfileImage(image);
-        return true;
+        String url = Main.clientUser.getImageURL();
+        if (url != null && url.length() != 0) {
+            Main.clientUser.setProfileImage(new Image(url));
+        }
     }
+
 
     @Override
     public void onPostExecute(Object params) {

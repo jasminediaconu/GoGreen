@@ -1,7 +1,7 @@
 package client.profileScreen;
 
+import client.windows.MainScreen;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -31,12 +31,11 @@ public class ImageChooser {
      * @return the buffered image
      */
     public BufferedImage getBufferedImage() {
-        Stage stage = new Stage();
 
         FileChooser fileChooser = new FileChooser();
         configureFileChooser(fileChooser);
 
-        File file = fileChooser.showOpenDialog(stage);
+        File file = fileChooser.showOpenDialog(MainScreen.getPrimaryStage());
 
         if (file == null) {
             return null;

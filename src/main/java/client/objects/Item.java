@@ -1,6 +1,8 @@
 package client.objects;
 
-public abstract class Item {
+import java.util.Objects;
+
+public class Item {
 
     private int itemID;
     private String name;
@@ -58,5 +60,23 @@ public abstract class Item {
      * @param o Object type
      * @return a boolean, whether they are equal or not
      */
-    public abstract boolean equals(Object o);
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return itemID == item.itemID &&
+                Double.compare(item.co2, co2) == 0 &&
+                Objects.equals(name, item.name) &&
+                Objects.equals(type, item.type);
+    }
+
+    /**
+     * This function hashes the Item class
+     * @return the hashed int of the Item class
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(itemID, name, type, co2);
+    }
 }

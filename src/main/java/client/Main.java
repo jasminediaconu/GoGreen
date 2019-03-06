@@ -22,9 +22,11 @@ public class Main {
     public static String sessionID;
     public static ClientUser mainUser;
 
-    public static List<Item> items = new ArrayList<Item>();
+    public static List<Item> items = new ArrayList<>();
 
     public static void main(String[] args) {
+        ServerRequests.getItems();
+        System.out.println(items.get(0).getName());
         Application.launch(LoginScreen.class, args);
         ServerRequests.endSession();
     }

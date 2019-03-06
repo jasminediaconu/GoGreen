@@ -15,7 +15,7 @@
 
 - buying local produce(fruit and vegetables) <br> 
 	* base: emission transport to store of imported produce <br> 
-	* score: x m3 C02 per kg of produce <br>
+	* score: 1.025 kg C02 per kg of produce <br>
 	
 	
 	
@@ -74,6 +74,7 @@ https://www.delijn.be/nl/overdelijn/organisatie/zorgzaam-ondernemen/milieu/co2-u
 https://www.nextgreencar.com/emissions/make-model/ <br>
 https://vanfueldata.vehicle-certification-agency.gov.uk/ <br>
 https://link.springer.com/article/10.1007/s10584-014-1169-1%EF%BB%BF <br>
+https://www.extension.harvard.edu/inside-extension/buying-local-do-food-miles-matter <br>
 
 
 

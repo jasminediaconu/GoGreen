@@ -48,7 +48,7 @@ public class SignUpController {
 
             ResultSet result = select.executeQuery();
             while(result.next()) {
-                return null;
+                return "fail";
             }
 
             insert.setString(1, username);
@@ -61,7 +61,7 @@ public class SignUpController {
             return sessionID;
         }catch(Exception e){
             e.printStackTrace();
-            return null;
+            return "fail";
         }
     }
 

@@ -1,5 +1,6 @@
 package client;
 
+import client.objects.Activity;
 import client.objects.Item;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -98,6 +99,18 @@ public class ServerRequests {
     public static void getItems() {
         Type listType = new TypeToken<List<Item>>() {}.getType();
         Main.items = new Gson().fromJson(sendRequestToServer("getItems", null), listType);
+    }
+
+    public static int addActivity(Activity activity) {
+        //TODO add an activity to the database and return the activityID
+    }
+
+    public static boolean removeActivity(int activityID) {
+        //TODO remove an activity from the database
+    }
+
+    public static List<Activity> retrieveActivities(String period){
+        //TODO retrieve activities in a given period
     }
 
     /**

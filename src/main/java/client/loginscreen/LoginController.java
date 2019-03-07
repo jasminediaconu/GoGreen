@@ -1,4 +1,4 @@
-package client.loginScreen;
+package client.loginscreen;
 
 import client.ServerRequests;
 import javafx.fxml.FXML;
@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
@@ -32,7 +33,7 @@ public class LoginController implements Initializable {
      * @param event MouseEvent type
      */
     @FXML
-    private void close(MouseEvent event) {
+    public void close(MouseEvent event) {
 
         Node node = (Node) event.getSource();
 
@@ -72,6 +73,7 @@ public class LoginController implements Initializable {
      * @param event MouseEvent type
      * @throws Exception
      */
+
     @FXML
     private void login(MouseEvent event) throws Exception {
 
@@ -117,6 +119,8 @@ public class LoginController implements Initializable {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
+
+        scene.setFill(Color.TRANSPARENT);
     }
 
     /**

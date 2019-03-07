@@ -1,6 +1,5 @@
 package client;
 
-import client.loginScreen.LoginScreen;
 import client.objects.Item;
 import client.serializer.LocalDateDeserializer;
 import client.serializer.LocalDateSerializer;
@@ -34,8 +33,7 @@ public class Main {
         builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
         gson = builder.setPrettyPrinting().create();
 
-        Application.launch(LoginScreen.class, args);
-
+        Application.launch(client.loginscreen.LoginApp.class, args);
         ServerRequests.endSession();
     }
 

@@ -84,9 +84,7 @@ import java.util.ResourceBundle;
         JFXButton ssbutton3 = new JFXButton("F");
         JFXButton ssbutton4 = new JFXButton("E");
 
-
         JFXNodesList nodesList = new JFXNodesList();
-
 
         /**
          * This function links the different screens to their fxml files.
@@ -187,7 +185,6 @@ import java.util.ResourceBundle;
 
                 ssbutton2.setButtonType(JFXButton.ButtonType.RAISED);
                 ssbutton2.getStyleClass().addAll("animated-option-button", "animated-option-sub-button2");
-                // Refactor to tranportation button
                 ssbutton2.setOnMouseClicked(this::transportButtonAction);
 
                 ssbutton3.setButtonType(JFXButton.ButtonType.RAISED);
@@ -201,7 +198,7 @@ import java.util.ResourceBundle;
                 ssbutton4.setOnMouseClicked(this::energyButtonAction);
 
 
-                nodesList.getStylesheets().add("client/windows/css/agenda.css");
+              nodesList.getStylesheets().add("client/windows/css/agenda.css");
 
                 nodesList.addAnimatedNode(ssbutton1);
                 nodesList.addAnimatedNode(ssbutton2);
@@ -218,6 +215,7 @@ import java.util.ResourceBundle;
                     mainPane.getChildren().add(nodesList);
                 }
 
+
                 // Remove the plus  button if Agenda is not the screen the user selected
                 // Assign an empty nodeList to the plus button, so the next time the user clicks Agenda
                 // Only 4 nodes are shown in total when clicking the plus button
@@ -230,10 +228,10 @@ import java.util.ResourceBundle;
                 state = stt;
             }
             if (!button.isFocused()) {
-                button.setStyle(css2);
-                mainPane.getChildren().remove(pane);
+                    button.setStyle(css2);
+                    mainPane.getChildren().remove(pane);
+                }
             }
-        }
 
         /**
          * Giuliano foodPopup method

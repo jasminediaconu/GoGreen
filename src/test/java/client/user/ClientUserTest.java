@@ -23,8 +23,8 @@ class ClientUserTest {
     }
 
     @Test
-    void getCarEmmisionType() {
-        Assert.assertEquals("Electric", user.getCarEmmisionType());
+    void getCarEmissionType() {
+        Assert.assertEquals("Electric", user.getCarEmissionType());
     }
 
     @Test
@@ -54,9 +54,9 @@ class ClientUserTest {
     }
 
     @Test
-    void setCarEmmisionType() {
+    void setCarEmisionType() {
         user.setCarEmmisionType("Gas");
-        Assert.assertEquals("Gas", user.getCarEmmisionType());
+        Assert.assertEquals("Gas", user.getCarEmissionType());
     }
 
     @Test

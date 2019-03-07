@@ -2,16 +2,15 @@ package client.profileScreen;
 
 import client.Main;
 import client.user.ClientUser;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.victorlaerte.asynctask.AsyncTask;
 import javafx.scene.image.Image;
-
-import java.io.IOException;
 
 /**
  * The type Request profile task.
  */
-public class LoadProfile extends AsyncTask {
+public class LoadClientProfile extends AsyncTask {
 
     private ControllerProfile controller;
     private String json = "";
@@ -21,7 +20,7 @@ public class LoadProfile extends AsyncTask {
      *
      * @param controllerProfile the controller profile
      */
-    public LoadProfile(ControllerProfile controllerProfile) {
+    public LoadClientProfile(ControllerProfile controllerProfile) {
         this.controller = controllerProfile;
     }
 
@@ -39,8 +38,8 @@ public class LoadProfile extends AsyncTask {
         //////////////////////////////////////////Debug
         ClientUser clientUser = new ClientUser();
         clientUser.setStreakLength(3);
-        clientUser.setCarEmmisionType("emType");
-        clientUser.setCarType("carType");
+        clientUser.setCarEmmisionType("Gasoline");
+        clientUser.setCarType("Sports Car");
         clientUser.setLEDs(true);
         clientUser.setRoomTemp(30);
         clientUser.setSolarPower(false);
@@ -49,17 +48,15 @@ public class LoadProfile extends AsyncTask {
         clientUser.setCountry("nethercountry");
         clientUser.setUsername("testName");
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enableDefaultTyping();
-        try {
-            json = mapper.writeValueAsString(clientUser);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+        json = gson.toJson(clientUser);
+
         ///////////////////////////////////////// end of Debug
 
-
-        setClientUser(json);
+        if (json != null && json.length() != 0) {
+            setClientUser(json);
+        }
         return true;
     }
 
@@ -69,13 +66,9 @@ public class LoadProfile extends AsyncTask {
      * @param json the json retrieved from the server.
      */
     void setClientUser(String json) {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.enableDefaultTyping();
-        try {
-            Main.clientUser = mapper.readValue(json, ClientUser.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Gson gson = new Gson();
+        Main.clientUser = gson.fromJson(json, ClientUser.class);
+        System.out.println("LEDS: " + Main.clientUser.hasLEDs());
 
         String url = Main.clientUser.getImageURL();
         if (url != null && url.length() != 0) {
@@ -89,8 +82,7 @@ public class LoadProfile extends AsyncTask {
         controller.setUsernameField(Main.clientUser.getUsername());
         controller.setPointsField(Main.clientUser.getTotalCo2());
         controller.setCountryField(Main.clientUser.getCountry());
-        controller.setCarField(Main.clientUser.getCarType()
-                + " - " + Main.clientUser.getCarEmmisionType());
+        controller.setCarFields(Main.clientUser.getCarType(), Main.clientUser.getCarEmissionType());
         controller.setProfileImage(Main.clientUser.getProfileImage());
     }
 

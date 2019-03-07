@@ -5,7 +5,7 @@ import com.google.gson.annotations.Expose;
 /**
  * The type User.
  */
-public abstract class User {
+public class User {
 
     /**
      * The Username.

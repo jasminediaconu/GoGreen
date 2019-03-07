@@ -1,6 +1,6 @@
 package client.user;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gson.annotations.Expose;
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
@@ -13,16 +13,16 @@ import java.util.Objects;
 public class ClientUser extends User {
 
     private String carType;
-    private String carEmmisionType;
+    private String carEmissionType;
     private int streakLength;
     private boolean solarPower;
     private boolean LEDs;
     private int roomTemp;
 
-    @JsonIgnore
+    @Expose(deserialize = false, serialize = false)
     private Image profileImage;
     private String imageURL;
-
+    @Expose(deserialize = false, serialize = false)
     private List<User> following = new ArrayList<>();
 
 
@@ -55,8 +55,8 @@ public class ClientUser extends User {
      *
      * @return the type of emission of the users car
      */
-    public String getCarEmmisionType() {
-        return carEmmisionType;
+    public String getCarEmissionType() {
+        return carEmissionType;
     }
 
     /**
@@ -65,7 +65,7 @@ public class ClientUser extends User {
      * @param carEmmisionType String type.
      */
     public void setCarEmmisionType(String carEmmisionType) {
-        this.carEmmisionType = carEmmisionType;
+        this.carEmissionType = carEmmisionType;
     }
 
     /**
@@ -187,12 +187,12 @@ public class ClientUser extends User {
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
                 Objects.equals(carType, that.carType) &&
-                Objects.equals(carEmmisionType, that.carEmmisionType) &&
+                Objects.equals(carEmissionType, that.carEmissionType) &&
                 Objects.equals(following, that.following);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(carType, carEmmisionType, streakLength, solarPower, LEDs, roomTemp, following);
+        return Objects.hash(carType, carEmissionType, streakLength, solarPower, LEDs, roomTemp, following);
     }
 }

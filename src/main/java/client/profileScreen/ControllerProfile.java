@@ -1,6 +1,8 @@
 package client.profileScreen;
 
 import client.Main;
+import client.user.Car;
+import com.jfoenix.controls.JFXComboBox;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
@@ -22,19 +24,22 @@ public class ControllerProfile {
     @FXML
     private Text pointsField;
     @FXML
-    private Text carField;
+    private Circle profileImage;
     @FXML
     private Text countryField;
     @FXML
     private Text averageField;
     @FXML
-    private Circle profileImage;
+    private JFXComboBox carTypeField;
+    @FXML
+    private JFXComboBox emissionTypeField;
 
 
     /**
      * Instantiates a new Controller profile.
      */
     public ControllerProfile() {
+
     }
 
     /**
@@ -42,9 +47,9 @@ public class ControllerProfile {
      */
     @FXML
     public void initialize() {
-        LoadProfile loadProfile = new LoadProfile(this);
-        loadProfile.setDaemon(false);
-        loadProfile.execute();
+        LoadClientProfile loadClientProfile = new LoadClientProfile(this);
+        loadClientProfile.setDaemon(false);
+        loadClientProfile.execute();
     }
 
     /**
@@ -58,7 +63,8 @@ public class ControllerProfile {
             Main.clientUser.setProfileImage(SwingFXUtils.toFXImage(image, null));
             setProfileImage(Main.clientUser.getProfileImage());
 
-            SendProfileImage sendProfileImage = new SendProfileImage(image);
+            SendProfileUpdate sendProfileImage = new SendProfileUpdate(image,
+                    SendProfileUpdate.PROFILE_IMAGE_UPDATE);
             sendProfileImage.setDaemon(true);
             sendProfileImage.execute();
         }
@@ -82,13 +88,17 @@ public class ControllerProfile {
         pointsField.setText("CO2 Saved: " + points);
     }
 
+
     /**
-     * Sets car field.
+     * Sets the dedicated car fields in the profile screen.
      *
-     * @param car the car
+     * @param carType      the car type
+     * @param emissionType the emission type
      */
-    public void setCarField(String car) {
-        carField.setText("Car: " + car);
+    public void setCarFields(String carType, String emissionType) {
+        carTypeField.getSelectionModel().select(Car.getCarIndex(carType));
+        System.out.println(Car.getEmissionIndex(emissionType));
+        emissionTypeField.getSelectionModel().select(Car.getEmissionIndex(emissionType));
     }
 
     /**

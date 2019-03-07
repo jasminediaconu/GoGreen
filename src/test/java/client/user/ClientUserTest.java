@@ -14,17 +14,21 @@ class ClientUserTest {
 //        user = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21);
 //        user2 = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21)
         user = new ClientUser();
-        user = new ClientUser();
+        user2 = new ClientUser();
+        user.setCar(new Car(0, 3));
+        user2.setCar(new Car(0, 1));
+
+
     }
 
     @Test
     void getCarType() {
-        Assert.assertEquals("Mini", user.getCarType());
+        Assert.assertEquals("Compact Car", user.getCar().getCarName());
     }
 
     @Test
     void getCarEmissionType() {
-        Assert.assertEquals("Electric", user.getCarEmissionType());
+        Assert.assertEquals("Electric", user.getCar().getEmissionName());
     }
 
     @Test
@@ -49,14 +53,14 @@ class ClientUserTest {
 
     @Test
     void setCarType() {
-        user.setCarType("SUV");
-        Assert.assertEquals("SUV", user.getCarType());
+        user.getCar().setCarType("SUV");
+        Assert.assertEquals("SUV", user.getCar().getCarName());
     }
 
     @Test
     void setCarEmisionType() {
-        user.setCarEmmisionType("Gas");
-        Assert.assertEquals("Gas", user.getCarEmissionType());
+        user.getCar().setEmissionType("Gas");
+        Assert.assertEquals("Gas", user.getCar().getEmissionType());
     }
 
     @Test

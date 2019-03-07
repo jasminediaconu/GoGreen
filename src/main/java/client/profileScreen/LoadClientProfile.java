@@ -1,6 +1,7 @@
 package client.profileScreen;
 
 import client.Main;
+import client.user.Car;
 import client.user.ClientUser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -38,8 +39,7 @@ public class LoadClientProfile extends AsyncTask {
         //////////////////////////////////////////Debug
         ClientUser clientUser = new ClientUser();
         clientUser.setStreakLength(3);
-        clientUser.setCarEmmisionType("Gasoline");
-        clientUser.setCarType("Sports Car");
+        clientUser.setCar(new Car("Sport Car","Electric"));
         clientUser.setLEDs(true);
         clientUser.setRoomTemp(30);
         clientUser.setSolarPower(false);
@@ -82,7 +82,8 @@ public class LoadClientProfile extends AsyncTask {
         controller.setUsernameField(Main.clientUser.getUsername());
         controller.setPointsField(Main.clientUser.getTotalCo2());
         controller.setCountryField(Main.clientUser.getCountry());
-        controller.setCarFields(Main.clientUser.getCarType(), Main.clientUser.getCarEmissionType());
+        Car car = Main.clientUser.getCar();
+        controller.setCarFields(car.getCarType(), car.getEmissionType());
         controller.setProfileImage(Main.clientUser.getProfileImage());
     }
 

@@ -57,7 +57,7 @@
                         <Font name="Century Gothic" size="18.0" />
                     </font>
                 </JFXButton>
-                <JFXComboBox fx:id="carTypeField" focusColor="#95e743" layoutX="410.0" layoutY="432.0" prefHeight="30.0" prefWidth="153.0" promptText="Car Type" style="-fx-font-size: 14;" visibleRowCount="6">
+                <JFXComboBox fx:id="carTypeField" focusColor="#95e743" layoutX="410.0" layoutY="432.0" onAction="#comboBoxSelected" prefHeight="30.0" prefWidth="153.0" promptText="Car Type" style="-fx-font-size: 14;" visibleRowCount="6">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
                             <Label fx:id="compactCar">
@@ -105,7 +105,7 @@
                         </FXCollections>
                     </items>
                 </JFXComboBox>
-            <JFXComboBox fx:id="emissionTypeField" focusColor="#95e743" layoutX="593.0" layoutY="432.0" prefHeight="30.0" prefWidth="191.0" promptText="Emmision Type" style="-fx-font-size: 14;" visibleRowCount="4">
+            <JFXComboBox fx:id="emissionTypeField" focusColor="#95e743" layoutX="593.0" layoutY="432.0" onAction="#comboBoxSelected" prefHeight="30.0" prefWidth="191.0" promptText="Emmision Type" style="-fx-font-size: 14;" visibleRowCount="4">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <Label fx:id="gasoline">

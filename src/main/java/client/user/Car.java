@@ -73,11 +73,45 @@ public class Car {
     }
 
     /**
+     * Set car type.
+     *
+     * @param carType the car type
+     */
+    public void setCarType(int carType) {
+        this.carType = carType;
+    }
+
+    /**
      * Gets emission type.
      *
      * @return the emission type
      */
     public int getEmissionType() {
         return emissionType;
+    }
+
+    /**
+     * Set emission type.
+     *
+     * @param emissionType the emission type
+     */
+    public void setEmissionType(int emissionType) {
+        this.emissionType = emissionType;
+    }
+
+    public String getCarName(){
+        return cars[carType];
+    }
+
+    public String getEmissionName(){
+        return emissions[emissionType];
+    }
+
+    public void setCarType(String carType){
+        this.carType = getCarIndex(carType);
+    }
+
+    public void setEmissionType(String emissionType){
+        this.emissionType = getEmissionIndex(emissionType);
     }
 }

@@ -70,6 +70,20 @@ public class ControllerProfile {
         }
     }
 
+    @FXML
+    private void comboBoxSelected() {
+        Car car = Main.clientUser.getCar();
+        if (carTypeField.isFocused()) {
+            car.setCarType(carTypeField.getSelectionModel().getSelectedIndex());
+        } else {
+            car.setEmissionType(emissionTypeField.getSelectionModel().getSelectedIndex());
+        }
+        SendProfileUpdate sendProfileImage = new SendProfileUpdate(car,
+                SendProfileUpdate.CAR_UPDATE);
+        sendProfileImage.setDaemon(true);
+        sendProfileImage.execute();
+    }
+
     /**
      * Sets username field.
      *
@@ -97,8 +111,18 @@ public class ControllerProfile {
      */
     public void setCarFields(String carType, String emissionType) {
         carTypeField.getSelectionModel().select(Car.getCarIndex(carType));
-        System.out.println(Car.getEmissionIndex(emissionType));
         emissionTypeField.getSelectionModel().select(Car.getEmissionIndex(emissionType));
+    }
+
+    /**
+     * Sets car fields.
+     *
+     * @param carType      the car type
+     * @param emissionType the emission type
+     */
+    public void setCarFields(int carType, int emissionType) {
+        carTypeField.getSelectionModel().select(carType);
+        emissionTypeField.getSelectionModel().select(emissionType);
     }
 
     /**

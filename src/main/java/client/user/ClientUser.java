@@ -12,8 +12,7 @@ import java.util.Objects;
  */
 public class ClientUser extends User {
 
-    private String carType;
-    private String carEmissionType;
+    private Car car;
     private int streakLength;
     private boolean solarPower;
     private boolean LEDs;
@@ -32,40 +31,12 @@ public class ClientUser extends User {
     public ClientUser() {
     }
 
-    /**
-     * This function will get the users car type.
-     *
-     * @return the type of car the user has.
-     */
-    public String getCarType() {
-        return carType;
+    public Car getCar() {
+        return car;
     }
 
-    /**
-     * Sets the users car type to the argument carType.
-     *
-     * @param carType String type
-     */
-    public void setCarType(String carType) {
-        this.carType = carType;
-    }
-
-    /**
-     * This function will get the users car emission type.
-     *
-     * @return the type of emission of the users car
-     */
-    public String getCarEmissionType() {
-        return carEmissionType;
-    }
-
-    /**
-     * Sets the users car emission to the argument carEmissionType.
-     *
-     * @param carEmmisionType String type.
-     */
-    public void setCarEmmisionType(String carEmmisionType) {
-        this.carEmissionType = carEmmisionType;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     /**
@@ -186,13 +157,13 @@ public class ClientUser extends User {
                 solarPower == that.solarPower &&
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
-                Objects.equals(carType, that.carType) &&
-                Objects.equals(carEmissionType, that.carEmissionType) &&
+                Objects.equals(car.getCarType(), that.getCar().getCarType()) &&
+                Objects.equals(car.getEmissionType(), that.getCar().getEmissionType()) &&
                 Objects.equals(following, that.following);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(carType, carEmissionType, streakLength, solarPower, LEDs, roomTemp, following);
+        return Objects.hash(car.getCarType(), car.getEmissionType(), streakLength, solarPower, LEDs, roomTemp, following);
     }
 }

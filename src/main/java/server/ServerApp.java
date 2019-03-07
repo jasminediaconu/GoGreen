@@ -3,6 +3,10 @@ package server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 /**
  * Uses the Spring Boot framework.
  * This class opens the web application, to be able to receive queries.
@@ -10,6 +14,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  */
 @SpringBootApplication
 public class ServerApp {
+
+    private static Map<String, String> sessionNames = new HashMap<String, String>();
 
     /**
      * Starts the web application
@@ -19,6 +25,34 @@ public class ServerApp {
         SpringApplication app = new SpringApplication(ServerApp.class);
         app.run(args);
     }
+
+    /**
+     * This function will generate a unique session ID.
+     * @return a UUID sessionID
+     */
+    public static String createNewSessionID(){
+        return UUID.randomUUID().toString();
+    }
+
+    /**
+     * Adds the sessionID to the list, with corresponding username.
+     * @param sessionID String type
+     * @param username String type
+     */
+    public static void addSessionID(String sessionID, String username) {
+        if(!sessionNames.containsKey(username)) {
+            sessionNames.put(sessionID, username);
+        }
+    }
+
+    /**
+     * Removes the sessionID from the list, by taking the username.
+     * @param sessionID String type
+     */
+    public static void removeSessionID(String sessionID){
+        sessionNames.remove(sessionID);
+    }
+
 
     /**
      CREATE TABLE IF NOT EXISTS user_login (

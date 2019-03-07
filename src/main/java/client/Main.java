@@ -4,7 +4,6 @@ import client.loginScreen.LoginScreen;
 import client.objects.Item;
 import client.serializer.LocalDateDeserializer;
 import client.serializer.LocalDateSerializer;
-import client.user.ClientUser;
 import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,7 +25,6 @@ public class Main {
 
     public static Gson gson;
     public static String sessionID;
-    public static ClientUser mainUser;
 
     public static List<Item> items = new ArrayList<>();
 

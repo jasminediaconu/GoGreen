@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class User {
 
-    protected String username = "";
-    protected String country = "";
-    protected double totalCo2 = 0.0;
+    protected String username;
+    protected String country;
+    protected double totalCo2;
 
     /**
      * The abstract User constructor, used for all other users that are not the client.

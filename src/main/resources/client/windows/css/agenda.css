@@ -2,6 +2,16 @@
     /*-fx-background-color: #95e743;*/
 /*}*/
 
+.scroll-pane > .viewport {
+    -fx-background-color:  #e5e5e5;
+    -fx-border-radius: 10 10 10 10;
+}
+
+.viewport {
+    -fx-background-radius: 20;
+    -fx-border-radius: 10 10 10 10;
+}
+
 .animated-option-button {
     -fx-pref-width: 60px;
     -fx-background-radius: 60px;

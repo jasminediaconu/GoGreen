@@ -3,12 +3,15 @@ package client.windows;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class AgendaController implements Initializable {
+public class AgendaController extends Controller implements Initializable {
+    @Override
+    public void update() {
+
+    }
 
     @FXML
 
@@ -33,7 +36,6 @@ public class AgendaController implements Initializable {
 //        nodesList.addAnimatedNode(ssbutton3);
 
 
-
-
     }
+
 }

@@ -2,10 +2,13 @@ package client.profileScreen;
 
 import client.Main;
 import client.user.Car;
+import client.windows.Controller;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
@@ -15,7 +18,9 @@ import java.awt.image.BufferedImage;
 /**
  * The type Controller profile.
  */
-public class ControllerProfile {
+public class ProfileController extends Controller {
+
+    private Pane pane;
 
     @FXML
     private javafx.scene.control.Button imageButton;
@@ -38,7 +43,7 @@ public class ControllerProfile {
     /**
      * Instantiates a new Controller profile.
      */
-    public ControllerProfile() {
+    public ProfileController() {
 
     }
 
@@ -153,4 +158,8 @@ public class ControllerProfile {
     }
 
 
+    @Override
+    public void update() {
+        System.out.println("UPDATE");
+    }
 }

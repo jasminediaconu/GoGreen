@@ -1,6 +1,7 @@
 package client.loginscreen;
 
 import client.ServerRequests;
+import client.windows.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,7 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+public class LoginController extends Controller implements Initializable {
 
     private double x = 0;
     private double y = 0;
@@ -127,6 +128,11 @@ public class LoginController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    @Override
+    public void update() {
 
     }
 }

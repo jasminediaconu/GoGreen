@@ -21,27 +21,28 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class MainScreenController implements Initializable {
+/**
+ * The type Main screen controller.
+ */
+public class MainScreenController extends Controller implements Initializable {
 
+    private final String path = "/client/windows/fxml/";
+    /**
+     * The Nodes list.
+     */
     JFXNodesList nodesList = new JFXNodesList();
     private double x = 0;
     private double y = 0;
     private boolean welcome = true;
     private int state = -1;
+    private ArrayList<Controller> controllers = new ArrayList<>();
     @FXML
     private AnchorPane mainPane;
     @FXML
     private Pane welcomePane;
-    @FXML
-    private Pane agenda;
-    @FXML
-    private Pane profile;
-    @FXML
-    private Pane overview;
-    @FXML
-    private Pane leaderboard;
     @FXML
     private Button logoutButton;
     @FXML
@@ -65,17 +66,36 @@ public class MainScreenController implements Initializable {
      * This function links the different screens to their fxml files.
      */
     public MainScreenController() {
+        addController("agenda.fxml");
+        addController("profile.fxml");
+        addController("overview.fxml");
+        addController("leaderboard.fxml");
+    }
+
+    /**
+     * Loads the .fxml file and adds its controller to the arrayList
+     *
+     * @param fxmlName the fxml file name
+     */
+    private void addController(String fxmlName) {
+        URL fxmlPath = this.getClass().getResource(path + fxmlName);
+        FXMLLoader loader = new FXMLLoader(fxmlPath);
         try {
-            String path = "/client/windows/fxml/";
-            profile = FXMLLoader.load(this.getClass().getResource(path + "profile.fxml"));
-            agenda = FXMLLoader.load(this.getClass().getResource(path + "agenda.fxml"));
-            overview = FXMLLoader.load(this.getClass().getResource(path + "overview.fxml"));
-            leaderboard = FXMLLoader.load(this.getClass().getResource(path + "leaderboard.fxml"));
+            Pane pane = loader.load();
+            Controller controller = loader.getController();
+            controller.setPane(pane);
+            controllers.add(controller);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
+    /**
+     * Close.
+     *
+     * @param event the event
+     */
     @FXML
     public void close(MouseEvent event) {
 
@@ -125,10 +145,10 @@ public class MainScreenController implements Initializable {
             welcome = false;
         }
         // If the button is focused change the active pane and the color
-        styleFocused(agendaButton, agenda, 0);
-        styleFocused(profileButton, profile, 1);
-        styleFocused(overviewButton, overview, 2);
-        styleFocused(leaderboardButton, leaderboard, 3);
+        styleFocused(agendaButton, 0);
+        styleFocused(profileButton, 1);
+        styleFocused(overviewButton, 2);
+        styleFocused(leaderboardButton, 3);
     }
 
 
@@ -137,12 +157,12 @@ public class MainScreenController implements Initializable {
      * or remove a pane from the main screen.
      *
      * @param button The button that is checked if it is focused
-     * @param pane   The pane that clicking the button will affect
      */
-    private void styleFocused(Button button, Pane pane, int stt) {
+    private void styleFocused(Button button, int stt) {
         String css1 = "-fx-background-color:#ffffff;-fx-text-fill:#95e743;-jfx-button-type:RAISED;";
         String css2 = "-fx-background-color:#8C8686;-fx-text-fill:white;-jfx-button-type:FLAT;";
         FadeTransition ft;
+        Pane pane = controllers.get(stt).getPane();
         if (button.isFocused() && state != stt) {
             button.setStyle(css1);
 
@@ -183,20 +203,21 @@ public class MainScreenController implements Initializable {
 
             mainPane.getChildren().add(pane);
 
-            if (pane.equals(agenda)) {
+            if (pane.equals(controllers.get(0).getPane())) {
                 mainPane.getChildren().add(nodesList);
             }
 
             // Remove the plus  button if Agenda is not the screen the user selected
             // Assign an empty nodeList to the plus button, so the next time the user clicks Agenda
             // Only 4 nodes are shown in total when clicking the plus button
-            else if (!pane.equals(agenda)) {
+            else if (!pane.equals(controllers.get(0).getPane())) {
                 mainPane.getChildren().remove(nodesList);
                 nodesList = new JFXNodesList();
             }
 
             pane.toBack();
             state = stt;
+            controllers.get(state).update();
         }
         if (!button.isFocused()) {
             button.setStyle(css2);
@@ -265,6 +286,11 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    @Override
+    public void update() {
 
     }
 }

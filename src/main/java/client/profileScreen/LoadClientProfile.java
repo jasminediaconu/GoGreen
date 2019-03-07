@@ -13,16 +13,16 @@ import javafx.scene.image.Image;
  */
 public class LoadClientProfile extends AsyncTask {
 
-    private ControllerProfile controller;
+    private ProfileController controller;
     private String json = "";
 
     /**
      * Instantiates a new Request profile task.
      *
-     * @param controllerProfile the controller profile
+     * @param profileController the controller profile
      */
-    public LoadClientProfile(ControllerProfile controllerProfile) {
-        this.controller = controllerProfile;
+    public LoadClientProfile(ProfileController profileController) {
+        this.controller = profileController;
     }
 
     @Override

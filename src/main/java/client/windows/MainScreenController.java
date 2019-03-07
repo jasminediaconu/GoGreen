@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
@@ -27,6 +28,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,6 +41,9 @@ import java.util.ResourceBundle;
         private boolean welcome = true;
         private int state = -1;
 
+
+        @FXML
+        private Pane foodWindow;
         @FXML
         private AnchorPane mainPane;
         @FXML
@@ -73,7 +78,15 @@ import java.util.ResourceBundle;
         @FXML
         private Line line;
 
+
+        JFXButton ssbutton1 = new JFXButton("+");
+        JFXButton ssbutton2 = new JFXButton("T");
+        JFXButton ssbutton3 = new JFXButton("F");
+        JFXButton ssbutton4 = new JFXButton("E");
+
+
         JFXNodesList nodesList = new JFXNodesList();
+
 
         /**
          * This function links the different screens to their fxml files.
@@ -85,6 +98,7 @@ import java.util.ResourceBundle;
                 agenda = FXMLLoader.load(this.getClass().getResource(path + "agenda.fxml"));
                 overview = FXMLLoader.load(this.getClass().getResource(path + "overview.fxml"));
                 leaderboard = FXMLLoader.load(this.getClass().getResource(path + "leaderboard.fxml"));
+                foodWindow = FXMLLoader.load(this.getClass().getResource(path + "foodWindow.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -138,10 +152,11 @@ import java.util.ResourceBundle;
                 welcome = false;
             }
             // If the button is focused change the active pane and the color
-            styleFocused(agendaButton, agenda, 0);
-            styleFocused(profileButton, profile, 1);
-            styleFocused(overviewButton, overview, 2);
-            styleFocused(leaderboardButton, leaderboard, 3);
+            styleFocused(agendaButton, agenda,0);
+            styleFocused(profileButton, profile,1);
+            styleFocused(overviewButton, overview,2);
+            styleFocused(leaderboardButton, leaderboard,3);
+            styleFocused(ssbutton3, foodWindow,4);
         }
 
 
@@ -165,22 +180,25 @@ import java.util.ResourceBundle;
                 ft.play();
 
                 // This code creates the GREEN animated PLUS button to add activities
-                JFXButton ssbutton1 = new JFXButton("+");
+
                 ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
                 ssbutton1.getStyleClass().addAll("animated-option-button", "animated-option-sub-button");
 
-                JFXButton ssbutton2 = new JFXButton("T");
+
                 ssbutton2.setButtonType(JFXButton.ButtonType.RAISED);
                 ssbutton2.getStyleClass().addAll("animated-option-button", "animated-option-sub-button2");
-                ssbutton2.setId("foodbutton");
+                // Refactor to tranportation button
+                ssbutton2.setOnMouseClicked(this::transportButtonAction);
 
-                JFXButton ssbutton3 = new JFXButton("F");
                 ssbutton3.setButtonType(JFXButton.ButtonType.RAISED);
                 ssbutton3.getStyleClass().addAll("animated-option-button", "animated-option-sub-button3");
+                ssbutton3.setId("foodButton");
+                ssbutton3.setOnMouseClicked(this::foodButtonAction);
 
-                JFXButton ssbutton4 = new JFXButton("E");
+
                 ssbutton4.setButtonType(JFXButton.ButtonType.RAISED);
                 ssbutton4.getStyleClass().addAll("animated-option-button", "animated-option-sub-button4");
+                ssbutton4.setOnMouseClicked(this::energyButtonAction);
 
 
                 nodesList.getStylesheets().add("client/windows/css/agenda.css");
@@ -218,11 +236,58 @@ import java.util.ResourceBundle;
         }
 
         /**
-         * Giuliano foodpopup method
+         * Giuliano foodPopup method
          */
-        private void foodPopup() {
+        @FXML
+        private void transportButtonAction(MouseEvent event) {
 
-            JFXPopup pop = new JFXPopup();
+            VBox vBox = new VBox();
+            vBox.setPrefHeight(250.0);
+            vBox.setPrefWidth(200.0);
+
+            vBox.setStyle("-fx-background-color: white");
+
+            PopOver popOver = new PopOver(vBox);
+
+            popOver.show(ssbutton2);
+
+        }
+
+
+        /**
+         * Giuliano foodPopup method
+         */
+        @FXML
+        private void foodButtonAction(MouseEvent event) {
+
+            VBox vBox = new VBox();
+            vBox.setPrefHeight(250.0);
+            vBox.setPrefWidth(200.0);
+
+            vBox.setStyle("-fx-background-color: white");
+
+            PopOver popOver = new PopOver(foodWindow);
+
+            popOver.show(ssbutton3);
+
+        }
+
+        /**
+         * Giuliano energyPopup method
+         */
+        @FXML
+        private void energyButtonAction(MouseEvent event) {
+
+            VBox vBox = new VBox();
+            vBox.setPrefHeight(250.0);
+            vBox.setPrefWidth(200.0);
+
+            vBox.setStyle("-fx-background-color: white");
+
+            PopOver popOver = new PopOver(vBox);
+
+            popOver.show(ssbutton4);
+
         }
 
 

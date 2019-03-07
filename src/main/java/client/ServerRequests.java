@@ -1,6 +1,8 @@
 package client;
 
+import client.objects.Item;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -8,6 +10,8 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class ServerRequests {
@@ -28,7 +32,7 @@ public class ServerRequests {
             return null;
 
         String response = sendRequestToServer("login", new Gson().toJson(new String[]{username, hashedPassword}));
-        if(response != null) {
+        if(response != null && response != "fail") {
             String[] resArr = response.split("::");
             System.out.println("[INFO] Login returned the following user_id: " + resArr[1]);
             Main.sessionID = resArr[0];
@@ -59,7 +63,7 @@ public class ServerRequests {
             return "syntax";
 
         String response = sendRequestToServer("signup", new Gson().toJson(new String[]{username, email, hashedPassword}));
-        if(response != null){
+        if(response != null && !response.equals("fail")) {
             Main.sessionID = response;
             System.out.println("[INFO] The sign up was successful: " + Main.sessionID);
             return "ok";
@@ -69,6 +73,12 @@ public class ServerRequests {
         }
     }
 
+    /**
+     * This function will end the current session by taking the sessionID and requesting a session end by the server.
+     * The server will respond with ok or fail depending on the response, which means that the server has successfully
+     * removed the sessionID pointing to this application instance.
+     * @return a String containing the response
+     */
     public static String endSession(){
         System.out.println("[INFO] Ending session, create a new session to continue or close the application.");
         String response = sendRequestToServer("end", new Gson().toJson(Main.sessionID));
@@ -79,6 +89,13 @@ public class ServerRequests {
         }
         return response;
     }
+
+    /**
+     * This function will get all the items from the database on the server by sending a getItems request
+     * The returned Items are converted from JSON to the TypeToken listType containing a List of Item's
+     * The list will be assigned to the Main items list
+     */
+
 
     /**
      * This function will prepare the HTTP client to send a request to the server.
@@ -93,10 +110,11 @@ public class ServerRequests {
             CloseableHttpClient client = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(requestUrl + type);
 
-            StringEntity entity = new StringEntity(json);
-            httpPost.setEntity(entity);
-            httpPost.setHeader("Accept", "application/json");
-            httpPost.setHeader("Content-type", "application/json");
+            if(json != null){
+                httpPost.setEntity(new StringEntity(json));
+                httpPost.setHeader("Accept", "application/json");
+                httpPost.setHeader("Content-type", "application/json");
+            }
 
             CloseableHttpResponse response = client.execute(httpPost);
             String msg = new BasicResponseHandler().handleResponse(response);

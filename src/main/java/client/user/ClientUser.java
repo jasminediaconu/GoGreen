@@ -1,5 +1,7 @@
 package client.user;
 
+import client.objects.Activity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +16,7 @@ public class ClientUser extends User {
     private int roomTemp;
 
     private List<User> following;
+    protected List<Activity> activityList;
 
     /**
      * The ClientUser constructor, inherits from User, and has all values the db also has.
@@ -37,6 +40,7 @@ public class ClientUser extends User {
         this.roomTemp = roomtemp;
 
         following = new ArrayList<User>();
+        activityList = new ArrayList<Activity>();
     }
 
     /**
@@ -135,10 +139,40 @@ public class ClientUser extends User {
         this.roomTemp = roomTemp;
     }
 
+    /**
+     * This function will get the activity list of this User.
+     * @return a List of activities.
+     */
+    public List<Activity> getActivityList() {
+        return activityList;
+    }
+
+    /**
+     * This function will add an Activity to the User's list of activities.
+     * @param a Activity type
+     */
+    public void addToActivityList(Activity a) {
+        activityList.add(a);
+    }
+
+    /**
+     * This function will set the current Activity list to a new list
+     * @param activityList List Activity type
+     */
+    public void setActivityList(List<Activity> activityList){
+        this.activityList = activityList;
+    }
+
+    /**
+     * This function compares this ClientUser with another ClientUser to check if they are equal.
+     * @param o Object type
+     * @return a boolean, whether they are equal or not
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         ClientUser that = (ClientUser) o;
         return streakLength == that.streakLength &&
                 solarPower == that.solarPower &&
@@ -146,11 +180,17 @@ public class ClientUser extends User {
                 roomTemp == that.roomTemp &&
                 Objects.equals(carType, that.carType) &&
                 Objects.equals(carEmmisionType, that.carEmmisionType) &&
-                Objects.equals(following, that.following);
+                Objects.equals(following, that.following) &&
+                Objects.equals(activityList, that.activityList);
     }
 
+    /**
+     * This function will hash the ClientUser class
+     * @return the hashed ClientUser
+     */
     @Override
     public int hashCode() {
-        return Objects.hash(carType, carEmmisionType, streakLength, solarPower, LEDs, roomTemp, following);
+        return Objects.hash(super.hashCode(), carType, carEmmisionType, streakLength, solarPower, LEDs, roomTemp, following, activityList);
     }
+
 }

@@ -1,6 +1,8 @@
 package client.user;
 
-abstract class User {
+import java.util.Objects;
+
+public class User {
 
     protected String username = "";
     protected String country = "";
@@ -56,5 +58,29 @@ abstract class User {
      */
     public void increaseTotalCo2(double co2){
         this.totalCo2 += co2;
+    }
+
+    /**
+     * This function compares this User with another User to check if they are equal.
+     * @param o Object type
+     * @return a boolean, whether they are equal or not
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Double.compare(user.totalCo2, totalCo2) == 0 &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(country, user.country);
+    }
+
+    /**
+     * This function will hash the User class
+     * @return the hashed User
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, country, totalCo2);
     }
 }

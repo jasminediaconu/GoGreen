@@ -17,7 +17,7 @@ public class SessionController {
      * @return a response to notify the client whether the session has been ended successfully.
      */
     @RequestMapping(value="/end", method= RequestMethod.POST)
-    public String getEndResponse(@RequestBody String sessionID) {
+    public String endSession(@RequestBody String sessionID) {
         ServerApp.removeSessionID(sessionID);
         return "ok";
     }

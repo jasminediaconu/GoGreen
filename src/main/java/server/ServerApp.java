@@ -3,6 +3,8 @@ package server;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -15,13 +17,15 @@ import java.util.UUID;
 @SpringBootApplication
 public class ServerApp {
 
-    private static Map<String, String> sessionNames = new HashMap<String, String>();
+    public static Connection dbConnection;
+    private static Map<String, Integer> sessions = new HashMap<String, Integer>();
 
     /**
      * Starts the web application
      * @param args
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        dbConnection = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
         SpringApplication app = new SpringApplication(ServerApp.class);
         app.run(args);
     }
@@ -37,11 +41,10 @@ public class ServerApp {
     /**
      * Adds the sessionID to the list, with corresponding username.
      * @param sessionID String type
-     * @param username String type
      */
-    public static void addSessionID(String sessionID, String username) {
-        if(!sessionNames.containsKey(username)) {
-            sessionNames.put(sessionID, username);
+    public static void addSessionID(String sessionID, int userID) {
+        if(!sessions.containsKey(sessionID)) {
+            sessions.put(sessionID, userID);
         }
     }
 
@@ -49,8 +52,17 @@ public class ServerApp {
      * Removes the sessionID from the list, by taking the username.
      * @param sessionID String type
      */
-    public static void removeSessionID(String sessionID){
-        sessionNames.remove(sessionID);
+    public static void removeSessionID(String sessionID) {
+        sessions.remove(sessionID);
+    }
+
+    /**
+     * This function will get the userID from the sessions list
+     * @param sessionID String type
+     * @return an integer corresponding to the userID in the database.
+     */
+    public static int getUserIDFromSession(String sessionID) {
+        return sessions.get(sessionID);
     }
 
 

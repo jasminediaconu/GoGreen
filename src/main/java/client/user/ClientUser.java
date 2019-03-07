@@ -9,14 +9,14 @@ import java.util.Objects;
 public class ClientUser extends User {
 
     private String carType;
-    private String carEmmisionType;
+    private String carEmissionType;
     private int streakLength;
     private boolean solarPower;
     private boolean LEDs;
     private int roomTemp;
 
     private List<User> following;
-    protected List<Activity> activityList;
+    private List<Activity> activityList;
 
     /**
      * The ClientUser constructor, inherits from User, and has all values the db also has.
@@ -33,7 +33,7 @@ public class ClientUser extends User {
     public ClientUser(String username, String country, double totalCo2, String carType, String carEmissionType, int streakLength, boolean solarPower, boolean LEDs, int roomtemp) {
         super(username, country, totalCo2);
         this.carType = carType;
-        this.carEmmisionType = carEmissionType;
+        this.carEmissionType = carEmissionType;
         this.streakLength = streakLength;
         this.solarPower = solarPower;
         this.LEDs = LEDs;
@@ -55,8 +55,8 @@ public class ClientUser extends User {
      * This function will get the users car emission type
      * @return the type of emission of the users car
      */
-    public String getCarEmmisionType() {
-        return carEmmisionType;
+    public String getCarEmissionType() {
+        return carEmissionType;
     }
 
     /**
@@ -101,10 +101,10 @@ public class ClientUser extends User {
 
     /**
      * Sets the users car emission to the argument carEmissionType
-     * @param carEmmisionType String type
+     * @param carEmissionType String type
      */
-    public void setCarEmmisionType(String carEmmisionType) {
-        this.carEmmisionType = carEmmisionType;
+    public void setCarEmmisionType(String carEmissionType) {
+        this.carEmissionType = carEmissionType;
     }
 
     /**
@@ -179,7 +179,7 @@ public class ClientUser extends User {
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
                 Objects.equals(carType, that.carType) &&
-                Objects.equals(carEmmisionType, that.carEmmisionType) &&
+                Objects.equals(carEmissionType, that.carEmissionType) &&
                 Objects.equals(following, that.following) &&
                 Objects.equals(activityList, that.activityList);
     }
@@ -190,7 +190,7 @@ public class ClientUser extends User {
      */
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), carType, carEmmisionType, streakLength, solarPower, LEDs, roomTemp, following, activityList);
+        return Objects.hash(super.hashCode(), carType, carEmissionType, streakLength, solarPower, LEDs, roomTemp, following, activityList);
     }
 
 }

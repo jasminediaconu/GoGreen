@@ -1,12 +1,13 @@
 package server.objects;
 
-import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.*;
 import server.ServerApp;
 import server.helper.ActivityClass;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class ActivityController {
 
     static {
         try{
-            addActivity = ServerApp.dbConnection.prepareStatement("INSERT INTO user_activities (\"userid\", \"itemid\", \"amount\", \"date\") VALUES (?, ?, ?, ?) SELECT SCOPE_IDENTITY()");
+            addActivity = ServerApp.dbConnection.prepareStatement("INSERT INTO user_activities (\"userid\", \"itemid\", \"amount\", \"date\") VALUES (?, ?, ?, ?) RETURNING activityid");
             removeActivity = ServerApp.dbConnection.prepareStatement("DELETE FROM user_activities WHERE  userid = ? AND activityid = ?");
             retrieveActivities = ServerApp.dbConnection.prepareStatement("SELECT * FROM user_activities WHERE userid = ? AND date < now() AND date > ?");
         }catch(Exception e){
@@ -47,9 +48,11 @@ public class ActivityController {
             addActivity.setInt(1, userID);
             addActivity.setInt(2, a.itemID);
             addActivity.setDouble(3, a.amount);
-            addActivity.setObject(4, a.date);
+            addActivity.setDate(4, new Date(new SimpleDateFormat("dd-MM-yyyy").parse(a.date).getTime()));
 
-            return addActivity.executeUpdate();
+            ResultSet result = addActivity.executeQuery();
+            result.next();
+            return result.getInt(1);
         }catch(Exception e) {
             e.printStackTrace();
             return -1;
@@ -59,14 +62,13 @@ public class ActivityController {
     /**
      * This function will remove an Activity with a given id and corresponding user
      * @param s String type sessionID
-     * @param term String type
+     * @param activityID int type
      * @return a String telling the client whether the transaction succeeded
      */
     @RequestMapping(value="/removeActivity", method=RequestMethod.POST)
-    public String removeActivity(@RequestParam String s, @RequestBody String term){
+    public String removeActivity(@RequestParam String s, @RequestBody int activityID){
         try{
             int userID = ServerApp.getUserIDFromSession(s);
-            int activityID = Integer.parseInt(term.split(" ")[1]);
             removeActivity.setInt(1, userID);
             removeActivity.setInt(2, activityID);
             removeActivity.executeUpdate();
@@ -82,14 +84,14 @@ public class ActivityController {
      * This function will handle all retrieve Activity requests.
      * It will retrieve all activities that a given user has on their profile.
      * @param s String type sessionID
-     * @param term A String consisting of the sessionID and domain type, split by a whitespace character
+     * @param period A String consisting of the sessionID and domain type, split by a whitespace character
      * @return a JSON with a list of activities
      */
-    @RequestMapping(value="/retrieveActivites", method=RequestMethod.POST)
-    public String retrieveActivities(@RequestParam String s, @RequestBody String term){
+    @RequestMapping(value="/retrieveActivities", method=RequestMethod.POST)
+    public String retrieveActivities(@RequestParam String s, @RequestBody String period){
         try{
             int userID = ServerApp.getUserIDFromSession(s);
-            LocalDate domain = selectDomain(term);
+            LocalDate domain = selectDomain(period);
 
             retrieveActivities.setInt(1, userID);
             retrieveActivities.setObject(2, domain);
@@ -98,12 +100,12 @@ public class ActivityController {
             ResultSet result = retrieveActivities.executeQuery();
             while(result.next()){
                 ActivityClass activity = new ActivityClass(
-                        result.getInt(1), result.getInt(2),
-                        result.getDouble(3), result.getDate(4).toLocalDate());
+                        result.getInt(1), result.getInt(3),
+                        result.getDouble(4), result.getString(5));
                 activities.add(activity);
             }
 
-            return new Gson().toJson(activities);
+            return ServerApp.gson.toJson(activities);
         }catch (Exception e) {
             e.printStackTrace();
             return "fail";

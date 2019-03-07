@@ -2,7 +2,6 @@ package client;
 
 import client.objects.Activity;
 import client.objects.Item;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -32,7 +31,7 @@ public class ServerRequests {
         if (username == null || hashedPassword == null)
             return null;
 
-        String response = sendRequestToServer("login", new Gson().toJson(new String[]{username, hashedPassword}));
+        String response = sendRequestToServer("login", Main.gson.toJson(new String[]{username, hashedPassword}));
         if(response != null && response != "fail") {
             String[] resArr = response.split("::");
             System.out.println("[INFO] Login returned the following user_id: " + resArr[1]);
@@ -63,13 +62,13 @@ public class ServerRequests {
         if (!stdPattern.matcher(username).matches() || !emailPattern.matcher(email).matches() || !stdPattern.matcher(password).matches())
             return "syntax";
 
-        String response = sendRequestToServer("signup", new Gson().toJson(new String[]{username, email, hashedPassword}));
+        String response = sendRequestToServer("signup", Main.gson.toJson(new String[]{username, email, hashedPassword}));
         if(response != null && !response.equals("fail")) {
             Main.sessionID = response;
             System.out.println("[INFO] The sign up was successful: " + Main.sessionID);
             return "ok";
         }else {
-            System.out.println("[ERROR] The sign up was not successful");
+            System.out.println("[ERROR] The sign up was not successful.");
             return "fail";
         }
     }
@@ -82,7 +81,7 @@ public class ServerRequests {
      */
     public static String endSession(){
         System.out.println("[INFO] Ending session, create a new session to continue or close the application.");
-        String response = sendRequestToServer("end", new Gson().toJson(Main.sessionID));
+        String response = sendRequestToServer("end", Main.gson.toJson(Main.sessionID));
         if(response.equals("ok")) {
             System.out.println("[INFO] The session has been ended successfully.");
         }else {
@@ -97,20 +96,46 @@ public class ServerRequests {
      * The list will be assigned to the Main items list
      */
     public static void getItems() {
+        System.out.println("[INFO] Retrieving items from database.");
         Type listType = new TypeToken<List<Item>>() {}.getType();
-        Main.items = new Gson().fromJson(sendRequestToServer("getItems", null), listType);
+        Main.items = Main.gson.fromJson(sendRequestToServer("getItems", null), listType);
     }
 
-    public static int addActivity(Activity activity) {
-        //TODO add an activity to the database and return the activityID
+    public static boolean addActivity(Activity activity) {
+        if(activity == null)
+            return false;
+
+        System.out.println("[INFO] Adding activity to database. " + activity.getActivityID());
+        String json = Main.gson.toJson(activity);
+        System.out.println("\n\n " + json + " \n\n");
+        String response = sendRequestToServer("addActivity?s=" + Main.sessionID, json);
+        int activityID = Integer.parseInt(response);
+        if(activityID == -1) {
+            return false;
+        }else {
+            activity.setActivityID(activityID);
+            return true;
+        }
     }
 
     public static boolean removeActivity(int activityID) {
-        //TODO remove an activity from the database
+        if(activityID < 0)
+            return false;
+
+        System.out.println("[INFO] Removing activity from database. " + activityID);
+        String response = sendRequestToServer("removeActivity?s=" + Main.sessionID, Main.gson.toJson(activityID));
+        if(response.equals("ok")){
+            System.out.println("[INFO] Removing activity from database was successful");
+            return true;
+        }else {
+            System.out.println("[ERROR] Removing activity from database went wrong, please check if it exists and correct.");
+            return false;
+        }
     }
 
     public static List<Activity> retrieveActivities(String period){
-        //TODO retrieve activities in a given period
+        Type listType = new TypeToken<List<Activity>>() {}.getType();
+        return Main.gson.fromJson(sendRequestToServer("retrieveActivities?s=" + Main.sessionID, Main.gson.toJson(period)), listType);
     }
 
     /**

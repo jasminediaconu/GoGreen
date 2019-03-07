@@ -1,6 +1,5 @@
 package server.objects;
 
-import com.google.gson.Gson;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +46,7 @@ public class ItemController {
                 items.add(item);
             }
 
-            return new Gson().toJson(items);
+            return ServerApp.gson.toJson(items);
         }catch(Exception e) {
             e.printStackTrace();
             return "fail";

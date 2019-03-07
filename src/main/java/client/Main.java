@@ -2,11 +2,16 @@ package client;
 
 import client.loginScreen.LoginScreen;
 import client.objects.Item;
+import client.serializer.LocalDateDeserializer;
+import client.serializer.LocalDateSerializer;
 import client.user.ClientUser;
 import com.google.common.hash.Hashing;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.application.Application;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,15 +24,20 @@ import java.util.List;
  */
 public class Main {
 
+    public static Gson gson;
     public static String sessionID;
     public static ClientUser mainUser;
 
     public static List<Item> items = new ArrayList<>();
 
     public static void main(String[] args) {
-        ServerRequests.getItems();
-        System.out.println(items.get(0).getCo2());
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
+        builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
+        gson = builder.setPrettyPrinting().create();
+
         Application.launch(LoginScreen.class, args);
+
         ServerRequests.endSession();
     }
 

@@ -1,10 +1,15 @@
 package server;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import server.helper.LocalDateDeserializer;
+import server.helper.LocalDateSerializer;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -18,6 +23,7 @@ import java.util.UUID;
 public class ServerApp {
 
     public static Connection dbConnection;
+    public static Gson gson;
     private static Map<String, Integer> sessions = new HashMap<String, Integer>();
 
     /**
@@ -26,6 +32,12 @@ public class ServerApp {
      */
     public static void main(String[] args) throws Exception {
         dbConnection = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
+        builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
+        gson = builder.setPrettyPrinting().create();
+
         SpringApplication app = new SpringApplication(ServerApp.class);
         app.run(args);
     }

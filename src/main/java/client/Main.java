@@ -1,10 +1,17 @@
 package client;
 
-import client.loginscreen.LoginApp;
+import client.objects.Item;
+import client.serializer.LocalDateDeserializer;
+import client.serializer.LocalDateSerializer;
 import com.google.common.hash.Hashing;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.application.Application;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Main class of the GoGreen application.
@@ -15,10 +22,18 @@ import java.nio.charset.StandardCharsets;
  */
 public class Main {
 
+    public static Gson gson;
     public static String sessionID;
 
+    public static List<Item> items = new ArrayList<>();
+
     public static void main(String[] args) {
-        Application.launch(LoginApp.class, args);
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
+        builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
+        gson = builder.setPrettyPrinting().create();
+
+        Application.launch(client.loginscreen.LoginApp.class, args);
         ServerRequests.endSession();
     }
 

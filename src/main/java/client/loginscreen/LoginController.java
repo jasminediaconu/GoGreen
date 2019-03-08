@@ -81,11 +81,14 @@ public class LoginController implements Initializable {
         String password = pf_password.getText();
 
         String response = ServerRequests.login(username, password);
+
         if (response == null) {
             //USERNAME OR PASSWORD MISSING
         } else if (response.equals("fail")) {
             //WRONG USERNAME OR PASSWORD
         } else if (response.startsWith("success:")) {
+            ServerRequests.getItems();
+
             //GOTO MAIN SCREEN
             Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
             fillScene(root, event);

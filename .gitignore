@@ -10,13 +10,14 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 .idea
+*.yml
 *.iml
 .metadata
 .classpath
 .project
 .settings
-.jar
 *.txt
+*.jar
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar

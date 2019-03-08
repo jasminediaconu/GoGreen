@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS user_follows (
 
 #### USER ACTIVITIES TABLE
 CREATE TABLE IF NOT EXISTS user_activities (
-    activityID INTEGER PRIMARY KEY, 
+    activityID SERIAL PRIMARY KEY, 
     userID INTEGER NOT NULL, 
     itemID INTEGER NOT NULL, 
     amount FLOAT(2) NOT NULL, 

@@ -31,13 +31,18 @@ public class AgendaController implements Initializable {
      */
     private void deleteActivityDialog() {
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
-        dialogLayout.setHeading(new Text("Are you sure?"));
-        dialogLayout.setBody(new Text("You are about to delete the activity. Do you want to proceed?"));
-        JFXButton del = new JFXButton();
-        JFXButton close = new JFXButton();
+        Text heading = new Text("Are you sure?");
+        heading.setStyle("-fx-text-fill: #95e743");
+        dialogLayout.setHeading(heading);
+        JFXButton del = new JFXButton("Delete");
+        del.setStyle("-fx-background-color: #c82333; -fx-text-fill: white");
+        JFXButton close = new JFXButton("Close");
+        close.setStyle("-fx-border-color: #95e743; -fx-border-radius: 2 2 2 2; -fx-background-color: #ecffe6");
         del.setOnMouseClicked(e -> deleteActivity());
         close.setOnMouseClicked(e -> dialog.close());
-        dialog = new JFXDialog(stack, new Pane(new Text("Are you sure you want to delete this?")), JFXDialog.DialogTransition.TOP);
+        dialogLayout.setBody(new Text("You are about to delete the activity. Do you want to proceed?"), close, del);
+        dialog = new JFXDialog(stack, dialogLayout, JFXDialog.DialogTransition.CENTER);
+        dialogLayout.setActions(del, close);
         dialog.show();
 
     }

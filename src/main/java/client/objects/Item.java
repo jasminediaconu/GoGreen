@@ -70,13 +70,4 @@ public class Item {
                 Objects.equals(name, item.name) &&
                 Objects.equals(type, item.type);
     }
-
-    /**
-     * This function hashes the Item class
-     * @return the hashed int of the Item class
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(itemID, name, type, co2);
-    }
 }

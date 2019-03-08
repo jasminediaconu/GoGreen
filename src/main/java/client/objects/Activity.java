@@ -79,13 +79,4 @@ public class Activity {
                 itemID == activity.itemID &&
                 Objects.equals(date, activity.date);
     }
-
-    /**
-     * This function will hash the Activity class
-     * @return the hashed Activity
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(activityID, itemID, amount, date);
-    }
 }

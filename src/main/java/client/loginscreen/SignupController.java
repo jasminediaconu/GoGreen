@@ -128,6 +128,44 @@ public class SignupController implements Initializable {
     }
 
     /**
+     * This function takes the termsOfService fxml file as file to load in a new popup window
+     * @param event MouseEvent type
+     * @throws IOException
+     */
+    @FXML
+    private void termsofservice(MouseEvent event) throws IOException {
+        // will open a new window and display the terms of service in that
+        String source = "termsOfService.fxml";
+        privacyandterms(event, source);
+    }
+
+    /**
+     * This function takes the privacyPolicy fxml file to load in a new popup window
+     * @param event MouseEvent type
+     * @throws IOException
+     */
+    @FXML
+    private void privacypolicy (MouseEvent event) throws IOException {
+        String source = "privacyPolicy.fxml";
+        privacyandterms(event,source);
+    }
+
+    /**
+     * This function opens a new popup window containing the source
+     * @param event MouseEvent type
+     * @param source String type
+     * @throws IOException
+     */
+    @FXML
+    private void privacyandterms (MouseEvent event, String source) throws IOException {
+        // will open a new window and display the terms of service in that
+        Parent newroot = FXMLLoader.load(this.getClass().getResource(source));
+        Stage newstage = new Stage();
+        newstage.setScene(new Scene(newroot));
+        newstage.show();
+    }
+
+    /**
      * This function remains unused, but required to stay since this class implements Initializable
      * @param url
      * @param resourceBundle

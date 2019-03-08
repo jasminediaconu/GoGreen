@@ -15,6 +15,7 @@ buildNumber.properties
 .project
 .settings
 .jar
+*.txt
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar

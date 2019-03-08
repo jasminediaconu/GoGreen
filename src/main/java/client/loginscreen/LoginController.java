@@ -1,5 +1,6 @@
 package client.loginscreen;
 
+import client.Main;
 import client.ServerRequests;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,12 +8,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +33,8 @@ public class LoginController implements Initializable {
     @FXML
     private PasswordField pf_password;
 
+    @FXML
+    private CheckBox cb_rememberme;
     /**
      * This function handles the closing of the window, with the cross button.
      * @param event MouseEvent type
@@ -87,9 +94,28 @@ public class LoginController implements Initializable {
             //WRONG USERNAME OR PASSWORD
         } else if (response.startsWith("success:")) {
             //GOTO MAIN SCREEN
+            String hashedPassword = Main.hashString(password);
+            rememberme(username, hashedPassword);
             Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
             fillScene(root, event);
+
         }
+    }
+
+    /**
+     * This function will write the username and hashed password to a file
+     * @param username String type
+     * @param hashedpassword String type
+     * @throws IOException
+     */
+    private void rememberme (String username, String hashedpassword) throws  IOException{
+        FileWriter writer = new FileWriter("remeberme.txt");
+        if(cb_rememberme.isSelected()) {
+            writer.write(username + ";" + hashedpassword);
+        } else if(cb_rememberme.isSelected() == false){
+            writer.write("" );
+        }
+        writer.close();
     }
 
     /**

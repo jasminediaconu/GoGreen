@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS user_login (
 
 #### USER PROFILE TABLE
 CREATE TABLE IF NOT EXISTS user_profile (
-    userID INTEGER NOT NULL,
+    userID INTEGER PRIMARY KEY,
     totalCo2 FLOAT(2) DEFAULT 0,
     countryName VARCHAR(25), 
     carType VARCHAR(25), 
@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS user_follows (
 
 #### USER ACTIVITIES TABLE
 CREATE TABLE IF NOT EXISTS user_activities (
-    activityID INTEGER PRIMARY KEY, 
+    activityID SERIAL PRIMARY KEY, 
     userID INTEGER NOT NULL, 
     itemID INTEGER NOT NULL, 
     amount FLOAT(2) NOT NULL, 

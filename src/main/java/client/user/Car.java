@@ -5,7 +5,7 @@ package client.user;
  */
 public class Car {
 
-    private final static String[] cars = {"Compact Car", "Average Car", "Heavy Car", "Sports Car", "SUV", "Pickup-Truck", "Truck"};
+    private final static String[] cars = {"Compact Car", "Average Car", "Heavy Car", "Sport Car", "SUV", "Pickup-Truck", "Truck"};
     private final static String[] emissions = {"Gasoline", "Diesel", "Gas", "Electric"};
 
     private int carType = -1;
@@ -81,6 +81,10 @@ public class Car {
         this.carType = carType;
     }
 
+    public void setCarType(String carType) {
+        this.carType = getCarIndex(carType);
+    }
+
     /**
      * Gets emission type.
      *
@@ -99,19 +103,15 @@ public class Car {
         this.emissionType = emissionType;
     }
 
-    public String getCarName(){
+    public void setEmissionType(String emissionType) {
+        this.emissionType = getEmissionIndex(emissionType);
+    }
+
+    public String getCarName() {
         return cars[carType];
     }
 
-    public String getEmissionName(){
+    public String getEmissionName() {
         return emissions[emissionType];
-    }
-
-    public void setCarType(String carType){
-        this.carType = getCarIndex(carType);
-    }
-
-    public void setEmissionType(String emissionType){
-        this.emissionType = getEmissionIndex(emissionType);
     }
 }

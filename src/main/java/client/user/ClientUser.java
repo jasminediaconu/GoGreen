@@ -17,6 +17,7 @@ public class ClientUser extends User {
     private boolean solarPower;
     private boolean LEDs;
     private int roomTemp;
+    private String email = "";
 
     @Expose(deserialize = false, serialize = false)
     private Image profileImage;
@@ -31,10 +32,20 @@ public class ClientUser extends User {
     public ClientUser() {
     }
 
+    /**
+     * Gets car.
+     *
+     * @return the car
+     */
     public Car getCar() {
         return car;
     }
 
+    /**
+     * Sets car.
+     *
+     * @param car the car
+     */
     public void setCar(Car car) {
         this.car = car;
     }
@@ -148,6 +159,25 @@ public class ClientUser extends User {
         this.LEDs = LEDs;
     }
 
+    /**
+     * Gets email.
+     *
+     * @return the email
+     */
+    public String getEmail() {
+        return this.email;
+    }
+
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -157,13 +187,38 @@ public class ClientUser extends User {
                 solarPower == that.solarPower &&
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
-                Objects.equals(car.getCarType(), that.getCar().getCarType()) &&
-                Objects.equals(car.getEmissionType(), that.getCar().getEmissionType()) &&
-                Objects.equals(following, that.following);
+                email.equalsIgnoreCase(that.email) &&
+                car.getCarType() == that.getCar().getCarType() &&
+                car.getEmissionType() == that.getCar().getEmissionType() &&
+                Objects.equals(following, that.following) &&
+                totalCo2 == that.totalCo2 &&
+                username.equalsIgnoreCase(that.username) &&
+                country.equalsIgnoreCase(that.country);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(car.getCarType(), car.getEmissionType(), streakLength, solarPower, LEDs, roomTemp, following);
+    }
+
+    /**
+     * Deep copy client user.
+     *
+     * @return the client user
+     */
+    public ClientUser deepCopy() {
+        ClientUser clientUser = new ClientUser();
+        clientUser.setCar(new Car(car.getCarType(), car.getEmissionType()));
+        //clientUser.setProfileImage(getProfileImage());
+        clientUser.setUsername(username);
+        clientUser.setCountry(country);
+        clientUser.setImageURL(imageURL);
+        clientUser.setSolarPower(solarPower);
+        clientUser.setRoomTemp(roomTemp);
+        clientUser.setLEDs(LEDs);
+        clientUser.setStreakLength(streakLength);
+        clientUser.setTotalCo2(totalCo2);
+
+        return clientUser;
     }
 }

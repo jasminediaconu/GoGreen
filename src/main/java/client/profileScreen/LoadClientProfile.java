@@ -39,10 +39,10 @@ public class LoadClientProfile extends AsyncTask {
         //////////////////////////////////////////Debug
         ClientUser clientUser = new ClientUser();
         clientUser.setStreakLength(3);
-        clientUser.setCar(new Car("Sport Car","Electric"));
-        clientUser.setLEDs(true);
+        clientUser.setCar(new Car("Sport Car", "Electric"));
+        clientUser.setLEDs(false);
         clientUser.setRoomTemp(30);
-        clientUser.setSolarPower(false);
+        clientUser.setSolarPower(true);
         clientUser.setImageURL("https://iculture.textopus.nl/wp-content/uploads/2014/06/The-Test-Fun-for-Friends-iPhone-iPad.png");
         clientUser.setTotalCo2(400d);
         clientUser.setCountry("nethercountry");
@@ -55,7 +55,8 @@ public class LoadClientProfile extends AsyncTask {
         ///////////////////////////////////////// end of Debug
 
         if (json != null && json.length() != 0) {
-            setClientUser(json);
+            Main.clientUser = getClientUser(json);
+            controller.setPageDisable(false);
         }
         return true;
     }
@@ -64,27 +65,24 @@ public class LoadClientProfile extends AsyncTask {
      * Init the client User from json.
      *
      * @param json the json retrieved from the server.
+     *
+     * @return the ClientUser formed form the json.
      */
-    void setClientUser(String json) {
+    ClientUser getClientUser(String json) {
         Gson gson = new Gson();
-        Main.clientUser = gson.fromJson(json, ClientUser.class);
-        System.out.println("LEDS: " + Main.clientUser.hasLEDs());
+        ClientUser clientUser = gson.fromJson(json, ClientUser.class);
 
-        String url = Main.clientUser.getImageURL();
+        String url = clientUser.getImageURL();
         if (url != null && url.length() != 0) {
-            Main.clientUser.setProfileImage(new Image(url));
+            clientUser.setProfileImage(new Image(url));
         }
+        return clientUser;
     }
 
 
     @Override
     public void onPostExecute(Object params) {
-        controller.setUsernameField(Main.clientUser.getUsername());
-        controller.setPointsField(Main.clientUser.getTotalCo2());
-        controller.setCountryField(Main.clientUser.getCountry());
-        Car car = Main.clientUser.getCar();
-        controller.setCarFields(car.getCarType(), car.getEmissionType());
-        controller.setProfileImage(Main.clientUser.getProfileImage());
+        controller.update();
     }
 
     @Override

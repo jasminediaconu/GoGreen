@@ -145,7 +145,7 @@ public class ServerRequests {
         }.getType();
         String response = sendRequestToServer("retrieveActivities?s=" + Main.sessionID, Main.gson.toJson(period));
         if(response == null)
-            return new ArrayList<Activity>();
+            return new ArrayList<>();
         return Main.gson.fromJson(response, listType);
     }
 
@@ -170,6 +170,13 @@ public class ServerRequests {
         if(response == null)
             return new ArrayList<User>();
         return Main.gson.fromJson(response, listType);
+    }
+
+    public static int getUserID() {
+        String response = sendRequestToServer("userID?s=" + Main.sessionID, null);
+        if(response == null)
+            return -1;
+        return Integer.parseInt(response);
     }
 
     /**

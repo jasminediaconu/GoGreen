@@ -94,7 +94,6 @@ public class LoginController implements Initializable {
         } else if (response.startsWith("success:")) {
             ServerRequests.getItems();
 
-            int userID = Integer.parseInt(response.split("::")[1]);
             Main.clientUser = ServerRequests.getClientUserProfile();
 
             Main.clientUser.setActivityList(ServerRequests.retrieveActivities("w"));

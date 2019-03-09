@@ -108,7 +108,6 @@ public class MainScreenController implements Initializable {
     private void logoutButtonAction() {
         Stage stage = (Stage) logoutButton.getScene().getWindow();
 
-        //TODO Clean up, save stuff to database and close session id
         stage.close();
     }
 

@@ -27,7 +27,7 @@ public class UserController {
             selectClientUser = ServerApp.dbConnection.prepareStatement(
                     "SELECT username, countryname, totalco2, cartype, caremissiontype, lastonline, streaklength, solarpower, leds, roomtemp " +
                             "FROM user_login AS ul JOIN user_profile AS up ON ul.userid = up.userid " +
-                            "WHERE userid = ?;"
+                            "WHERE ul.userid = ?;"
             );
 
             updateStreak = ServerApp.dbConnection.prepareStatement(
@@ -72,7 +72,7 @@ public class UserController {
 
                 updateStreak.setInt(1, streakLength);
                 updateStreak.setInt(2, userID);
-                updateStreak.executeQuery();
+                updateStreak.executeUpdate();
 
                 return clientUser;
             }

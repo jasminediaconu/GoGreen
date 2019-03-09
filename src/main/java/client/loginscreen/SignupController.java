@@ -112,7 +112,6 @@ public class SignupController implements Initializable {
         } else if (response.equals("ok")) {
             ServerRequests.getItems();
 
-
             //GOTO PROFILE SCREEN
             Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
             fillScene(root, event);

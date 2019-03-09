@@ -1,6 +1,7 @@
 package server;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -21,6 +22,11 @@ public class InfoController {
     @RequestMapping("/info")
     public String info() {
         return "Welcome to the GoGreen project of Group72.\n\nOur aim is to go green, do you go green with us?\n\nTry logging in by going to:\nhttps://group72.herokuapp.com/login?username=[usrnm]&password=[pwd]";
+    }
+
+    @RequestMapping("/userID")
+    public int getUserID(@RequestParam String s) {
+        return ServerApp.getUserIDFromSession(s);
     }
 
 }

@@ -11,7 +11,7 @@
 <?import java.net.URL?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
             prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: transparent;"
-            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="client.loginscreen.LoginController">
+            xmlns="http://javafx.com/javafx/11.0.1" fx:controller="client.loginScreen.LoginController">
     <children>
         <StackPane maxHeight="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="100.0"
                    prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 22;"

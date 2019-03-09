@@ -75,12 +75,4 @@ public class User {
                 Objects.equals(country, user.country);
     }
 
-    /**
-     * This function will hash the User class
-     * @return the hashed User
-     */
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, country, totalCo2);
-    }
 }

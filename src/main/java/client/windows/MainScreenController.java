@@ -3,6 +3,16 @@ package client.windows;
 import client.windows.AgendaController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
+import com.jfoenix.controls.*;
+import javafx.animation.*;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
@@ -36,12 +46,13 @@ import java.util.ResourceBundle;
         private boolean welcome = true;
         private int state = -1;
 
+
+        @FXML
+        private Pane foodWindow;
         @FXML
         private AnchorPane mainPane;
         @FXML
         private Pane welcomePane;
-        @FXML
-        private Pane foodWindow;
         @FXML
         private Pane agenda;
         @FXML
@@ -74,9 +85,6 @@ import java.util.ResourceBundle;
 
         JFXNodesList nodesList;
 
-
-
-
         /**
          * This function links the different screens to their fxml files.
          */
@@ -89,10 +97,6 @@ import java.util.ResourceBundle;
                 leaderboard = FXMLLoader.load(this.getClass().getResource(path + "leaderboard.fxml"));
                 // Fixing, two fxml files tried to load the same loader
                 foodWindow = FXMLLoader.load(this.getClass().getResource(path + "foodWindow.fxml"));
-//                FXMLLoader loader = new FXMLLoader(this.getClass().getResource(path + "foodWindow.fxml"));
-//
-//                loader.setController(MainScreenController);
-//                loader.load();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -146,10 +150,10 @@ import java.util.ResourceBundle;
                 welcome = false;
             }
             // If the button is focused change the active pane and the color
-            styleFocused(agendaButton, agenda, 0);
-            styleFocused(profileButton, profile, 1);
-            styleFocused(overviewButton, overview, 2);
-            styleFocused(leaderboardButton, leaderboard, 3);
+            styleFocused(agendaButton, agenda,0);
+            styleFocused(profileButton, profile,1);
+            styleFocused(overviewButton, overview,2);
+            styleFocused(leaderboardButton, leaderboard,3);
         }
 
         /**
@@ -197,6 +201,7 @@ import java.util.ResourceBundle;
                 mainPane.getChildren().remove(pane);
             }
         }
+
 
         @FXML
         private void applyActivity(MouseEvent event) {

@@ -211,6 +211,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
 
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -283,7 +284,11 @@
                 <excludes>
                     <exclude>**/loginScreen/**</exclude>
                     <exclude>**/windows/**</exclude>
-                    <exclude>**/helper/**</exclude>
+                    <exclude>**/helper/*Class.*</exclude>
+                    <exclude>**/login/**</exclude>
+                    <exclude>**/objects/**</exclude>
+                    <exclude>**/InfoController.*</exclude>
+                    <exclude>**/SessionController.*</exclude>
                 </excludes>
                 </configuration>
             </plugin>

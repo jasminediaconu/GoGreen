@@ -1,5 +1,6 @@
 package client.loginScreen;
 
+import client.Main;
 import client.ServerRequests;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,8 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.paint.Color;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,6 +31,7 @@ public class LoginController implements Initializable {
 
     /**
      * This function handles the closing of the window, with the cross button.
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -44,6 +46,7 @@ public class LoginController implements Initializable {
 
     /**
      * This function will update x and y when the mouse is pressed
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -54,6 +57,7 @@ public class LoginController implements Initializable {
 
     /**
      * This function will change the drag of the scene when the mouse is dragged
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -70,6 +74,7 @@ public class LoginController implements Initializable {
     /**
      * This function will handle the input of username and password when the login button is pressed
      * It will also handle the responses returned by the ServerRequests class given it's query
+     *
      * @param event MouseEvent type
      * @throws Exception
      */
@@ -89,6 +94,11 @@ public class LoginController implements Initializable {
         } else if (response.startsWith("success:")) {
             ServerRequests.getItems();
 
+            int userID = Integer.parseInt(response.split("::")[1]);
+            Main.clientUser = ServerRequests.getClientUserProfile();
+
+            Main.clientUser.setActivityList(ServerRequests.retrieveActivities("w"));
+
             //GOTO MAIN SCREEN
             Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
             fillScene(root, event);
@@ -97,6 +107,7 @@ public class LoginController implements Initializable {
 
     /**
      * This function will switch to the signup screen
+     *
      * @param event MouseEvent type
      * @throws IOException
      */
@@ -108,7 +119,8 @@ public class LoginController implements Initializable {
 
     /**
      * This function will fill the screen with a new event stage evoked by the root
-     * @param root Parent type
+     *
+     * @param root  Parent type
      * @param event MouseEvent event
      */
     private void fillScene(Parent root, MouseEvent event) {
@@ -125,6 +137,7 @@ public class LoginController implements Initializable {
 
     /**
      * This function remains unused, but required to stay since this class implements Initializable
+     *
      * @param url
      * @param resourceBundle
      */

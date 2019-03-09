@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
  * This class handles the REST controlling for any default request,
  * when the user either doesn't provide a path or the /info path.
  * It will return some info about the project.
- * @author wouthaakman
  *
+ * @author wouthaakman
  */
 @RestController
 public class InfoController {
 
     /**
      * This function returns some information about this project.
+     *
      * @return some information about this project as type String.
      */
     @RequestMapping("/info")

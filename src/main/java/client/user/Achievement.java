@@ -13,6 +13,15 @@ public class Achievement {
         this.image = loadImage(path);
     }
 
+    public static BufferedImage loadImage(String path) {
+        try {
+            return ImageIO.read(Achievement.class.getResourceAsStream("client/user/" + path));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public String getTitle() {
         return title;
     }
@@ -29,16 +38,7 @@ public class Achievement {
         this.image = image;
     }
 
-    public void setImagePath(String path){
+    public void setImagePath(String path) {
         setImage(loadImage(path));
-    }
-
-    public static BufferedImage loadImage(String path){
-        try {
-            return ImageIO.read(Achievement.class.getResourceAsStream("client/user/" + path));
-        }catch(Exception e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 }

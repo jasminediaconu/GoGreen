@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 /**
  * This class handles the REST controlling for any signup request.
  * It will check the username and password for correct syntax, add them to the database and returns a String on completion.
- * @author wouthaakman
  *
+ * @author wouthaakman
  */
 @RestController
 public class SignUpController {
@@ -22,10 +22,10 @@ public class SignUpController {
     private static PreparedStatement insert;
 
     static {
-        try{
+        try {
             select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE username = ?;");
             insert = ServerApp.dbConnection.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?) SELECT SCOPE_IDENTITY();");
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -34,12 +34,13 @@ public class SignUpController {
      * This function handles the request mapping for a user going to /signup url.
      * Requires two parameters, namely the username, email and hashed password.
      * It will make a query to insert a new user into the database.
+     *
      * @param newUser A String array containing the username, email and hashed password.
      * @return a boolean value telling the client whether the request was successful.
      */
-    @RequestMapping(value="/signup", method= RequestMethod.POST)
-    public String signUp(@RequestBody String[] newUser){
-        try{
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String signUp(@RequestBody String[] newUser) {
+        try {
             String username = newUser[0];
             String email = newUser[1];
             String password = newUser[2];
@@ -47,7 +48,7 @@ public class SignUpController {
             select.setString(1, username);
 
             ResultSet result = select.executeQuery();
-            while(result.next()) {
+            while (result.next()) {
                 return "fail";
             }
 
@@ -59,7 +60,7 @@ public class SignUpController {
             String sessionID = ServerApp.createNewSessionID();
             ServerApp.addSessionID(sessionID, resultID);
             return sessionID;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "fail";
         }

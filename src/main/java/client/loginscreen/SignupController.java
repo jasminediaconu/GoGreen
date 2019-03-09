@@ -35,6 +35,7 @@ public class SignupController implements Initializable {
 
     /**
      * This function handles the closing of the window, with the cross button.
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -49,6 +50,7 @@ public class SignupController implements Initializable {
 
     /**
      * This function will update x and y when the mouse is pressed
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -59,6 +61,7 @@ public class SignupController implements Initializable {
 
     /**
      * This function will change the drag of the scene when the mouse is dragged
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -74,6 +77,7 @@ public class SignupController implements Initializable {
 
     /**
      * This function will switch to the login screen
+     *
      * @param event MouseEvent type
      * @throws IOException
      */
@@ -87,6 +91,7 @@ public class SignupController implements Initializable {
     /**
      * This function will handle the input of username, email, and password when the sign up button is pressed
      * It will also handle the responses returned by the ServerRequests class given it's query
+     *
      * @param event MouseEvent type
      * @throws Exception
      */
@@ -100,10 +105,15 @@ public class SignupController implements Initializable {
         String response = ServerRequests.signUp(username, email, password);
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
+        } else if (response.equals("syntax")) {
+            //INCORRECT SYNTAX
         } else if (response.equals("fail")) {
             //SIGN UP WAS UNSUCCESSFUL
         } else if (response.equals("ok")) {
-            //GOTO MAIN SCREEN
+            ServerRequests.getItems();
+
+
+            //GOTO PROFILE SCREEN
             Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
             fillScene(root, event);
         }
@@ -111,7 +121,8 @@ public class SignupController implements Initializable {
 
     /**
      * This function will fill the screen with a new event stage evoked by the root
-     * @param root Parent type
+     *
+     * @param root  Parent type
      * @param event MouseEvent event
      */
     private void fillScene(Parent root, MouseEvent event) {
@@ -129,6 +140,7 @@ public class SignupController implements Initializable {
 
     /**
      * This function remains unused, but required to stay since this class implements Initializable
+     *
      * @param url
      * @param resourceBundle
      */

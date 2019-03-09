@@ -28,9 +28,9 @@ class AchievementTest {
 
     @Test
     void getImage() {
-        try{
+        try {
             Assert.assertEquals(ImageIO.read(AchievementTest.class.getResourceAsStream("client/user/mc_nether.png")), achievement.getImage());
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -38,9 +38,9 @@ class AchievementTest {
     @Test
     void setImage() {
         achievement.setImagePath("blanc.jpg");
-        try{
+        try {
             Assert.assertEquals(ImageIO.read(AchievementTest.class.getResourceAsStream("client/user/blanc.jpg")), achievement.getImage());
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

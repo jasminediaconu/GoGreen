@@ -12,9 +12,10 @@ public class Activity {
 
     /**
      * This is the activity class, all activities will be populated in here.
+     *
      * @param itemID int type
      * @param amount double type
-     * @param date LocalDate type
+     * @param date   LocalDate type
      */
     public Activity(int itemID, double amount, LocalDate date) {
         this.activityID = -1;
@@ -25,6 +26,7 @@ public class Activity {
 
     /**
      * This function will get the activity ID
+     *
      * @return the activityID
      */
     public int getActivityID() {
@@ -34,6 +36,7 @@ public class Activity {
     /**
      * This function will set the activity ID.
      * This function should be called after the database added the activity, since by default the id is -1.
+     *
      * @param activityID int type
      */
     public void setActivityID(int activityID) {
@@ -42,6 +45,7 @@ public class Activity {
 
     /**
      * This function will get the itemID belonging to this Activity
+     *
      * @return the itemID of this Activity
      */
     public int getItemID() {
@@ -50,6 +54,7 @@ public class Activity {
 
     /**
      * This function will return the wager of the co2 of the Item, in terms of amount
+     *
      * @return a double of amount
      */
     public double getAmount() {
@@ -58,6 +63,7 @@ public class Activity {
 
     /**
      * This function will return the date this activity was created.
+     *
      * @return a LocalDate
      */
     public LocalDate getDate() {
@@ -66,6 +72,7 @@ public class Activity {
 
     /**
      * This function compares this Activity with another Activity to check if they are equal.
+     *
      * @param o Object type
      * @return a boolean, whether they are equal or not
      */

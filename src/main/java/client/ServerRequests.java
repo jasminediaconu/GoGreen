@@ -2,6 +2,8 @@ package client;
 
 import client.objects.Activity;
 import client.objects.Item;
+import client.user.ClientUser;
+import client.user.User;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -11,6 +13,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -32,12 +35,12 @@ public class ServerRequests {
             return null;
 
         String response = sendRequestToServer("login", Main.gson.toJson(new String[]{username, hashedPassword}));
-        if(response != null && response != "fail") {
+        if (response != null && response != "fail") {
             String[] resArr = response.split("::");
             System.out.println("[INFO] Login returned the following user_id: " + resArr[1]);
             Main.sessionID = resArr[0];
-            return "success: " + resArr[0];
-        }else {
+            return "success::" + resArr[1];
+        } else {
             System.out.println("[ERROR] Wrong username or password");
             return "fail";
         }
@@ -63,11 +66,11 @@ public class ServerRequests {
             return "syntax";
 
         String response = sendRequestToServer("signup", Main.gson.toJson(new String[]{username, email, hashedPassword}));
-        if(response != null && !response.equals("fail")) {
+        if (response != null && !response.equals("fail")) {
             Main.sessionID = response;
             System.out.println("[INFO] The sign up was successful: " + Main.sessionID);
             return "ok";
-        }else {
+        } else {
             System.out.println("[ERROR] The sign up was not successful.");
             return "fail";
         }
@@ -77,14 +80,15 @@ public class ServerRequests {
      * This function will end the current session by taking the sessionID and requesting a session end by the server.
      * The server will respond with ok or fail depending on the response, which means that the server has successfully
      * removed the sessionID pointing to this application instance.
+     *
      * @return a String containing the response
      */
-    public static String endSession(){
+    public static String endSession() {
         System.out.println("[INFO] Ending session, create a new session to continue or close the application.");
         String response = sendRequestToServer("end", Main.gson.toJson(Main.sessionID));
-        if(response.equals("ok")) {
+        if (response.equals("ok")) {
             System.out.println("[INFO] The session has been ended successfully.");
-        }else {
+        } else {
             System.out.println("[WARNING] Something went wrong ending the session.");
         }
         return response;
@@ -97,12 +101,15 @@ public class ServerRequests {
      */
     public static void getItems() {
         System.out.println("[INFO] Retrieving items from database.");
-        Type listType = new TypeToken<List<Item>>() {}.getType();
-        Main.items = Main.gson.fromJson(sendRequestToServer("getItems", null), listType);
+        Type listType = new TypeToken<List<Item>>() {
+        }.getType();
+        String response = sendRequestToServer("getItems", null);
+        if(response != null)
+            Main.items = Main.gson.fromJson(response, listType);
     }
 
     public static boolean addActivity(Activity activity) {
-        if(activity == null)
+        if (activity == null)
             return false;
 
         System.out.println("[INFO] Adding activity to database. " + activity.getActivityID());
@@ -110,32 +117,59 @@ public class ServerRequests {
         System.out.println("\n\n " + json + " \n\n");
         String response = sendRequestToServer("addActivity?s=" + Main.sessionID, json);
         int activityID = Integer.parseInt(response);
-        if(activityID == -1) {
+        if (activityID == -1) {
             return false;
-        }else {
+        } else {
             activity.setActivityID(activityID);
             return true;
         }
     }
 
     public static boolean removeActivity(int activityID) {
-        if(activityID < 0)
+        if (activityID < 0)
             return false;
 
         System.out.println("[INFO] Removing activity from database. " + activityID);
         String response = sendRequestToServer("removeActivity?s=" + Main.sessionID, Main.gson.toJson(activityID));
-        if(response.equals("ok")){
+        if (response.equals("ok")) {
             System.out.println("[INFO] Removing activity from database was successful");
             return true;
-        }else {
+        } else {
             System.out.println("[ERROR] Removing activity from database went wrong, please check if it exists and correct.");
             return false;
         }
     }
 
-    public static List<Activity> retrieveActivities(String period){
-        Type listType = new TypeToken<List<Activity>>() {}.getType();
-        return Main.gson.fromJson(sendRequestToServer("retrieveActivities?s=" + Main.sessionID, Main.gson.toJson(period)), listType);
+    public static List<Activity> retrieveActivities(String period) {
+        Type listType = new TypeToken<List<Activity>>() {
+        }.getType();
+        String response = sendRequestToServer("retrieveActivities?s=" + Main.sessionID, Main.gson.toJson(period));
+        if(response == null)
+            return new ArrayList<Activity>();
+        return Main.gson.fromJson(response, listType);
+    }
+
+    public static ClientUser getClientUserProfile() {
+        String response = sendRequestToServer("getUserProfile?s=" + Main.sessionID, null);
+        return Main.gson.fromJson(response, ClientUser.class);
+    }
+
+    public static List<User> getFollowingProfile() {
+        Type listType = new TypeToken<List<User>>() {
+        }.getType();
+        String response = sendRequestToServer("getFollowingProfile?s=" + Main.sessionID, null);
+        if(response == null)
+            return new ArrayList<User>();
+        return Main.gson.fromJson(response, listType);
+    }
+
+    public static List<User> getGlobalBestProfile() {
+        Type listType = new TypeToken<List<User>>() {
+        }.getType();
+        String response = sendRequestToServer("getGlobalBestProfile?s=" + Main.sessionID, null);
+        if(response == null)
+            return new ArrayList<User>();
+        return Main.gson.fromJson(response, listType);
     }
 
     /**
@@ -151,7 +185,7 @@ public class ServerRequests {
             CloseableHttpClient client = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost(requestUrl + type);
 
-            if(json != null){
+            if (json != null) {
                 httpPost.setEntity(new StringEntity(json));
                 httpPost.setHeader("Accept", "application/json");
                 httpPost.setHeader("Content-type", "application/json");
@@ -160,7 +194,7 @@ public class ServerRequests {
             CloseableHttpResponse response = client.execute(httpPost);
             String msg = new BasicResponseHandler().handleResponse(response);
             client.close();
-            if(msg.length() < 1)
+            if (msg.length() < 1)
                 msg = null;
             System.out.println("[INFO] The server responded with: " + msg);
             return msg;

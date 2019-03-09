@@ -11,12 +11,13 @@ public class Item {
 
     /**
      * This class stores the information for an Item, data will be retrieved from the database.
+     *
      * @param itemID int type
-     * @param name String type
-     * @param type String type
-     * @param co2 double type
+     * @param name   String type
+     * @param type   String type
+     * @param co2    double type
      */
-    public Item(int itemID, String name, String type, double co2){
+    public Item(int itemID, String name, String type, double co2) {
         this.itemID = itemID;
         this.name = name;
         this.type = type;
@@ -25,6 +26,7 @@ public class Item {
 
     /**
      * This function will get the item's ID
+     *
      * @return the ID of the item
      */
     public int getItemID() {
@@ -33,6 +35,7 @@ public class Item {
 
     /**
      * This function will get the item's name
+     *
      * @return the name of the item
      */
     public String getName() {
@@ -41,6 +44,7 @@ public class Item {
 
     /**
      * This function will get the item's type
+     *
      * @return the type of the item
      */
     public String getType() {
@@ -49,6 +53,7 @@ public class Item {
 
     /**
      * This function will get the item's co2
+     *
      * @return the default co2 of this item
      */
     public double getCo2() {
@@ -57,6 +62,7 @@ public class Item {
 
     /**
      * This function compares this Item with another Item to check if they are equal.
+     *
      * @param o Object type
      * @return a boolean, whether they are equal or not
      */

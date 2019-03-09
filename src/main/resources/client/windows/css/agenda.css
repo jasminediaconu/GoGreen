@@ -1,5 +1,5 @@
 /*#agenda {*/
-    /*-fx-background-color: #95e743;*/
+/*-fx-background-color: #95e743;*/
 /*}*/
 
 .animated-option-button {
@@ -27,6 +27,7 @@
 .animated-option-button-sub-button2 {
     -fx-background-color: #95E743;
 }
+
 .animated-option-button-sub-button3 {
     -fx-background-color: #95E743;
 }

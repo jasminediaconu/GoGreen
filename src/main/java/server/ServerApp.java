@@ -17,6 +17,7 @@ import java.util.UUID;
 /**
  * Uses the Spring Boot framework.
  * This class opens the web application, to be able to receive queries.
+ *
  * @author wouthaakman
  */
 @SpringBootApplication
@@ -28,6 +29,7 @@ public class ServerApp {
 
     /**
      * Starts the web application
+     *
      * @param args
      */
     public static void main(String[] args) throws Exception {
@@ -44,24 +46,27 @@ public class ServerApp {
 
     /**
      * This function will generate a unique session ID.
+     *
      * @return a UUID sessionID
      */
-    public static String createNewSessionID(){
+    public static String createNewSessionID() {
         return UUID.randomUUID().toString();
     }
 
     /**
      * Adds the sessionID to the list, with corresponding username.
+     *
      * @param sessionID String type
      */
     public static void addSessionID(String sessionID, int userID) {
-        if(!sessions.containsKey(sessionID)) {
+        if (!sessions.containsKey(sessionID)) {
             sessions.put(sessionID, userID);
         }
     }
 
     /**
      * Removes the sessionID from the list, by taking the username.
+     *
      * @param sessionID String type
      */
     public static void removeSessionID(String sessionID) {
@@ -70,21 +75,24 @@ public class ServerApp {
 
     /**
      * This function will get the userID from the sessions list
+     *
      * @param sessionID String type
      * @return an integer corresponding to the userID in the database.
      */
     public static int getUserIDFromSession(String sessionID) {
+        if(sessions.get(sessionID) == null)
+            return -1;
         return sessions.get(sessionID);
     }
 
 
     /**
      CREATE TABLE IF NOT EXISTS user_login (
-        username text NOT NULL,
-        email text NOT NULL,
-        password text NOT NULL,
-        user_id SERIAL NOT NULL,
-        PRIMARY KEY (username)
+     username text NOT NULL,
+     email text NOT NULL,
+     password text NOT NULL,
+     user_id SERIAL NOT NULL,
+     PRIMARY KEY (username)
      );
 
      CREATE TABLE IF NOT EXISTS user_profile (

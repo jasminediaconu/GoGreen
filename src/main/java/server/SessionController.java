@@ -3,7 +3,7 @@ package server;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * This class handles the REST controlling for any session end.
+ * This class handles the REST controlling for any session request.
  * It will end the session given a session ID.
  * @author wouthaakman
  *
@@ -17,7 +17,7 @@ public class SessionController {
      * @return a response to notify the client whether the session has been ended successfully.
      */
     @RequestMapping(value="/end", method= RequestMethod.POST)
-    public String getEndResponse(@RequestBody String sessionID) {
+    public String endSession(@RequestBody String sessionID) {
         ServerApp.removeSessionID(sessionID);
         return "ok";
     }

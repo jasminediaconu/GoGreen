@@ -1,10 +1,12 @@
 package client.user;
 
-abstract class User {
+import java.util.Objects;
 
-    protected String username = "";
-    protected String country = "";
-    protected double totalCo2 = 0.0;
+public class User {
+
+    protected String username;
+    protected String country;
+    protected double totalCo2;
 
     /**
      * The abstract User constructor, used for all other users that are not the client.
@@ -57,4 +59,20 @@ abstract class User {
     public void increaseTotalCo2(double co2){
         this.totalCo2 += co2;
     }
+
+    /**
+     * This function compares this User with another User to check if they are equal.
+     * @param o Object type
+     * @return a boolean, whether they are equal or not
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Double.compare(user.totalCo2, totalCo2) == 0 &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(country, user.country);
+    }
+
 }

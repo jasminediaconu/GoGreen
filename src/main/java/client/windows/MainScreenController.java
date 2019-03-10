@@ -34,10 +34,6 @@ import java.util.ResourceBundle;
 
 public class MainScreenController extends Pane implements Initializable {
 
-    JFXButton ssbutton1 = new JFXButton("+");
-    JFXButton ssbutton2 = new JFXButton("T");
-    JFXButton ssbutton3 = new JFXButton("F");
-    JFXButton ssbutton4 = new JFXButton("E");
 
     JFXNodesList nodesList = new JFXNodesList();
 

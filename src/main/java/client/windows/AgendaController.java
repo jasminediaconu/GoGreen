@@ -154,11 +154,11 @@ public class AgendaController implements Initializable {
         gridPane.setHgap(20);
         agendaBox.getChildren().add(gridPane);
 
-        scrollAgenda.setContent(agendaBox);
+//      scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
 
-        JFXButton ssbutton1 = new JFXButton("R1");
-        ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
+        JFXButton ssbutton5 = new JFXButton("R1");
+        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
     }
 
     private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
@@ -297,17 +297,15 @@ public class AgendaController implements Initializable {
      */
     @FXML
     void applyButton(MouseEvent event) {
-        String itemName = foodchoices.getValue();
+        String activity = foodchoices.getValue();
 
-        if(itemName==null) {
-           //agendatext.setText("PLease select a valid item.");
-        }
-        else {
-            int itemID = Main.items.stream().filter(ite -> ite.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
-
-            //agendatext.setText("Test" + activity);
-        }
-    }
+//        if(activity==null) {
+//            agendaBox.setText("PLease select a valid item.");
+//        }
+//        else {
+//            agendatex.setText("Test" + activity);
+//        }
+  }
 
 
     /**

@@ -33,6 +33,7 @@
                                     </image>
                                 </ImageView>
                             </children>
+
                         </VBox>
                         <VBox prefHeight="768.0" prefWidth="512.0" HBox.hgrow="ALWAYS">
                             <children>

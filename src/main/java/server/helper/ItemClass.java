@@ -13,7 +13,7 @@ public class ItemClass {
      * @param type String type
      * @param co2 double type
      */
-    public ItemClass(int itemID, String name, String type, double co2){
+    public ItemClass(int itemID, String name, String type, double co2) {
         this.itemID = itemID;
         this.name = name;
         this.type = type;

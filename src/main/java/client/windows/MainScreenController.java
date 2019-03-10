@@ -186,7 +186,6 @@ import java.util.ResourceBundle;
             if (!button.isFocused()) {
                     button.setStyle(css2);
                     mainPane.getChildren().remove(pane);
-                }
             }
         }
         /**

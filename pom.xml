@@ -256,7 +256,7 @@
                         </goals>
                         <configuration>
                                 <excludes>
-                                    <exclude>**/loginScreen/**</exclude>
+                                    <exclude>**/loginscreen/**</exclude>
                                     <exclude>**/windows/**</exclude>
                                 </excludes>
                             <rules>
@@ -288,7 +288,7 @@
                 <version>${jacoco-maven-plugin.version}</version>
                 <configuration>
                 <excludes>
-                    <exclude>**/loginScreen/**</exclude>
+                    <exclude>**/loginscreen/**</exclude>
                     <exclude>**/windows/**</exclude>
                     <exclude>**/helper/*Class.*</exclude>
                     <exclude>**/login/**</exclude>

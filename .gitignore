@@ -16,7 +16,6 @@ buildNumber.properties
 .classpath
 .project
 .settings
-<<<<<<< HEAD
 *.jar
 .vscode/
 

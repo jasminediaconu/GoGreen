@@ -1,6 +1,7 @@
 package client;
 
 import client.loginscreen.LoginApp;
+import client.windows.MainScreenController;
 import com.google.common.hash.Hashing;
 import javafx.application.Application;
 

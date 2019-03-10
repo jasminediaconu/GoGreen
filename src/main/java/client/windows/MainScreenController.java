@@ -1,14 +1,6 @@
 package client.windows;
 
-import com.jfoenix.controls.*;
-import javafx.animation.*;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
+import com.jfoenix.controls.JFXNodesList;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
@@ -16,12 +8,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
@@ -32,18 +21,20 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-    public class MainScreenController implements Initializable {
+    public class MainScreenController extends Pane implements Initializable{
 
         private double x = 0;
         private double y = 0;
         private boolean welcome = true;
         private int state = -1;
 
+
+        @FXML
+        private Pane foodWindow;
         @FXML
         private AnchorPane mainPane;
         @FXML
         private Pane welcomePane;
-
         @FXML
         private Pane agenda;
         @FXML
@@ -63,7 +54,6 @@ import java.util.ResourceBundle;
         private Button overviewButton;
         @FXML
         private Button leaderboardButton;
-
         @FXML
         private ToggleButton toggleButton;
         @FXML
@@ -73,7 +63,9 @@ import java.util.ResourceBundle;
         @FXML
         private Line line;
 
-        JFXNodesList nodesList = new JFXNodesList();
+        AgendaController agendaController = new AgendaController();
+
+        JFXNodesList nodesList;
 
         /**
          * This function links the different screens to their fxml files.
@@ -85,6 +77,8 @@ import java.util.ResourceBundle;
                 agenda = FXMLLoader.load(this.getClass().getResource(path + "agenda.fxml"));
                 overview = FXMLLoader.load(this.getClass().getResource(path + "overview.fxml"));
                 leaderboard = FXMLLoader.load(this.getClass().getResource(path + "leaderboard.fxml"));
+                // Fixing, two fxml files tried to load the same loader
+                foodWindow = FXMLLoader.load(this.getClass().getResource(path + "foodWindow.fxml"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -138,12 +132,11 @@ import java.util.ResourceBundle;
                 welcome = false;
             }
             // If the button is focused change the active pane and the color
-            styleFocused(agendaButton, agenda, 0);
-            styleFocused(profileButton, profile, 1);
-            styleFocused(overviewButton, overview, 2);
-            styleFocused(leaderboardButton, leaderboard, 3);
+            styleFocused(agendaButton, agenda,0);
+            styleFocused(profileButton, profile,1);
+            styleFocused(overviewButton, overview,2);
+            styleFocused(leaderboardButton, leaderboard,3);
         }
-
 
         /**
          * This function enables per button checking if it is focused by the user, which in affect will add
@@ -164,49 +157,27 @@ import java.util.ResourceBundle;
                 ft.setToValue(1.0);
                 ft.play();
 
-                // This code creates the GREEN animated PLUS button to add activities
-                JFXButton ssbutton1 = new JFXButton("+");
-                ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
-                ssbutton1.getStyleClass().addAll("animated-option-button", "animated-option-sub-button");
+                // Loading the plusbutton with the nodes and styling
+                agendaController.loadPlusButton();
 
-                JFXButton ssbutton2 = new JFXButton("T");
-                ssbutton2.setButtonType(JFXButton.ButtonType.RAISED);
-                ssbutton2.getStyleClass().addAll("animated-option-button", "animated-option-sub-button2");
-                ssbutton2.setId("foodbutton");
+                //
+                nodesList = agendaController.getNodesList();
 
-                JFXButton ssbutton3 = new JFXButton("F");
-                ssbutton3.setButtonType(JFXButton.ButtonType.RAISED);
-                ssbutton3.getStyleClass().addAll("animated-option-button", "animated-option-sub-button3");
-
-                JFXButton ssbutton4 = new JFXButton("E");
-                ssbutton4.setButtonType(JFXButton.ButtonType.RAISED);
-                ssbutton4.getStyleClass().addAll("animated-option-button", "animated-option-sub-button4");
-
-
-                nodesList.getStylesheets().add("client/windows/css/agenda.css");
-
-                nodesList.addAnimatedNode(ssbutton1);
-                nodesList.addAnimatedNode(ssbutton2);
-                nodesList.addAnimatedNode(ssbutton3);
-                nodesList.addAnimatedNode(ssbutton4);
-                nodesList.setSpacing(10);
-                nodesList.setRotate(180);
-                nodesList.setLayoutX(940);
-                nodesList.setLayoutY(690);
-
+                // Showing any of the panes a.k.a fxml-s passed in as an argument
                 mainPane.getChildren().add(pane);
 
                 if (pane.equals(agenda)) {
                     mainPane.getChildren().add(nodesList);
+
                 }
 
                 // Remove the plus  button if Agenda is not the screen the user selected
                 // Assign an empty nodeList to the plus button, so the next time the user clicks Agenda
                 // Only 4 nodes are shown in total when clicking the plus button
-                else if (!pane.equals(agenda)) {
-                    mainPane.getChildren().remove(nodesList);
-                    nodesList = new JFXNodesList();
-                }
+               else if (!pane.equals(agenda)) {
+                   mainPane.getChildren().remove(agendaController.getNodesList());
+                   agendaController.clearPlusButton();
+               }
 
                 pane.toBack();
                 state = stt;
@@ -216,16 +187,6 @@ import java.util.ResourceBundle;
                 mainPane.getChildren().remove(pane);
             }
         }
-
-        /**
-         * Giuliano foodpopup method
-         */
-        private void foodPopup() {
-
-            JFXPopup pop = new JFXPopup();
-        }
-
-
         /**
          * When the toggle button is pressed, the menu bar will be hidden/shown.
          */
@@ -278,5 +239,15 @@ import java.util.ResourceBundle;
         @Override
         public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        }
+        public AnchorPane getMainPane() {
+            return mainPane;
+        }
+
+        public Pane getAgenda() {
+            return agenda;
+        }
+        public Pane getFoodWindow() {
+            return foodWindow;
         }
     }

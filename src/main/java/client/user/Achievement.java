@@ -1,7 +1,7 @@
 package client.user;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 
 public class Achievement {
 
@@ -29,14 +29,19 @@ public class Achievement {
         this.image = image;
     }
 
-    public void setImagePath(String path){
+    public void setImagePath(String path) {
         setImage(loadImage(path));
     }
 
-    public static BufferedImage loadImage(String path){
+    /**
+     * loadImage.
+     * @param path String type.
+     * @return
+     */
+    public static BufferedImage loadImage(String path) {
         try {
             return ImageIO.read(Achievement.class.getResourceAsStream("client/user/" + path));
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

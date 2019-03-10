@@ -14,7 +14,7 @@
     <children>
         <Pane fx:id="agenda" layoutX="-2.0" layoutY="43.0" prefHeight="725.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 0 24 24;" stylesheets="@../css/agenda.css">
             <children>
-                <Text fill="#95e743" layoutX="560.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
+                <Text id="agendaTitle" fill="#95e743" layoutX="560.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
                     <font>
                         <Font name="Century Gothic" size="61.0" />
                     </font>
@@ -25,7 +25,7 @@
                     </image>
                 </ImageView>
                 <ScrollPane fx:id="scrollAgenda" layoutX="427.0" layoutY="150.0" prefHeight="478.0" prefWidth="420.0" style="-fx-background-radius: 20;" stylesheets="@../css/agenda.css" />
-                <StackPane fx:id="stack" layoutX="373.0" layoutY="172.0" prefHeight="109.0" prefWidth="218.0" />
+                <StackPane fx:id="stack" layoutX="406.0" layoutY="175.0" prefHeight="109.0" prefWidth="218.0" />
             </children>
         </Pane>
     </children>

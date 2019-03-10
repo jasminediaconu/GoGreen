@@ -16,14 +16,13 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
 import java.net.URL;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -38,6 +37,7 @@ import java.util.ResourceBundle;
  */
 public class AgendaController implements Initializable {
 
+    @FXML Pane agenda;
     @FXML ScrollPane scrollAgenda;
     @FXML FontAwesomeIcon delete;
     @FXML StackPane stack;
@@ -50,32 +50,17 @@ public class AgendaController implements Initializable {
     private ObservableList list = FXCollections.observableArrayList();
     private JFXNodesList nodesList;
 
-
     private GridPane gridPane;
     private Text dateText;
+    private List<String> items;
     private List<Activity> activities;
-    private Activity activity;
-    private int activityID;
-    private int itemID;
-    private double amount;
-    private LocalDate date;
     private VBox agendaBox;
-    private Text act;
-    private Text act2;
-    private Text act3;
-    private ImageView img;
-    private ImageView img2;
-    private ImageView img3;
-    private JFXButton button;
-    private JFXButton button2;
-    private JFXButton button3;
     private JFXDialog dialog;
 
     /**
      * Constructor to be used in the MainScreenController.
      * To be able to use the variables, methods of this class.
      */
-
     public AgendaController() {
         nodesList = new JFXNodesList();
     }
@@ -85,7 +70,6 @@ public class AgendaController implements Initializable {
      * The dialog button contains a message and two buttons:
      * a close button and a delete one connected to the deleteActivity function.
      */
-
     private void deleteActivityDialog(int index) {
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
         Text heading = new Text("Are you sure?");
@@ -107,12 +91,20 @@ public class AgendaController implements Initializable {
 
     /**
      * This function will delete the activities from the agenda.
+     * @param rowIndex int type.
      */
     private void deleteActivity(int rowIndex) {
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
         agendaBox.getChildren().removeIf(dateText -> getRowCount(gridPane) == 0);
         dialog.close();
+    }
+
+    /**
+     * This function will add activities to the agenda through the JFXNodeList.
+     */
+    private void addActivity() {
+
     }
 
     /**
@@ -144,25 +136,8 @@ public class AgendaController implements Initializable {
 
         loadActivity();
 
-        activities = new ArrayList<>();
-        activities.add(new Activity(1, 1, LocalDate.now()));
-        activities.add(new Activity(2, 5, LocalDate.now()));
-        activities.add(new Activity(3, 8, LocalDate.now()));
-
-        int counter = 0;
-
-        while (activities.contains(activity)) {
-            activity = activities.get(counter);
-            dateText = new Text(activity.getDate().toString());
-            counter++;
-        }
-
+        //activities = new ArrayList<>();
         //ClientUser.getActivityList();
-        //       .getActivityList();
-        //System.out.println(user.getActivityList());
-        //System.out.println(retrieveActivities(new String()));
-        // act = new ActivityClass(activityID, itemID, amount, date);
-
         // activityID = activity.getActivityID();
         // amount = activity.getAmount();
         // date = activity.getDate();
@@ -171,73 +146,50 @@ public class AgendaController implements Initializable {
         // System.out.println(date);
         // System.out.println(activity);
         // activities.add(activity);
-        // System.out.println(activities);
 
         agendaBox = new VBox();
+
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
 
-        /*
-         * while (activityList.hasNext() {
-         *
-         * PARSE THE ACTIVITY DATA AND STORE THEM IN NEW VARIABLES,
-         * ONE FOR DATE AND ONE FOR THE NAME OF THE ACTIVITY.
-         *
-         * }
-         *
-         * SORT ACTIVITIES BY DATE, SAVE DIFFERENT DATES IN DIFFERENT TEXT OBJECTS.
-         * SHOW ACTIVITIES SORTED BY DATE, SAVE THEM IN A GRID PANE.
-         * CREATE A NEW DELETE BUTTON WERE TO STORE THE IMAGE FOR EACH ACTIVITY ADDED.
-         * THE GRID PANE NEEDS TO HAVE THE ACTIVITY NAME AND THE DELETE BUTTON.
-         *
-         * */
-        dateText = new Text("Fri 9 Mar");
+        gridPane = new GridPane();
+        gridPane.setLayoutX(420);
 
         String css = "-fx-background-position: 20; -fx-font-size: 28;";
+        dateText = new Text("Fri 9 Mar");
+        // NEED TO PARSE THE LOCAL DATE FROM THE ACTIVITY CLASS
 
         dateText.setStyle(css);
         agendaBox.getChildren().add(dateText);
 
-        gridPane = new GridPane();
-        act = new Text("Bought vegetarian meal");
-        act2  = new Text("Ate vegan food");
-        act3  = new Text("Cycled");
-
-        String css2 = "-fx-font-size: 18;";
-
-        act.setStyle(css2);
-        act2.setStyle(css2);
-        act3.setStyle(css2);
-
         String path = "/client/windows/images/delete.png";
 
-        img = new ImageView(path);
-        img2 = new ImageView(path);
-        img3 = new ImageView(path);
+        items = new ArrayList<>();
 
-        button = new JFXButton("", img);
-        button2 = new JFXButton("", img2);
-        button3 = new JFXButton("", img3);
+        items.add("Vegan meal");
+        items.add("Local produce");
+        items.add("Public transport");
+        items.add("LEDs");
+
+        for (int i = 0; i < items.size(); i++) {
+            Text text = new Text(items.get(i));
+            text.setWrappingWidth(310.00);
+            gridPane.add(text, 1, i);
+            JFXButton button = new JFXButton("", new ImageView(path));
+            gridPane.add(button,2,i);
+            int ii = i;
+            button.setOnMouseClicked(e -> deleteActivityDialog(ii));
+        }
+
+        /*
+         * SORT ACTIVITIES BY DATE, SAVE DIFFERENT DATES IN DIFFERENT TEXT OBJECTS.
+         * SHOW ACTIVITIES SORTED BY DATE, SAVE THEM IN A GRID PANE.
+         * CREATE A NEW DELETE BUTTON WERE TO STORE THE IMAGE FOR EACH ACTIVITY ADDED.
+         * THE GRID PANE NEEDS TO HAVE THE ACTIVITY NAME AND THE DELETE BUTTON.
+         */
 
         gridPane.setHgap(20);
-
-        //for(int i=0; i<)
-        gridPane.add(act,1,1);
-        gridPane.add(button,7,1);
-
-        gridPane.add(act2,1,2);
-        gridPane.add(button2,7,2);
-
-        gridPane.add(act3,1,3);
-        gridPane.add(button3,7,3);
-
-        button.setOnMouseClicked(e -> deleteActivityDialog(gridPane.getRowIndex(button)));
-        button2.setOnMouseClicked(e -> deleteActivityDialog(gridPane.getRowIndex(button2)));
-        button3.setOnMouseClicked(e -> deleteActivityDialog(gridPane.getRowIndex(button3)));
-
         agendaBox.getChildren().add(gridPane);
 
-
-        // agendaBox.getChildren().add();
         scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
 
@@ -261,7 +213,6 @@ public class AgendaController implements Initializable {
         ssbutton2.setButtonType(JFXButton.ButtonType.RAISED);
         ssbutton2.getStyleClass().addAll("animated-option-button", "animated-option-sub-button2");
         ssbutton2.setOnMouseClicked(this::transportButtonAction);
-
 
         ssbutton3 = new JFXButton();
         ssbutton3.setId("foodbutton");
@@ -337,14 +288,13 @@ public class AgendaController implements Initializable {
         //Clears everything in the observable list
         list.removeAll(list);
 
-        String a = "Eating a vegetarian meal";
-        String b = "Buying local produce";
-        String c = "Svetoslav's stroopwafel";
-        list.addAll(a, b, c);
+        String first = "Eating a vegetarian meal";
+        String second = "Buying local produce";
+        String third = "Svetoslav's stroopwafel";
+        list.addAll(first, second, third);
 
         foodchoices.setItems(list);
-
-        //  mainPane.getChildren().add(foodchoices);
+        //mainScreen.getChildren().add(foodchoices);
     }
 
     /**

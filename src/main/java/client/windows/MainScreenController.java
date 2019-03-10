@@ -80,8 +80,8 @@ public class MainScreenController extends Pane implements Initializable {
     @FXML
     private Line line;
 
-    private double x = 0;
-    private double y = 0;
+    private double xcoord = 0;
+    private double ycoord = 0;
     private boolean welcome = true;
     private int state = -1;
 
@@ -132,8 +132,8 @@ public class MainScreenController extends Pane implements Initializable {
      */
     @FXML
     private void pressed(MouseEvent event) {
-        x = event.getSceneX();
-        y = event.getSceneY();
+        xcoord = event.getSceneX();
+        ycoord = event.getSceneY();
     }
 
     /**
@@ -147,8 +147,8 @@ public class MainScreenController extends Pane implements Initializable {
 
         Stage stage = (Stage) node.getScene().getWindow();
 
-        stage.setX(event.getScreenX() - x);
-        stage.setY(event.getScreenY() - y);
+        stage.setX(event.getScreenX() - xcoord);
+        stage.setY(event.getScreenY() - ycoord);
     }
 
     /**

@@ -62,3 +62,12 @@
 .animated-option-button-sub-button4 {
     -fx-background-color: #95E743;
 }
+
+GridPane > Text {
+    -fx-font-size: 18px;
+}
+
+#agendaTitle {
+    -fx-font-size: 61px;
+
+}

@@ -1,25 +1,31 @@
 package client;
 
 import client.objects.Item;
+
 import client.serializer.LocalDateDeserializer;
 import client.serializer.LocalDateSerializer;
 
 import com.google.common.hash.Hashing;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import javafx.application.Application;
+
 
 import java.nio.charset.StandardCharsets;
+
 import java.time.LocalDate;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import javafx.application.Application;
 
 /**
  * The Main class of the GoGreen application.
  * This application is made by:
  *
  * @author wouthaakman, ginotramontina, giulianoforghieri,
- * janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
+ *         janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
  */
 public class Main {
 
@@ -28,13 +34,17 @@ public class Main {
 
     public static List<Item> items = new ArrayList<>();
 
+    /**
+     * Main function.
+     * @param args type.
+     */
     public static void main(String[] args) {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
         builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
         gson = builder.setPrettyPrinting().create();
 
-        Application.launch(client.loginScreen.LoginApp.class, args);
+        Application.launch(client.loginscreen.LoginApp.class, args);
         ServerRequests.endSession();
     }
 
@@ -48,7 +58,8 @@ public class Main {
         if (message == null) {
             return null;
         }
-        String generatedMessage = Hashing.sha256().hashString(message, StandardCharsets.UTF_8).toString();
+        String generatedMessage = Hashing.sha256().hashString(message,
+                StandardCharsets.UTF_8).toString();
         return generatedMessage;
     }
 

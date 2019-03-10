@@ -1,18 +1,14 @@
 package client.windows;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import java.awt.*;
-import javafx.fxml.FXML;
+
 
 
 public class MainScreen extends Application {
@@ -22,10 +18,11 @@ public class MainScreen extends Application {
 
     /**
      * This function will start the Application wrapper for the MainScreen, sets the size and title.
+     *
      * @param primaryStage The primary stage
-     * @throws Exception
+     * @throws Exception Exception.
      */
-  @Override
+    @Override
     public void start(Stage primaryStage) throws Exception {
 
         Parent root = FXMLLoader.load(getClass().getResource("fxml/mainScreen.fxml"));

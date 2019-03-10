@@ -103,6 +103,7 @@ public class MainScreenController extends Pane implements Initializable {
 
     /**
      * This function handles the closing of the window, with the cross button.
+     *
      * @param event MouseEvent type
      */
 
@@ -116,6 +117,7 @@ public class MainScreenController extends Pane implements Initializable {
 
     /**
      * This function minimizes the window, with the minus button.
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -184,10 +186,10 @@ public class MainScreenController extends Pane implements Initializable {
             welcome = false;
         }
         // If the button is focused change the active pane and the color
-        styleFocused(agendaButton, agenda,0);
-        styleFocused(profileButton, profile,1);
-        styleFocused(overviewButton, overview,2);
-        styleFocused(leaderboardButton, leaderboard,3);
+        styleFocused(agendaButton, agenda, 0);
+        styleFocused(profileButton, profile, 1);
+        styleFocused(overviewButton, overview, 2);
+        styleFocused(leaderboardButton, leaderboard, 3);
 
     }
 
@@ -227,6 +229,7 @@ public class MainScreenController extends Pane implements Initializable {
                 // Assign an empty nodeList to the plus button,
                 // so the next time the user clicks Agenda
                 // Only 4 nodes are shown in total when clicking the plus button
+
                 mainPane.getChildren().remove(agendaController.getNodesList());
                 agendaController.clearPlusButton();
             }

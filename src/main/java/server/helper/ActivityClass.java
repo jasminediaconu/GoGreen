@@ -7,6 +7,10 @@ public class ActivityClass {
     public double amount;
     public String date;
 
+    public ActivityClass() {
+
+    }
+
     /**
      * This is the ActivityClass class, all activities will be populated in here.
      *

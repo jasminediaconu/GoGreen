@@ -1,6 +1,7 @@
 package client.windows;
 
 import client.Main;
+import client.ServerRequests;
 import client.objects.Activity;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -16,7 +17,9 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -29,7 +32,6 @@ import org.controlsfx.control.PopOver;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -45,10 +47,12 @@ import java.util.stream.Collectors;
 public class AgendaController implements Initializable {
 
     @FXML Pane agenda;
-    @FXML private ScrollPane scrollAgenda;
+    @FXML private ScrollPane scrollAgenda = new ScrollPane();
     @FXML FontAwesomeIcon delete;
     @FXML private StackPane stack;
     @FXML private ComboBox<String> foodchoices = new ComboBox<>();
+    @FXML private TextField amount = new TextField();
+    @FXML private DatePicker datepicker = new DatePicker();
 
     private MainScreenController mainScreenController;
     private JFXButton ssbutton2;
@@ -58,7 +62,6 @@ public class AgendaController implements Initializable {
     private JFXNodesList nodesList;
     private GridPane gridPane;
     private Text dateText;
-    private List<Activity> activities;
     private VBox agendaBox;
     private JFXDialog dialog;
 
@@ -134,28 +137,13 @@ public class AgendaController implements Initializable {
         loadActivity();
 
         agendaBox = new VBox();
-
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
 
         gridPane = new GridPane();
         gridPane.setLayoutX(420);
-        // NEED TO PARSE THE LOCAL DATE FROM THE ACTIVITY CLASS
 
-        activities = new ArrayList<>();
-        activities.add(new Activity(2, 5, LocalDate.now()));
-        activities.add(new Activity(3, 4, LocalDate.now()));
-        activities.add(new Activity(3, 5, LocalDate.now().minusDays(1)));
-        activities.add(new Activity(2, 6, LocalDate.now().minusDays(2)));
-        activities.add(new Activity(2, 7, LocalDate.now().minusDays(2)));
-
-        Multimap<LocalDate, Activity> activityMap = activityMap(activities);
+        Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
         showAgendaActivites(activityMap);
-
-        gridPane.setHgap(20);
-        agendaBox.getChildren().add(gridPane);
-
-//      scrollAgenda.setContent(agendaBox);
-        agendaBox.setSpacing(15);
 
         JFXButton ssbutton5 = new JFXButton("R1");
         ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
@@ -179,7 +167,8 @@ public class AgendaController implements Initializable {
             dateText = new Text(formatter.format(date));
 
             dateText.setStyle(css);
-            agendaBox.getChildren().add(dateText);
+            gridPane.add(dateText, 1, counter);
+            counter++;
 
             for(Activity activity : activityMap.get(date)) {
                 Text text = new Text(activity.getItemID() + ", " + activity.getAmount());
@@ -191,9 +180,12 @@ public class AgendaController implements Initializable {
                 button.setOnMouseClicked(e -> deleteActivityDialog(ii));
                 counter++;
             }
-
-            counter++;
         }
+
+        gridPane.setHgap(20);
+        agendaBox.getChildren().add(gridPane);
+        scrollAgenda.setContent(agendaBox);
+        agendaBox.setSpacing(15);
     }
 
     /**
@@ -297,15 +289,20 @@ public class AgendaController implements Initializable {
      */
     @FXML
     void applyButton(MouseEvent event) {
-        String activity = foodchoices.getValue();
+        String itemName = foodchoices.getValue();
+        double parsedAmount = Double.parseDouble(amount.getText());
+        LocalDate date = datepicker.getValue();
 
-//        if(activity==null) {
-//            agendaBox.setText("PLease select a valid item.");
-//        }
-//        else {
-//            agendatex.setText("Test" + activity);
-//        }
-  }
+        if(itemName != null && parsedAmount > 0 && date != null) {
+            System.out.println(date.toString());
+            int itemID = Main.items.stream().filter(x -> x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
+            Activity activity = new Activity(itemID, parsedAmount, date);
+            if(ServerRequests.addActivity(activity)) {
+                Main.clientUser.addToActivityList(activity);
+                showAgendaActivites(activityMap(Main.clientUser.getActivityList()));
+            }
+        }
+    }
 
 
     /**

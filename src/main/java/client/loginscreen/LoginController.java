@@ -93,6 +93,7 @@ public class LoginController implements Initializable {
 
             Main.clientUser = ServerRequests.getClientUserProfile();
 
+            System.out.println(ServerRequests.retrieveActivities("w").size() + "aaaaaaaaa \n\n\n\n");
             Main.clientUser.setActivityList(ServerRequests.retrieveActivities("w"));
 
             String path = "../windows/fxml/mainScreen.fxml";

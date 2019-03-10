@@ -58,7 +58,7 @@ public class ActivityController {
             addActivity.setInt(2, a.itemID);
             addActivity.setDouble(3, a.amount);
             addActivity.setDate(4,
-                    new Date(new SimpleDateFormat("dd-MM-yyyy").parse(a.date).getTime()));
+                    new Date(new SimpleDateFormat("yyyy-MM-dd").parse(a.date).getTime()));
 
             ResultSet result = addActivity.executeQuery();
             result.next();

@@ -1,5 +1,6 @@
 package client.loginScreen;
 
+import client.Main;
 import client.ServerRequests;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
@@ -102,6 +103,7 @@ public class SignupController implements Initializable {
         String email = tf_email.getText();
         String password = pf_password.getText();
 
+        System.out.println(username + ", " + email + ", " + password);
         String response = ServerRequests.signUp(username, email, password);
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
@@ -110,7 +112,11 @@ public class SignupController implements Initializable {
         } else if (response.equals("fail")) {
             //SIGN UP WAS UNSUCCESSFUL
         } else if (response.equals("ok")) {
+            System.out.println(ServerRequests.getUserID());
+
             ServerRequests.getItems();
+
+            Main.clientUser = ServerRequests.getClientUserProfile();
 
             //GOTO PROFILE SCREEN
             Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));

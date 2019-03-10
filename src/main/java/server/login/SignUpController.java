@@ -24,7 +24,7 @@ public class SignUpController {
     static {
         try {
             select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE username = ?;");
-            insert = ServerApp.dbConnection.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?) SELECT SCOPE_IDENTITY();");
+            insert = ServerApp.dbConnection.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?) RETURNING userid;");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,18 +40,22 @@ public class SignUpController {
      */
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public String signUp(@RequestBody String[] newUser) {
-        try {
-            String username = newUser[0];
-            String email = newUser[1];
-            String password = newUser[2];
+        String username = newUser[0];
+        String email = newUser[1];
+        String password = newUser[2];
 
+        try{
             select.setString(1, username);
 
             ResultSet result = select.executeQuery();
             while (result.next()) {
                 return "fail";
             }
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
 
+        try {
             insert.setString(1, username);
             insert.setString(2, email);
             insert.setString(3, password);

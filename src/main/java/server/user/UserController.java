@@ -17,6 +17,7 @@ import java.util.List;
 @RestController
 public class UserController {
 
+    private static PreparedStatement createClientUser;
     private static PreparedStatement selectClientUser;
     private static PreparedStatement updateStreak;
     private static PreparedStatement selectFollowing;
@@ -24,6 +25,10 @@ public class UserController {
 
     static {
         try {
+            createClientUser = ServerApp.dbConnection.prepareStatement(
+                    "INSERT INTO user_profile (\"userid\") VALUES (?)"
+            );
+
             selectClientUser = ServerApp.dbConnection.prepareStatement(
                     "SELECT username, countryname, totalco2, cartype, caremissiontype, lastonline, streaklength, solarpower, leds, roomtemp " +
                             "FROM user_login AS ul JOIN user_profile AS up ON ul.userid = up.userid " +
@@ -49,10 +54,14 @@ public class UserController {
 
     @RequestMapping(value="/getUserProfile", method= RequestMethod.POST)
     public ClientUserClass getUserProfile(@RequestParam String s) {
+        int userID = ServerApp.getUserIDFromSession(s);
+        if(userID == -1)
+            return null;
         try{
-            int userID = ServerApp.getUserIDFromSession(s);
-            if(userID == -1)
-                return null;
+            createClientUser.setInt(1, userID);
+            createClientUser.executeUpdate();
+        }catch(Exception e){ }
+        try{
 
             selectClientUser.setInt(1, userID);
             ResultSet result = selectClientUser.executeQuery();
@@ -89,7 +98,7 @@ public class UserController {
         int userID = ServerApp.getUserIDFromSession(s);
         if(userID == -1)
             return null;
-        return getUsers(-1, selectGlobalBest);
+        return getUsers(-1, selectFollowing);
     }
 
     @RequestMapping(value="/getGlobalBestProfile", method= RequestMethod.POST)

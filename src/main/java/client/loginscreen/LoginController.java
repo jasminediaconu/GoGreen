@@ -92,6 +92,8 @@ public class LoginController implements Initializable {
         } else if (response.equals("fail")) {
             //WRONG USERNAME OR PASSWORD
         } else if (response.startsWith("success:")) {
+            System.out.println(ServerRequests.getUserID());
+
             ServerRequests.getItems();
 
             Main.clientUser = ServerRequests.getClientUserProfile();

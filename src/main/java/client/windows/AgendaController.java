@@ -22,11 +22,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.apache.commons.collections.MultiMap;
 import org.controlsfx.control.PopOver;
 
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -54,7 +58,6 @@ public class AgendaController implements Initializable {
     private JFXNodesList nodesList;
     private GridPane gridPane;
     private Text dateText;
-    private List<String> items;
     private List<Activity> activities;
     private VBox agendaBox;
     private JFXDialog dialog;
@@ -138,17 +141,6 @@ public class AgendaController implements Initializable {
 
         loadActivity();
 
-        //activities = new ArrayList<>();
-        //ClientUser.getActivityList();
-        // activityID = activity.getActivityID();
-        // amount = activity.getAmount();
-        // date = activity.getDate();
-        // System.out.println(activityID);
-        // System.out.println(amount);
-        // System.out.println(date);
-        // System.out.println(activity);
-        // activities.add(activity);
-
         agendaBox = new VBox();
 
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
@@ -157,7 +149,8 @@ public class AgendaController implements Initializable {
         gridPane.setLayoutX(420);
 
         String css = "-fx-background-position: 20; -fx-font-size: 28;";
-        dateText = new Text("Fri 9 Mar");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM, yyy");
+        dateText = new Text(formatter.format(LocalDate.now()));
         // NEED TO PARSE THE LOCAL DATE FROM THE ACTIVITY CLASS
 
         dateText.setStyle(css);
@@ -165,15 +158,17 @@ public class AgendaController implements Initializable {
 
         String path = "/client/windows/images/delete.png";
 
-        items = new ArrayList<>();
+        activities = new ArrayList<>();
+        activities.add(new Activity(2, 5, LocalDate.now()));
+        activities.add(new Activity(3, 4, LocalDate.now()));
+        activities.add(new Activity(3, 5, LocalDate.now().minusDays(1)));
+        activities.add(new Activity(2, 6, LocalDate.now().minusDays(2)));
+        activities.add(new Activity(2, 7, LocalDate.now().minusDays(2)));
 
-        items.add("Vegan meal");
-        items.add("Local produce");
-        items.add("Public transport");
-        items.add("LEDs");
+        MultiMap<LocalDate, Activity> activityMap = activityMap(activities);
 
-        for (int i = 0; i < items.size(); i++) {
-            Text text = new Text(items.get(i));
+        for (int i = 0; i < activities.size(); i++) {
+            Text text = new Text(activities.get(i));
             text.setWrappingWidth(310.00);
             gridPane.add(text, 1, i);
             JFXButton button = new JFXButton("", new ImageView(path));
@@ -181,13 +176,6 @@ public class AgendaController implements Initializable {
             int ii = i;
             button.setOnMouseClicked(e -> deleteActivityDialog(ii));
         }
-
-        /*
-         * SORT ACTIVITIES BY DATE, SAVE DIFFERENT DATES IN DIFFERENT TEXT OBJECTS.
-         * SHOW ACTIVITIES SORTED BY DATE, SAVE THEM IN A GRID PANE.
-         * CREATE A NEW DELETE BUTTON WERE TO STORE THE IMAGE FOR EACH ACTIVITY ADDED.
-         * THE GRID PANE NEEDS TO HAVE THE ACTIVITY NAME AND THE DELETE BUTTON.
-         */
 
         gridPane.setHgap(20);
         agendaBox.getChildren().add(gridPane);
@@ -197,6 +185,19 @@ public class AgendaController implements Initializable {
 
         JFXButton ssbutton1 = new JFXButton("R1");
         ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
+    }
+
+    private MultiMap<LocalDate, Activity> activityMap(List<Activity> activities) {
+        return activities.stream().collect(Collectors.toMap(x -> x.getDate(), x -> x));
+    }
+
+    private void showAgendaActivites(Map<LocalDate, Activity> activityMap) {
+        int counter = 0;
+        for(LocalDate date : activityMap.keySet()) {
+            for(Activity activity : activityMap.get(date))
+
+            counter++;
+        }
     }
 
     /**

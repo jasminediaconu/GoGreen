@@ -218,7 +218,6 @@ public class MainScreenController extends Pane implements Initializable {
 
             if (pane.equals(agenda)) {
                 mainPane.getChildren().add(nodesList);
-                agendaController.loadPlusButton();
             } else if (!pane.equals(agenda)) {
                 // Remove the plus  button if Agenda is not the screen the user selected
                 // Assign an empty nodeList to the plus button,

@@ -2,6 +2,8 @@ package client.windows;
 
 import client.Main;
 import client.objects.Activity;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -22,7 +24,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import org.apache.commons.collections.MultiMap;
 import org.controlsfx.control.PopOver;
 
 import java.net.URL;
@@ -30,7 +31,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -45,9 +45,9 @@ import java.util.stream.Collectors;
 public class AgendaController implements Initializable {
 
     @FXML Pane agenda;
-    @FXML ScrollPane scrollAgenda;
+    @FXML private ScrollPane scrollAgenda;
     @FXML FontAwesomeIcon delete;
-    @FXML StackPane stack;
+    @FXML private StackPane stack;
     @FXML private ComboBox<String> foodchoices = new ComboBox<>();
 
     private MainScreenController mainScreenController;
@@ -106,13 +106,6 @@ public class AgendaController implements Initializable {
     }
 
     /**
-     * This function will add activities to the agenda through the JFXNodeList.
-     */
-    private void addActivity() {
-
-    }
-
-    /**
      * Count the number of rows in a pane.
      * @param pane GridPane
      * @return numRows
@@ -138,7 +131,6 @@ public class AgendaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         loadActivity();
 
         agendaBox = new VBox();
@@ -147,16 +139,7 @@ public class AgendaController implements Initializable {
 
         gridPane = new GridPane();
         gridPane.setLayoutX(420);
-
-        String css = "-fx-background-position: 20; -fx-font-size: 28;";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM, yyy");
-        dateText = new Text(formatter.format(LocalDate.now()));
         // NEED TO PARSE THE LOCAL DATE FROM THE ACTIVITY CLASS
-
-        dateText.setStyle(css);
-        agendaBox.getChildren().add(dateText);
-
-        String path = "/client/windows/images/delete.png";
 
         activities = new ArrayList<>();
         activities.add(new Activity(2, 5, LocalDate.now()));
@@ -165,17 +148,8 @@ public class AgendaController implements Initializable {
         activities.add(new Activity(2, 6, LocalDate.now().minusDays(2)));
         activities.add(new Activity(2, 7, LocalDate.now().minusDays(2)));
 
-        MultiMap<LocalDate, Activity> activityMap = activityMap(activities);
-
-        for (int i = 0; i < activities.size(); i++) {
-            Text text = new Text(activities.get(i));
-            text.setWrappingWidth(310.00);
-            gridPane.add(text, 1, i);
-            JFXButton button = new JFXButton("", new ImageView(path));
-            gridPane.add(button,2,i);
-            int ii = i;
-            button.setOnMouseClicked(e -> deleteActivityDialog(ii));
-        }
+        Multimap<LocalDate, Activity> activityMap = activityMap(activities);
+        showAgendaActivites(activityMap);
 
         gridPane.setHgap(20);
         agendaBox.getChildren().add(gridPane);
@@ -187,14 +161,36 @@ public class AgendaController implements Initializable {
         ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
     }
 
-    private MultiMap<LocalDate, Activity> activityMap(List<Activity> activities) {
-        return activities.stream().collect(Collectors.toMap(x -> x.getDate(), x -> x));
+    private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
+        Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
+        for(Activity a : activities){
+            multimap.put(a.getDate(), a);
+        }
+        return multimap;
     }
 
-    private void showAgendaActivites(Map<LocalDate, Activity> activityMap) {
+    private void showAgendaActivites(Multimap<LocalDate, Activity> activityMap) {
+        String path = "/client/windows/images/delete.png";
+
         int counter = 0;
         for(LocalDate date : activityMap.keySet()) {
-            for(Activity activity : activityMap.get(date))
+            String css = "-fx-background-position: 20; -fx-font-size: 28;";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM, yyy");
+            dateText = new Text(formatter.format(date));
+
+            dateText.setStyle(css);
+            agendaBox.getChildren().add(dateText);
+
+            for(Activity activity : activityMap.get(date)) {
+                Text text = new Text(activity.getItemID() + ", " + activity.getAmount());
+                text.setWrappingWidth(310.00);
+                gridPane.add(text, 1, counter);
+                JFXButton button = new JFXButton("", new ImageView(path));
+                gridPane.add(button,2, counter);
+                int ii = counter;
+                button.setOnMouseClicked(e -> deleteActivityDialog(ii));
+                counter++;
+            }
 
             counter++;
         }

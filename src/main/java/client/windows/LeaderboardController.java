@@ -9,9 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,7 +39,12 @@ public class LeaderboardController implements Initializable {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<User, SimpleStringProperty>("username"));
         countryColumn.setCellValueFactory(new PropertyValueFactory<User, SimpleStringProperty>("country"));
         totalCo2Column.setCellValueFactory(new PropertyValueFactory<User, SimpleDoubleProperty>("totalCo2"));
+        /*
+         * This column will be removed when the follow buttons work properly
+         */
         followButtonColumn.setCellValueFactory(new PropertyValueFactory<User, Button>("followButton"));
+
+        addFollowButtons();
 
         table.setItems(getUsers());
     }
@@ -50,9 +57,9 @@ public class LeaderboardController implements Initializable {
         ObservableList<User> users = FXCollections.observableArrayList();
 
         users.add(new User("Dinkleberg","United States", 527.24, new Button("followButton")));
-        users.add(new User("co2Warrior","France", 319.52, new Button("Follow")));
+        users.add(new User("co2Warrior","France", 319.52, new Button()));
         users.add(new User("sweetandround","Netherlands", 100.0, new Button()));
-        users.add(new User("PatriciaPaay","Netherlands", 213.78, new Button("followUser")));
+        users.add(new User("PatriciaPaay","Netherlands", 213.78, new Button()));
 
         return users;
     }
@@ -63,5 +70,41 @@ public class LeaderboardController implements Initializable {
      */
     public void followUser(ActionEvent event){
         System.out.println("following user now");
+    }
+
+    public void addFollowButtons(){
+        TableColumn<User, Void> followButtonColumn = new TableColumn("Follow");
+
+        Callback<TableColumn<User, Void>, TableCell<User, Void>> cellFactory = new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {
+            @Override
+            public TableCell<User, Void> call(final TableColumn<User, Void> param) {
+                final TableCell<User, Void> cell = new TableCell<User, Void>() {
+
+                    private final Button followButton = new Button("follow");
+
+                    {
+                        followButton.setOnAction((ActionEvent event) -> {
+                            User data = getTableView().getItems().get(getIndex());
+                            System.out.println("selectedData: " + data);
+                        });
+                    }
+
+                    @Override
+                    public void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(followButton);
+                        }
+                    }
+                };
+                return cell;
+            }
+        };
+
+        followButtonColumn.setCellFactory(cellFactory);
+
+        table.getColumns().add(followButtonColumn);
     }
 }

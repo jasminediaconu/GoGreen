@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -108,7 +107,6 @@
          </children>
       </HBox>
       <Line endX="-1.600006103515625" layoutX="169.0" layoutY="40.0" startX="-114.9999771118164" stroke="#95e743" strokeLineCap="ROUND" strokeWidth="2.0" />
-      <JFXButton layoutX="158.0" layoutY="214.0" />
    </children>
    <stylesheets>
       <URL value="@../../defaultFont.css" />

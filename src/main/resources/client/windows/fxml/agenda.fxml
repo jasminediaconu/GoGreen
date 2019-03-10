@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-background-radius: 24 24 24 24;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.AgendaController">
-   <children>
-      <Pane fx:id="agenda" layoutX="-2.0" layoutY="45.0" prefHeight="723.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 0 24 24;" stylesheets="@../css/agenda.css">
-         <children>
-            <Pane id="agenda" layoutX="398.0" layoutY="140.0" prefHeight="463.0" prefWidth="456.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10 10 10 10;" stylesheets="@../css/agenda.css">
-               <children>
-                  <TextField fx:id="agendatext" editable="false" layoutX="18.0" layoutY="23.0" mouseTransparent="true" prefHeight="406.0" prefWidth="422.0" />
-                  <ImageView layoutX="201.0" layoutY="426.0">
-                     <image>
-                        <Image url="@../images/arrow_down.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-            <Text fill="#95e743" layoutX="549.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
-               <font>
-                  <Font name="Century Gothic" size="61.0" />
-               </font>
-            </Text>
-            <ImageView layoutX="445.0" layoutY="42.0">
-               <image>
-                  <Image url="@../images/agenda.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
-   </children>
-   <stylesheets>
-      <URL value="@../css/agenda.css" />
-      <URL value="@../../loginscreen/loginStyle.css" />
-   </stylesheets>
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-background-radius: 24 24 24 24;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.AgendaController">
+    <children>
+        <Pane fx:id="agenda" layoutX="-2.0" layoutY="43.0" prefHeight="725.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 0 24 24;" stylesheets="@../css/agenda.css">
+            <children>
+                <Text id="agendaTitle" fill="#95e743" layoutX="560.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
+                    <font>
+                        <Font name="Century Gothic" size="61.0" />
+                    </font>
+                </Text>
+                <ImageView layoutX="455.0" layoutY="43.0">
+                    <image>
+                        <Image url="@../images/agenda.png" />
+                    </image>
+                </ImageView>
+                <ScrollPane fx:id="scrollAgenda" layoutX="427.0" layoutY="150.0" prefHeight="478.0" prefWidth="420.0" style="-fx-background-radius: 20;" stylesheets="@../css/agenda.css" />
+                <StackPane fx:id="stack" layoutX="406.0" layoutY="175.0" prefHeight="109.0" prefWidth="218.0" />
+            </children>
+        </Pane>
+    </children>
+    <stylesheets>
+        <URL value="@../css/agenda.css" />
+        <URL value="@../../loginscreen/loginStyle.css" />
+    </stylesheets>
 </AnchorPane>

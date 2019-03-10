@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="17.0" prefWidth="17.0" style="-fx-background-color: null;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.AgendaController">
+   <children>
+      <FontAwesomeIcon fx:id="delete" fill="#840505" iconName="MINUS_CIRCLE" layoutX="2.0" layoutY="14.0" size="1.2em" text="" wrappingWidth="11.40000057220459" />
+   </children>
+</AnchorPane>

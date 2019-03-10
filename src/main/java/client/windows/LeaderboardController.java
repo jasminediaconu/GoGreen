@@ -42,6 +42,8 @@ public class LeaderboardController implements Initializable {
         addFollowButtons();
 
         table.setItems(getUsers());
+
+        //totalCo2Column.setSortType(TableColumn.SortType.DESCENDING);
     }
 
     /** The usernames, countries, total CO2 saved and follow buttons of all users are contained in this list
@@ -55,6 +57,12 @@ public class LeaderboardController implements Initializable {
         users.add(new User("co2Warrior","France", 319.52));
         users.add(new User("sweetandround","Netherlands", 100.0));
         users.add(new User("PatriciaPaay","Netherlands", 213.78));
+        users.add(new User("GreenMint","Greenland", 10.42));
+        users.add(new User("00pp72","Netherlands", 72.0));
+        users.add(new User("saverman","Mexico", 385.3));
+        users.add(new User("hapapapa","Germany", 111.49));
+        users.add(new User("GoofyGoober","United States", 73.99));
+        users.add(new User("baguette","France", 152.56));
 
         return users;
     }
@@ -79,6 +87,11 @@ public class LeaderboardController implements Initializable {
                         followButton.setOnAction((ActionEvent event) -> {
                             User data = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + data);
+                            if (followButton.getText() == "unfollow"){
+                                followButton.setText("follow");
+                            } else {
+                                followButton.setText("unfollow");
+                            }
                         });
                     }
 

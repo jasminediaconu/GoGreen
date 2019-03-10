@@ -22,7 +22,6 @@
                </children>
             </Pane>
             <Text fill="#95e743" layoutX="549.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
->>>>>>> 14b637490cdb2d091f0327482bc1881ec10bf7a7
                <font>
                   <Font name="Century Gothic" size="61.0" />
                </font>

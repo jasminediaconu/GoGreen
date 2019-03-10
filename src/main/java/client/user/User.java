@@ -1,12 +1,18 @@
 package client.user;
 
+import java.awt.*;
 import java.util.Objects;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.Button;
+
 
 public class User {
 
-    protected String username = "";
-    protected String country = "";
-    protected double totalCo2 = 0.0;
+    protected SimpleStringProperty country;
+    protected SimpleStringProperty username;
+    protected SimpleDoubleProperty totalCo2;
+    protected Button followButton;
 
     /**
      * The abstract User constructor, used for all other users that are not the client.
@@ -15,64 +21,34 @@ public class User {
      * @param totalCo2 the total co2 the user has saved
      */
     public User(String username, String country, double totalCo2){
-        this.username = username;
-        this.country = country;
-        this.totalCo2 = totalCo2;
+        this.username = new SimpleStringProperty(username);
+        this.country = new SimpleStringProperty(country);
+        this.totalCo2 = new SimpleDoubleProperty(totalCo2);
+        this.followButton = new Button("Follow");
     }
 
-    /**
-     * This function will get the users country.
-     * @return the country of the user
-     */
     public String getCountry() {
-        return country;
+        return country.get();
     }
 
-    /**
-     * This function will get the users name.
-     * @return the username of the user
-     */
+    public void setCountry(String country) {
+        this.country.set(country);
+    }
+
     public String getUsername() {
-        return username;
+        return username.get();
     }
 
-    /**
-     * This function will get the users total co2 amount.
-     * @return returns the total co2 amount of the user
-     */
-    public double getTotalCo2(){
-        return totalCo2;
+    public void setUsername(String username) {
+        this.username.set(username);
     }
 
-    /**
-     * This function will set the totalCo2 amount to the co2 in the argument.
-     * @param co2 double to set the total co2 amount to
-     */
-    public void setTotalCo2(double co2){
-        this.totalCo2 = co2;
+    public double getTotalCo2() {
+        return totalCo2.get();
     }
 
-    /**
-     * This function will add the argument co2 amount to the totalCo2 amount.
-     * @param co2 double that will be added to the totalCo2 amount
-     */
-    public void increaseTotalCo2(double co2){
-        this.totalCo2 += co2;
-    }
-
-    /**
-     * This function compares this User with another User to check if they are equal.
-     * @param o Object type
-     * @return a boolean, whether they are equal or not
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Double.compare(user.totalCo2, totalCo2) == 0 &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(country, user.country);
+    public void setTotalCo2(double totalCo2) {
+        this.totalCo2.set(totalCo2);
     }
 
     /**

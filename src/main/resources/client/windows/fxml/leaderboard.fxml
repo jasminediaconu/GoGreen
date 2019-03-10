@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.LeaderboardController">
    <children>
       <Pane fx:id="box" layoutX="-2.0" layoutY="45.0" prefHeight="723.0" prefWidth="1025.0" style="-fx-background-color: #ffffff; -fx-border-radius: 0 0 24 24;">
          <children>
@@ -42,14 +43,15 @@
                   </ImageView>
                   <TableView fx:id="table" layoutX="30.0" layoutY="141.0" prefHeight="297.0" prefWidth="512.0">
                     <columns>
-                      <TableColumn fx:id="rank" prefWidth="40.00006103515625" text="rank" />
-                      <TableColumn fx:id="pic" prefWidth="74.39996337890625" sortable="false" text="pic" />
-                        <TableColumn fx:id="username" prefWidth="158.39996337890625" sortable="false" text="Username" />
-                        <TableColumn fx:id="country" prefWidth="28.0" text="country" />
-                        <TableColumn fx:id="points" prefWidth="109.5999755859375" sortType="DESCENDING" text="points" />
-                        <TableColumn fx:id="follow" prefWidth="100.79998779296875" sortable="false" text="follow" />
+                      <TableColumn prefWidth="40.00006103515625" text="rank" />
+                      <TableColumn prefWidth="53.5999755859375" sortable="false" text="pic" />
+                        <TableColumn fx:id="usernameColumn" prefWidth="120.0" sortable="false" text="Username" />
+                        <TableColumn fx:id="countryColumn" prefWidth="88.0" text="country" />
+                        <TableColumn fx:id="totalCo2Column" prefWidth="109.5999755859375" sortType="DESCENDING" text="points" />
+                        <TableColumn prefWidth="100.79998779296875" sortable="false" text="follow" />
                     </columns>
                   </TableView>
+                  <Button fx:id="followButton" layoutX="479.0" layoutY="100.0" mnemonicParsing="false" text="Follow" />
 
                   
 

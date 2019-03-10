@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +15,8 @@
          <children>
             <Pane id="agenda" layoutX="398.0" layoutY="140.0" prefHeight="463.0" prefWidth="456.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10 10 10 10;" stylesheets="@../css/agenda.css">
                <children>
-                  <ImageView layoutX="195.0" layoutY="432.0">
+                  <TextField fx:id="agendatext" editable="false" layoutX="18.0" layoutY="23.0" mouseTransparent="true" prefHeight="406.0" prefWidth="422.0" style="-fx-background-color: transparent;" />
+                  <ImageView layoutX="201.0" layoutY="426.0">
                      <image>
                         <Image url="@../images/arrow_down.png" />
                      </image>
@@ -22,7 +24,6 @@
                </children>
             </Pane>
             <Text fill="#95e743" layoutX="549.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
->>>>>>> 14b637490cdb2d091f0327482bc1881ec10bf7a7
                <font>
                   <Font name="Century Gothic" size="61.0" />
                </font>

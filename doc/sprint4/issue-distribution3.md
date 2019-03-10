@@ -6,7 +6,7 @@
 * `The full workflow of "Eating a vegetarian meal" is implemented`
 * `User clicks on a button to indicate that they bought a vegetarian meal`
 * `The server stores this data in a file or database`
-* `On closing the client and reopening it, it is able to request the data from the server and
+* `On closing the client and reopening it, it is able to request the data from the server and shot it to the user`
 
 ## Agenda (Jasmine):
 * popup when clicked on username, display logout connect to login screen
@@ -15,17 +15,15 @@
 * Instead of having it hardcoded take in an arraylist of activities
 
 
-
 ## Popup windows for plus button and functionality (Giuliano):
 * make plus button work with the meal
-* then transport, energy
+* Later transport, energy
 * Create Activity Class with the help of wout
 * Item class with arraylist as example items
-* ​Shifted to other side
+* Shifted to other side
 * Dynamic point, fixed window
 * Make it use the itemList use itemlist arraylist in main.java refer to it as Main.items
 * When clicked apply make a new activity with the correct arguments specified in the popup window
-
 
 
 ## Backend and General (Wout):
@@ -63,7 +61,7 @@
 * Function to add together
 * Weekly Tasks
 * Make a new table in the database for daily co2 saved
-* ​Analyse list of activities and make a graph out of those
+* Analyse list of activities and make a graph out of those
 
 
 ## Leaderboard (Mandy):
@@ -72,8 +70,7 @@
 * Following list, show only the people you follow, show their CO2 reduction, if already followed, unfollow button shows up
 * Use Wout's function to populate the leaderboard.
 * Dropdown menu with countries
-* ​Follow and compare CO2 to other people
-
+* Follow and compare CO2 to other people
 
 
 ## Mixed Tasks (Gino):

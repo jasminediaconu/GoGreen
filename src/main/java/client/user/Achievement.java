@@ -1,3 +1,4 @@
+
 package client.user;
 
 import javax.imageio.ImageIO;
@@ -84,3 +85,4 @@ public class Achievement {
         setImage(loadImage(path));
     }
 }
+

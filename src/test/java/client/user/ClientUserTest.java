@@ -15,52 +15,58 @@ class ClientUserTest {
 //        user2 = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21)
         user = new ClientUser();
         user2 = new ClientUser();
-        user.setCar(new Car(0, 3));
-        user2.setCar(new Car(0, 1));
-
 
     }
 
+
     @Test
     void getCarType() {
+        user.setCar(new Car("Compact Car", "Electric"));
         Assert.assertEquals("Compact Car", user.getCar().getCarName());
     }
 
     @Test
     void getCarEmissionType() {
+        user.setCar(new Car("Sport Car", "Electric"));
         Assert.assertEquals("Electric", user.getCar().getEmissionName());
     }
 
     @Test
     void getStreakLength() {
+        user.setStreakLength(3);
         Assert.assertEquals(3, user.getStreakLength());
     }
 
     @Test
     void hasSolarPower() {
+        user.setSolarPower(false);
         Assert.assertEquals(false, user.hasSolarPower());
     }
 
     @Test
     void hasLEDs() {
+        user.setLEDs(false);
         Assert.assertEquals(false, user.hasLEDs());
     }
 
     @Test
     void getRoomTemp() {
+        user.setRoomTemp(21);
         Assert.assertEquals(21, user.getRoomTemp());
     }
 
     @Test
     void setCarType() {
+        user.setCar(new Car(0, 0));
         user.getCar().setCarType("SUV");
         Assert.assertEquals("SUV", user.getCar().getCarName());
     }
 
     @Test
     void setCarEmisionType() {
+        user.setCar(new Car(0, 0));
         user.getCar().setEmissionType("Gas");
-        Assert.assertEquals("Gas", user.getCar().getEmissionType());
+        Assert.assertEquals("Gas", user.getCar().getEmissionName());
     }
 
     @Test
@@ -77,7 +83,7 @@ class ClientUserTest {
 
     @Test
     void setLEDs() {
-        user.setLEDs(true);
+        user.setSolarPower(true);
         Assert.assertEquals(true, user.hasSolarPower());
     }
 
@@ -99,7 +105,8 @@ class ClientUserTest {
 
     @Test
     void equalsSame() {
-        Assert.assertEquals(user.equals(user2), true);
+        user2 = user.deepCopy();
+        Assert.assertTrue(user.equals(user2));
     }
 
     @Test

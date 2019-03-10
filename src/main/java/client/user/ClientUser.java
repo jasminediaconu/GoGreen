@@ -183,17 +183,23 @@ public class ClientUser extends User {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         ClientUser that = (ClientUser) obj;
-        return streakLength == that.streakLength &&
+        if (streakLength == that.streakLength &&
                 solarPower == that.solarPower &&
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
                 email.equalsIgnoreCase(that.email) &&
-                car.getCarType() == that.getCar().getCarType() &&
-                car.getEmissionType() == that.getCar().getEmissionType() &&
                 Objects.equals(following, that.following) &&
                 totalCo2 == that.totalCo2 &&
                 username.equalsIgnoreCase(that.username) &&
-                country.equalsIgnoreCase(that.country);
+                country.equalsIgnoreCase(that.country)) {
+            if (car != null) {
+                return car.equals(that.car);
+
+            } else if (that.car == null) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -208,7 +214,9 @@ public class ClientUser extends User {
      */
     public ClientUser deepCopy() {
         ClientUser clientUser = new ClientUser();
-        clientUser.setCar(new Car(car.getCarType(), car.getEmissionType()));
+        if (car != null) {
+            clientUser.setCar(new Car(car.getCarType(), car.getEmissionType()));
+        }
         //clientUser.setProfileImage(getProfileImage());
         clientUser.setUsername(username);
         clientUser.setCountry(country);

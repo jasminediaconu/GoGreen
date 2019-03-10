@@ -114,4 +114,16 @@ public class Car {
     public String getEmissionName() {
         return emissions[emissionType];
     }
+
+    @Override
+    public boolean equals(Object object) {
+
+        if (object instanceof Car) {
+            Car that = (Car) object;
+            if (emissionType == that.emissionType && carType == that.carType) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

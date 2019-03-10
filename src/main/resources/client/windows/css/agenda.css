@@ -1,36 +1,73 @@
 /*#agenda {*/
-    /*-fx-background-color: #95e743;*/
+/**/
 /*}*/
+
+.scroll-pane > .viewport {
+    -fx-background-color:  #e5e5e5;
+    -fx-border-radius: 10 10 10 10;
+}
+
+.viewport {
+    -fx-background-radius: 20;
+    -fx-border-radius: 10 10 10 10;
+}
 
 .animated-option-button {
     -fx-pref-width: 60px;
-    -fx-background-radius: 60px;
     -fx-pref-height: 60px;
-    -fx-text-fill: white;
-    -fx-border-color: white;
-    -fx-border-radius: 50px;
-    -fx-border-width: 4px;
-    -fx-font-weight: bold;
-    -fx-font-family: Montserrat;
-    -fx-font-size: 25px;
+    -fx-background-radius: 60;
+    -fx-background-color: white;
+    -fx-background-position: center;
+
+}
+
+.combo-box .arrow {
+    -fx-background-color: #888888;
+}
+
+#plusbutton {
+    -fx-background-image: url("../images/plus.png");
+}
+
+#transportbutton {
+    -fx-background-image: url("../images/car.png");
+}
+
+#apply {
     -fx-background-color: #95E743;
 }
 
 #foodbutton {
-    -fx-background-color: #95E743;
+    -fx-background-image: url("../images/food.png");
+
 }
+
+#energybutton {
+    -fx-background-image: url("../images/energy.png");
+}
+
 
 .animated-option-button-sub-button {
     -fx-background-color: #95E743;
 }
 
 .animated-option-button-sub-button2 {
-    -fx-background-color: #95E743;
+
 }
+
 .animated-option-button-sub-button3 {
-    -fx-background-color: #95E743;
+
 }
 
 .animated-option-button-sub-button4 {
     -fx-background-color: #95E743;
+}
+
+GridPane > Text {
+    -fx-font-size: 18px;
+}
+
+#agendaTitle {
+    -fx-font-size: 61px;
+
 }

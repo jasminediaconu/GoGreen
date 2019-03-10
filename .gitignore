@@ -1,5 +1,6 @@
 # Maven ignores
 target/
+lib/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -15,8 +16,10 @@ buildNumber.properties
 .classpath
 .project
 .settings
-.jar
+<<<<<<< HEAD
+*.jar
 .vscode/
+
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar

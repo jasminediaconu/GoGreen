@@ -138,12 +138,24 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.2.0</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.4.0</version>
-            <scope>test</scope>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.2.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>5.2.0</version>
+        </dependency>
+
+
 
         <dependency>
 
@@ -232,6 +244,19 @@
             </plugin>
 
             <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>1.2.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
@@ -255,10 +280,6 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
-                                <excludes>
-                                    <exclude>**/loginScreen/**</exclude>
-                                    <exclude>**/windows/**</exclude>
-                                </excludes>
                             <rules>
                             </rules>
                         </configuration>
@@ -288,8 +309,8 @@
                 <version>${jacoco-maven-plugin.version}</version>
                 <configuration>
                 <excludes>
-                    <exclude>**/loginScreen/**</exclude>
                     <exclude>**/windows/**</exclude>
+                    <exclude>**/loginscreen/**</exclude>
                     <exclude>**/helper/*Class.*</exclude>
                     <exclude>**/login/**</exclude>
                     <exclude>**/objects/**</exclude>

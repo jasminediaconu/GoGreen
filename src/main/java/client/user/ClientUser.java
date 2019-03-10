@@ -1,6 +1,7 @@
 package client.user;
 
 import client.objects.Activity;
+import javafx.scene.control.Button;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +31,8 @@ public class ClientUser extends User {
      * @param LEDs whether the user uses LEDs in their house
      * @param roomtemp the room temperature of the user
      */
-    public ClientUser(String username, String country, double totalCo2, String carType, String carEmissionType, int streakLength, boolean solarPower, boolean LEDs, int roomtemp) {
-        super(username, country, totalCo2);
+    public ClientUser(String username, String country, double totalCo2, String carType, String carEmissionType, int streakLength, boolean solarPower, boolean LEDs, int roomtemp, Button followButton) {
+        super(username, country, totalCo2, followButton);
         this.carType = carType;
         this.carEmmisionType = carEmissionType;
         this.streakLength = streakLength;

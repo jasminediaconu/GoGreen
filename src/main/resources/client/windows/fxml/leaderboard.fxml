@@ -48,13 +48,10 @@
                         <TableColumn fx:id="usernameColumn" prefWidth="120.0" sortable="false" text="Username" />
                         <TableColumn fx:id="countryColumn" prefWidth="88.0" text="country" />
                         <TableColumn fx:id="totalCo2Column" prefWidth="109.5999755859375" sortType="DESCENDING" text="points" />
-                        <TableColumn prefWidth="100.79998779296875" sortable="false" text="follow" />
+                        <TableColumn fx:id="followButtonColumn" prefWidth="99.199951171875" sortable="false" text="follow" />
                     </columns>
                   </TableView>
-                  <Button fx:id="followButton" layoutX="479.0" layoutY="100.0" mnemonicParsing="false" text="Follow" />
-
-                  
-
+                  <Button fx:id="followButton" layoutX="468.0" layoutY="102.0" mnemonicParsing="false" onAction="#followUser" text="Follow" visible="false" />
                </children>
             </Pane>
          </children>

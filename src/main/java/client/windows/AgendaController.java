@@ -14,6 +14,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -22,7 +24,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,6 @@ public class AgendaController implements Initializable {
     private JFXButton ssbutton4;
     private ObservableList list = FXCollections.observableArrayList();
     private JFXNodesList nodesList;
-
     private GridPane gridPane;
     private Text dateText;
     private List<String> items;
@@ -294,6 +294,23 @@ public class AgendaController implements Initializable {
         foodchoices.setItems(list);
         //mainScreen.getChildren().add(foodchoices);
     }
+
+    /**
+     * applyButton event
+     * agendatext should be Jasmine's agendabox
+     */
+//    @FXML
+//    void applyButton(MouseEvent event) {
+//        String activity = foodchoices.getValue();
+//
+//        if(activity==null) {
+//            agendatext.setText("PLease select a valid item.");
+//        }
+//        else {
+//            agendatext.setText("Test" + activity);
+//        }
+//    }
+
 
     /**
      * Creates an empty white popup box for energy button popup.

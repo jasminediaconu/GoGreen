@@ -24,7 +24,9 @@
     -fx-background-position: center;
 
 }
-
+/**
+ Overwrites Jasmine's combobox arrow hiding, to show arrow in foodchoices dropdown box
+ */
 .combo-box .arrow {
     -fx-background-color: #888888;
 }

@@ -5,38 +5,46 @@ import com.jfoenix.controls.JFXNodesList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class provides functionality for:
+ * - the agenda.fxml and all inner sub-screens.
+ * - creates the plus button
+ * - loads items into the activity popup dropdown menus
+ *
+ * @author gforghieri
+ */
 public class AgendaController implements Initializable {
 
-    MainScreenController mainScreenController;
-
-    JFXButton ssbutton2;
-    JFXButton ssbutton3;
-    JFXButton ssbutton4;
+    private MainScreenController mainScreenController;
+    private JFXButton ssbutton2;
+    private JFXButton ssbutton3;
+    private JFXButton ssbutton4;
+    private ObservableList list = FXCollections.observableArrayList();
     private JFXNodesList nodesList;
-
-    ObservableList list = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<String> foodchoices = new ComboBox<>();
 
-
+    /**
+     * Constructor to be used in the MainScreenController
+     * To be able to use the variables, methods of this class
+     */
     public AgendaController() {
         nodesList = new JFXNodesList();
     }
 
-
+    /**
+     * This code creates the GREEN animated PLUS button when agenda is selected
+     */
     public void loadPlusButton() {
         // This code creates the GREEN animated PLUS button when agenda is selected
         JFXButton ssbutton1 = new JFXButton();
@@ -75,14 +83,18 @@ public class AgendaController implements Initializable {
         nodesList.setLayoutY(690);
     }
 
+    /**
+     * Clears the plus button of the previously added 3 subbuttons
+     * So when the user loads the agenda page again only 3 buttons shop instead of many multiplies
+     */
     public void clearPlusButton() {
         nodesList = new JFXNodesList();
     }
 
     /**
-     * Giuliano transportPopup method
+     * Creates an empty white popup box for transportation button popup
+     * To be finished
      */
-
     public void transportButtonAction(MouseEvent event) {
 
         VBox vBox = new VBox();
@@ -98,7 +110,7 @@ public class AgendaController implements Initializable {
     }
 
     /**
-     * Giuliano foodPopup method
+     * This method appends the foodWindow.fxml to the
      */
     @FXML
     public void foodButtonAction(MouseEvent event) {
@@ -112,6 +124,9 @@ public class AgendaController implements Initializable {
 
     }
 
+    /**
+     * Loads the food dropdown menu with items
+     */
     private void loadActivity() {
 
         //Clears everything in the observable list
@@ -120,14 +135,16 @@ public class AgendaController implements Initializable {
         String a = "Eating a vegetarian meal";
         String b = "Buying local produce";
         String c = "Svetoslav's stroopwafel";
-        list.addAll(a,b,c);
+        list.addAll(a, b, c);
 
         foodchoices.setItems(list);
 
 //        mainPane.getChildren().add(foodchoices);
     }
+
     /**
-     * Giuliano energyPopup method
+     * Creates an empty white popup box for energy button popup
+     * To be finished
      */
     public void energyButtonAction(MouseEvent event) {
 

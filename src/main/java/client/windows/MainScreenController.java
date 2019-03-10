@@ -1,39 +1,21 @@
 package client.windows;
 
-import client.windows.AgendaController;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
-import com.jfoenix.controls.*;
-import javafx.animation.*;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
 import java.net.URL;
@@ -175,9 +157,13 @@ import java.util.ResourceBundle;
                 ft.setToValue(1.0);
                 ft.play();
 
+                // Loading the plusbutton with the nodes and styling
                 agendaController.loadPlusButton();
+
+                //
                 nodesList = agendaController.getNodesList();
 
+                // Showing any of the panes a.k.a fxml-s passed in as an argument
                 mainPane.getChildren().add(pane);
 
                 if (pane.equals(agenda)) {
@@ -201,13 +187,6 @@ import java.util.ResourceBundle;
                 mainPane.getChildren().remove(pane);
             }
         }
-
-
-        @FXML
-        private void applyActivity(MouseEvent event) {
-
-        }
-
         /**
          * When the toggle button is pressed, the menu bar will be hidden/shown.
          */

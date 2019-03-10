@@ -85,22 +85,4 @@ public class ServerApp {
         return sessions.get(sessionID);
     }
 
-
-    /**
-     CREATE TABLE IF NOT EXISTS user_login (
-     username text NOT NULL,
-     email text NOT NULL,
-     password text NOT NULL,
-     user_id SERIAL NOT NULL,
-     PRIMARY KEY (username)
-     );
-
-     CREATE TABLE IF NOT EXISTS user_profile (
-
-     );
-
-     INSERT INTO user_login ("username", "password") VALUES ('Wout Haakman', '9347bfd1967a5839344998f964962a28');
-     INSERT INTO user_login ("username", "password") VALUES ('Michael Stonebraker', '7760ff62297f10042c0c1f47cca1a587');
-     */
-
 }

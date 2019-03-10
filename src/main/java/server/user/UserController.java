@@ -52,6 +52,11 @@ public class UserController {
         }
     }
 
+    /**
+     * This function will get the users profile, associated with a sessionID.
+     * @param s String type
+     * @return a ClientUser prepared JSON
+     */
     @RequestMapping(value = "/getUserProfile", method = RequestMethod.POST)
     public ClientUserClass getUserProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
@@ -94,6 +99,11 @@ public class UserController {
         }
     }
 
+    /**
+     * This function will get the users a ClientUser is following, associated with its sessionID
+     * @param s String type
+     * @return a list of Users
+     */
     @RequestMapping(value = "/getFollowingProfile", method = RequestMethod.POST)
     public List<UserClass> getFollowingProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
@@ -102,6 +112,11 @@ public class UserController {
         return getUsers(-1, selectFollowing);
     }
 
+    /**
+     * This function will get the global best users, it uses the sessionID to valid the request
+     * @param s String type
+     * @return a list of Users
+     */
     @RequestMapping(value = "/getGlobalBestProfile", method = RequestMethod.POST)
     public List<UserClass> getGlobalBestProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
@@ -110,6 +125,12 @@ public class UserController {
         return getUsers(-1, selectGlobalBest);
     }
 
+    /**
+     * This is a helper function that generalizes fetching user data from the database.
+     * @param userID int type
+     * @param query PreparedStatement type
+     * @return a list of users, returned given a specific query
+     */
     private List<UserClass> getUsers(int userID, PreparedStatement query) {
         try {
             List<UserClass> users = new ArrayList<UserClass>();

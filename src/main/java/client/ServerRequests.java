@@ -108,6 +108,11 @@ public class ServerRequests {
             Main.items = Main.gson.fromJson(response, listType);
     }
 
+    /**
+     * This function will add an activity to the database
+     * @param activity
+     * @return a boolean whether adding went successfully
+     */
     public static boolean addActivity(Activity activity) {
         if (activity == null)
             return false;
@@ -125,6 +130,11 @@ public class ServerRequests {
         }
     }
 
+    /**
+     * This function removes an activity with gien acitivtiID from the database.
+     * @param activityID
+     * @return a boolean whether removing went successfully
+     */
     public static boolean removeActivity(int activityID) {
         if (activityID < 0)
             return false;
@@ -140,6 +150,11 @@ public class ServerRequests {
         }
     }
 
+    /**
+     * This function retrieves all activities within a given period for a specific user from the database
+     * @param period
+     * @return a list of activities
+     */
     public static List<Activity> retrieveActivities(String period) {
         Type listType = new TypeToken<List<Activity>>() {
         }.getType();
@@ -149,11 +164,19 @@ public class ServerRequests {
         return Main.gson.fromJson(response, listType);
     }
 
+    /**
+     * This funtion retrieves the clients user profile from the database
+     * @return a ClientUser class
+     */
     public static ClientUser getClientUserProfile() {
         String response = sendRequestToServer("getUserProfile?s=" + Main.sessionID, null);
         return Main.gson.fromJson(response, ClientUser.class);
     }
 
+    /**
+     * This function retrieves all the users the clientuser is following from the database
+     * @return a list of Users
+     */
     public static List<User> getFollowingProfile() {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
@@ -163,6 +186,10 @@ public class ServerRequests {
         return Main.gson.fromJson(response, listType);
     }
 
+    /**
+     * This funtion gets the global best users.
+     * @return a list of Users
+     */
     public static List<User> getGlobalBestProfile() {
         Type listType = new TypeToken<List<User>>() {
         }.getType();

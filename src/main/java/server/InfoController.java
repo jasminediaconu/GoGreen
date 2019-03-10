@@ -24,6 +24,11 @@ public class InfoController {
         return "Welcome to the GoGreen project of Group72.\n\nOur aim is to go green, do you go green with us?\n\nTry logging in by going to:\nhttps://group72.herokuapp.com/login?username=[usrnm]&password=[pwd]";
     }
 
+    /**
+     * This function will retrieve the userID associated with a given sessionID
+     * @param s String type
+     * @return an int from the map of sessionIDs
+     */
     @RequestMapping("/userID")
     public int getUserID(@RequestParam String s) {
         return ServerApp.getUserIDFromSession(s);

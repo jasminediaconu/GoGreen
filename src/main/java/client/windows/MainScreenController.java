@@ -36,6 +36,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.controlsfx.control.PopOver;
 
 import java.awt.*;
 import java.io.IOException;
@@ -85,27 +86,32 @@ public class MainScreenController extends Pane implements Initializable{
     @FXML
     private Line line;
 
+    JFXButton ssbutton1 = new JFXButton("+");
+    JFXButton ssbutton2 = new JFXButton("T");
+    JFXButton ssbutton3 = new JFXButton("F");
+    JFXButton ssbutton4 = new JFXButton("E");
+
+    JFXNodesList nodesList = new JFXNodesList();
+
     AgendaController agendaController = new AgendaController();
 
-    JFXNodesList nodesList;
 
     /**
      * This function links the different screens to their fxml files.
      */
     public MainScreenController() {
-
         try {
             String path = "/client/windows/fxml/";
             profile = FXMLLoader.load(this.getClass().getResource(path + "profile.fxml"));
             agenda = FXMLLoader.load(this.getClass().getResource(path + "agenda.fxml"));
             overview = FXMLLoader.load(this.getClass().getResource(path + "overview.fxml"));
             leaderboard = FXMLLoader.load(this.getClass().getResource(path + "leaderboard.fxml"));
-            // Fixing, two fxml files tried to load the same loader
             foodWindow = FXMLLoader.load(this.getClass().getResource(path + "foodWindow.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * This function handles the closing of the window, with the cross button.
      * @param event MouseEvent type
@@ -238,21 +244,13 @@ public class MainScreenController extends Pane implements Initializable{
 
             pane.toBack();
             state = stt;
-        } if (!button.isFocused()) {
+        }
+        if (!button.isFocused()) {
             button.setStyle(css2);
             mainPane.getChildren().remove(pane);
         }
-        pane.toBack();
-        state = stt;
-
-        if(!button.isFocused())
-
-    {
-        button.setStyle(css2);
-        mainPane.getChildren().remove(pane);
     }
 
-    }
 
     /**
      * When the toggle button is pressed, the menu bar will be hidden/shown.

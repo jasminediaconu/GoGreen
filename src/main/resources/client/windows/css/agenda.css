@@ -33,6 +33,10 @@
     -fx-background-image: url("../images/car.png");
 }
 
+#apply {
+    -fx-background-color: #95E743;
+}
+
 #foodbutton {
     -fx-background-image: url("../images/food.png");
 

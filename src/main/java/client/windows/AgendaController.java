@@ -1,6 +1,5 @@
 package client.windows;
 
-import client.Main;
 import client.objects.Activity;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -18,7 +17,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
@@ -138,7 +136,9 @@ public class AgendaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         loadActivity();
+
         activities = new ArrayList<>();
         activities.add(new Activity(1, 1, LocalDate.now()));
         activities.add(new Activity(2, 5, LocalDate.now()));
@@ -291,7 +291,7 @@ public class AgendaController implements Initializable {
      * Creates an empty white popup box for transportation button popup
      * To be finished
      */
-    public void transportButtonAction(MouseEvent event) {
+    public void transportButtonAction(javafx.scene.input.MouseEvent event) {
         VBox vBox = new VBox();
         vBox.setPrefHeight(250.0);
         vBox.setPrefWidth(200.0);

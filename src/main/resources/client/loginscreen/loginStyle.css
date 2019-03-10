@@ -23,7 +23,6 @@ Button {
     -fx-border-color: black;
 }
 
-
 #signup:hover {
     -fx-border-color: #95E743;
     -fx-background-color: #ecffe6;

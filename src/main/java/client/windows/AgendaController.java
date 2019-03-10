@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import org.controlsfx.control.PopOver;
@@ -30,6 +31,9 @@ public class AgendaController implements Initializable {
     private JFXButton ssbutton4;
     private ObservableList list = FXCollections.observableArrayList();
     private JFXNodesList nodesList;
+
+    @FXML
+    private TextField agendatext = new TextField();
 
     @FXML
     private ComboBox<String> foodchoices = new ComboBox<>();
@@ -141,6 +145,19 @@ public class AgendaController implements Initializable {
 
 //        mainPane.getChildren().add(foodchoices);
     }
+
+    @FXML
+    void applyButton(MouseEvent event) {
+        String activity = foodchoices.getValue();
+
+        if(activity==null) {
+            agendatext.setText("PLease select a valid item.");
+        }
+        else {
+            agendatext.setText("Test" + activity);
+        }
+    }
+
 
     /**
      * Creates an empty white popup box for energy button popup

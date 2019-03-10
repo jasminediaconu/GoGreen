@@ -34,6 +34,7 @@
                         </VBox>
                         <VBox prefHeight="768.0" prefWidth="512.0" HBox.hgrow="ALWAYS">
 
+<<<<<<< HEAD
                             <children>
                                 <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="487.0">
                                     <children>
@@ -256,6 +257,24 @@
                                         </Text>
                                     </children>
                                 </HBox>
+=======
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.loginScreen.LoginController">
+   <children>
+      <StackPane maxHeight="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 22;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <VBox id="leftVBOX" prefHeight="768.0" prefWidth="512.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" stylesheets="@loginStyle.css" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fitHeight="768.0" fitWidth="512.0">
+                           <image>
+                              <Image url="@img/login-rounded.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="768.0" prefWidth="512.0" HBox.hgrow="ALWAYS">
+>>>>>>> 611c1dc2acb0a8f7f60307ea14e08788dd56807d
 
                             </children>
                         </VBox>

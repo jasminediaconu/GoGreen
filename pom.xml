@@ -144,13 +144,11 @@
             <artifactId>junit-platform-launcher</artifactId>
             <version>1.2.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <version>5.2.0</version>
         </dependency>
-
         <dependency>
             <groupId>org.junit.vintage</groupId>
             <artifactId>junit-vintage-engine</artifactId>
@@ -158,6 +156,7 @@
         </dependency>
 
         <dependency>
+
             <groupId>com.jfoenix</groupId>
             <artifactId>jfoenix</artifactId>
             <version>9.0.8</version>
@@ -258,6 +257,17 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/windows/**</exclude>
+                        <exclude>**/loginscreen/**</exclude>
+                        <exclude>**/helper/*Class.*</exclude>
+                        <exclude>**/login/**</exclude>
+                        <exclude>**/objects/**</exclude>
+                        <exclude>**/InfoController.*</exclude>
+                        <exclude>**/SessionController.*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
@@ -284,7 +294,6 @@
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
 
     </build>
@@ -301,23 +310,22 @@
                     <configLocation>CSE1105.checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-                <configuration>
-                <excludes>
-                    <exclude>**/windows/**</exclude>
-                    <exclude>**/loginscreen/**</exclude>
-                    <exclude>**/helper/*Class.*</exclude>
-                    <exclude>**/login/**</exclude>
-                    <exclude>**/objects/**</exclude>
-                    <exclude>**/InfoController.*</exclude>
-                    <exclude>**/SessionController.*</exclude>
-                </excludes>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+            <!--<groupId>org.jacoco</groupId>-->
+            <!--<artifactId>jacoco-maven-plugin</artifactId>-->
+            <!--<version>${jacoco-maven-plugin.version}</version>-->
+            <!--<configuration>-->
+            <!--<excludes>-->
+            <!--<exclude>**/windows/**</exclude>-->
+            <!--<exclude>**/loginscreen/**</exclude>-->
+            <!--<exclude>**/helper/*Class.*</exclude>-->
+            <!--<exclude>**/login/**</exclude>-->
+            <!--<exclude>**/objects/**</exclude>-->
+            <!--<exclude>**/InfoController.*</exclude>-->
+            <!--<exclude>**/SessionController.*</exclude>-->
+            <!--</excludes>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </reporting>
-
 </project>

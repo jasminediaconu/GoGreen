@@ -1,8 +1,7 @@
 package client.windows;
 
-import client.windows.AgendaController;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
+
 import com.jfoenix.controls.*;
 import javafx.animation.*;
 import javafx.fxml.FXML;
@@ -18,24 +17,25 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+
+
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.controlsfx.control.PopOver;
 
 import java.awt.*;
 import java.io.IOException;
@@ -49,7 +49,8 @@ public class MainScreenController extends Pane implements Initializable{
     private boolean welcome = true;
     private int state = -1;
 
-    @FXML MenuButton user;
+    @FXML
+    MenuButton user;
     @FXML
     private Pane foodWindow;
     @FXML
@@ -100,7 +101,7 @@ public class MainScreenController extends Pane implements Initializable{
             overview = FXMLLoader.load(this.getClass().getResource(path + "overview.fxml"));
             leaderboard = FXMLLoader.load(this.getClass().getResource(path + "leaderboard.fxml"));
             // Fixing, two fxml files tried to load the same loader
-            //foodWindow = FXMLLoader.load(this.getClass().getResource(path + "foodWindow.fxml"));
+            foodWindow = FXMLLoader.load(this.getClass().getResource(path + "foodWindow.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -213,9 +214,13 @@ public class MainScreenController extends Pane implements Initializable{
             ft.setToValue(1.0);
             ft.play();
 
+            // Loading the plusbutton with the nodes and styling
             agendaController.loadPlusButton();
+
+            //
             nodesList = agendaController.getNodesList();
 
+            // Showing any of the panes a.k.a fxml-s passed in as an argument
             mainPane.getChildren().add(pane);
 
             if (pane.equals(agenda)) {
@@ -233,16 +238,19 @@ public class MainScreenController extends Pane implements Initializable{
 
             pane.toBack();
             state = stt;
-        }
-        if (!button.isFocused()) {
+        } if (!button.isFocused()) {
             button.setStyle(css2);
             mainPane.getChildren().remove(pane);
         }
+        pane.toBack();
+        state = stt;
+
+        if(!button.isFocused())
+
+    {
+        button.setStyle(css2);
+        mainPane.getChildren().remove(pane);
     }
-
-
-    @FXML
-    private void applyActivity(MouseEvent event) {
 
     }
 
@@ -295,6 +303,13 @@ public class MainScreenController extends Pane implements Initializable{
             line.setVisible(true);
         }
     }
+
+    @FXML
+    private void applyActivity(MouseEvent event) {
+
+    }
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

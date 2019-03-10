@@ -1,5 +1,6 @@
 package client.windows;
 
+import client.Main;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
 import javafx.collections.FXCollections;
@@ -13,6 +14,7 @@ import org.controlsfx.control.PopOver;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * This class provides functionality for:
@@ -130,12 +132,8 @@ public class AgendaController implements Initializable {
     private void loadActivity() {
 
         //Clears everything in the observable list
-        list.removeAll(list);
-
-        String a = "Eating a vegetarian meal";
-        String b = "Buying local produce";
-        String c = "Svetoslav's stroopwafel";
-        list.addAll(a, b, c);
+        if(list.size() < 1)
+            list.addAll(Main.items.stream().filter(item -> item.getType().equals("food")).map(item -> item.getName()).collect(Collectors.toList()));
 
         foodchoices.setItems(list);
 

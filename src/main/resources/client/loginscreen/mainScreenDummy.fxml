@@ -10,7 +10,7 @@
             minWidth="-Infinity"
             prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: transparent;"
             stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/11.0.1"
-            fx:controller="client.loginscreen.LoginController">
+            fx:controller="client.loginScreen.LoginController">
     <children>
         <StackPane maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0"
                    style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="0.0"

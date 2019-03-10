@@ -28,9 +28,8 @@ public class ServerApp {
     private static Map<String, Integer> sessions = new HashMap<String, Integer>();
 
     /**
-     * Starts the web application
-     *
-     * @param args
+     * Starts the web application.
+     * @param args type.
      */
     public static void main(String[] args) throws Exception {
         dbConnection = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
@@ -66,17 +65,15 @@ public class ServerApp {
 
     /**
      * Removes the sessionID from the list, by taking the username.
-     *
-     * @param sessionID String type
+     * @param sessionID String type.
      */
     public static void removeSessionID(String sessionID) {
         sessions.remove(sessionID);
     }
 
     /**
-     * This function will get the userID from the sessions list
-     *
-     * @param sessionID String type
+     * This function will get the userID from the sessions list.
+     * @param sessionID String type.
      * @return an integer corresponding to the userID in the database.
      */
     public static int getUserIDFromSession(String sessionID) {
@@ -84,5 +81,4 @@ public class ServerApp {
             return -1;
         return sessions.get(sessionID);
     }
-
 }

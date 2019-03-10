@@ -1,6 +1,10 @@
 package server.objects;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import server.ServerApp;
 import server.helper.ActivityClass;
 
@@ -27,17 +31,21 @@ public class ActivityController {
 
     static {
         try {
-            addActivity = ServerApp.dbConnection.prepareStatement("INSERT INTO user_activities (\"userid\", \"itemid\", \"amount\", \"date\") VALUES (?, ?, ?, ?) RETURNING activityid");
-            removeActivity = ServerApp.dbConnection.prepareStatement("DELETE FROM user_activities WHERE  userid = ? AND activityid = ?");
-            retrieveActivities = ServerApp.dbConnection.prepareStatement("SELECT * FROM user_activities WHERE userid = ? AND date < now() AND date > ?");
+            addActivity = ServerApp.dbConnection.prepareStatement("INSERT INTO "
+                    + "user_activities(\"userid\", \"itemid\", \"amount\", \"date\") "
+                    + "VALUES (?, ?, ?, ?) RETURNING activityid");
+            removeActivity = ServerApp.dbConnection.prepareStatement("DELETE FROM user_activities "
+                    + "WHERE  userid = ? AND activityid = ?");
+            retrieveActivities = ServerApp.dbConnection.prepareStatement("SELECT * "
+                    + "FROM user_activities WHERE userid = ? AND date < now() AND date > ?");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * This function will handle adding an Activity to the database, that belongs to a given sessionid.
-     *
+     * This function will handle adding an Activity to the database,
+     * that belongs to a given sessionid.
      * @param s String type sessionID
      * @param a ActivityClass type
      * @return int containing the id of the activity
@@ -49,7 +57,8 @@ public class ActivityController {
             addActivity.setInt(1, userID);
             addActivity.setInt(2, a.itemID);
             addActivity.setDouble(3, a.amount);
-            addActivity.setDate(4, new Date(new SimpleDateFormat("dd-MM-yyyy").parse(a.date).getTime()));
+            addActivity.setDate(4,
+                    new Date(new SimpleDateFormat("dd-MM-yyyy").parse(a.date).getTime()));
 
             ResultSet result = addActivity.executeQuery();
             result.next();
@@ -61,11 +70,10 @@ public class ActivityController {
     }
 
     /**
-     * This function will remove an Activity with a given id and corresponding user
-     *
-     * @param s          String type sessionID
-     * @param activityID int type
-     * @return a String telling the client whether the transaction succeeded
+     * This function will remove an Activity with a given id and corresponding user.
+     * @param s String type sessionID.
+     * @param activityID int type.
+     * @return a String telling the client whether the transaction succeeded.
      */
     @RequestMapping(value = "/removeActivity", method = RequestMethod.POST)
     public String removeActivity(@RequestParam String s, @RequestBody int activityID) {
@@ -85,9 +93,9 @@ public class ActivityController {
     /**
      * This function will handle all retrieve Activity requests.
      * It will retrieve all activities that a given user has on their profile.
-     *
-     * @param s      String type sessionID
-     * @param period A String consisting of the sessionID and domain type, split by a whitespace character
+     * @param s String type sessionID
+     * @param period A String consisting of the sessionID and domain type,
+     *        split by a whitespace character
      * @return a JSON with a list of activities
      */
     @RequestMapping(value = "/retrieveActivities", method = RequestMethod.POST)
@@ -117,8 +125,8 @@ public class ActivityController {
     }
 
     /**
-     * This function will take a String w, that is a width/domain of date that will return the domain between Now
-     * and a date w removed from Now.
+     * This function will take a String w, that is a width/domain of date
+     * that will return the domain between Now and a date w removed from Now.
      * w can be either m=month, h=half a year, y=year or else=week
      *
      * @param w String type

@@ -25,9 +25,8 @@ public class Activity {
     }
 
     /**
-     * This function will get the activity ID
-     *
-     * @return the activityID
+     * This function will get the activity ID.
+     * @return the activityID.
      */
     public int getActivityID() {
         return activityID;
@@ -35,9 +34,10 @@ public class Activity {
 
     /**
      * This function will set the activity ID.
-     * This function should be called after the database added the activity, since by default the id is -1.
+     * This function should be called after the database added the activity,
+     * since by default the id is -1.
      *
-     * @param activityID int type
+     * @param activityID int type.
      */
     public void setActivityID(int activityID) {
         this.activityID = activityID;
@@ -78,12 +78,16 @@ public class Activity {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Activity activity = (Activity) o;
-        return activityID == activity.activityID &&
-                Double.compare(activity.amount, amount) == 0 &&
-                itemID == activity.itemID &&
-                Objects.equals(date, activity.date);
+        return activityID == activity.activityID
+                && Double.compare(activity.amount, amount) == 0
+                && itemID == activity.itemID
+                && Objects.equals(date, activity.date);
     }
 }

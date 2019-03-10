@@ -74,12 +74,16 @@ public class User {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         User user = (User) o;
-        return Double.compare(user.totalCo2, totalCo2) == 0 &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(country, user.country);
+        return Double.compare(user.totalCo2, totalCo2) == 0
+                && Objects.equals(username, user.username)
+                && Objects.equals(country, user.country);
     }
 
 }

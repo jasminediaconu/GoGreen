@@ -43,7 +43,9 @@ public class ItemController {
             List<ItemClass> items = new ArrayList<ItemClass>();
             ResultSet result = getItems.executeQuery();
             while (result.next()) {
-                ItemClass item = new ItemClass(result.getInt(1), result.getString(2), result.getString(3), result.getDouble(4));
+                ItemClass item = new ItemClass(result.getInt(1),
+                        result.getString(2), result.getString(3),
+                        result.getDouble(4));
                 items.add(item);
             }
 

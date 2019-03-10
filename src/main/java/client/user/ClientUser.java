@@ -45,9 +45,8 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get the users car type
-     *
-     * @return the type of car the user has
+     * This function will get the users car type.
+     * @return the type of car the user has.
      */
     public String getCarType() {
         return carType;
@@ -69,6 +68,14 @@ public class ClientUser extends User {
      */
     public String getCarEmissionType() {
         return carEmissionType;
+    }
+
+    /**
+     * Sets the users car emission to the argument carEmissionType.
+     * @param carEmissionType String type.
+     */
+    public void setCarEmissionType(String carEmissionType) {
+        this.carEmissionType = carEmissionType;
     }
 
     /**
@@ -99,18 +106,16 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get whether the user is using LEDs
-     *
-     * @return if the user is using LEDs
+     * This function will get whether the user is using LEDs.
+     * @return if the user is using LEDs.
      */
     public boolean hasLEDs() {
         return LEDs;
     }
 
     /**
-     * This function will get the users room temperature
-     *
-     * @return the temperature of the users room
+     * This function will get the users room temperature.
+     * @return the temperature of the users room.
      */
     public int getRoomTemp() {
         return roomTemp;
@@ -126,15 +131,6 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users car emission to the argument carEmissionType
-     *
-     * @param carEmissionType String type
-     */
-    public void setCarEmmisionType(String carEmissionType) {
-        this.carEmissionType = carEmissionType;
-    }
-
-    /**
      * Sets the users solar power usage boolean to the argument solarPower
      *
      * @param solarPower boolean type
@@ -144,9 +140,8 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users LEDs usage boolean to the argument LEDS
-     *
-     * @param LEDs boolean type
+     * Sets the users LEDs usage boolean to the argument LEDS.
+     * @param LEDs boolean type.
      */
     public void setLEDs(boolean LEDs) {
         this.LEDs = LEDs;
@@ -162,21 +157,20 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will set the current Activity list to a new list
-     *
-     * @param activityList List Activity type
-     */
-    public void setActivityList(List<Activity> activityList) {
-        this.activityList = activityList;
-    }
-
-    /**
      * This function will add an Activity to the User's list of activities.
      *
      * @param a Activity type
      */
     public void addToActivityList(Activity a) {
         activityList.add(a);
+    }
+
+    /**
+     * This function will set the current Activity list to a new list.
+     * @param activityList List Activity type.
+     */
+    public void setActivityList(List<Activity> activityList) {
+        this.activityList = activityList;
     }
 
     /**
@@ -187,24 +181,29 @@ public class ClientUser extends User {
      */
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
         ClientUser that = (ClientUser) o;
-        return streakLength == that.streakLength &&
-                solarPower == that.solarPower &&
-                LEDs == that.LEDs &&
-                roomTemp == that.roomTemp &&
-                Objects.equals(carType, that.carType) &&
-                Objects.equals(carEmissionType, that.carEmissionType) &&
-                Objects.equals(following, that.following) &&
-                Objects.equals(activityList, that.activityList);
+        return streakLength == that.streakLength
+                && solarPower == that.solarPower
+                && LEDs == that.LEDs
+                && roomTemp == that.roomTemp
+                && Objects.equals(carType, that.carType)
+                && Objects.equals(carEmissionType, that.carEmissionType)
+                && Objects.equals(following, that.following)
+                && Objects.equals(activityList, that.activityList);
     }
 
     /**
-     * This function will hash the ClientUser class
-     *
-     * @return the hashed ClientUser
+     * This function will hash the ClientUser class.
+     * @return the hashed ClientUser.
      */
     @Override
     public int hashCode() {

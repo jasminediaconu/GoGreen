@@ -22,7 +22,8 @@ public class LoginController {
 
     static {
         try {
-            select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE username = ? AND password = ?;");
+            select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login "
+                    + "WHERE username = ? AND password = ?;");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -31,7 +32,8 @@ public class LoginController {
     /**
      * This function handles the request mapping for a user going to the /login url.
      * Requires two parameters, namely the username and hashed password.
-     * It will make a query that goes through the db to check if the user exists and returns the id if that is the case.
+     * It will make a query that goes through the db to check if the user exists and
+     * returns the id if that is the case.
      *
      * @param user String[] type
      * @return a response as a String

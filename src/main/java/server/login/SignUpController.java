@@ -11,7 +11,9 @@ import java.sql.ResultSet;
 
 /**
  * This class handles the REST controlling for any signup request.
- * It will check the username and password for correct syntax, add them to the database and returns a String on completion.
+ * It will check the username and password for correct syntax,
+ * add them to the database and returns a String on completion.
+ * @author wouthaakman
  *
  * @author wouthaakman
  */
@@ -23,8 +25,11 @@ public class SignUpController {
 
     static {
         try {
-            select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE username = ?;");
-            insert = ServerApp.dbConnection.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?) RETURNING userid;");
+            select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login "
+                    + "WHERE username = ?;");
+            insert = ServerApp.dbConnection.prepareStatement("INSERT INTO user_login "
+                    + "(\"username\", \"email\", \"password\") "
+                    + "VALUES (?, ?, ?) RETURNING userid;");
         } catch (Exception e) {
             e.printStackTrace();
         }

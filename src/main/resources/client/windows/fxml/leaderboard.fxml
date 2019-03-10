@@ -9,45 +9,43 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane fx:id="leaderboard" layoutX="-2.0" layoutY="45.0" prefHeight="723.0" prefWidth="1025.0" style="-fx-background-color: #ffffff; -fx-border-radius: 0 0 24 24;">
+      <Pane fx:id="leaderboard" layoutX="-2.0" layoutY="43.0" prefHeight="725.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 0 24 24;" stylesheets="@../css/agenda.css" />
+      <Text fill="#95e743" layoutX="494.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" wrappingWidth="400.99998335453154">
+         <font>
+            <Font name="Century Gothic" size="61.0" />
+         </font>
+      </Text>
+      <ImageView layoutX="394.0" layoutY="70.0">
+         <image>
+            <Image url="@../images/trophy.png" />
+         </image>
+      </ImageView>
+      <Pane layoutX="360.0" layoutY="172.0" prefHeight="463.0" prefWidth="565.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10 10 10 10;" stylesheets="@../css/agenda.css">
          <children>
-            <ImageView layoutX="374.0" layoutY="40.0">
-               <image>
-                  <Image url="@../images/trophy.png" />
-               </image>
-            </ImageView>
-            <Text fill="#95e743" layoutX="490.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leaderboard" wrappingWidth="400.99998335453154">
+            <Text fill="#8c8686" layoutX="80.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Global" wrappingWidth="125.67272984981537">
                <font>
-                  <Font name="Century Gothic" size="61.0" />
+                  <Font name="Century Gothic" size="36.0" />
                </font>
             </Text>
-            <Pane id="agenda" layoutX="352.0" layoutY="142.0" prefHeight="463.0" prefWidth="565.0" style="-fx-background-color: #e5e5e5; -fx-background-radius: 10 10 10 10;" stylesheets="@../css/agenda.css">
-               <children>
-                  <Text fill="#8c8686" layoutX="80.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Global" wrappingWidth="125.67272984981537">
-                     <font>
-                        <Font name="Century Gothic" size="36.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#8c8686" layoutX="325.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Following" wrappingWidth="179.9818186033416">
-                     <font>
-                        <Font name="Century Gothic" size="36.0" />
-                     </font>
-                  </Text>
-                  <ImageView layoutX="250.0" layoutY="429.0">
-                     <image>
-                        <Image url="@../images/arrow_down.png" />
-                     </image>
-                  </ImageView>
-                  <JFXTextField layoutX="80.0" layoutY="106.0" prefHeight="35.0" prefWidth="380.0" text="Search...">
-                     <font>
-                        <Font name="Century Gothic" size="18.0" />
-                     </font>
-                  </JFXTextField>
-                  <JFXButton id="search" layoutX="460.0" layoutY="100.0" prefHeight="37.0" prefWidth="45.0" style="-fx-background-color: null;" text=" " />
-               </children>
-            </Pane>
+            <Text fill="#8c8686" layoutX="325.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Following" wrappingWidth="179.9818186033416">
+               <font>
+                  <Font name="Century Gothic" size="36.0" />
+               </font>
+            </Text>
+            <ImageView layoutX="250.0" layoutY="429.0">
+               <image>
+                  <Image url="@../images/arrow_down.png" />
+               </image>
+            </ImageView>
+            <JFXTextField layoutX="80.0" layoutY="106.0" prefHeight="35.0" prefWidth="380.0" text="Search...">
+               <font>
+                  <Font name="Century Gothic" size="18.0" />
+               </font>
+            </JFXTextField>
+            <JFXButton id="search" layoutX="460.0" layoutY="100.0" prefHeight="44.0" prefWidth="45.0" style="-fx-background-color: null;" text=" " />
          </children>
       </Pane>
    </children>

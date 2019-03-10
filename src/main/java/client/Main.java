@@ -19,7 +19,7 @@ import java.util.List;
  * This application is made by:
  *
  * @author wouthaakman, ginotramontina, giulianoforghieri,
- * janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
+ *         janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
  */
 public class Main {
 
@@ -29,13 +29,17 @@ public class Main {
     public static ClientUser clientUser;
     public static List<Item> items = new ArrayList<>();
 
+    /**
+     * Main function.
+     * @param args type.
+     */
     public static void main(String[] args) {
         GsonBuilder builder = new GsonBuilder();
         builder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
         builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
         gson = builder.setPrettyPrinting().create();
 
-        Application.launch(client.loginScreen.LoginApp.class, args);
+        Application.launch(client.loginscreen.LoginApp.class, args);
         ServerRequests.endSession();
     }
 
@@ -49,7 +53,8 @@ public class Main {
         if (message == null) {
             return null;
         }
-        String generatedMessage = Hashing.sha256().hashString(message, StandardCharsets.UTF_8).toString();
+        String generatedMessage = Hashing.sha256().hashString(message,
+                StandardCharsets.UTF_8).toString();
         return generatedMessage;
     }
 

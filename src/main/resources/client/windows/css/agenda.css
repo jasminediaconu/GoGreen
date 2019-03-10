@@ -6,6 +6,16 @@
 >>>>>>> 611c1dc2acb0a8f7f60307ea14e08788dd56807d
 /*}*/
 
+.scroll-pane > .viewport {
+    -fx-background-color:  #e5e5e5;
+    -fx-border-radius: 10 10 10 10;
+}
+
+.viewport {
+    -fx-background-radius: 20;
+    -fx-border-radius: 10 10 10 10;
+}
+
 .animated-option-button {
     -fx-pref-width: 60px;
     -fx-pref-height: 60px;
@@ -25,6 +35,10 @@
 
 #transportbutton {
     -fx-background-image: url("../images/car.png");
+}
+
+#apply {
+    -fx-background-color: #95E743;
 }
 
 #foodbutton {
@@ -51,4 +65,13 @@
 
 .animated-option-button-sub-button4 {
     -fx-background-color: #95E743;
+}
+
+GridPane > Text {
+    -fx-font-size: 18px;
+}
+
+#agendaTitle {
+    -fx-font-size: 61px;
+
 }

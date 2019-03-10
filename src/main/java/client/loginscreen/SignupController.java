@@ -22,8 +22,8 @@ import java.util.ResourceBundle;
 
 public class SignupController implements Initializable {
 
-    private double x = 0;
-    private double y = 0;
+    private double xcoord = 0;
+    private double ycoord = 0;
 
     @FXML
     private FontAwesomeIcon close;
@@ -56,8 +56,8 @@ public class SignupController implements Initializable {
      */
     @FXML
     private void pressed(MouseEvent event) {
-        x = event.getSceneX();
-        y = event.getSceneY();
+        xcoord = event.getSceneX();
+        ycoord = event.getSceneY();
     }
 
     /**
@@ -72,15 +72,14 @@ public class SignupController implements Initializable {
 
         Stage stage = (Stage) node.getScene().getWindow();
 
-        stage.setX(event.getScreenX() - x);
-        stage.setY(event.getScreenY() - y);
+        stage.setX(event.getScreenX() - xcoord);
+        stage.setY(event.getScreenY() - ycoord);
     }
 
     /**
-     * This function will switch to the login screen
-     *
-     * @param event MouseEvent type
-     * @throws IOException
+     * This function will switch to the login screen.
+     * @param event MouseEvent type.
+     * @throws IOException Exception.
      */
     @FXML
     private void login(MouseEvent event) throws IOException {
@@ -90,11 +89,11 @@ public class SignupController implements Initializable {
     }
 
     /**
-     * This function will handle the input of username, email, and password when the sign up button is pressed
-     * It will also handle the responses returned by the ServerRequests class given it's query
-     *
-     * @param event MouseEvent type
-     * @throws Exception
+     * This function will handle the input of username, email,
+     * and password when the sign up button is pressed.
+     * It will also handle the responses returned by the ServerRequests class given it's query.
+     * @param event MouseEvent type.
+     * @throws Exception Exception.
      */
     @FXML
     private void signup(MouseEvent event) throws Exception {
@@ -116,17 +115,17 @@ public class SignupController implements Initializable {
 
             Main.clientUser = ServerRequests.getClientUserProfile();
 
-            //GOTO PROFILE SCREEN
-            Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
+            //GOTO MAIN SCREEN
+            String path = "../windows/fxml/mainScreen.fxml";
+            Parent root = FXMLLoader.load(getClass().getResource(path));
             fillScene(root, event);
         }
     }
 
     /**
-     * This function will fill the screen with a new event stage evoked by the root
-     *
-     * @param root  Parent type
-     * @param event MouseEvent event
+     * This function will fill the screen with a new event stage evoked by the root.
+     * @param root Parent type.
+     * @param event MouseEvent event.
      */
     private void fillScene(Parent root, MouseEvent event) {
         Node node = (Node) event.getSource();
@@ -142,10 +141,9 @@ public class SignupController implements Initializable {
     }
 
     /**
-     * This function remains unused, but required to stay since this class implements Initializable
-     *
-     * @param url
-     * @param resourceBundle
+     * This function remains unused, but required to stay since this class implements Initializable.
+     * @param url URL type.
+     * @param resourceBundle ResourceBundle type.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

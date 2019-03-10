@@ -1,21 +1,31 @@
 package client.windows;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
-import com.jfoenix.controls.JFXPopup;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+
 import javafx.fxml.Initializable;
+
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -24,12 +34,17 @@ import java.util.ResourceBundle;
 
 public class MainScreenController extends Pane implements Initializable {
 
+    JFXButton ssbutton1 = new JFXButton("+");
+    JFXButton ssbutton2 = new JFXButton("T");
+    JFXButton ssbutton3 = new JFXButton("F");
+    JFXButton ssbutton4 = new JFXButton("E");
+
+    JFXNodesList nodesList = new JFXNodesList();
+
     AgendaController agendaController = new AgendaController();
-    JFXNodesList nodesList;
-    private double x = 0;
-    private double y = 0;
-    private boolean welcome = true;
-    private int state = -1;
+
+    @FXML
+    MenuButton user;
     @FXML
     private Pane foodWindow;
     @FXML
@@ -45,7 +60,7 @@ public class MainScreenController extends Pane implements Initializable {
     @FXML
     private Pane leaderboard;
     @FXML
-    private Button logoutButton;
+    private MenuItem logoutButton;
     @FXML
     private Button agendaButton;
     @FXML
@@ -63,6 +78,10 @@ public class MainScreenController extends Pane implements Initializable {
     @FXML
     private Line line;
 
+    private double xcoord = 0;
+    private double ycoord = 0;
+    private boolean welcome = true;
+    private int state = -1;
     /**
      * This function links the different screens to their fxml files.
      */
@@ -73,50 +92,84 @@ public class MainScreenController extends Pane implements Initializable {
             agenda = FXMLLoader.load(this.getClass().getResource(path + "agenda.fxml"));
             overview = FXMLLoader.load(this.getClass().getResource(path + "overview.fxml"));
             leaderboard = FXMLLoader.load(this.getClass().getResource(path + "leaderboard.fxml"));
-            // Fixing, two fxml files tried to load the same loader
             foodWindow = FXMLLoader.load(this.getClass().getResource(path + "foodWindow.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    /**
+     * This function handles the closing of the window, with the cross button.
+     *
+     * @param event MouseEvent type
+     */
 
     @FXML
     public void close(MouseEvent event) {
-
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
     }
 
-    @FXML
-    private void pressed(MouseEvent event) {
-        x = event.getSceneX();
-        y = event.getSceneY();
-    }
-
-    @FXML
-    private void dragged(MouseEvent event) {
-
-        Node node = (Node) event.getSource();
-
-        Stage stage = (Stage) node.getScene().getWindow();
-
-        stage.setX(event.getScreenX() - x);
-        stage.setY(event.getScreenY() - y);
-    }
-
     /**
-     * The logout button closes the window.
+     * This function minimizes the window, with the minus button.
+     *
+     * @param event MouseEvent type
      */
     @FXML
-    private void logoutButtonAction() {
-        Stage stage = (Stage) logoutButton.getScene().getWindow();
-
-        stage.close();
+    public void minimize(MouseEvent event) {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.setIconified(true);
     }
 
     /**
-     * When a button is selected/unselected, this function changes its style and the displayed screen.
+     * This function will update x and y when the mouse is pressed.
+     *
+     * @param event MouseEvent type
+     */
+    @FXML
+    private void pressed(MouseEvent event) {
+        xcoord = event.getSceneX();
+        ycoord = event.getSceneY();
+    }
+
+    /**
+     * This function will change the drag of the scene when the mouse is dragged.
+     *
+     * @param event MouseEvent type
+     */
+    @FXML
+    private void dragged(MouseEvent event) {
+        Node node = (Node) event.getSource();
+
+        Stage stage = (Stage) node.getScene().getWindow();
+
+        stage.setX(event.getScreenX() - xcoord);
+        stage.setY(event.getScreenY() - ycoord);
+    }
+
+    /**
+     * This function will disconnect the user from the server and the session will be closed.
+     * It happens when pressing the logout field in the dropdown menu under the user profile image.
+     */
+    @FXML
+    private void logout() throws IOException {
+        Stage stage = (Stage) user.getScene().getWindow();
+        stage.close();
+        Stage login = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("/client/loginScreen/login.fxml"));
+        Scene scene = new Scene(root);
+        login.setScene(scene);
+        scene.setFill(Color.TRANSPARENT);
+        login.initStyle(StageStyle.TRANSPARENT);
+        login.show();
+        login.getIcons().add(new Image("client/windows/images/icon.png"));
+        //TODO Clean up, save stuff to database and close session id
+    }
+
+    /**
+     * When a button is selected/unselected,
+     * this function changes its style and the displayed screen.
      */
     @FXML
     private void selectedButton() {
@@ -132,11 +185,12 @@ public class MainScreenController extends Pane implements Initializable {
         styleFocused(profileButton, profile, 1);
         styleFocused(overviewButton, overview, 2);
         styleFocused(leaderboardButton, leaderboard, 3);
+
     }
 
     /**
-     * This function enables per button checking if it is focused by the user, which in affect will add
-     * or remove a pane from the main screen.
+     * This function enables per button checking if it is focused by the user,
+     * which in affect will add or remove a pane from the main screen.
      *
      * @param button The button that is checked if it is focused
      * @param pane   The pane that clicking the button will affect
@@ -165,13 +219,12 @@ public class MainScreenController extends Pane implements Initializable {
             if (pane.equals(agenda)) {
                 mainPane.getChildren().add(nodesList);
 
-            }
+            } else if (!pane.equals(agenda)) {
+                // Remove the plus  button if Agenda is not the screen the user selected
+                // Assign an empty nodeList to the plus button,
+                // so the next time the user clicks Agenda
+                // Only 4 nodes are shown in total when clicking the plus button
 
-
-            // Remove the plus  button if Agenda is not the screen the user selected
-            // Assign an empty nodeList to the plus button, so the next time the user clicks Agenda
-            // Only 4 nodes are shown in total when clicking the plus button
-            else if (!pane.equals(agenda)) {
                 mainPane.getChildren().remove(agendaController.getNodesList());
                 agendaController.clearPlusButton();
             }
@@ -184,15 +237,6 @@ public class MainScreenController extends Pane implements Initializable {
             mainPane.getChildren().remove(pane);
         }
     }
-
-    /**
-     * Giuliano foodpopup method
-     */
-    private void foodPopup() {
-
-        JFXPopup pop = new JFXPopup();
-    }
-
 
     /**
      * When the toggle button is pressed, the menu bar will be hidden/shown.
@@ -243,10 +287,12 @@ public class MainScreenController extends Pane implements Initializable {
             line.setVisible(true);
         }
     }
+    @FXML
+    private void applyActivity(MouseEvent event) {
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
     public AnchorPane getMainPane() {

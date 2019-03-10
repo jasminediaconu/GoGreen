@@ -20,8 +20,8 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-    private double x = 0;
-    private double y = 0;
+    private double xcoord = 0;
+    private double ycoord = 0;
 
     @FXML
     private TextField tf_username;
@@ -45,20 +45,18 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * This function will update x and y when the mouse is pressed
-     *
-     * @param event MouseEvent type
+     * This function will update x and y when the mouse is pressed.
+     * @param event MouseEvent type.
      */
     @FXML
     private void pressed(MouseEvent event) {
-        x = event.getSceneX();
-        y = event.getSceneY();
+        xcoord = event.getSceneX();
+        ycoord = event.getSceneY();
     }
 
     /**
-     * This function will change the drag of the scene when the mouse is dragged
-     *
-     * @param event MouseEvent type
+     * This function will change the drag of the scene when the mouse is dragged.
+     * @param event MouseEvent type.
      */
     @FXML
     private void dragged(MouseEvent event) {
@@ -67,8 +65,8 @@ public class LoginController implements Initializable {
 
         Stage stage = (Stage) node.getScene().getWindow();
 
-        stage.setX(event.getScreenX() - x);
-        stage.setY(event.getScreenY() - y);
+        stage.setX(event.getScreenX() - xcoord);
+        stage.setY(event.getScreenY() - ycoord);
     }
 
     /**
@@ -86,31 +84,28 @@ public class LoginController implements Initializable {
         String password = pf_password.getText();
 
         String response = ServerRequests.login(username, password);
-
         if (response == null) {
             //USERNAME OR PASSWORD MISSING
         } else if (response.equals("fail")) {
             //WRONG USERNAME OR PASSWORD
         } else if (response.startsWith("success:")) {
-            System.out.println(ServerRequests.getUserID());
-
             ServerRequests.getItems();
 
             Main.clientUser = ServerRequests.getClientUserProfile();
 
             Main.clientUser.setActivityList(ServerRequests.retrieveActivities("w"));
 
+            String path = "../windows/fxml/mainScreen.fxml";
             //GOTO MAIN SCREEN
-            Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource(path));
             fillScene(root, event);
         }
     }
 
     /**
-     * This function will switch to the signup screen
-     *
+     * This function will switch to the signup screen.
      * @param event MouseEvent type
-     * @throws IOException
+     * @throws IOException Exception.
      */
     @FXML
     private void signup(MouseEvent event) throws IOException {
@@ -119,10 +114,9 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * This function will fill the screen with a new event stage evoked by the root
-     *
-     * @param root  Parent type
-     * @param event MouseEvent event
+     * This function will fill the screen with a new event stage evoked by the root.
+     * @param root Parent type.
+     * @param event MouseEvent event.
      */
     private void fillScene(Parent root, MouseEvent event) {
         Node node = (Node) event.getSource();
@@ -137,10 +131,9 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * This function remains unused, but required to stay since this class implements Initializable
-     *
-     * @param url
-     * @param resourceBundle
+     * This function remains unused, but required to stay since this class implements Initializable.
+     * @param url URL type.
+     * @param resourceBundle resourceBundle type.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

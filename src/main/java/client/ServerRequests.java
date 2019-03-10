@@ -104,7 +104,7 @@ public class ServerRequests {
         Type listType = new TypeToken<List<Item>>() {
         }.getType();
         String response = sendRequestToServer("getItems", null);
-        if(response != null)
+        if (response != null)
             Main.items = Main.gson.fromJson(response, listType);
     }
 
@@ -144,7 +144,7 @@ public class ServerRequests {
         Type listType = new TypeToken<List<Activity>>() {
         }.getType();
         String response = sendRequestToServer("retrieveActivities?s=" + Main.sessionID, Main.gson.toJson(period));
-        if(response == null)
+        if (response == null)
             return new ArrayList<>();
         return Main.gson.fromJson(response, listType);
     }
@@ -158,7 +158,7 @@ public class ServerRequests {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
         String response = sendRequestToServer("getFollowingProfile?s=" + Main.sessionID, null);
-        if(response == null)
+        if (response == null)
             return new ArrayList<User>();
         return Main.gson.fromJson(response, listType);
     }
@@ -167,14 +167,14 @@ public class ServerRequests {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
         String response = sendRequestToServer("getGlobalBestProfile?s=" + Main.sessionID, null);
-        if(response == null)
+        if (response == null)
             return new ArrayList<User>();
         return Main.gson.fromJson(response, listType);
     }
 
     public static int getUserID() {
         String response = sendRequestToServer("userID?s=" + Main.sessionID, null);
-        if(response == null)
+        if (response == null)
             return -1;
         return Integer.parseInt(response);
     }

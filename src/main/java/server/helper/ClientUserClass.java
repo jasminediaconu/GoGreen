@@ -16,15 +16,15 @@ public class ClientUserClass {
     /**
      * This is the ClientUserClass, all client user classes will be populated here
      *
-     * @param username String type
-     * @param country String type
-     * @param totalCo2 double type
-     * @param carType String type
+     * @param username        String type
+     * @param country         String type
+     * @param totalCo2        double type
+     * @param carType         String type
      * @param carEmissionType String type
-     * @param streakLength int type
-     * @param solarPower boolean type
-     * @param LEDs boolean type
-     * @param roomTemp int type
+     * @param streakLength    int type
+     * @param solarPower      boolean type
+     * @param LEDs            boolean type
+     * @param roomTemp        int type
      */
     public ClientUserClass(String username, String country, double totalCo2, String carType, String carEmissionType, int streakLength, boolean solarPower, boolean LEDs, int roomTemp) {
         this.username = username;

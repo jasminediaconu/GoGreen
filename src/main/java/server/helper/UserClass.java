@@ -10,7 +10,7 @@ public class UserClass {
      * This is the UserClass, all user classes will be populated here
      *
      * @param username String type
-     * @param country String type
+     * @param country  String type
      * @param totalCo2 double type
      */
     public UserClass(String username, String country, double totalCo2) {

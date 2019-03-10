@@ -112,8 +112,6 @@ public class SignupController implements Initializable {
         } else if (response.equals("fail")) {
             //SIGN UP WAS UNSUCCESSFUL
         } else if (response.equals("ok")) {
-            System.out.println(ServerRequests.getUserID());
-
             ServerRequests.getItems();
 
             Main.clientUser = ServerRequests.getClientUserProfile();

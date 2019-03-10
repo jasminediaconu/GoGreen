@@ -44,14 +44,14 @@ public class SignUpController {
         String email = newUser[1];
         String password = newUser[2];
 
-        try{
+        try {
             select.setString(1, username);
 
             ResultSet result = select.executeQuery();
             while (result.next()) {
                 return "fail";
             }
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

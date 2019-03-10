@@ -80,7 +80,7 @@ public class ServerApp {
      * @return an integer corresponding to the userID in the database.
      */
     public static int getUserIDFromSession(String sessionID) {
-        if(sessions.get(sessionID) == null)
+        if (sessions.get(sessionID) == null)
             return -1;
         return sessions.get(sessionID);
     }

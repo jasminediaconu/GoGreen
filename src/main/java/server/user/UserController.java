@@ -52,24 +52,25 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value="/getUserProfile", method= RequestMethod.POST)
+    @RequestMapping(value = "/getUserProfile", method = RequestMethod.POST)
     public ClientUserClass getUserProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
-        if(userID == -1)
+        if (userID == -1)
             return null;
-        try{
+        try {
             createClientUser.setInt(1, userID);
             createClientUser.executeUpdate();
-        }catch(Exception e){ }
-        try{
+        } catch (Exception e) {
+        }
+        try {
 
             selectClientUser.setInt(1, userID);
             ResultSet result = selectClientUser.executeQuery();
 
-            while(result.next()){
+            while (result.next()) {
                 LocalDate date = result.getDate(6).toLocalDate();
                 int streakLength = result.getInt(7);
-                if(LocalDate.now().minusDays(1).equals(date)) {
+                if (LocalDate.now().minusDays(1).equals(date)) {
                     streakLength++;
                 } else if (!LocalDate.now().equals(date)) {
                     streakLength = 0;
@@ -87,40 +88,40 @@ public class UserController {
             }
 
             return null;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    @RequestMapping(value="/getFollowingProfile", method= RequestMethod.POST)
+    @RequestMapping(value = "/getFollowingProfile", method = RequestMethod.POST)
     public List<UserClass> getFollowingProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
-        if(userID == -1)
+        if (userID == -1)
             return null;
         return getUsers(-1, selectFollowing);
     }
 
-    @RequestMapping(value="/getGlobalBestProfile", method= RequestMethod.POST)
+    @RequestMapping(value = "/getGlobalBestProfile", method = RequestMethod.POST)
     public List<UserClass> getGlobalBestProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
-        if(userID == -1)
+        if (userID == -1)
             return null;
         return getUsers(-1, selectGlobalBest);
     }
 
     private List<UserClass> getUsers(int userID, PreparedStatement query) {
-        try{
+        try {
             List<UserClass> users = new ArrayList<UserClass>();
-            if(userID != -1)
+            if (userID != -1)
                 query.setInt(1, userID);
             ResultSet result = query.executeQuery();
-            while(result.next()) {
+            while (result.next()) {
                 users.add(new UserClass(result.getString(1), result.getString(2), result.getDouble(3)));
             }
 
             return users;
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

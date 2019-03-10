@@ -1,34 +1,48 @@
 /*#agenda {*/
-    /*-fx-background-color: #95e743;*/
+/**/
 /*}*/
 
 .animated-option-button {
     -fx-pref-width: 60px;
-    -fx-background-radius: 60px;
     -fx-pref-height: 60px;
-    -fx-text-fill: white;
-    -fx-border-color: white;
-    -fx-border-radius: 50px;
-    -fx-border-width: 4px;
-    -fx-font-weight: bold;
-    -fx-font-family: Montserrat;
-    -fx-font-size: 25px;
-    -fx-background-color: #95E743;
+    -fx-background-radius: 60;
+    -fx-background-color: white;
+    -fx-background-position: center;
+
 }
 
-#apply {
-    -fx-background-color: #95E743;
+.combo-box .arrow {
+    -fx-background-color: #888888;
 }
+
+#plusbutton {
+    -fx-background-image: url("../images/plus.png");
+}
+
+#transportbutton {
+    -fx-background-image: url("../images/car.png");
+}
+
+#foodbutton {
+    -fx-background-image: url("../images/food.png");
+
+}
+
+#energybutton {
+    -fx-background-image: url("../images/energy.png");
+}
+
 
 .animated-option-button-sub-button {
     -fx-background-color: #95E743;
 }
 
 .animated-option-button-sub-button2 {
-    -fx-background-color: #95E743;
+
 }
+
 .animated-option-button-sub-button3 {
-    -fx-background-color: #95E743;
+
 }
 
 .animated-option-button-sub-button4 {

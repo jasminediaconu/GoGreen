@@ -171,6 +171,7 @@ import java.util.ResourceBundle;
 
                 }
 
+
                 // Remove the plus  button if Agenda is not the screen the user selected
                 // Assign an empty nodeList to the plus button, so the next time the user clicks Agenda
                 // Only 4 nodes are shown in total when clicking the plus button
@@ -183,8 +184,9 @@ import java.util.ResourceBundle;
                 state = stt;
             }
             if (!button.isFocused()) {
-                button.setStyle(css2);
-                mainPane.getChildren().remove(pane);
+                    button.setStyle(css2);
+                    mainPane.getChildren().remove(pane);
+                }
             }
         }
         /**

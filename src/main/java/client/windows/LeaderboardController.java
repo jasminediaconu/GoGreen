@@ -27,7 +27,6 @@ public class LeaderboardController implements Initializable {
     @FXML public TableColumn<User, SimpleStringProperty> usernameColumn;
     @FXML public TableColumn<User, SimpleStringProperty> countryColumn;
     @FXML public TableColumn<User, SimpleDoubleProperty> totalCo2Column;
-    @FXML public TableColumn<User, Button> followButtonColumn;
 
     /** Connects the cells in the table to the right values
      *  table.setItems(getUsers()) initializes the values from the observable list
@@ -39,10 +38,6 @@ public class LeaderboardController implements Initializable {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<User, SimpleStringProperty>("username"));
         countryColumn.setCellValueFactory(new PropertyValueFactory<User, SimpleStringProperty>("country"));
         totalCo2Column.setCellValueFactory(new PropertyValueFactory<User, SimpleDoubleProperty>("totalCo2"));
-        /*
-         * This column will be removed when the follow buttons work properly
-         */
-        followButtonColumn.setCellValueFactory(new PropertyValueFactory<User, Button>("followButton"));
 
         addFollowButtons();
 
@@ -56,21 +51,19 @@ public class LeaderboardController implements Initializable {
     public ObservableList<User> getUsers(){
         ObservableList<User> users = FXCollections.observableArrayList();
 
-        users.add(new User("Dinkleberg","United States", 527.24, new Button("followButton")));
-        users.add(new User("co2Warrior","France", 319.52, new Button()));
-        users.add(new User("sweetandround","Netherlands", 100.0, new Button()));
-        users.add(new User("PatriciaPaay","Netherlands", 213.78, new Button()));
+        users.add(new User("Dinkleberg","United States", 527.24));
+        users.add(new User("co2Warrior","France", 319.52));
+        users.add(new User("sweetandround","Netherlands", 100.0));
+        users.add(new User("PatriciaPaay","Netherlands", 213.78));
 
         return users;
     }
 
     /** This is a test event for the followButton
-     *
-     * @param event prints out "following user now"
+     * public void followUser(ActionEvent event){
+     *     System.out.println("following user now");
+     * }
      */
-    public void followUser(ActionEvent event){
-        System.out.println("following user now");
-    }
 
     public void addFollowButtons(){
         TableColumn<User, Void> followButtonColumn = new TableColumn("Follow");

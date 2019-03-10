@@ -11,20 +11,17 @@ public class User {
     protected SimpleStringProperty country;
     protected SimpleStringProperty username;
     protected SimpleDoubleProperty totalCo2;
-    protected Button followButton;
 
     /**
      * The abstract User constructor, used for all other users that are not the client.
      * @param username the username of the user
      * @param country the country of the user
      * @param totalCo2 the total co2 the user has saved
-     * @param followButton the button to follow the user
      */
-    public User(String username, String country, double totalCo2, Button followButton){
+    public User(String username, String country, double totalCo2){
         this.username = new SimpleStringProperty(username);
         this.country = new SimpleStringProperty(country);
         this.totalCo2 = new SimpleDoubleProperty(totalCo2);
-        this.followButton = new Button("Follow");
     }
 
     /** This function will get the country
@@ -69,26 +66,12 @@ public class User {
         this.totalCo2.set(totalCo2);
     }
 
-    /** This function will get the follow button
-     *  @return the button
-     */
-    public Button getFollowButton() {
-        return followButton;
-    }
-
-    /** This function will set the followButton
-     * @param followButton
-     */
-    public void setFollowButton(Button followButton) {
-        this.followButton = followButton;
-    }
-
     /**
      * This function will hash the User class
      * @return the hashed User
      */
     @Override
     public int hashCode() {
-        return Objects.hash(username, country, totalCo2, followButton);
+        return Objects.hash(username, country, totalCo2);
     }
 }

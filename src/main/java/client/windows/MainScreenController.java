@@ -1,54 +1,48 @@
 package client.windows;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
-
-import com.jfoenix.controls.*;
-import javafx.animation.*;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-
 
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
 
+import javafx.fxml.Initializable;
+
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.controlsfx.control.PopOver;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainScreenController extends Pane implements Initializable{
+public class MainScreenController extends Pane implements Initializable {
 
-    private double x = 0;
-    private double y = 0;
-    private boolean welcome = true;
-    private int state = -1;
+    JFXButton ssbutton1 = new JFXButton("+");
+    JFXButton ssbutton2 = new JFXButton("T");
+    JFXButton ssbutton3 = new JFXButton("F");
+    JFXButton ssbutton4 = new JFXButton("E");
+
+    JFXNodesList nodesList = new JFXNodesList();
+
+    AgendaController agendaController = new AgendaController();
 
     @FXML
     MenuButton user;
@@ -86,15 +80,10 @@ public class MainScreenController extends Pane implements Initializable{
     @FXML
     private Line line;
 
-    JFXButton ssbutton1 = new JFXButton("+");
-    JFXButton ssbutton2 = new JFXButton("T");
-    JFXButton ssbutton3 = new JFXButton("F");
-    JFXButton ssbutton4 = new JFXButton("E");
-
-    JFXNodesList nodesList = new JFXNodesList();
-
-    AgendaController agendaController = new AgendaController();
-
+    private double x = 0;
+    private double y = 0;
+    private boolean welcome = true;
+    private int state = -1;
 
     /**
      * This function links the different screens to their fxml files.
@@ -182,7 +171,8 @@ public class MainScreenController extends Pane implements Initializable{
     }
 
     /**
-     * When a button is selected/unselected, this function changes its style and the displayed screen.
+     * When a button is selected/unselected,
+     * this function changes its style and the displayed screen.
      */
     @FXML
     private void selectedButton() {
@@ -202,8 +192,8 @@ public class MainScreenController extends Pane implements Initializable{
     }
 
     /**
-     * This function enables per button checking if it is focused by the user, which in affect will add
-     * or remove a pane from the main screen.
+     * This function enables per button checking if it is focused by the user,
+     * which in affect will add or remove a pane from the main screen.
      *
      * @param button The button that is checked if it is focused
      * @param pane   The pane that clicking the button will affect
@@ -232,12 +222,11 @@ public class MainScreenController extends Pane implements Initializable{
             if (pane.equals(agenda)) {
                 mainPane.getChildren().add(nodesList);
 
-            }
-
-            // Remove the plus  button if Agenda is not the screen the user selected
-            // Assign an empty nodeList to the plus button, so the next time the user clicks Agenda
-            // Only 4 nodes are shown in total when clicking the plus button
-            else if (!pane.equals(agenda)) {
+            } else if (!pane.equals(agenda)) {
+                // Remove the plus  button if Agenda is not the screen the user selected
+                // Assign an empty nodeList to the plus button,
+                // so the next time the user clicks Agenda
+                // Only 4 nodes are shown in total when clicking the plus button
                 mainPane.getChildren().remove(agendaController.getNodesList());
                 agendaController.clearPlusButton();
             }
@@ -304,14 +293,12 @@ public class MainScreenController extends Pane implements Initializable{
 
     @FXML
     private void applyActivity(MouseEvent event) {
-
     }
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
+
     public AnchorPane getMainPane() {
         return mainPane;
     }
@@ -319,6 +306,7 @@ public class MainScreenController extends Pane implements Initializable{
     public Pane getAgenda() {
         return agenda;
     }
+
     public Pane getFoodWindow() {
         return foodWindow;
     }

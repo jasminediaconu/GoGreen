@@ -38,6 +38,11 @@ import java.util.ResourceBundle;
  */
 public class AgendaController implements Initializable {
 
+    @FXML ScrollPane scrollAgenda;
+    @FXML FontAwesomeIcon delete;
+    @FXML StackPane stack;
+    @FXML private ComboBox<String> foodchoices = new ComboBox<>();
+
     private MainScreenController mainScreenController;
     private JFXButton ssbutton2;
     private JFXButton ssbutton3;
@@ -45,42 +50,42 @@ public class AgendaController implements Initializable {
     private ObservableList list = FXCollections.observableArrayList();
     private JFXNodesList nodesList;
 
-    @FXML private ComboBox<String> foodchoices = new ComboBox<>();
+
+    private GridPane gridPane;
+    private Text dateText;
+    private List<Activity> activities;
+    private Activity activity;
+    private int activityID;
+    private int itemID;
+    private double amount;
+    private LocalDate date;
+    private VBox agendaBox;
+    private Text act;
+    private Text act2;
+    private Text act3;
+    private ImageView img;
+    private ImageView img2;
+    private ImageView img3;
+    private JFXButton button;
+    private JFXButton button2;
+    private JFXButton button3;
+    private JFXDialog dialog;
 
     /**
-     * Constructor to be used in the MainScreenController
-     * To be able to use the variables, methods of this class
+     * Constructor to be used in the MainScreenController.
+     * To be able to use the variables, methods of this class.
      */
 
     public AgendaController() {
         nodesList = new JFXNodesList();
     }
 
-    @FXML ScrollPane scrollAgenda;
-    @FXML FontAwesomeIcon delete;
-    @FXML StackPane stack;
-
-    GridPane gridPane;
-    Text dateText;
-    List<Activity> activities;
-    Activity activity;
-    int activityID;
-    int itemID;
-    double amount;
-    LocalDate date;
-    VBox agendaBox;
-    Text a;
-    Text b;
-    Text c;
-    ImageView img, img2, img3;
-    JFXButton button, button2, button3;
-    JFXDialog dialog;
-
     /**
      * This function will display a dialog message to the user when he want to delete an activity.
      * The dialog button contains a message and two buttons:
      * a close button and a delete one connected to the deleteActivity function.
      */
+
     private void deleteActivityDialog(int index) {
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
         Text heading = new Text("Are you sure?");
@@ -88,7 +93,7 @@ public class AgendaController implements Initializable {
         JFXButton del = new JFXButton("Delete");
         del.setStyle("-fx-background-color: #c82333; -fx-text-fill: white");
         JFXButton close = new JFXButton("Close");
-        String css = "-fx-border-color:#95e743;-fx-border-radius:2 2 2 2;-fx-background-color:#ecffe6";
+        String css = "-fx-border-color:#95e743;-fx-border-radius:2;-fx-background-color:#ecffe6";
         close.setStyle(css);
         del.setOnMouseClicked(e -> deleteActivity(index));
         close.setOnMouseClicked(e -> dialog.close());
@@ -112,8 +117,8 @@ public class AgendaController implements Initializable {
 
     /**
      * Count the number of rows in a pane.
-     * @param pane
-     * @return
+     * @param pane GridPane
+     * @return numRows
      */
     private int getRowCount(GridPane pane) {
         int numRows = pane.getRowConstraints().size();
@@ -121,8 +126,8 @@ public class AgendaController implements Initializable {
             Node child = pane.getChildren().get(i);
             if (child.isManaged()) {
                 Integer rowIndex = GridPane.getRowIndex(child);
-                if(rowIndex != null){
-                    numRows = Math.max(numRows,rowIndex+1);
+                if (rowIndex != null) {
+                    numRows = Math.max(numRows, rowIndex + 1);
                 }
             }
         }
@@ -131,8 +136,8 @@ public class AgendaController implements Initializable {
 
     /**
      * Initialize agenda with the user activities.
-     * @param url
-     * @param resourceBundle
+     * @param url URL
+     * @param resourceBundle ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -144,12 +149,12 @@ public class AgendaController implements Initializable {
         activities.add(new Activity(2, 5, LocalDate.now()));
         activities.add(new Activity(3, 8, LocalDate.now()));
 
-        int i = 0;
+        int counter = 0;
 
-        while(activities.contains(activity)) {
-            activity = activities.get(i);
+        while (activities.contains(activity)) {
+            activity = activities.get(counter);
             dateText = new Text(activity.getDate().toString());
-            i++;
+            counter++;
         }
 
         //ClientUser.getActivityList();
@@ -167,9 +172,6 @@ public class AgendaController implements Initializable {
         // System.out.println(activity);
         // activities.add(activity);
         // System.out.println(activities);
-
-        String css = "-fx-background-position: 20; -fx-font-size: 28;";
-        String css2 = "-fx-font-size: 18;";
 
         agendaBox = new VBox();
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
@@ -190,13 +192,21 @@ public class AgendaController implements Initializable {
          * */
         dateText = new Text("Fri 9 Mar");
 
+        String css = "-fx-background-position: 20; -fx-font-size: 28;";
+
+        dateText.setStyle(css);
+        agendaBox.getChildren().add(dateText);
+
         gridPane = new GridPane();
-        a = new Text("Bought vegetarian meal");
-        b = new Text("Ate vegan food");
-        c = new Text("Cycled");
-        a.setStyle(css2);
-        b.setStyle(css2);
-        c.setStyle(css2);
+        act = new Text("Bought vegetarian meal");
+        act2  = new Text("Ate vegan food");
+        act3  = new Text("Cycled");
+
+        String css2 = "-fx-font-size: 18;";
+
+        act.setStyle(css2);
+        act2.setStyle(css2);
+        act3.setStyle(css2);
 
         String path = "/client/windows/images/delete.png";
 
@@ -208,19 +218,16 @@ public class AgendaController implements Initializable {
         button2 = new JFXButton("", img2);
         button3 = new JFXButton("", img3);
 
-        dateText.setStyle(css);
-        agendaBox.getChildren().add(dateText);
-
         gridPane.setHgap(20);
 
         //for(int i=0; i<)
-        gridPane.add(a,1,1);
+        gridPane.add(act,1,1);
         gridPane.add(button,7,1);
 
-        gridPane.add(b,1,2);
+        gridPane.add(act2,1,2);
         gridPane.add(button2,7,2);
 
-        gridPane.add(c,1,3);
+        gridPane.add(act3,1,3);
         gridPane.add(button3,7,3);
 
         button.setOnMouseClicked(e -> deleteActivityDialog(gridPane.getRowIndex(button)));
@@ -239,8 +246,9 @@ public class AgendaController implements Initializable {
     }
 
     /**
-     * This code creates the GREEN animated PLUS button when agenda is selected
+     * This code creates the GREEN animated PLUS button when agenda is selected.
      */
+
     public void loadPlusButton() {
         // This code creates the GREEN animated PLUS button when agenda is selected
         JFXButton ssbutton1 = new JFXButton();
@@ -280,17 +288,19 @@ public class AgendaController implements Initializable {
     }
 
     /**
-     * Clears the plus button of the previously added 3 subbuttons
-     * So when the user loads the agenda page again only 3 buttons shop instead of many multiplies
+     * Clears the plus button of the previously added 3 subbuttons.
+     * So when the user loads the agenda page again only 3 buttons shop instead of many multiplies.
      */
+
     public void clearPlusButton() {
         nodesList = new JFXNodesList();
     }
 
     /**
-     * Creates an empty white popup box for transportation button popup
-     * To be finished
+     * Creates an empty white popup box for transportation button popup.
+     * To be finished.
      */
+
     public void transportButtonAction(javafx.scene.input.MouseEvent event) {
         VBox vBox = new VBox();
         vBox.setPrefHeight(250.0);
@@ -319,8 +329,9 @@ public class AgendaController implements Initializable {
     }
 
     /**
-     * Loads the food dropdown menu with items
+     * Loads the food dropdown menu with items.
      */
+
     private void loadActivity() {
 
         //Clears everything in the observable list
@@ -333,13 +344,14 @@ public class AgendaController implements Initializable {
 
         foodchoices.setItems(list);
 
-//        mainPane.getChildren().add(foodchoices);
+        //  mainPane.getChildren().add(foodchoices);
     }
 
     /**
-     * Creates an empty white popup box for energy button popup
-     * To be finished
+     * Creates an empty white popup box for energy button popup.
+     * To be finished.
      */
+
     public void energyButtonAction(javafx.scene.input.MouseEvent event) {
 
         VBox vBox = new VBox();

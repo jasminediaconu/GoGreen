@@ -190,11 +190,11 @@ public class AgendaController implements Initializable {
         gridPane.setHgap(20);
         agendaBox.getChildren().add(gridPane);
 
-        scrollAgenda.setContent(agendaBox);
+//      scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
 
-        JFXButton ssbutton1 = new JFXButton("R1");
-        ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
+        JFXButton ssbutton5 = new JFXButton("R1");
+        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
     }
 
     /**
@@ -301,17 +301,17 @@ public class AgendaController implements Initializable {
      * applyButton event
      * agendatext should be Jasmine's agendabox
      */
-//    @FXML
-//    void applyButton(MouseEvent event) {
-//        String activity = foodchoices.getValue();
-//
+    @FXML
+    void applyButton(MouseEvent event) {
+        String activity = foodchoices.getValue();
+
 //        if(activity==null) {
-//            agendatext.setText("PLease select a valid item.");
+//            agendaBox.setText("PLease select a valid item.");
 //        }
 //        else {
-//            agendatext.setText("Test" + activity);
+//            agendatex.setText("Test" + activity);
 //        }
-//    }
+  }
 
 
     /**

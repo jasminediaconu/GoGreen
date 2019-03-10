@@ -1,4 +1,4 @@
-package client.loginscreen;
+package client.loginScreen;
 
 import client.ServerRequests;
 import client.windows.Controller;

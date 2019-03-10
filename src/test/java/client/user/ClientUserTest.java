@@ -11,25 +11,10 @@ class ClientUserTest {
 
     @BeforeEach
     void setUp() {
-//        user = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21);
-//        user2 = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21)
         user = new ClientUser();
         user2 = new ClientUser();
-
     }
 
-
-    @Test
-    void getCarType() {
-        user.setCar(new Car("Compact Car", "Electric"));
-        Assert.assertEquals("Compact Car", user.getCar().getCarName());
-    }
-
-    @Test
-    void getCarEmissionType() {
-        user.setCar(new Car("Sport Car", "Electric"));
-        Assert.assertEquals("Electric", user.getCar().getEmissionName());
-    }
 
     @Test
     void getStreakLength() {
@@ -56,20 +41,6 @@ class ClientUserTest {
     }
 
     @Test
-    void setCarType() {
-        user.setCar(new Car(0, 0));
-        user.getCar().setCarType("SUV");
-        Assert.assertEquals("SUV", user.getCar().getCarName());
-    }
-
-    @Test
-    void setCarEmisionType() {
-        user.setCar(new Car(0, 0));
-        user.getCar().setEmissionType("Gas");
-        Assert.assertEquals("Gas", user.getCar().getEmissionName());
-    }
-
-    @Test
     void setStreakLength() {
         user.setStreakLength(12);
         Assert.assertEquals(12, user.getStreakLength());
@@ -92,6 +63,7 @@ class ClientUserTest {
         user.setRoomTemp(25);
         Assert.assertEquals(25, user.getRoomTemp());
     }
+
 
     @Test
     void equalsNull() {

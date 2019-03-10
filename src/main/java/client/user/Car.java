@@ -81,7 +81,7 @@ public class Car {
         this.carType = carType;
     }
 
-    public void setCarType(String carType) {
+    public void setCarName(String carType) {
         this.carType = getCarIndex(carType);
     }
 
@@ -103,7 +103,7 @@ public class Car {
         this.emissionType = emissionType;
     }
 
-    public void setEmissionType(String emissionType) {
+    public void setEmissionName(String emissionType) {
         this.emissionType = getEmissionIndex(emissionType);
     }
 

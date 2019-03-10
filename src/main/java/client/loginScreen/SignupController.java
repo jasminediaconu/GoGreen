@@ -1,4 +1,4 @@
-package client.loginscreen;
+package client.loginScreen;
 
 import client.ServerRequests;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;

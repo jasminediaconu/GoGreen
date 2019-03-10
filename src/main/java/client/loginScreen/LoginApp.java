@@ -1,4 +1,4 @@
-package client.loginscreen;
+package client.loginScreen;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,7 +20,7 @@ public class LoginApp extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/client/loginScreen/login.fxml"));
 
         Scene scene = new Scene(root);
 
@@ -31,7 +31,7 @@ public class LoginApp extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.getIcons().add(new Image("client/windows/images/icon.png"));
+        stage.getIcons().add(new Image("/client/windows/images/icon.png"));
     }
 
 }

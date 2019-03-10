@@ -76,6 +76,7 @@ public class ProfileController extends Controller {
     
     private void syncUI(ClientUser settins) {
         setProfileImage(settins.getProfileImage());
+        usernameField.setText("Username: " + settins.getUsername());
         emailField.setText(settins.getEmail());
         pointsField.setText("CO2 saved: " + Main.clientUser.getTotalCo2());
         streakField.setText("Streak: " + Main.clientUser.getStreakLength());

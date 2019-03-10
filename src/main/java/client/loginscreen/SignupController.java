@@ -1,4 +1,4 @@
-package client.loginScreen;
+package client.loginscreen;
 
 import client.Main;
 import client.ServerRequests;

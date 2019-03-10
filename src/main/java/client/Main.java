@@ -1,6 +1,6 @@
 package client;
 
-import client.loginScreen.LoginApp;
+import client.loginscreen.LoginApp;
 import client.objects.Item;
 import client.serializer.LocalDateDeserializer;
 import client.serializer.LocalDateSerializer;

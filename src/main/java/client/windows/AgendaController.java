@@ -14,16 +14,16 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -278,7 +278,6 @@ public class AgendaController implements Initializable {
         PopOver popOver = new PopOver(mainScreenController.getFoodWindow());
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
         popOver.show(ssbutton3);
-
     }
 
     /**
@@ -299,17 +298,19 @@ public class AgendaController implements Initializable {
      * applyButton event
      * agendatext should be Jasmine's agendabox
      */
-//    @FXML
-//    void applyButton(MouseEvent event) {
-//        String activity = foodchoices.getValue();
-//
-//        if(activity==null) {
-//            agendatext.setText("PLease select a valid item.");
-//        }
-//        else {
-//            agendatext.setText("Test" + activity);
-//        }
-//    }
+    @FXML
+    void applyButton(MouseEvent event) {
+        String itemName = foodchoices.getValue();
+
+        if(itemName==null) {
+           //agendatext.setText("PLease select a valid item.");
+        }
+        else {
+            int itemID = Main.items.stream().filter(ite -> ite.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
+
+            //agendatext.setText("Test" + activity);
+        }
+    }
 
 
     /**

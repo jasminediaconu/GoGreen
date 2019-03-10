@@ -19,7 +19,7 @@ class ItemTest {
         item1 = mock(Item.class);
         item2 = mock(Item.class);
 
-        when(item1.equals(item2)).thenReturn(true);
+//        when(item1.equals(item2)).thenReturn(true);
     }
 
     @Test

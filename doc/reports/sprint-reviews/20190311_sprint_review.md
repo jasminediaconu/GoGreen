@@ -9,7 +9,7 @@ It appears that the branch user-profile has some compatibility issues.
 
 To solve this task have been divided to fix these issues. 
 
-###Problem 2: Checkstyle
+### Problem 2: Checkstyle
 We have to manny checkstyle warnings
 
 To solve this we are going to follow and implement the checkstyle very strictly.

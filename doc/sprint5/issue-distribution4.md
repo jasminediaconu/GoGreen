@@ -45,7 +45,6 @@
 
 Are all of these done from the previous sprint?
 
-
 * Storing an activityID
 * Sessions properly work
 * We have data persistence, when you close and open app we have the data
@@ -54,7 +53,6 @@ Are all of these done from the previous sprint?
 * Popup if trying to select another window (leaderboard,overview etc.) when profile is not complete
 * All the requests for creating activities
 * Mockito
-* Continous Integration
 * Link Jasmine's acitivites to the database
 
 

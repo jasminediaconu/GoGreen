@@ -301,8 +301,6 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * <<<<<<< HEAD
-     * =======
      * applyButton event
      * agendatext should be Jasmine's agendabox
      */
@@ -325,7 +323,6 @@ public class AgendaController extends Controller implements Initializable {
 
 
     /**
-     * >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      * Creates an empty white popup box for energy button popup.
      * To be finished.
      */
@@ -353,3 +350,4 @@ public class AgendaController extends Controller implements Initializable {
 
     }
 }
+

@@ -214,7 +214,6 @@ public class ProfileController extends Controller {
             }
         } else {
             setButtonsDisable(newSettings.equals(Main.clientUser));
-            System.out.println(newSettings.equals(Main.clientUser));
         }
 
     }

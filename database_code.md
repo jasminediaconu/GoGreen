@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS user_profile (
     imageurl VARCHAR(50) DEFAULT 'default',
     totalCo2 FLOAT(2) DEFAULT 0,
     carType VARCHAR(25) DEFAULT 'SUV', 
-    carEmissionType VARCHAR(25) 'Gas', 
+    carEmissionType VARCHAR(25) DEFAULT 'Gas', 
     lastOnline DATE DEFAULT CURRENT_DATE, 
     streakLength INTEGER DEFAULT 0, 
     solarPower BOOLEAN DEFAULT FALSE, 

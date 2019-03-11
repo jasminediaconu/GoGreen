@@ -1,82 +1,58 @@
 package client.user;
 
 import client.objects.Activity;
+import com.google.gson.annotations.Expose;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The type Client user.
+ */
 public class ClientUser extends User {
 
-    private String carType;
-    private String carEmissionType;
+    private Car car;
     private int streakLength;
     private boolean solarPower;
     private boolean LEDs;
     private int roomTemp;
+    private String email = "";
 
-    private List<User> following;
+    @Expose(deserialize = false, serialize = false)
+    private Image profileImage;
+    private String imageURL;
+    @Expose(deserialize = false, serialize = false)
+    private List<User> following = new ArrayList<>();
     private List<Activity> activityList;
 
-    /**
-     * The ClientUser constructor, inherits from User, and has all values the db also has.
-     *
-     * @param username        the username of the user
-     * @param country         the country of the user
-     * @param totalCo2        the total co2 the user has saved
-     * @param carType         the type of car the user has
-     * @param carEmissionType the type of emission of the users car
-     * @param streakLength    the length of the users streak
-     * @param solarPower      whether the user uses solar power
-     * @param LEDs            whether the user uses LEDs in their house
-     * @param roomtemp        the room temperature of the user
-     */
-    public ClientUser(String username, String country, double totalCo2, String carType, String carEmissionType, int streakLength, boolean solarPower, boolean LEDs, int roomtemp) {
-        super(username, country, totalCo2);
-        this.carType = carType;
-        this.carEmissionType = carEmissionType;
-        this.streakLength = streakLength;
-        this.solarPower = solarPower;
-        this.LEDs = LEDs;
-        this.roomTemp = roomtemp;
 
-        following = new ArrayList<User>();
-        activityList = new ArrayList<Activity>();
+    /**
+     * Instantiates a new Client user.
+     */
+    public ClientUser() {
     }
 
     /**
-     * This function will get the users car type.
-     * @return the type of car the user has.
-     */
-    public String getCarType() {
-        return carType;
-    }
-
-    /**
-     * Sets the users car type to the argument carType
+     * Gets car.
      *
-     * @param carType String type
+     * @return the car
      */
-    public void setCarType(String carType) {
-        this.carType = carType;
+    public Car getCar() {
+        return car;
     }
 
     /**
      * This function will get the users car emission type
      *
-     * @return the type of emission of the users car
+     * @param car the car
+     * @return the type of emission of the users car >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      */
-    public String getCarEmissionType() {
-        return carEmissionType;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
-    /**
-     * Sets the users car emission to the argument carEmissionType.
-     * @param carEmissionType String type.
-     */
-    public void setCarEmissionType(String carEmissionType) {
-        this.carEmissionType = carEmissionType;
-    }
 
     /**
      * This function will get the users streak length
@@ -88,7 +64,11 @@ public class ClientUser extends User {
     }
 
     /**
+     * <<<<<<< HEAD
+     * Sets the users streak length to the argument streakLength.
+     * =======
      * Sets the users streak length to the argument streakLength
+     * >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      *
      * @param streakLength int type
      */
@@ -97,7 +77,11 @@ public class ClientUser extends User {
     }
 
     /**
+     * <<<<<<< HEAD
+     * This function will get whether the user is using solar power.
+     * =======
      * This function will get whether the user is using solar power
+     * >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      *
      * @return if the user is using solar power
      */
@@ -107,7 +91,8 @@ public class ClientUser extends User {
 
     /**
      * This function will get whether the user is using LEDs.
-     * @return if the user is using LEDs.
+     *
+     * @return if the user is using LEDs
      */
     public boolean hasLEDs() {
         return LEDs;
@@ -115,14 +100,19 @@ public class ClientUser extends User {
 
     /**
      * This function will get the users room temperature.
-     * @return the temperature of the users room.
+     *
+     * @return the temperature of the users room
      */
     public int getRoomTemp() {
         return roomTemp;
     }
 
     /**
-     * Sets the users room temperature to the argument roomTemp
+     * Sets room temp.
+     *
+     * @param roomTemp the room temp
+     */
+    /* Sets the users room temperature to the argument roomTemp
      *
      * @param roomTemp int type
      */
@@ -131,7 +121,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users solar power usage boolean to the argument solarPower
+     * Sets the users solar power usage boolean to the argument solarPower.
      *
      * @param solarPower boolean type
      */
@@ -140,20 +130,95 @@ public class ClientUser extends User {
     }
 
     /**
+     * Gets profile image.
+     *
+     * @return the profile image
+     */
+    public Image getProfileImage() {
+        return profileImage;
+    }
+
+    /**
+     * Sets profile image.
+     *
+     * @param profileImage the profile image
+     */
+    public void setProfileImage(Image profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    /**
+     * Sets the users solar power usage boolean to the argument solarPower
+     *
+     * @param solarPower boolean type
+    >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
+     */
+
+    /**
+     * Gets image url.
+     *
+     * @return the image url
+     */
+    public String getImageURL() {
+        return imageURL;
+    }
+
+
+    /**
+     * <<<<<<< HEAD
+     * Sets image url.
+     *
+     * @param imageURL the image url
+     */
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    /**
      * Sets the users LEDs usage boolean to the argument LEDS.
-     * @param LEDs boolean type.
+     *
+     * @param LEDs boolean type
      */
     public void setLEDs(boolean LEDs) {
         this.LEDs = LEDs;
     }
 
+
     /**
-     * This function will get the activity list of this User.
+     * Gets email.
      *
-     * @return a List of activities.
+     * @return the email This function will add an Activity to the User's list of activities.
+     */
+    public String getEmail() {
+        return this.email;
+    }
+
+    /**
+     * Sets email.
+     *
+     * @param email the email
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    /**
+     * Gets activity list.
+     *
+     * @return the activity list
      */
     public List<Activity> getActivityList() {
-        return activityList;
+        return this.activityList;
+    }
+
+    /**
+     * This function will set the current Activity list to a new list.
+     *
+     * @param activityList List Activity type.
+     */
+    public void setActivityList(List<Activity> activityList) {
+        this.activityList = activityList;
     }
 
     /**
@@ -166,48 +231,60 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will set the current Activity list to a new list.
-     * @param activityList List Activity type.
-     */
-    public void setActivityList(List<Activity> activityList) {
-        this.activityList = activityList;
-    }
-
-    /**
      * This function compares this ClientUser with another ClientUser to check if they are equal.
      *
-     * @param o Object type
+     * @param obj Object type
      * @return a boolean, whether they are equal or not
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
+
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        ClientUser that = (ClientUser) obj;
+        if (streakLength == that.streakLength &&
+                solarPower == that.solarPower &&
+                LEDs == that.LEDs &&
+                roomTemp == that.roomTemp &&
+                email.equalsIgnoreCase(that.email) &&
+                Objects.equals(following, that.following) &&
+                totalCo2 == that.totalCo2 &&
+                username.equalsIgnoreCase(that.username) &&
+                country.equalsIgnoreCase(that.country)) {
+            if (car != null) {
+                return car.equals(that.car);
+            } else if (that.car == null) {
+                return true;
+            }
         }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-        ClientUser that = (ClientUser) o;
-        return streakLength == that.streakLength
-                && solarPower == that.solarPower
-                && LEDs == that.LEDs
-                && roomTemp == that.roomTemp
-                && Objects.equals(carType, that.carType)
-                && Objects.equals(carEmissionType, that.carEmissionType)
-                && Objects.equals(following, that.following)
-                && Objects.equals(activityList, that.activityList);
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(car.getCarType(), car.getEmissionType(), streakLength, solarPower, LEDs, roomTemp, following);
     }
 
     /**
-     * This function will hash the ClientUser class.
-     * @return the hashed ClientUser.
+     * Deep copy client user.
+     *
+     * @return the client user
      */
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), carType, carEmissionType, streakLength, solarPower, LEDs, roomTemp, following, activityList);
-    }
+    public ClientUser deepCopy() {
+        ClientUser clientUser = new ClientUser();
+        if (car != null) {
+            clientUser.setCar(new Car(car.getCarType(), car.getEmissionType()));
+        }
+        //clientUser.setProfileImage(getProfileImage());
+        clientUser.setUsername(username);
+        clientUser.setCountry(country);
+        clientUser.setImageURL(imageURL);
+        clientUser.setSolarPower(solarPower);
+        clientUser.setRoomTemp(roomTemp);
+        clientUser.setLEDs(LEDs);
+        clientUser.setStreakLength(streakLength);
+        clientUser.setTotalCo2(totalCo2);
 
+        return clientUser;
+    }
 }

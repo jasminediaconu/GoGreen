@@ -14,7 +14,7 @@
 ## TO DO General for next demo:
 * When activity is applied it should show up immediately on the agenda
 * Everybody should know JUnit 5 tests and mockito
-* Everybody should have checkstyle plugin, know how to autoformat and manual format
+* Everybody should have checkstyle plugin, know how to autoformat and manual format. Start cleaning up fully functional classes according to checkstyle
 * All current branches should be merged and functional in develop
 * `TEST COVERAGE`Preferable 95%, min 80%
 

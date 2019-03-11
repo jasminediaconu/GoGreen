@@ -11,8 +11,9 @@ CREATE TABLE IF NOT EXISTS user_login (
 #### USER PROFILE TABLE
 CREATE TABLE IF NOT EXISTS user_profile (
     userID INTEGER PRIMARY KEY,
-    totalCo2 FLOAT(2) DEFAULT 0,
     countryName VARCHAR(25), 
+    imageurl VARCHAR(50),
+    totalCo2 FLOAT(2) DEFAULT 0,
     carType VARCHAR(25), 
     carEmissionType VARCHAR(25), 
     lastOnline DATE DEFAULT CURRENT_DATE, 

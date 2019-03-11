@@ -1,0 +1,47 @@
+.menu-button > .arrow-button {
+    -fx-padding: 0;
+}
+
+.menu-button > .arrow-button > .arrow {
+    -fx-padding: 0;
+}
+
+#changePicture {
+    -fx-border-color: #95E743;
+}
+
+#user {
+    -fx-background-image: url("../images/mockup.png");
+}
+
+#search {
+    -fx-background-image: url("../images/search.png");
+    -fx-background-color: #95E743;
+}
+
+#minimize:hover {
+    -fx-fill: #2845d6;
+}
+
+#close:hover {
+    -fx-fill: #ff0000;
+}
+
+.selected {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #95e743;
+    -jfx-button-type: RAISED;
+}
+
+#slide {
+    -fx-position: absolute;
+    -fx-right: -150px;
+}
+
+#toggleMenu {
+    -fx-background-image: url("../images/cross.png");
+}
+
+#toggleMenu:selected {
+    -fx-background-image: url("../images/menu.png");
+}

@@ -1,0 +1,35 @@
+FontAwesomeIcon {
+    -fx-cursor: hand;
+}
+
+Button {
+    -fx-cursor: hand;
+}
+
+#already {
+    -fx-cursor: hand;
+}
+
+#close:hover {
+    -fx-fill: #ff0000;
+}
+
+#login {
+    -fx-background-color: #95E743;
+}
+
+#signup {
+    -fx-background-color: white;
+    -fx-border-color: black;
+}
+
+#signup:hover {
+    -fx-border-color: #95E743;
+    -fx-background-color: #ecffe6;
+}
+
+#login:hover {
+    -fx-background-color: #73cb1a;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}

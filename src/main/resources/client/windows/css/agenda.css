@@ -1,3 +1,79 @@
-#agenda {
-    -fx-background-color: #95e743;
+/*#agenda {*/
+<<<<<<< HEAD
+/*-fx-background-color: #95e743;*/
+=======
+/**/
+>>>>>>> 611c1dc2acb0a8f7f60307ea14e08788dd56807d
+/*}*/
+
+.scroll-pane > .viewport {
+    -fx-background-color:  #e5e5e5;
+    -fx-border-radius: 10 10 10 10;
+}
+
+.viewport {
+    -fx-background-radius: 20;
+    -fx-border-radius: 10 10 10 10;
+}
+
+.animated-option-button {
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+    -fx-background-radius: 60;
+    -fx-background-color: white;
+    -fx-background-position: center;
+
+}
+/**
+ Overwrites Jasmine's combobox arrow hiding, to show arrow in foodchoices dropdown box
+ */
+.combo-box .arrow {
+    -fx-background-color: #888888;
+}
+
+#plusbutton {
+    -fx-background-image: url("../images/plus.png");
+}
+
+#transportbutton {
+    -fx-background-image: url("../images/car.png");
+}
+
+#apply {
+    -fx-background-color: #95E743;
+}
+
+#foodbutton {
+    -fx-background-image: url("../images/food.png");
+
+}
+
+#energybutton {
+    -fx-background-image: url("../images/energy.png");
+}
+
+
+.animated-option-button-sub-button {
+    -fx-background-color: #95E743;
+}
+
+.animated-option-button-sub-button2 {
+
+}
+
+.animated-option-button-sub-button3 {
+
+}
+
+.animated-option-button-sub-button4 {
+    -fx-background-color: #95E743;
+}
+
+GridPane > Text {
+    -fx-font-size: 18px;
+}
+
+#agendaTitle {
+    -fx-font-size: 61px;
+
 }

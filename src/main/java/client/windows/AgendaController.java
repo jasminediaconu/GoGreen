@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXNodesList;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -39,7 +40,7 @@ import java.util.ResourceBundle;
 public class AgendaController implements Initializable {
 
     @FXML Pane agenda;
-    @FXML ScrollPane scrollAgenda;
+    @FXML ScrollPane scrollAgenda = new ScrollPane();
     @FXML FontAwesomeIcon delete;
     @FXML StackPane stack;
     @FXML private ComboBox<String> foodchoices = new ComboBox<>();
@@ -56,6 +57,7 @@ public class AgendaController implements Initializable {
     private List<Activity> activities;
     private VBox agendaBox;
     private JFXDialog dialog;
+
 
     /**
      * Constructor to be used in the MainScreenController.
@@ -190,11 +192,11 @@ public class AgendaController implements Initializable {
         gridPane.setHgap(20);
         agendaBox.getChildren().add(gridPane);
 
-//      scrollAgenda.setContent(agendaBox);
+        scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
 
-        JFXButton ssbutton5 = new JFXButton("R1");
-        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
+        JFXButton ssbutton1 = new JFXButton("R1");
+        ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
     }
 
     /**

@@ -1,7 +1,5 @@
 package client.loginscreen;
 
-import client.Main;
-import client.ServerRequests;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,10 +7,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -20,6 +21,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
+/**
+ * The type Signup controller.
+ */
 public class SignupController implements Initializable {
 
     private double xcoord = 0;
@@ -33,6 +37,12 @@ public class SignupController implements Initializable {
     private TextField tf_email;
     @FXML
     private PasswordField pf_password;
+    @FXML
+    private Button signUpButton;
+    @FXML
+    private Text loginButton;
+    @FXML
+    private AnchorPane signUpScene;
 
     /**
      * This function handles the closing of the window, with the cross button.
@@ -49,8 +59,16 @@ public class SignupController implements Initializable {
         stage.close();
     }
 
+    private void setDisableScreen(boolean disableScreen) {
+        tf_username.setDisable(disableScreen);
+        pf_password.setDisable(disableScreen);
+        tf_email.setDisable(disableScreen);
+        signUpButton.setDisable(disableScreen);
+        loginButton.setDisable(disableScreen);
+    }
+
     /**
-     * This function will update x and y when the mouse is pressed
+     * This function will update x and y when the mouse is pressed.
      *
      * @param event MouseEvent type
      */
@@ -61,7 +79,7 @@ public class SignupController implements Initializable {
     }
 
     /**
-     * This function will change the drag of the scene when the mouse is dragged
+     * This function will change the drag of the scene when the mouse is dragged.
      *
      * @param event MouseEvent type
      */
@@ -78,59 +96,74 @@ public class SignupController implements Initializable {
 
     /**
      * This function will switch to the login screen.
-     * @param event MouseEvent type.
+     *
      * @throws IOException Exception.
      */
     @FXML
-    private void login(MouseEvent event) throws IOException {
+    private void login() throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        fillScene(root, event);
+        fillScene(root);
     }
 
     /**
      * This function will handle the input of username, email,
      * and password when the sign up button is pressed.
      * It will also handle the responses returned by the ServerRequests class given it's query.
-     * @param event MouseEvent type.
+     *
      * @throws Exception Exception.
      */
     @FXML
-    private void signup(MouseEvent event) throws Exception {
+    private void signUp() {
+
+
+        setDisableScreen(true);
 
         String username = tf_username.getText();
         String email = tf_email.getText();
         String password = pf_password.getText();
 
-        System.out.println(username + ", " + email + ", " + password);
-        String response = ServerRequests.signUp(username, email, password);
-        if (response == null) {
-            //USERNAME, EMAIL, OR PASSWORD MISSING
-        } else if (response.equals("syntax")) {
-            //INCORRECT SYNTAX
-        } else if (response.equals("fail")) {
-            //SIGN UP WAS UNSUCCESSFUL
-        } else if (response.equals("ok")) {
-            ServerRequests.getItems();
+        SignUpRequest signUpRequest = new SignUpRequest(username, password, email, this);
+        signUpRequest.setDaemon(false);
+        signUpRequest.execute();
 
-            Main.clientUser = ServerRequests.getClientUserProfile();
 
-            //GOTO MAIN SCREEN
+    }
+
+
+    /**
+     * Sign up succes.
+     */
+    public void signUpSucces() {
+        //GOTO MAIN SCREEN
+        try {
             String path = "../windows/fxml/mainScreen.fxml";
             Parent root = FXMLLoader.load(getClass().getResource(path));
-            fillScene(root, event);
+            fillScene(root);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     /**
-     * This function will fill the screen with a new event stage evoked by the root.
-     * @param root Parent type.
-     * @param event MouseEvent event.
+     * Sign up fail.
+     *
+     * @param response the response
      */
-    private void fillScene(Parent root, MouseEvent event) {
-        Node node = (Node) event.getSource();
+    public void signUpFail(int response) {
+        //sign up failed
+        setDisableScreen(false);
+        System.out.println("FAIL CODE:  " + response);
+    }
 
-        Stage stage = (Stage) node.getScene().getWindow();
+    /**
+     * This function will fill the screen with a new event stage evoked by the root.
+     *
+     * @param root Parent type.
+     */
+    private void fillScene(Parent root) {
+
+        Stage stage = (Stage) signUpScene.getScene().getWindow();
 
         Scene scene = new Scene(root);
 
@@ -142,7 +175,8 @@ public class SignupController implements Initializable {
 
     /**
      * This function remains unused, but required to stay since this class implements Initializable.
-     * @param url URL type.
+     *
+     * @param url            URL type.
      * @param resourceBundle ResourceBundle type.
      */
     @Override

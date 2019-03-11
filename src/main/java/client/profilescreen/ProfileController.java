@@ -67,6 +67,7 @@ public class ProfileController extends Controller {
 
     @Override
     public void update() {
+
         if (Main.clientUser == null) {
             return;
         }
@@ -84,14 +85,16 @@ public class ProfileController extends Controller {
         countryField.setText(settins.getCountry());
         tempratureField.setText("" + settins.getRoomTemp());
         setButtonsDisable(true);
-        mainScreenController.setUsernameField(settins.getUsername());
+        if (mainScreenController != null) {
+            mainScreenController.setUsernameField(settins.getUsername());
 
-        if (settins.getCar() != null) {
-            setCarFields(settins.getCar().getCarType(), settins.getCar().getEmissionType());
-        }
-        if (settins.getProfileImage() != null) {
-            setProfileImage(settins.getProfileImage());
-            mainScreenController.setProfileImage(settins.getProfileImage());
+            if (settins.getCar() != null) {
+                setCarFields(settins.getCar().getCarType(), settins.getCar().getEmissionType());
+            }
+            if (settins.getProfileImage() != null) {
+                setProfileImage(settins.getProfileImage());
+                mainScreenController.setProfileImage(settins.getProfileImage());
+            }
         }
     }
 
@@ -100,7 +103,6 @@ public class ProfileController extends Controller {
      */
     @FXML
     public void initialize() {
-        setPageDisable(true);
 
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String text = change.getText();
@@ -113,10 +115,11 @@ public class ProfileController extends Controller {
         };
         TextFormatter<String> textFormatter = new TextFormatter<>(filter);
         tempratureField.setTextFormatter(textFormatter);
+    }
 
-        LoadClientProfile loadClientProfile = new LoadClientProfile(this);
-        loadClientProfile.setDaemon(false);
-        loadClientProfile.execute();
+    @Override
+    public void init() {
+        update();
     }
 
     /**

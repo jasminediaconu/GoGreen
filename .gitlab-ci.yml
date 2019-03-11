@@ -12,4 +12,4 @@ build:
 test:
   stage: test
   script:
-    - mvn verify
+    - mvn test

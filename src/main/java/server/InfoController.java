@@ -18,7 +18,7 @@ public class InfoController {
      * @return some information about this project as type String.
      */
     @RequestMapping("/info")
-    public String getResponse() {
+    public String info() {
         return "Welcome to the GoGreen project of Group72.\n\nOur aim is to go green, do you go green with us?\n\nTry logging in by going to:\nhttps://group72.herokuapp.com/login?username=[usrnm]&password=[pwd]";
     }
 

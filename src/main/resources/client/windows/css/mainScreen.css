@@ -1,6 +1,9 @@
+.menu-button > .arrow-button {
+    -fx-padding: 0;
+}
 
-.combo-box .arrow, .combo-box .arrow-button {
-    -fx-background-color: transparent;
+.menu-button > .arrow-button > .arrow {
+    -fx-padding: 0;
 }
 
 #changePicture {
@@ -14,6 +17,10 @@
 #search {
     -fx-background-image: url("../images/search.png");
     -fx-background-color: #95E743;
+}
+
+#minimize:hover {
+    -fx-fill: #2845d6;
 }
 
 #close:hover {

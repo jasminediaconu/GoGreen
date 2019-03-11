@@ -22,7 +22,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <mainClass>client.Main</mainClass>
+        <mainClass>client.windows.MainScreen</mainClass>
 
 
         <checkstyle.version>8.17</checkstyle.version>
@@ -96,6 +96,12 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
+            <version>11.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
             <version>11.0.2</version>
         </dependency>
 
@@ -181,6 +187,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>com.victorlaerte</groupId>
+            <artifactId>jfx-asynctask</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -218,7 +230,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>client.Main</mainClass>
+                    <mainClass>client.windows.MainScreen</mainClass>
                 </configuration>
             </plugin>
 
@@ -311,20 +323,20 @@
                 </configuration>
             </plugin>
             <!--<plugin>-->
-                <!--<groupId>org.jacoco</groupId>-->
-                <!--<artifactId>jacoco-maven-plugin</artifactId>-->
-                <!--<version>${jacoco-maven-plugin.version}</version>-->
-                <!--<configuration>-->
-                <!--<excludes>-->
-                    <!--<exclude>**/windows/**</exclude>-->
-                    <!--<exclude>**/loginscreen/**</exclude>-->
-                    <!--<exclude>**/helper/*Class.*</exclude>-->
-                    <!--<exclude>**/login/**</exclude>-->
-                    <!--<exclude>**/objects/**</exclude>-->
-                    <!--<exclude>**/InfoController.*</exclude>-->
-                    <!--<exclude>**/SessionController.*</exclude>-->
-                <!--</excludes>-->
-                <!--</configuration>-->
+            <!--<groupId>org.jacoco</groupId>-->
+            <!--<artifactId>jacoco-maven-plugin</artifactId>-->
+            <!--<version>${jacoco-maven-plugin.version}</version>-->
+            <!--<configuration>-->
+            <!--<excludes>-->
+            <!--<exclude>**/windows/**</exclude>-->
+            <!--<exclude>**/loginscreen/**</exclude>-->
+            <!--<exclude>**/helper/*Class.*</exclude>-->
+            <!--<exclude>**/login/**</exclude>-->
+            <!--<exclude>**/objects/**</exclude>-->
+            <!--<exclude>**/InfoController.*</exclude>-->
+            <!--<exclude>**/SessionController.*</exclude>-->
+            <!--</excludes>-->
+            <!--</configuration>-->
             <!--</plugin>-->
         </plugins>
     </reporting>

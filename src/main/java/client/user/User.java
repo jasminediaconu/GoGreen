@@ -2,23 +2,28 @@ package client.user;
 
 import java.util.Objects;
 
+/**
+ * The type User.
+ */
 public class User {
 
-    protected String username;
-    protected String country;
-    protected double totalCo2;
+    /**
+     * The Username.
+     */
+    protected String username = "";
+    /**
+     * The Country.
+     */
+    protected String country = "";
+    /**
+     * The Total co2.
+     */
+    protected double totalCo2 = 0.0;
 
     /**
      * The abstract User constructor, used for all other users that are not the client.
-     *
-     * @param username the username of the user
-     * @param country  the country of the user
-     * @param totalCo2 the total co2 the user has saved
      */
-    public User(String username, String country, double totalCo2) {
-        this.username = username;
-        this.country = country;
-        this.totalCo2 = totalCo2;
+    public User() {
     }
 
     /**
@@ -31,12 +36,30 @@ public class User {
     }
 
     /**
+     * Sets country.
+     *
+     * @param country the country
+     */
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    /**
      * This function will get the users name.
      *
      * @return the username of the user
      */
     public String getUsername() {
         return username;
+    }
+
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**

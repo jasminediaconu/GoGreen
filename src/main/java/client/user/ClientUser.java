@@ -194,7 +194,6 @@ public class ClientUser extends User {
                 country.equalsIgnoreCase(that.country)) {
             if (car != null) {
                 return car.equals(that.car);
-
             } else if (that.car == null) {
                 return true;
             }

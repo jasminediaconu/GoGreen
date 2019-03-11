@@ -1,7 +1,6 @@
-package client.profileScreen;
+package client.profilescreen;
 
 import client.Main;
-import client.user.Car;
 import client.user.ClientUser;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -39,7 +38,7 @@ public class LoadClientProfile extends AsyncTask {
         //////////////////////////////////////////Debug
         ClientUser clientUser = new ClientUser();
         clientUser.setStreakLength(3);
-        clientUser.setCar(new Car("Sport Car", "Electric"));
+        //clientUser.setCar(new Car("Sport Car", "Electric"));
         clientUser.setLEDs(false);
         clientUser.setRoomTemp(30);
         clientUser.setSolarPower(true);

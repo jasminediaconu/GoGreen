@@ -20,7 +20,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -51,8 +54,6 @@ public class MainScreenController extends Pane implements Initializable {
     JFXNodesList nodesList = new JFXNodesList();
     @FXML
     MenuButton user;
-    private double x = 0;
-    private double y = 0;
     private boolean welcome = true;
     private int state = -1;
 
@@ -83,6 +84,10 @@ public class MainScreenController extends Pane implements Initializable {
     private TranslateTransition slide;
     @FXML
     private Line line;
+    @FXML
+    private Circle profileImage;
+    @FXML
+    private Text usernameField;
 
     private double xcoord = 0;
     private double ycoord = 0;
@@ -109,6 +114,7 @@ public class MainScreenController extends Pane implements Initializable {
             Pane pane = loader.load();
             Controller controller = loader.getController();
             controller.setPane(pane);
+            controller.setMainScreenController(this);
             controllers.add(controller);
         } catch (IOException e) {
             e.printStackTrace();
@@ -327,5 +333,14 @@ public class MainScreenController extends Pane implements Initializable {
 
     public Pane getFoodWindow() {
         return foodWindow;
+    }
+
+    public void setUsernameField(String username) {
+        usernameField.setText(username);
+        usernameField.setText(username);
+    }
+
+    public void setProfileImage(Image image) {
+        profileImage.setFill(new ImagePattern(image));
     }
 }

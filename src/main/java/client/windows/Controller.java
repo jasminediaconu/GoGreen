@@ -7,7 +7,8 @@ import javafx.scene.layout.Pane;
  */
 public abstract class Controller {
 
-    private Pane pane;
+    protected Pane pane;
+    protected MainScreenController mainScreenController;
 
     /**
      * Gets pane.
@@ -25,6 +26,10 @@ public abstract class Controller {
      */
     public final void setPane(Pane pane) {
         this.pane = pane;
+    }
+
+    public final void setMainScreenController(MainScreenController mainScreenController) {
+        this.mainScreenController = mainScreenController;
     }
 
     /**

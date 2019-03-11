@@ -1,4 +1,4 @@
-package client.profileScreen;
+package client.profilescreen;
 
 import client.windows.MainScreen;
 import javafx.stage.FileChooser;

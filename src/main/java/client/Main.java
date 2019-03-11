@@ -48,7 +48,7 @@ public class Main {
         builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
         gson = builder.setPrettyPrinting().create();
 
-        Application.launch(client.loginScreen.LoginApp.class, args);
+        Application.launch(client.loginscreen.LoginApp.class, args);
         ServerRequests.endSession();
     }
 

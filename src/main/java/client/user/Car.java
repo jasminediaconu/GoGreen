@@ -33,6 +33,10 @@ public class Car {
         this.emissionType = emmissionType;
     }
 
+    public Car(){
+
+    }
+
     /**
      * Gets car index.
      *

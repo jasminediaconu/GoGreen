@@ -1,8 +1,6 @@
-package client.profileScreen;
+package client.profilescreen;
 
-import client.user.Car;
-import client.windows.MainScreen;
-
+import client.user.ClientUser;
 import com.victorlaerte.asynctask.AsyncTask;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -14,30 +12,16 @@ import java.awt.image.BufferedImage;
  */
 public class SendProfileUpdate extends AsyncTask {
 
-    /**
-     * The constant USERNAME_UPDATE.
-     */
-    public static final int USERNAME_UPDATE = 0;
-    /**
-     * The constant CAR_UPDATE.
-     */
-    public static final int CAR_UPDATE = 1;
-    /**
-     * The constant PROFILE_IMAGE_UPDATE.
-     */
-    public static final int PROFILE_IMAGE_UPDATE = 2;
+
     private Object update;
-    private int updateType;
 
     /**
      * Instantiates a new Send profile update.
      *
-     * @param update     the data which needs to be send to the server.
-     * @param updateType the update type
+     * @param update This either is a clientUser or a image
      */
-    public SendProfileUpdate(Object update, int updateType) {
+    public SendProfileUpdate(Object update) {
         this.update = update;
-        this.updateType = updateType;
     }
 
 
@@ -51,43 +35,24 @@ public class SendProfileUpdate extends AsyncTask {
 
         //todo send image to server
 
-        switch (updateType) {
-            case USERNAME_UPDATE:
-                updateUserName();
-                break;
-            case CAR_UPDATE:
-                updateCar();
-                break;
-
-            case PROFILE_IMAGE_UPDATE:
-                updateProfileImage();
-
+        if (update instanceof ClientUser) {
+            updateClientUser();
+        } else if (update instanceof Image) {
+            updateProfileImage();
         }
 
 
         return true;
     }
 
-    private void updateUserName() {
-        if (update instanceof String) {
-            String update = (String) this.update;
-            //todo send new username
-        }
-    }
-
-    private void updateCar() {
-        if (update instanceof Car) {
-            Car update = (Car) this.update;
-            //todo send new car info
-        }
-
+    private void updateClientUser() {
+        ClientUser update = (ClientUser) this.update;
+        //todo sent to server
     }
 
     private void updateProfileImage() {
-        if (update instanceof Image) {
-            BufferedImage update = SwingFXUtils.fromFXImage((Image) this.update, null);
-            //todo send new profile image
-        }
+        BufferedImage update = SwingFXUtils.fromFXImage((Image) this.update, null);
+        //todo send new profile image
     }
 
     @Override

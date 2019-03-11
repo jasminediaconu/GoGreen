@@ -15,7 +15,7 @@
 * When activity is applied it should show up immediately on the agenda
 * Everybody should know JUnit 5 tests and mockito
 * All current branches should be merged and functional in develop
-* `TEST COVERAGE`
+* `TEST COVERAGE`Preferable 95%, min 80%
 
 
 ## Overview page, badges & achievements (Jasmine):
@@ -62,6 +62,7 @@ MUST HAVE:
 * Linking between profile and agenda Wout & Jan-Willem
 * Miscellanous items for the activities, using a cup at the coffeshop, which hep reduce CO2
 * Sprint review
+* TEST for your code with is non GUI to reach test coverage pref 95%, min 80%
 
 EXTRA: Multithreaded application
 

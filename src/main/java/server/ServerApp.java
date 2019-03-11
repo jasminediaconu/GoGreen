@@ -17,6 +17,7 @@ import java.util.UUID;
 /**
  * Uses the Spring Boot framework.
  * This class opens the web application, to be able to receive queries.
+ *
  * @author wouthaakman
  */
 @SpringBootApplication
@@ -44,6 +45,7 @@ public class ServerApp {
 
     /**
      * This function will generate a unique session ID.
+     *
      * @return a UUID sessionID
      */
     public static String createNewSessionID() {
@@ -52,6 +54,7 @@ public class ServerApp {
 
     /**
      * Adds the sessionID to the list, with corresponding username.
+     *
      * @param sessionID String type
      */
     public static void addSessionID(String sessionID, int userID) {
@@ -74,27 +77,8 @@ public class ServerApp {
      * @return an integer corresponding to the userID in the database.
      */
     public static int getUserIDFromSession(String sessionID) {
+        if (sessions.get(sessionID) == null)
+            return -1;
         return sessions.get(sessionID);
     }
-
-
-    /**
-     CREATE TABLE IF NOT EXISTS user_login (
-        username text NOT NULL,
-        email text NOT NULL,
-        password text NOT NULL,
-        user_id SERIAL NOT NULL,
-        PRIMARY KEY (username)
-     );
-
-     CREATE TABLE IF NOT EXISTS user_profile (
-
-     );
-
-     INSERT INTO user_login ("username", "password")
-     VALUES ('Wout Haakman', '9347bfd1967a5839344998f964962a28');
-     INSERT INTO user_login ("username", "password")
-     VALUES ('Michael Stonebraker', '7760ff62297f10042c0c1f47cca1a587');
-     */
-
 }

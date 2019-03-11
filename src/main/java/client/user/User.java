@@ -1,6 +1,6 @@
 package client.user;
 
-import com.google.gson.annotations.Expose;
+import java.util.Objects;
 
 /**
  * The type User.
@@ -36,12 +36,30 @@ public class User {
     }
 
     /**
+     * Sets country.
+     *
+     * @param country the country
+     */
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    /**
      * This function will get the users name.
      *
      * @return the username of the user
      */
     public String getUsername() {
         return username;
+    }
+
+    /**
+     * Sets username.
+     *
+     * @param username the username
+     */
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     /**
@@ -71,22 +89,24 @@ public class User {
         this.totalCo2 += co2;
     }
 
-
     /**
-     * Sets username.
+     * This function compares this User with another User to check if they are equal.
      *
-     * @param username the username
+     * @param o Object type
+     * @return a boolean, whether they are equal or not
      */
-    public void setUsername(String username) {
-        this.username = username;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return Double.compare(user.totalCo2, totalCo2) == 0
+                && Objects.equals(username, user.username)
+                && Objects.equals(country, user.country);
     }
 
-    /**
-     * Sets country.
-     *
-     * @param country the country
-     */
-    public void setCountry(String country) {
-        this.country = country;
-    }
 }

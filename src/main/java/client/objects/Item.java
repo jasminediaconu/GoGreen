@@ -11,10 +11,11 @@ public class Item {
 
     /**
      * This class stores the information for an Item, data will be retrieved from the database.
+     *
      * @param itemID int type
-     * @param name String type
-     * @param type String type
-     * @param co2 double type
+     * @param name   String type
+     * @param type   String type
+     * @param co2    double type
      */
     public Item(int itemID, String name, String type, double co2) {
         this.itemID = itemID;
@@ -56,7 +57,6 @@ public class Item {
     }
 
     /**
-     * This function compares this Item with another Item to check if they are equal.
      * @param o Object type.
      * @return a boolean, whether they are equal or not.
      */

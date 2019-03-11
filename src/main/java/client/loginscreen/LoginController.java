@@ -1,5 +1,6 @@
 package client.loginscreen;
 
+import client.Main;
 import client.ServerRequests;
 import client.windows.Controller;
 import javafx.fxml.FXML;
@@ -31,6 +32,7 @@ public class LoginController extends Controller implements Initializable {
 
     /**
      * This function handles the closing of the window, with the cross button.
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -69,11 +71,11 @@ public class LoginController extends Controller implements Initializable {
     }
 
     /**
-     * This function will handle the input of username
-     * and password when the login button is pressed.
-     * It will also handle the responses returned by the ServerRequests class given it's query.
-     * @param event MouseEvent type.
-     * @throws Exception Exception.
+     * This function will handle the input of username and password when the login button is pressed
+     * It will also handle the responses returned by the ServerRequests class given it's query
+     *
+     * @param event MouseEvent type
+     * @throws Exception
      */
 
     @FXML
@@ -89,6 +91,12 @@ public class LoginController extends Controller implements Initializable {
             //WRONG USERNAME OR PASSWORD
         } else if (response.startsWith("success:")) {
             ServerRequests.getItems();
+
+            Main.clientUser = ServerRequests.getClientUserProfile();
+
+            System.out.println(ServerRequests.retrieveActivities("w").size() + "aaaaaaaaa \n\n\n\n");
+            Main.clientUser.setActivityList(ServerRequests.retrieveActivities("w"));
+
             String path = "../windows/fxml/mainScreen.fxml";
             //GOTO MAIN SCREEN
             Parent root = FXMLLoader.load(getClass().getResource(path));

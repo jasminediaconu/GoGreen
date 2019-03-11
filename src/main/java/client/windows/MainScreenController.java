@@ -120,7 +120,6 @@ public class MainScreenController extends Pane implements Initializable {
             e.printStackTrace();
         }
     }
-
     /**
      * This function handles the closing of the window, with the cross button.
      *
@@ -133,7 +132,6 @@ public class MainScreenController extends Pane implements Initializable {
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
     }
-
 
     /**
      * This function minimizes the window, with the minus button.
@@ -244,7 +242,6 @@ public class MainScreenController extends Pane implements Initializable {
 
             if (pane.equals(agenda)) {
                 mainPane.getChildren().add(nodesList);
-
             } else if (!pane.equals(agenda)) {
                 // Remove the plus  button if Agenda is not the screen the user selected
                 // Assign an empty nodeList to the plus button,
@@ -263,7 +260,6 @@ public class MainScreenController extends Pane implements Initializable {
             mainPane.getChildren().remove(pane);
         }
     }
-
 
     /**
      * When the toggle button is pressed, the menu bar will be hidden/shown.
@@ -314,7 +310,6 @@ public class MainScreenController extends Pane implements Initializable {
             line.setVisible(true);
         }
     }
-
     @FXML
     private void applyActivity(MouseEvent event) {
     }

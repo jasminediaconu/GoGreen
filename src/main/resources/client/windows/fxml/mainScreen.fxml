@@ -1,10 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-<?import com.jfoenix.controls.JFXButton?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import java.net.URL?>
+<?xml version="1.0" encoding="UTF-8"?><?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
 <?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,39 +22,50 @@
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" pickOnBounds="false" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-background-radius: 25 25 25 25;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.MainScreenController">
     <children>
-        <AnchorPane id="slide" fx:id="menuBar" cache="true" depthTest="DISABLE" layoutX="-1.0" layoutY="45.0" prefHeight="724.0" prefWidth="209.0" style="-fx-background-color: #8C8686; -fx-background-radius: 0 0 0 25;">
+        <AnchorPane id="slide" fx:id="menuBar" cache="true" depthTest="DISABLE" layoutX="-1.0" layoutY="45.0"
+                    prefHeight="724.0" prefWidth="209.0"
+                    style="-fx-background-color: #8C8686; -fx-background-radius: 0 0 0 25;">
             <children>
-                <JFXButton id="agendaBtn" fx:id="agendaButton" layoutY="39.0" onMouseClicked="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Agenda" textFill="WHITE">
+                <JFXButton id="agendaBtn" fx:id="agendaButton" layoutY="39.0" onMouseClicked="#selectedButton"
+                           prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Agenda"
+                           textFill="WHITE">
                     <font>
-                        <Font name="Century Gothic" size="25.0" />
+                        <Font name="Century Gothic" size="25.0"/>
                     </font>
                 </JFXButton>
-                <JFXButton id="profileBtn" fx:id="profileButton" layoutY="112.0" onMouseClicked="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Profile" textFill="WHITE">
+                <JFXButton id="profileBtn" fx:id="profileButton" layoutY="112.0" onMouseClicked="#selectedButton"
+                           prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Profile"
+                           textFill="WHITE">
                     <font>
-                        <Font name="Century Gothic" size="25.0" />
+                        <Font name="Century Gothic" size="25.0"/>
                     </font>
                 </JFXButton>
-                <JFXButton id="overviewBtn" fx:id="overviewButton" layoutY="178.0" onMouseClicked="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Overview" textFill="WHITE">
+                <JFXButton id="overviewBtn" fx:id="overviewButton" layoutY="178.0" onMouseClicked="#selectedButton"
+                           prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Overview"
+                           textFill="WHITE">
                     <font>
-                        <Font name="Century Gothic" size="25.0" />
+                        <Font name="Century Gothic" size="25.0"/>
                     </font>
                 </JFXButton>
-                <JFXButton id="leaderboardBtn" fx:id="leaderboardButton" layoutY="244.0" onAction="#selectedButton" prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Leaderboard" textFill="WHITE">
+                <JFXButton id="leaderboardBtn" fx:id="leaderboardButton" layoutY="244.0" onAction="#selectedButton"
+                           prefHeight="60.0" prefWidth="209.0" style="-fx-background-color: #8C8686;" text="Leaderboard"
+                           textFill="WHITE">
                     <font>
-                        <Font name="Century Gothic" size="25.0" />
+                        <Font name="Century Gothic" size="25.0"/>
                     </font>
                 </JFXButton>
-                <Line fx:id="line" endX="51.254547119140625" layoutX="129.0" layoutY="651.0" startX="-100.0" stroke="WHITE" />
+                <Line fx:id="line" endX="51.254547119140625" layoutX="129.0" layoutY="651.0" startX="-100.0"
+                      stroke="WHITE"/>
             </children>
             <cursor>
-                <Cursor fx:constant="DEFAULT" />
+                <Cursor fx:constant="DEFAULT"/>
             </cursor>
         </AnchorPane>
         <Pane layoutX="-1.0" prefHeight="44.0" prefWidth="1024.0" style="-fx-background-color: #95E743; -fx-background-radius: 24 24 0 0;">
             <children>
                 <Text fx:id="usernameField" fill="WHITE" layoutX="76.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="402.5818843986053">
                     <font>
-                        <Font name="Century Gothic" size="24.0" />
+                        <Font name="Century Gothic" size="24.0"/>
                     </font>
                 </Text>
                 <FontAwesomeIcon id="close" fx:id="close" fill="#888888" iconName="CLOSE" layoutX="994.0" layoutY="29.0" onMouseClicked="#close" size="1.5em" />
@@ -64,44 +78,52 @@
         </Pane>
         <Pane fx:id="welcomePane" layoutX="262.0" layoutY="116.0" prefHeight="614.0" prefWidth="696.0" style="-fx-background-color: null;">
             <children>
-                <Text fill="#8c8686" layoutX="61.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="This is the " wrappingWidth="128.0921115875244">
+                <Text fill="#8c8686" layoutX="61.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="This is the " wrappingWidth="128.0921115875244">
                     <font>
-                        <Font name="Century Gothic" size="24.0" />
+                        <Font name="Century Gothic" size="24.0"/>
                     </font>
                 </Text>
-                <Text fill="#95e743" layoutX="191.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3rd" wrappingWidth="42.76364368265786">
+                <Text fill="#95e743" layoutX="191.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="3rd"
+                      wrappingWidth="42.76364368265786">
                     <font>
-                        <Font name="Century Gothic" size="24.0" />
+                        <Font name="Century Gothic" size="24.0"/>
                     </font>
                 </Text>
-                <Text fill="#8c8686" layoutX="240.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="day in a row you are logging in." wrappingWidth="387.2920627593994">
+                <Text fill="#8c8686" layoutX="240.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="day in a row you are logging in." wrappingWidth="387.2920627593994">
                     <font>
-                        <Font name="Century Gothic" size="24.0" />
+                        <Font name="Century Gothic" size="24.0"/>
                     </font>
                 </Text>
-                <Text fill="#8c8686" layoutX="13.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back">
+                <Text fill="#8c8686" layoutX="13.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Welcome back">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Text>
-                <Text fill="#95e743" layoutX="382.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="\@Username">
+                <Text fill="#95e743" layoutX="382.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="\@Username">
                     <font>
-                        <Font size="48.0" />
+                        <Font size="48.0"/>
                     </font>
                 </Text>
-                <Text fill="#95e743" layoutX="178.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Keep it green!" wrappingWidth="339.2987104459288">
+                <Text fill="#95e743" layoutX="178.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Keep it green!" wrappingWidth="339.2987104459288">
                     <font>
-                        <Font name="Century Gothic" size="48.0" />
+                        <Font name="Century Gothic" size="48.0"/>
                     </font>
                 </Text>
                 <ImageView layoutX="298.0" layoutY="283.0">
                     <image>
-                        <Image url="@../images/leaf.png" />
+                        <Image url="@../images/leaf.png"/>
                     </image>
                 </ImageView>
             </children>
         </Pane>
-        <ToggleButton id="toggleMenu" fx:id="toggleButton" layoutY="46.0" minWidth="36.0" mnemonicParsing="false" onAction="#toggleMenuShowHide" prefHeight="38.0" prefWidth="36.0" style="-fx-background-color: null;" />
+        <ToggleButton id="toggleMenu" fx:id="toggleButton" layoutY="46.0" minWidth="36.0" mnemonicParsing="false"
+                      onAction="#toggleMenuShowHide" prefHeight="38.0" prefWidth="36.0"
+                      style="-fx-background-color: null;"/>
     </children>
     <stylesheets>
         <URL value="@../css/mainScreen.css" />

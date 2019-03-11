@@ -1,5 +1,6 @@
 package client.user;
 
+import client.objects.Activity;
 import com.google.gson.annotations.Expose;
 import javafx.scene.image.Image;
 
@@ -24,6 +25,7 @@ public class ClientUser extends User {
     private String imageURL;
     @Expose(deserialize = false, serialize = false)
     private List<User> following = new ArrayList<>();
+    private List<Activity> activityList;
 
 
     /**
@@ -42,25 +44,31 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets car.
+     * This function will get the users car emission type
      *
      * @param car the car
+     * @return the type of emission of the users car >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      */
     public void setCar(Car car) {
         this.car = car;
     }
 
+
     /**
-     * This function will get the users streak length.
+     * This function will get the users streak length
      *
-     * @return the length of the users streak.
+     * @return the length of the users streak
      */
     public int getStreakLength() {
         return streakLength;
     }
 
     /**
+     * <<<<<<< HEAD
      * Sets the users streak length to the argument streakLength.
+     * =======
+     * Sets the users streak length to the argument streakLength
+     * >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      *
      * @param streakLength int type
      */
@@ -69,7 +77,11 @@ public class ClientUser extends User {
     }
 
     /**
+     * <<<<<<< HEAD
      * This function will get whether the user is using solar power.
+     * =======
+     * This function will get whether the user is using solar power
+     * >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      *
      * @return if the user is using solar power
      */
@@ -96,7 +108,11 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users room temperature to the argument roomTemp.
+     * Sets room temp.
+     *
+     * @param roomTemp the room temp
+     */
+    /* Sets the users room temperature to the argument roomTemp
      *
      * @param roomTemp int type
      */
@@ -132,6 +148,13 @@ public class ClientUser extends User {
     }
 
     /**
+     * Sets the users solar power usage boolean to the argument solarPower
+     *
+     * @param solarPower boolean type
+    >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
+     */
+
+    /**
      * Gets image url.
      *
      * @return the image url
@@ -142,6 +165,7 @@ public class ClientUser extends User {
 
 
     /**
+     * <<<<<<< HEAD
      * Sets image url.
      *
      * @param imageURL the image url
@@ -159,10 +183,11 @@ public class ClientUser extends User {
         this.LEDs = LEDs;
     }
 
+
     /**
      * Gets email.
      *
-     * @return the email
+     * @return the email This function will add an Activity to the User's list of activities.
      */
     public String getEmail() {
         return this.email;
@@ -178,7 +203,41 @@ public class ClientUser extends User {
     }
 
 
+    /**
+     * Gets activity list.
+     *
+     * @return the activity list
+     */
+    public List<Activity> getActivityList() {
+        return this.activityList;
+    }
+
+    /**
+     * This function will set the current Activity list to a new list.
+     *
+     * @param activityList List Activity type.
+     */
+    public void setActivityList(List<Activity> activityList) {
+        this.activityList = activityList;
+    }
+
+    /**
+     * This function will add an Activity to the User's list of activities.
+     *
+     * @param a Activity type
+     */
+    public void addToActivityList(Activity a) {
+        activityList.add(a);
+    }
+
+    /**
+     * This function compares this ClientUser with another ClientUser to check if they are equal.
+     *
+     * @param obj Object type
+     * @return a boolean, whether they are equal or not
+     */
     @Override
+
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;

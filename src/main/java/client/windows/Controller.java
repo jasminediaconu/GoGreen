@@ -10,9 +10,6 @@ public abstract class Controller {
     protected Pane pane;
     protected MainScreenController mainScreenController;
 
-    {
-    }
-
     /**
      * Gets pane.
      *

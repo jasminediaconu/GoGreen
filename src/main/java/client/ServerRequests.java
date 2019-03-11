@@ -3,6 +3,8 @@ package client;
 
 import client.objects.Activity;
 import client.objects.Item;
+import client.user.ClientUser;
+import client.user.User;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -11,6 +13,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -92,6 +95,7 @@ public class ServerRequests {
      * The server will respond with ok or fail depending on the response,
      * which means that the server has successfully
      * removed the sessionID pointing to this application instance.
+     *
      * @return a String containing the response
      */
     public static String endSession() {
@@ -115,10 +119,18 @@ public class ServerRequests {
      */
     public static void getItems() {
         System.out.println("[INFO] Retrieving items from database.");
-        Type listType = new TypeToken<List<Item>>() {}.getType();
-        Main.items = Main.gson.fromJson(sendRequestToServer("getItems", null), listType);
+        Type listType = new TypeToken<List<Item>>() {
+        }.getType();
+        String response = sendRequestToServer("getItems", null);
+        if (response != null)
+            Main.items = Main.gson.fromJson(response, listType);
     }
 
+    /**
+     * This function will add an activity to the database
+     * @param activity
+     * @return a boolean whether adding went successfully
+     */
     public static boolean addActivity(Activity activity) {
         if (activity == null) {
             return false;
@@ -137,6 +149,11 @@ public class ServerRequests {
         }
     }
 
+    /**
+     * This function removes an activity with gien acitivtiID from the database.
+     * @param activityID
+     * @return a boolean whether removing went successfully
+     */
     public static boolean removeActivity(int activityID) {
         if (activityID < 0) {
             return false;
@@ -155,10 +172,60 @@ public class ServerRequests {
         }
     }
 
+    /**
+     * This function retrieves all activities within a given period for a specific user from the database
+     * @param period
+     * @return a list of activities
+     */
     public static List<Activity> retrieveActivities(String period) {
-        Type listType = new TypeToken<List<Activity>>() {}.getType();
-        return Main.gson.fromJson(sendRequestToServer("retrieveActivities?s="
-                + Main.sessionID, Main.gson.toJson(period)), listType);
+        Type listType = new TypeToken<List<Activity>>() {
+        }.getType();
+        String response = sendRequestToServer("retrieveActivities?s=" + Main.sessionID, Main.gson.toJson(period));
+        if (response == null)
+            return new ArrayList<>();
+        return Main.gson.fromJson(response, listType);
+    }
+
+    /**
+     * This funtion retrieves the clients user profile from the database
+     * @return a ClientUser class
+     */
+    public static ClientUser getClientUserProfile() {
+        String response = sendRequestToServer("getUserProfile?s=" + Main.sessionID, null);
+        return Main.gson.fromJson(response, ClientUser.class);
+    }
+
+    /**
+     * This function retrieves all the users the clientuser is following from the database
+     * @return a list of Users
+     */
+    public static List<User> getFollowingProfile() {
+        Type listType = new TypeToken<List<User>>() {
+        }.getType();
+        String response = sendRequestToServer("getFollowingProfile?s=" + Main.sessionID, null);
+        if (response == null)
+            return new ArrayList<User>();
+        return Main.gson.fromJson(response, listType);
+    }
+
+    /**
+     * This funtion gets the global best users.
+     * @return a list of Users
+     */
+    public static List<User> getGlobalBestProfile() {
+        Type listType = new TypeToken<List<User>>() {
+        }.getType();
+        String response = sendRequestToServer("getGlobalBestProfile?s=" + Main.sessionID, null);
+        if (response == null)
+            return new ArrayList<User>();
+        return Main.gson.fromJson(response, listType);
+    }
+
+    public static int getUserID() {
+        String response = sendRequestToServer("userID?s=" + Main.sessionID, null);
+        if (response == null)
+            return -1;
+        return Integer.parseInt(response);
     }
 
     /**

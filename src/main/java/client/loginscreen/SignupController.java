@@ -1,5 +1,6 @@
 package client.loginscreen;
 
+import client.Main;
 import client.ServerRequests;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.fxml.FXML;
@@ -35,6 +36,7 @@ public class SignupController implements Initializable {
 
     /**
      * This function handles the closing of the window, with the cross button.
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -48,8 +50,9 @@ public class SignupController implements Initializable {
     }
 
     /**
-     * This function will update x and y when the mouse is pressed.
-     * @param event MouseEvent type.
+     * This function will update x and y when the mouse is pressed
+     *
+     * @param event MouseEvent type
      */
     @FXML
     private void pressed(MouseEvent event) {
@@ -58,8 +61,9 @@ public class SignupController implements Initializable {
     }
 
     /**
-     * This function will change the drag of the scene when the mouse is dragged.
-     * @param event MouseEvent type.
+     * This function will change the drag of the scene when the mouse is dragged
+     *
+     * @param event MouseEvent type
      */
     @FXML
     private void dragged(MouseEvent event) {
@@ -98,12 +102,19 @@ public class SignupController implements Initializable {
         String email = tf_email.getText();
         String password = pf_password.getText();
 
+        System.out.println(username + ", " + email + ", " + password);
         String response = ServerRequests.signUp(username, email, password);
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
+        } else if (response.equals("syntax")) {
+            //INCORRECT SYNTAX
         } else if (response.equals("fail")) {
             //SIGN UP WAS UNSUCCESSFUL
         } else if (response.equals("ok")) {
+            ServerRequests.getItems();
+
+            Main.clientUser = ServerRequests.getClientUserProfile();
+
             //GOTO MAIN SCREEN
             String path = "../windows/fxml/mainScreen.fxml";
             Parent root = FXMLLoader.load(getClass().getResource(path));

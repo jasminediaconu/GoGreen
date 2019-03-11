@@ -2,7 +2,6 @@ package client.windows;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
@@ -56,7 +55,6 @@ public class MainScreenController extends Pane implements Initializable {
     private Pane overview;
     @FXML
     private Pane leaderboard;
-
     @FXML
     private MenuItem logoutButton;
     @FXML
@@ -80,7 +78,6 @@ public class MainScreenController extends Pane implements Initializable {
     private double ycoord = 0;
     private boolean welcome = true;
     private int state = -1;
-
     /**
      * This function links the different screens to their fxml files.
      */
@@ -96,7 +93,6 @@ public class MainScreenController extends Pane implements Initializable {
             e.printStackTrace();
         }
     }
-
     /**
      * This function handles the closing of the window, with the cross button.
      *
@@ -109,7 +105,6 @@ public class MainScreenController extends Pane implements Initializable {
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
     }
-
 
     /**
      * This function minimizes the window, with the minus button.
@@ -219,7 +214,6 @@ public class MainScreenController extends Pane implements Initializable {
 
             if (pane.equals(agenda)) {
                 mainPane.getChildren().add(nodesList);
-
             } else if (!pane.equals(agenda)) {
                 // Remove the plus  button if Agenda is not the screen the user selected
                 // Assign an empty nodeList to the plus button,
@@ -238,7 +232,6 @@ public class MainScreenController extends Pane implements Initializable {
             mainPane.getChildren().remove(pane);
         }
     }
-
 
     /**
      * When the toggle button is pressed, the menu bar will be hidden/shown.
@@ -289,7 +282,6 @@ public class MainScreenController extends Pane implements Initializable {
             line.setVisible(true);
         }
     }
-
     @FXML
     private void applyActivity(MouseEvent event) {
     }
@@ -298,15 +290,17 @@ public class MainScreenController extends Pane implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
 
-    public AnchorPane getMainPane() {
-        return mainPane;
-    }
-
     public Pane getAgenda() {
         return agenda;
+    }
+
+    public void setAgenda(Pane agenda) {
+        this.agenda = agenda;
     }
 
     public Pane getFoodWindow() {
         return foodWindow;
     }
+
+
 }

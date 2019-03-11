@@ -1,13 +1,13 @@
 FontAwesomeIcon {
-    -fx-cursor:hand;
+    -fx-cursor: hand;
 }
 
 Button {
-    -fx-cursor:hand;
+    -fx-cursor: hand;
 }
 
 #already {
-    -fx-cursor:hand;
+    -fx-cursor: hand;
 }
 
 #close:hover {

@@ -53,7 +53,7 @@ class ClientUserTest {
 
     @Test
     void setCarEmmisionType() {
-        user.setCarEmmisionType("Gas");
+        user.setCarEmissionType("Gas");
         Assert.assertEquals("Gas", user.getCarEmissionType());
     }
 

@@ -15,7 +15,7 @@
 * When activity is applied it should show up immediately on the agenda
 * Everybody should know JUnit 5 tests and mockito
 * All current branches should be merged and functional in develop
-* `*Test coverage*`
+* `TEST COVERAGE`
 
 
 ## Overview page, badges & achievements (Jasmine):

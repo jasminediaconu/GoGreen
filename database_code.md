@@ -11,11 +11,11 @@ CREATE TABLE IF NOT EXISTS user_login (
 #### USER PROFILE TABLE
 CREATE TABLE IF NOT EXISTS user_profile (
     userID INTEGER PRIMARY KEY,
-    countryName VARCHAR(25), 
-    imageurl VARCHAR(50),
+    countryName VARCHAR(25) DEFAULT 'global', 
+    imageurl VARCHAR(50) DEFAULT 'default',
     totalCo2 FLOAT(2) DEFAULT 0,
-    carType VARCHAR(25), 
-    carEmissionType VARCHAR(25), 
+    carType VARCHAR(25) DEFAULT 'SUV', 
+    carEmissionType VARCHAR(25) 'Gas', 
     lastOnline DATE DEFAULT CURRENT_DATE, 
     streakLength INTEGER DEFAULT 0, 
     solarPower BOOLEAN DEFAULT FALSE, 

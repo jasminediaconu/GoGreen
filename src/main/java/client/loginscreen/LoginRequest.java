@@ -24,7 +24,7 @@ public class LoginRequest extends AsyncTask {
      * @param password        the password
      * @param loginController the login controller
      */
-    public LoginRequest(String username, String password, LoginController loginController) {
+    LoginRequest(String username, String password, LoginController loginController) {
         this.loginController = loginController;
         this.username = username;
         this.password = password;

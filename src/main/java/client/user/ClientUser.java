@@ -236,6 +236,7 @@ public class ClientUser extends User {
         if (obj == null || getClass() != obj.getClass()) return false;
         ClientUser that = (ClientUser) obj;
         if (streakLength == that.streakLength &&
+                email.equals(that.email) &&
                 solarPower == that.solarPower &&
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
@@ -243,12 +244,9 @@ public class ClientUser extends User {
                 Objects.equals(following, that.following) &&
                 totalCo2 == that.totalCo2 &&
                 username.equals(that.username) &&
-                Objects.equals(that.country, country)) {
-            if (car != null) {
-                return car.equals(that.car);
-            } else if (that.car == null) {
-                return true;
-            }
+                Objects.equals(that.country, country) &&
+                Objects.equals(car, that.car)) {
+            return true;
         }
         return false;
     }
@@ -268,7 +266,7 @@ public class ClientUser extends User {
         if (car != null) {
             clientUser.setCar(new Car(car.getCarType(), car.getEmissionType()));
         }
-        //clientUser.setProfileImage(getProfileImage());
+        clientUser.setEmail(email);
         clientUser.setUsername(username);
         clientUser.setCountry(country);
         clientUser.setImageURL(imageURL);
@@ -279,5 +277,13 @@ public class ClientUser extends User {
         clientUser.setTotalCo2(totalCo2);
 
         return clientUser;
+    }
+
+    @Override
+    public String toString() {
+        return "[username:" + username + ";email: " + email + ";country: " + country
+                + ";streak:" + streakLength + ";CO2: " + totalCo2
+                + "; LED: " + LEDs + "; solar: " + solarPower + "; temp: " + roomTemp
+                + car.toString() + "]";
     }
 }

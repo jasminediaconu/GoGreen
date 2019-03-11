@@ -33,7 +33,7 @@ public class Car {
         this.emissionType = emmissionType;
     }
 
-    public Car(){
+    public Car() {
 
     }
 
@@ -85,10 +85,6 @@ public class Car {
         this.carType = carType;
     }
 
-    public void setCarName(String carType) {
-        this.carType = getCarIndex(carType);
-    }
-
     /**
      * Gets emission type.
      *
@@ -107,16 +103,20 @@ public class Car {
         this.emissionType = emissionType;
     }
 
-    public void setEmissionName(String emissionType) {
-        this.emissionType = getEmissionIndex(emissionType);
-    }
-
     public String getCarName() {
         return cars[carType];
     }
 
+    public void setCarName(String carType) {
+        this.carType = getCarIndex(carType);
+    }
+
     public String getEmissionName() {
         return emissions[emissionType];
+    }
+
+    public void setEmissionName(String emissionType) {
+        this.emissionType = getEmissionIndex(emissionType);
     }
 
     @Override
@@ -129,5 +129,10 @@ public class Car {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "[car: " + carType + "; emmision: " + emissionType + "]";
     }
 }

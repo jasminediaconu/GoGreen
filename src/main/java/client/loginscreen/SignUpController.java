@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 /**
  * The type Signup controller.
  */
-public class SignupController implements Initializable {
+public class SignUpController implements Initializable {
 
     private double xcoord = 0;
     private double ycoord = 0;
@@ -132,7 +132,7 @@ public class SignupController implements Initializable {
 
 
     /**
-     * Sign up succes.
+     * This function will be called when the signUp was successful.
      */
     public void signUpSucces() {
         //GOTO MAIN SCREEN
@@ -146,7 +146,7 @@ public class SignupController implements Initializable {
     }
 
     /**
-     * Sign up fail.
+     * This function is called when the signUp failed.
      *
      * @param response the response
      */

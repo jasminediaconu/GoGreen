@@ -12,21 +12,24 @@ public class SignUpRequest extends AsyncTask {
 
     /**
      * The constant SYNTAX.
+     * When the syntax of the email/username/password is not correct.
      */
-    public static final int SYNTAX = 0;
+    static final int SYNTAX = 0;
     /**
      * The constant FAIL.
+     * When something in the process of singing up went wrong.
      */
-    public static final int FAIL = 1;
+    static final int FAIL = 1;
     /**
      * The constant OK.
+     * When everything went ok.
      */
-    public static final int OK = 2;
+    static final int OK = 2;
 
     private String username;
     private String password;
     private String email;
-    private SignupController signupController;
+    private SignUpController signUpController;
     private ClientUser clientUser;
     private int response = -1;
 
@@ -36,14 +39,14 @@ public class SignUpRequest extends AsyncTask {
      * @param username         the username
      * @param password         the password
      * @param email            the email
-     * @param signupController the signup controller
+     * @param signUpController the signUp controller
      */
-    public SignUpRequest(String username, String password, String email,
-                         SignupController signupController) {
+    SignUpRequest(String username, String password, String email,
+                         SignUpController signUpController) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.signupController = signupController;
+        this.signUpController = signUpController;
     }
 
     @Override
@@ -66,15 +69,16 @@ public class SignUpRequest extends AsyncTask {
 
     @Override
     public void onPostExecute(Object params) {
-        if (response != OK) {
+        if (response == OK) {
             Main.clientUser = clientUser;
-            signupController.signUpSucces();
+            signUpController.signUpSucces();
         } else {
-            signupController.signUpFail(response);
+            signUpController.signUpFail(response);
         }
 
     }
 
+    //
     private boolean signUp() {
         String response = ServerRequests.signUp(username, email, password);
         if (response == null) {

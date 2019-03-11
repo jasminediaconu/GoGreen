@@ -143,7 +143,7 @@ public class LoginController extends Controller implements Initializable {
      */
     @FXML
     private void signup(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("signup.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("signUp.fxml"));
         fillScene(root);
     }
 

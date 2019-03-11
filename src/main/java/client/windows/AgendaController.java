@@ -145,6 +145,11 @@ public class AgendaController implements Initializable {
         Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
         showAgendaActivites(activityMap);
 
+        gridPane.setHgap(20);
+        agendaBox.getChildren().add(gridPane);
+        scrollAgenda.setContent(agendaBox);
+        agendaBox.setSpacing(15);
+
         JFXButton ssbutton5 = new JFXButton("R1");
         ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
     }
@@ -181,11 +186,6 @@ public class AgendaController implements Initializable {
                 counter++;
             }
         }
-
-        gridPane.setHgap(20);
-        agendaBox.getChildren().add(gridPane);
-        scrollAgenda.setContent(agendaBox);
-        agendaBox.setSpacing(15);
     }
 
     /**

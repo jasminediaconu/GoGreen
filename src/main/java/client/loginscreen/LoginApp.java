@@ -14,9 +14,10 @@ public class LoginApp extends Application {
 
     /**
      * This function will start the LoginScreen, and also consecutively the SignupScreen,
-     * by setting the windows settings such as title and scene.
-     * @param stage The stage.
-     * @throws Exception Exception.
+     * by setting the windows settings such as title and scene
+     *
+     * @param stage The stage
+     * @throws Exception
      */
     @Override
     public void start(Stage stage) throws Exception {

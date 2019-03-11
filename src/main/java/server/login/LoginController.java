@@ -12,8 +12,8 @@ import java.sql.ResultSet;
 /**
  * This class handles the REST controlling for any login request.
  * It will check the username and password and returns a String to handle the webpage
- * @author wouthaakman
  *
+ * @author wouthaakman
  */
 @RestController
 public class LoginController {
@@ -34,6 +34,7 @@ public class LoginController {
      * Requires two parameters, namely the username and hashed password.
      * It will make a query that goes through the db to check if the user exists and
      * returns the id if that is the case.
+     *
      * @param user String[] type
      * @return a response as a String
      */

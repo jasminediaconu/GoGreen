@@ -2,6 +2,7 @@ package client.loginscreen;
 
 import client.Main;
 import client.ServerRequests;
+import com.sun.security.ntlm.Server;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,6 +27,7 @@ public class LoginController implements Initializable {
 
     private double x = 0;
     private double y = 0;
+    public boolean remembered = false;
 
     @FXML
     private TextField tf_username;
@@ -87,35 +89,30 @@ public class LoginController implements Initializable {
         String username = tf_username.getText();
         String password = pf_password.getText();
 
-        String response = ServerRequests.login(username, password);
+
+        FileReader fread = new FileReader("remeberme.txt");
+        BufferedReader reader = new BufferedReader(fread);
+        String hashedPassword;
+        String response;
+        if(remembered){
+            hashedPassword = reader.readLine().split(";")[1];
+            response = ServerRequests.login(username,hashedPassword, true);
+        }else if(!remembered) {
+            hashedPassword = Main.hashString(password);
+            response = ServerRequests.login(username, password, false);
+        }
         if (response == null) {
             //USERNAME OR PASSWORD MISSING
         } else if (response.equals("fail")) {
             //WRONG USERNAME OR PASSWORD
         } else if (response.startsWith("success:")) {
             //GOTO MAIN SCREEN
-            String hashedPassword = Main.hashString(password);
-            rememberme(username, hashedPassword);
+            int passwordlength = password.length();
+            rememberme(username, hashedPassword, passwordlength);
             Parent root = FXMLLoader.load(getClass().getResource("../windows/fxml/mainScreen.fxml"));
             fillScene(root, event);
 
         }
-    }
-
-    /**
-     * This function will write the username and hashed password to a file
-     * @param username String type
-     * @param hashedpassword String type
-     * @throws IOException
-     */
-    private void rememberme (String username, String hashedpassword) throws  IOException{
-        FileWriter writer = new FileWriter("remeberme.txt");
-        if(cb_rememberme.isSelected()) {
-            writer.write(username + ";" + hashedpassword);
-        } else if(cb_rememberme.isSelected() == false){
-            writer.write("" );
-        }
-        writer.close();
     }
 
     /**
@@ -182,6 +179,62 @@ public class LoginController implements Initializable {
         Stage newstage = new Stage();
         newstage.setScene(new Scene(newroot));
         newstage.show();
+    }
+
+
+
+    /**
+     * This function will switch to the password recovery screen
+     * @param event MouseEvent type
+     * @throws IOException
+     */
+    @FXML
+    private void forgotpassword(MouseEvent event) throws IOException {
+
+        Parent root = FXMLLoader.load(getClass().getResource("forgotPassword.fxml"));
+        fillScene(root, event);
+    }
+
+    /**
+     * This function will write the username and hashed password to a file
+     * @param username String type
+     * @param hashedpassword String type
+     * @throws IOException
+     */
+    private void rememberme (String username, String hashedpassword, int passwordlength) throws  IOException{
+        FileWriter writer = new FileWriter("remeberme.txt");
+        if(cb_rememberme.isSelected()) {
+            writer.write(username + ";" + hashedpassword+";"+ passwordlength);
+        } else if(cb_rememberme.isSelected() == false){
+            writer.write("" );
+        }
+        writer.close();
+    }
+
+    /**
+     * This method will check whether a username and password are saved and set variables accordingly
+     * @throws IOException
+     */
+    public void remembermecheck () throws IOException{
+        //open the file and read its contents
+        FileReader fread = new FileReader("rememberme.txt");
+        BufferedReader reader = new BufferedReader(fread);
+        String userpass = reader.readLine();
+        //if there is something saved, set the text in textfields to the right values
+        if(userpass.length() >= 5){
+            cb_rememberme.setSelected(true);
+            String[] userpassparts = userpass.split(";");
+            tf_username.setText(userpass[0]);
+            int passlength = Integer.parseInt(userpassparts[2]);
+            String randpass = "";
+            for(int i = 0; i < passlength; i++){
+                randpass.charAt(i) = 'a';
+            }
+            pf_password.setText(randpass);
+            remembered = true;
+        } else if(userpass.length() < 5 || userpass == null){
+            cb_rememberme.setSelected(false);
+        }
     }
 
     /**

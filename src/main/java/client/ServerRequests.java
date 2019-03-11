@@ -1,13 +1,5 @@
 package client;
 
-import com.google.gson.Gson;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-
 import java.util.regex.Pattern;
 
 public class ServerRequests {
@@ -22,15 +14,19 @@ public class ServerRequests {
      * @param username
      * @param password
      */
-    public static String login(String username, String password) {
-        String hashedPassword = Main.hashString(password);
+    public static String login(String username, String password, boolean ishashed) {
+        String hashedPassword = null;
+        if(ishashed){
+            hashedPassword = password;
+        } else if(!ishashed){
+            hashedPassword = Main.hashString(password);
+        }
         if (username == null || hashedPassword == null)
             return null;
-
         String response = sendRequestToServer("login", new Gson().toJson(new String[]{username, hashedPassword}));
         if(response != null) {
             String[] resArr = response.split("::");
-            System.out.println("[INFO] Login returned the following user_id: " + resArr[1]);
+            //System.out.println("[INFO] Login returned the following user_id: " + resArr[1]);
             Main.sessionID = resArr[0];
             return "success: " + resArr[0];
         }else {

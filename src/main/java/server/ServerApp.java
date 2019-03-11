@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.UUID;
 
 /**
@@ -52,6 +53,8 @@ public class ServerApp {
     public static void removeSessionID(String sessionID){
         sessionNames.remove(sessionID);
     }
+
+
 
 
     /**

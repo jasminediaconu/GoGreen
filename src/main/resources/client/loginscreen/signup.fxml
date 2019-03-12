@@ -164,6 +164,11 @@
                                     <children>
                                         <VBox alignment="CENTER" prefHeight="105.0" prefWidth="398.0">
                                             <children>
+                                    <Text fx:id="txt_usernametaken" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Username already taken. Please try another." textAlignment="CENTER" visible="false">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Text>
                                                 <Button mnemonicParsing="false" onMouseClicked="#signup" prefHeight="53.0" prefWidth="154.0" style="-fx-font-family: Roboto; -fx-font-size: 1.7em; -fx-background-color: #95E743; -fx-font-weight: bold; -fx-background-radius: 5;" text="Sign Up" textFill="WHITE">
                                                     <font>
                                                         <Font name="Montserrat Regular" size="12.0" />

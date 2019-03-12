@@ -13,6 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,6 +34,8 @@ public class SignupController implements Initializable {
     private TextField tf_email;
     @FXML
     private PasswordField pf_password;
+    @FXML
+    private Text txt_usernametaken;
 
     /**
      * This function handles the closing of the window, with the cross button.
@@ -110,6 +113,7 @@ public class SignupController implements Initializable {
             //INCORRECT SYNTAX
         } else if (response.equals("fail")) {
             //SIGN UP WAS UNSUCCESSFUL
+            txt_usernametaken.setVisible(true);
         } else if (response.equals("ok")) {
             ServerRequests.getItems();
 

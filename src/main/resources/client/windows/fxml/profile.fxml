@@ -29,21 +29,27 @@
                     </font>
                 </Text>
                 <Text fx:id="usernameField" layoutX="523.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="Username:" wrappingWidth="388.4000352538824">
+                      text="Username:" wrappingWidth="450.0">
                     <font>
-                        <Font name="Century Gothic" size="36.0"/>
+                        <Font name="Century Gothic" size="30.0"/>
                     </font>
                 </Text>
                 <Text layoutX="523.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:"
-                      wrappingWidth="110.80005966794488">
+                      wrappingWidth="450.0">
                     <font>
-                        <Font name="Century Gothic" size="36.0"/>
+                        <Font name="Century Gothic" size="30.0"/>
                     </font>
                 </Text>
                 <Text fx:id="pointsField" layoutX="523.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="Saved CO2:" wrappingWidth="388.40002888441086">
+                      text="Saved CO2:" wrappingWidth="450.0">
                     <font>
-                        <Font name="Century Gothic" size="36.0"/>
+                        <Font name="Century Gothic" size="30.0"/>
+                    </font>
+                </Text>
+                <Text fx:id="streakField" layoutX="523.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Streak:" wrappingWidth="450.0">
+                    <font>
+                        <Font name="Century Gothic" size="30.0"/>
                     </font>
                 </Text>
                 <Circle fx:id="profileImage" fill="#c4c4c4" layoutX="392.0" layoutY="241.0" radius="100.0"
@@ -185,12 +191,6 @@
                 </Text>
                 <JFXTextField fx:id="countryField" layoutX="755.0" layoutY="514.0" onKeyPressed="#keyPressed"
                               prefHeight="25.0" prefWidth="191.0"/>
-                <Text fx:id="streakField" layoutX="523.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0"
-                      text="Streak:" wrappingWidth="388.40002888441086">
-                    <font>
-                        <Font name="Century Gothic" size="36.0"/>
-                    </font>
-                </Text>
             </children>
         </Pane>
     </children>

@@ -1,6 +1,7 @@
 package client.profilescreen;
 
 import client.Main;
+import client.ServerRequests;
 import client.user.ClientUser;
 import client.windows.Controller;
 import com.jfoenix.controls.JFXButton;
@@ -191,6 +192,7 @@ public class ProfileController extends Controller {
     private void saveChanges() {
         Main.clientUser = newSettings.deepCopy();
         setButtonsDisable(true);
+        ServerRequests.updateClientUserProfile();
         update();
     }
 

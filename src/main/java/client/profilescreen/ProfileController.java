@@ -67,9 +67,14 @@ public class ProfileController extends Controller {
 
     @Override
     public void update() {
+
         if (Main.clientUser == null) {
             return;
         }
+        if (Main.clientUser.getCar() == null) {
+            Main.clientUser.setCar(new Car());
+        }
+
         newSettings = Main.clientUser.deepCopy();
         syncUI(Main.clientUser);
     }
@@ -84,14 +89,16 @@ public class ProfileController extends Controller {
         countryField.setText(settins.getCountry());
         tempratureField.setText("" + settins.getRoomTemp());
         setButtonsDisable(true);
-        mainScreenController.setUsernameField(settins.getUsername());
+        setProfileImage(settins.getProfileImage());
+        if (mainScreenController != null) {
+            mainScreenController.setUsernameField(settins.getUsername());
 
-        if (settins.getCar() != null) {
-            setCarFields(settins.getCar().getCarType(), settins.getCar().getEmissionType());
-        }
-        if (settins.getProfileImage() != null) {
-            setProfileImage(settins.getProfileImage());
-            mainScreenController.setProfileImage(settins.getProfileImage());
+            if (settins.getCar() != null) {
+                setCarFields(settins.getCar().getCarType(), settins.getCar().getEmissionType());
+            }
+            if (settins.getProfileImage() != null) {
+                mainScreenController.setProfileImage(settins.getProfileImage());
+            }
         }
     }
 
@@ -100,7 +107,6 @@ public class ProfileController extends Controller {
      */
     @FXML
     public void initialize() {
-        setPageDisable(true);
 
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String text = change.getText();
@@ -113,10 +119,11 @@ public class ProfileController extends Controller {
         };
         TextFormatter<String> textFormatter = new TextFormatter<>(filter);
         tempratureField.setTextFormatter(textFormatter);
+    }
 
-        LoadClientProfile loadClientProfile = new LoadClientProfile(this);
-        loadClientProfile.setDaemon(false);
-        loadClientProfile.execute();
+    @Override
+    public void init() {
+        update();
     }
 
     /**
@@ -186,7 +193,6 @@ public class ProfileController extends Controller {
 
     private void discardChanges() {
         newSettings = Main.clientUser.deepCopy();
-        setButtonsDisable(true);
         update();
     }
 
@@ -199,23 +205,21 @@ public class ProfileController extends Controller {
         //todo send profile update
     }
 
-    private void setButtonsDisable(Boolean disable) {
-        discardButton.setDisable(disable);
-        saveButton.setDisable(disable);
-    }
-
     private void checkNewSettings() {
-        if (newSettings.getCar() != null) {
-            if (newSettings.getCar().getCarType() == -1
-                    || newSettings.getCar().getEmissionType() == -1) {
-                setButtonsDisable(true);
-            } else {
-                setButtonsDisable(newSettings.equals(Main.clientUser));
-            }
+        Car car = newSettings.getCar();
+        if (car.getCarType() == -1 && car.getEmissionType() == -1) {
+            setButtonsDisable(newSettings.equals(Main.clientUser));
+        } else if (car.getEmissionType() == -1 || car.getCarType() == -1) {
+            saveButton.setDisable(true);
+            discardButton.setDisable(false);
         } else {
             setButtonsDisable(newSettings.equals(Main.clientUser));
         }
+    }
 
+    private void setButtonsDisable(Boolean disable) {
+        discardButton.setDisable(disable);
+        saveButton.setDisable(disable);
     }
 
     /**

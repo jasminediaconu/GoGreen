@@ -1,9 +1,6 @@
 package server.user;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import server.ServerApp;
 import server.helper.ClientUserClass;
 import server.helper.UserClass;
@@ -97,6 +94,11 @@ public class UserController {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @RequestMapping(value ="/updateUserProfile", method = RequestMethod.POST)
+    public String updateUserProfile(@RequestParam String s, @RequestBody ClientUserClass client) {
+
     }
 
     /**

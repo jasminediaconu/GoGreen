@@ -14,10 +14,10 @@ public class LoginApp extends Application {
 
     /**
      * This function will start the LoginScreen, and also consecutively the SignupScreen,
-     * by setting the windows settings such as title and scene
+     * by setting the windows settings such as title and scene.
      *
      * @param stage The stage
-     * @throws Exception
+     * @throws Exception When the FXML files couldn't be loaded.
      */
     @Override
     public void start(Stage stage) throws Exception {

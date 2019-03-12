@@ -36,4 +36,7 @@ public abstract class Controller {
      * When the screen is changed this function will be called to update the screen.
      */
     public abstract void update();
+
+    public void init() {
+    }
 }

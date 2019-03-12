@@ -13,11 +13,11 @@ import java.util.Objects;
  */
 public class ClientUser extends User {
 
-    private Car car;
-    private int streakLength;
-    private boolean solarPower;
-    private boolean LEDs;
-    private int roomTemp;
+    private Car car = new Car();
+    private int streakLength = 0;
+    private boolean solarPower = false;
+    private boolean LEDs = false;
+    private int roomTemp = 21;
     private String email = "";
 
     @Expose(deserialize = false, serialize = false)
@@ -25,6 +25,7 @@ public class ClientUser extends User {
     private String imageURL;
     @Expose(deserialize = false, serialize = false)
     private List<User> following = new ArrayList<>();
+    @Expose(deserialize = false, serialize = false)
     private List<Activity> activityList;
 
 
@@ -64,11 +65,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * <<<<<<< HEAD
      * Sets the users streak length to the argument streakLength.
-     * =======
-     * Sets the users streak length to the argument streakLength
-     * >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      *
      * @param streakLength int type
      */
@@ -77,11 +74,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * <<<<<<< HEAD
      * This function will get whether the user is using solar power.
-     * =======
-     * This function will get whether the user is using solar power
-     * >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      *
      * @return if the user is using solar power
      */
@@ -243,27 +236,25 @@ public class ClientUser extends User {
         if (obj == null || getClass() != obj.getClass()) return false;
         ClientUser that = (ClientUser) obj;
         if (streakLength == that.streakLength &&
+                email.equals(that.email) &&
                 solarPower == that.solarPower &&
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
                 email.equalsIgnoreCase(that.email) &&
                 Objects.equals(following, that.following) &&
                 totalCo2 == that.totalCo2 &&
-                username.equalsIgnoreCase(that.username) &&
-                country.equalsIgnoreCase(that.country)) {
-            if (car != null) {
-                return car.equals(that.car);
-            } else if (that.car == null) {
-                return true;
-            }
+                username.equals(that.username) &&
+                Objects.equals(that.country, country) &&
+                Objects.equals(car, that.car)) {
+            return true;
         }
         return false;
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(car.getCarType(), car.getEmissionType(), streakLength, solarPower, LEDs, roomTemp, following);
-    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(car.getCarType(), car.getEmissionType(), streakLength, solarPower, LEDs, roomTemp, following);
+//    }
 
     /**
      * Deep copy client user.
@@ -275,7 +266,7 @@ public class ClientUser extends User {
         if (car != null) {
             clientUser.setCar(new Car(car.getCarType(), car.getEmissionType()));
         }
-        //clientUser.setProfileImage(getProfileImage());
+        clientUser.setEmail(email);
         clientUser.setUsername(username);
         clientUser.setCountry(country);
         clientUser.setImageURL(imageURL);
@@ -286,5 +277,13 @@ public class ClientUser extends User {
         clientUser.setTotalCo2(totalCo2);
 
         return clientUser;
+    }
+
+    @Override
+    public String toString() {
+        return "[username:" + username + ";email: " + email + ";country: " + country
+                + ";streak:" + streakLength + ";CO2: " + totalCo2
+                + "; LED: " + LEDs + "; solar: " + solarPower + "; temp: " + roomTemp
+                + car.toString() + "]";
     }
 }

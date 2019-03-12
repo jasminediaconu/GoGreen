@@ -69,5 +69,12 @@ GridPane > Text {
 
 #agendaTitle {
     -fx-font-size: 61px;
+}
 
+#calendar {
+    -fx-fill: #95E743;
+}
+
+#calendar:hover {
+    -fx-fill: #73cb1a;
 }

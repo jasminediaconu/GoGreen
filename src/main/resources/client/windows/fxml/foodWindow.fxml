@@ -16,114 +16,114 @@
 <?import javafx.scene.text.Text?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="222.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox alignment="TOP_CENTER" layoutY="14.0" prefHeight="25.0" prefWidth="222.0">
-         <children>
-            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Food">
-               <font>
-                  <Font name="Montserrat Bold" size="20.0" />
-               </font>
-            </Text>
-         </children>
-      </HBox>
-      <HBox layoutX="25.0" layoutY="71.0" prefHeight="44.0" prefWidth="186.0">
-         <children>
-            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal:" wrappingWidth="44.01995468139637">
-               <font>
-                  <Font name="Montserrat Regular" size="15.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="5.0" />
-               </HBox.margin>
-            </Text>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <ComboBox id="foodmenu" fx:id="foodchoices" prefHeight="26.0" prefWidth="132.0" promptText="Select a meal" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
-                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
-                     </effect>
-                     <padding>
-                        <Insets left="3.0" />
-                     </padding>
-                  </ComboBox>
-               </children>
-            </HBox>
-            <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;" text="Select a meal">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="Action 1" />
-                  <MenuItem mnemonicParsing="false" text="Action 2" />
-               </items>
-               <font>
-                  <Font name="Montserrat Regular" size="12.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="5.0" />
-               </HBox.margin>
-               <effect>
-                  <DropShadow height="10.0" radius="4.5" width="10.0" />
-               </effect>
-            </MenuButton>
-         </children>
-      </HBox>
-      <HBox layoutX="25.0" layoutY="126.0" prefHeight="25.0" prefWidth="200.0">
-         <children>
-            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount:" wrappingWidth="72.81994247436512">
-               <font>
-                  <Font name="Montserrat Regular" size="15.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="2.0" />
-               </HBox.margin>
-            </Text>
-            <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
-               <effect>
-                  <DropShadow blurType="TWO_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
-               </effect>
-               <children>
-                  <TextField prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: transparent;">
-                     <font>
+    <children>
+        <HBox alignment="TOP_CENTER" layoutY="14.0" prefHeight="25.0" prefWidth="222.0">
+            <children>
+                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Food">
+                    <font>
+                        <Font name="Montserrat Bold" size="20.0" />
+                    </font>
+                </Text>
+            </children>
+        </HBox>
+        <HBox layoutX="25.0" layoutY="71.0" prefHeight="44.0" prefWidth="186.0">
+            <children>
+                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal:" wrappingWidth="44.01995468139637">
+                    <font>
+                        <Font name="Montserrat Regular" size="15.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets top="5.0" />
+                    </HBox.margin>
+                </Text>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <ComboBox id="foodmenu" fx:id="foodchoices" prefHeight="26.0" prefWidth="132.0" promptText="Select a meal" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
+                            <effect>
+                                <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
+                            </effect>
+                            <padding>
+                                <Insets left="3.0" />
+                            </padding>
+                        </ComboBox>
+                    </children>
+                </HBox>
+                <MenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;" text="Select a meal">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Action 1" />
+                        <MenuItem mnemonicParsing="false" text="Action 2" />
+                    </items>
+                    <font>
                         <Font name="Montserrat Regular" size="12.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </HBox>
-            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="g" wrappingWidth="13.79998779296875">
-               <font>
-                  <Font name="Montserrat Regular" size="15.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="6.0" top="2.0" />
-               </HBox.margin>
-            </Text>
-         </children>
-      </HBox>
-      <Button id="apply" layoutX="65.0" layoutY="242.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="93.0" style="-fx-font-weight: bold; -fx-background-radius: 5; -fx-font-size: 15; -fx-background-color: #95E743;" text="Apply" textFill="WHITE">
-         <font>
-            <Font name="Montserrat Regular" size="15.0" />
-         </font>
-      </Button>
-      <HBox layoutX="25.0" layoutY="182.0" prefHeight="44.0" prefWidth="200.0">
-         <children>
-            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="45.61993026733387">
-               <font>
-                  <Font name="Montserrat Regular" size="15.0" />
-               </font>
-               <HBox.margin>
-                  <Insets top="2.0" />
-               </HBox.margin>
-            </Text>
-            <DatePicker maxHeight="-Infinity" prefHeight="25.0" prefWidth="108.0" style="-fx-border-radius: 0;">
-               <effect>
-                  <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
-               </effect>
-            </DatePicker>
-         </children>
-      </HBox>
+                    </font>
+                    <HBox.margin>
+                        <Insets left="5.0" />
+                    </HBox.margin>
+                    <effect>
+                        <DropShadow height="10.0" radius="4.5" width="10.0" />
+                    </effect>
+                </MenuButton>
+            </children>
+        </HBox>
+        <HBox layoutX="25.0" layoutY="126.0" prefHeight="25.0" prefWidth="200.0">
+            <children>
+                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount:" wrappingWidth="72.81994247436512">
+                    <font>
+                        <Font name="Montserrat Regular" size="15.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets top="2.0" />
+                    </HBox.margin>
+                </Text>
+                <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
+                    <effect>
+                        <DropShadow blurType="TWO_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
+                    </effect>
+                    <children>
+                        <TextField prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: transparent;">
+                            <font>
+                                <Font name="Montserrat Regular" size="12.0" />
+                            </font>
+                        </TextField>
+                    </children>
+                </HBox>
+                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="g" wrappingWidth="13.79998779296875">
+                    <font>
+                        <Font name="Montserrat Regular" size="15.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets left="6.0" top="2.0" />
+                    </HBox.margin>
+                </Text>
+            </children>
+        </HBox>
+        <Button id="apply" layoutX="65.0" layoutY="242.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="93.0" style="-fx-font-weight: bold; -fx-background-radius: 5; -fx-font-size: 15; -fx-background-color: #95E743;" text="Apply" textFill="WHITE">
+            <font>
+                <Font name="Montserrat Regular" size="15.0" />
+            </font>
+        </Button>
+        <HBox layoutX="25.0" layoutY="182.0" prefHeight="44.0" prefWidth="200.0">
+            <children>
+                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="45.61993026733387">
+                    <font>
+                        <Font name="Montserrat Regular" size="15.0" />
+                    </font>
+                    <HBox.margin>
+                        <Insets top="2.0" />
+                    </HBox.margin>
+                </Text>
+                <DatePicker maxHeight="-Infinity" prefHeight="25.0" prefWidth="108.0" style="-fx-border-radius: 0;">
+                    <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
+                    </effect>
+                </DatePicker>
+            </children>
+        </HBox>
 
-      <Line endX="-1.600006103515625" layoutX="169.0" layoutY="40.0" startX="-114.9999771118164" stroke="#95e743" strokeLineCap="ROUND" strokeWidth="2.0" />
-   </children>
-   <stylesheets>
-      <URL value="@../../defaultFont.css" />
-      <URL value="@../css/agenda.css" />
-   </stylesheets>
+        <Line endX="-1.600006103515625" layoutX="169.0" layoutY="40.0" startX="-114.9999771118164" stroke="#95e743" strokeLineCap="ROUND" strokeWidth="2.0" />
+    </children>
+    <stylesheets>
+        <URL value="@../../defaultFont.css" />
+        <URL value="@../css/agenda.css" />
+    </stylesheets>
 </Pane>

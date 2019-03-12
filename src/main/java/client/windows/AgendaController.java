@@ -180,13 +180,6 @@ public class AgendaController implements Initializable {
             button.setOnMouseClicked(e -> deleteActivityDialog(ii));
         }
 
-        /*
-         * SORT ACTIVITIES BY DATE, SAVE DIFFERENT DATES IN DIFFERENT TEXT OBJECTS.
-         * SHOW ACTIVITIES SORTED BY DATE, SAVE THEM IN A GRID PANE.
-         * CREATE A NEW DELETE BUTTON WERE TO STORE THE IMAGE FOR EACH ACTIVITY ADDED.
-         * THE GRID PANE NEEDS TO HAVE THE ACTIVITY NAME AND THE DELETE BUTTON.
-         */
-
         gridPane.setHgap(20);
         agendaBox.getChildren().add(gridPane);
 
@@ -253,16 +246,15 @@ public class AgendaController implements Initializable {
      */
 
     public void transportButtonAction(javafx.scene.input.MouseEvent event) {
-        VBox vBox = new VBox();
-        vBox.setPrefHeight(250.0);
-        vBox.setPrefWidth(200.0);
+        VBox box = new VBox();
+        box.setPrefHeight(250.0);
+        box.setPrefWidth(200.0);
 
-        vBox.setStyle("-fx-background-color: white");
+        box.setStyle("-fx-background-color: white");
 
-        PopOver popOver = new PopOver(vBox);
+        PopOver popOver = new PopOver(box);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
         popOver.show(ssbutton2);
-
     }
 
     /**
@@ -276,7 +268,6 @@ public class AgendaController implements Initializable {
         PopOver popOver = new PopOver(mainScreenController.getFoodWindow());
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
         popOver.show(ssbutton3);
-
     }
 
     /**
@@ -284,7 +275,6 @@ public class AgendaController implements Initializable {
      */
 
     private void loadActivity() {
-
         //Clears everything in the observable list
         list.removeAll(list);
 
@@ -304,13 +294,13 @@ public class AgendaController implements Initializable {
 
     public void energyButtonAction(javafx.scene.input.MouseEvent event) {
 
-        VBox vBox = new VBox();
-        vBox.setPrefHeight(250.0);
-        vBox.setPrefWidth(200.0);
+        VBox box = new VBox();
+        box.setPrefHeight(250.0);
+        box.setPrefWidth(200.0);
 
-        vBox.setStyle("-fx-background-color: white");
+        box.setStyle("-fx-background-color: white");
 
-        PopOver popOver = new PopOver(vBox);
+        PopOver popOver = new PopOver(box);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
         popOver.show(ssbutton4);
 

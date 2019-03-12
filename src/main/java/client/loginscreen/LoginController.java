@@ -2,7 +2,7 @@ package client.loginscreen;
 
 import client.Main;
 import client.ServerRequests;
-import com.sun.security.ntlm.Server;
+//import com.sun.security.ntlm.Server;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -95,8 +95,8 @@ public class LoginController implements Initializable {
 
         FileReader fread = new FileReader("remeberme.txt");
         BufferedReader reader = new BufferedReader(fread);
-        String hashedPassword;
-        String response;
+        String hashedPassword = null;
+        String response = null;
         if(remembered){
             hashedPassword = reader.readLine().split(";")[1];
             response = ServerRequests.login(username,hashedPassword, true);
@@ -186,10 +186,8 @@ public class LoginController implements Initializable {
     @FXML
     private void privacyandterms (MouseEvent event, String source) throws IOException {
         // will open a new window and display the terms of service in that
-        Parent newroot = FXMLLoader.load(this.getClass().getResource(source));
-        Stage newstage = new Stage();
-        newstage.setScene(new Scene(newroot));
-        newstage.show();
+        Parent root = FXMLLoader.load(getClass().getResource(source));
+        fillScene(root, event);
     }
 
 
@@ -226,7 +224,7 @@ public class LoginController implements Initializable {
      * This method will check whether a username and password are saved and set variables accordingly
      * @throws IOException
      */
-    public void remembermecheck () throws IOException{
+    /** public void remembermecheck () throws IOException{
         //open the file and read its contents
         FileReader fread = new FileReader("rememberme.txt");
         BufferedReader reader = new BufferedReader(fread);
@@ -247,7 +245,7 @@ public class LoginController implements Initializable {
             cb_rememberme.setSelected(false);
         }
     }
-
+*/
     /**
      * This function remains unused, but required to stay since this class implements Initializable.
      * @param url URL type.

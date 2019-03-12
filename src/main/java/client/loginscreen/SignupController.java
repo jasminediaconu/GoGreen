@@ -172,10 +172,8 @@ public class SignupController implements Initializable {
     @FXML
     private void privacyandterms (MouseEvent event, String source) throws IOException {
         // will open a new window and display the terms of service in that
-        Parent newroot = FXMLLoader.load(this.getClass().getResource(source));
-        Stage newstage = new Stage();
-        newstage.setScene(new Scene(newroot));
-        newstage.show();
+        Parent root = FXMLLoader.load(getClass().getResource(source));
+        fillScene(root, event);
     }
 
     /**

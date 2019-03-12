@@ -11,8 +11,8 @@ class ClientUserTest {
 
     @BeforeEach
     void setUp() {
-        user = new ClientUser();
-        user2 = new ClientUser();
+        user = new ClientUser("username", "country", 10.0, 3, true, false, 21, "email", "default", "SUV", "Gas");
+        user2 = user.deepCopy();
     }
 
 
@@ -63,7 +63,6 @@ class ClientUserTest {
         user.setRoomTemp(25);
         Assert.assertEquals(25, user.getRoomTemp());
     }
-
 
     @Test
     void equalsNull() {

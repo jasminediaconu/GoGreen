@@ -85,7 +85,6 @@ public class SignUpController implements Initializable {
      */
     @FXML
     private void dragged(MouseEvent event) {
-
         Node node = (Node) event.getSource();
 
         Stage stage = (Stage) node.getScene().getWindow();
@@ -101,7 +100,6 @@ public class SignUpController implements Initializable {
      */
     @FXML
     private void login() throws IOException {
-
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         fillScene(root);
     }
@@ -115,8 +113,6 @@ public class SignUpController implements Initializable {
      */
     @FXML
     private void signUp() {
-
-
         setDisableScreen(true);
 
         String username = tf_username.getText();
@@ -126,8 +122,6 @@ public class SignUpController implements Initializable {
         SignUpRequest signUpRequest = new SignUpRequest(username, password, email, this);
         signUpRequest.setDaemon(false);
         signUpRequest.execute();
-
-
     }
 
 

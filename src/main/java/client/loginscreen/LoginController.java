@@ -116,7 +116,7 @@ public class LoginController extends Controller implements Initializable {
     /**
      * This function is called when the login was succesfull.
      */
-    public void loginSucces() {
+    public void loginSuccess() {
         try {
             String path = "../windows/fxml/mainScreen.fxml";
             //GOTO MAIN SCREEN

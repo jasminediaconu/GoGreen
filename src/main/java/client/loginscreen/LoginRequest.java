@@ -15,7 +15,7 @@ public class LoginRequest extends AsyncTask {
     private String username;
     private String password;
     private ClientUser clientUser;
-    private boolean succes = false;
+    private boolean success = false;
 
     /**
      * Instantiates a new Login request.
@@ -38,9 +38,9 @@ public class LoginRequest extends AsyncTask {
     @Override
     public Boolean doInBackground(Object[] params) {
         if (login()) {
-            succes = getUserProfile();
+            success = getUserProfile();
         } else {
-            succes = false;
+            success = false;
         }
 
         return true;
@@ -48,9 +48,9 @@ public class LoginRequest extends AsyncTask {
 
     @Override
     public void onPostExecute(Object params) {
-        if (succes) {
+        if (success) {
             Main.clientUser = clientUser;
-            loginController.loginSucces();
+            loginController.loginSuccess();
         } else {
             loginController.loginFail();
         }

@@ -10,20 +10,26 @@ public class User {
     /**
      * The Username.
      */
-    protected String username = "";
+    protected String username;
     /**
      * The Country.
      */
-    protected String country = "";
+    protected String country;
     /**
      * The Total co2.
      */
-    protected double totalCo2 = 0.0;
+    protected double totalCo2;
 
     /**
      * The abstract User constructor, used for all other users that are not the client.
      */
     public User() {
+    }
+
+    public User(String username, String country, double totalCo2) {
+        this.username = username;
+        this.country = country;
+        this.totalCo2 = totalCo2;
     }
 
     /**

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
@@ -17,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.loginscreen.LoginController">
+<AnchorPane fx:id="signUpScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: transparent;" stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.loginscreen.SignUpController">
     <children>
         <StackPane maxHeight="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 22;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -31,9 +29,9 @@
                                     </image>
                                 </ImageView>
                             </children>
+
                         </VBox>
                         <VBox prefHeight="768.0" prefWidth="512.0" HBox.hgrow="ALWAYS">
-
                             <children>
                                 <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="487.0">
                                     <children>
@@ -46,9 +44,9 @@
                                 </HBox>
                                 <HBox prefHeight="48.0" prefWidth="512.0">
                                     <children>
-                                        <VBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="45.0">
+                                        <VBox alignment="CENTER_LEFT" prefHeight="160.0" prefWidth="151.0">
                                             <children>
-                                                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 3em;" text="We are" wrappingWidth="136.78180694580078">
+                                                <Text fill="#95e743" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 3em; -fx-font-weight: bold;" text="Sign up" wrappingWidth="150.95868682861328">
                                                     <VBox.margin>
                                                         <Insets />
                                                     </VBox.margin>
@@ -61,9 +59,9 @@
                                                 <Insets left="50.0" />
                                             </HBox.margin>
                                         </VBox>
-                                        <VBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="78.0">
+                                        <VBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="45.0">
                                             <children>
-                                                <Text id="green" fill="#95e743" strokeType="OUTSIDE" strokeWidth="0.0" text="Green" wrappingWidth="116.825439453125">
+                                                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 3em;" text="Page" wrappingWidth="141.84851837158203">
                                                     <VBox.margin>
                                                         <Insets />
                                                     </VBox.margin>
@@ -72,6 +70,9 @@
                                                     </font>
                                                 </Text>
                                             </children>
+                                            <HBox.margin>
+                                                <Insets />
+                                            </HBox.margin>
                                         </VBox>
                                     </children>
                                     <VBox.margin>
@@ -80,24 +81,31 @@
                                 </HBox>
                                 <VBox alignment="CENTER_LEFT" prefHeight="16.0" prefWidth="302.0">
                                     <children>
-                                        <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.5em;" text="Welcome Back, Please login to your account.">
+                                        <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.5em;" text="Please complete the form to register an account.">
                                             <font>
                                                 <Font name="Montserrat Regular" size="12.0" />
-                                            </font></Text>
+                                            </font>
+                                        </Text>
                                     </children>
                                     <VBox.margin>
                                         <Insets left="50.0" top="10.0" />
                                     </VBox.margin>
                                 </VBox>
                                 <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
+                                    <VBox.margin>
+                                        <Insets left="50.0" top="40.0" />
+                                    </VBox.margin>
+                                    <effect>
+                                        <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                    </effect>
                                     <children>
-                                        <TextField fx:id="tf_username" maxWidth="-Infinity" prefHeight="30.0" prefWidth="345.0" promptText="Username" style="-fx-background-color: transparent; -fx-font-size: 1.5em;" HBox.hgrow="ALWAYS">
-                                            <HBox.margin>
-                                                <Insets left="15.0" />
-                                            </HBox.margin>
+                                        <TextField fx:id="tf_username" maxWidth="-Infinity" prefHeight="30.0" prefWidth="345.0" promptText="Username" style="-fx-background-color: transparent; -fx-font-size: 1.5em;">
                                             <font>
                                                 <Font name="Montserrat Regular" size="12.0" />
                                             </font>
+                                            <HBox.margin>
+                                                <Insets left="15.0" />
+                                            </HBox.margin>
                                         </TextField>
                                         <FontAwesomeIcon fill="#888888" iconName="USER" size="1.5em">
                                             <HBox.margin>
@@ -105,22 +113,43 @@
                                             </HBox.margin>
                                         </FontAwesomeIcon>
                                     </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
                                     <VBox.margin>
-                                        <Insets left="50.0" top="40.0" />
+                                        <Insets left="50.0" top="20.0" />
                                     </VBox.margin>
                                     <effect>
                                         <DropShadow height="10.0" radius="4.5" width="10.0" />
                                     </effect>
-                                </HBox>
-                                <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
                                     <children>
-                                        <PasswordField fx:id="pf_password" prefHeight="30.0" prefWidth="345.0" promptText="Password" style="-fx-background-color: transparent; -fx-font-size: 1.5em;">
+                                        <TextField fx:id="tf_email" maxWidth="-Infinity" prefHeight="30.0" prefWidth="345.0" promptText="Email" style="-fx-background-color: transparent; -fx-font-size: 1.5em;" HBox.hgrow="ALWAYS">
                                             <HBox.margin>
                                                 <Insets left="15.0" />
                                             </HBox.margin>
                                             <font>
                                                 <Font name="Montserrat Regular" size="12.0" />
-                                            </font></PasswordField>
+                                            </font>
+                                        </TextField>
+                                        <FontAwesomeIcon fill="#888888" iconName="ENVELOPE" size="1.5em">
+                                            <HBox.margin>
+                                                <Insets left="5.0" />
+                                            </HBox.margin>
+                                        </FontAwesomeIcon>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
+                                    <effect>
+                                        <DropShadow height="10.0" radius="4.5" width="10.0" />
+                                    </effect>
+                                    <children>
+                                        <PasswordField fx:id="pf_password" prefHeight="30.0" prefWidth="345.0" promptText="Password" style="-fx-background-color: transparent; -fx-font-size: 1.5em;">
+                                            <font>
+                                                <Font name="Montserrat Regular" size="12.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets left="15.0" />
+                                            </HBox.margin>
+                                        </PasswordField>
                                         <FontAwesomeIcon fill="#888888" iconName="LOCK" size="1.5em">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
@@ -130,64 +159,39 @@
                                     <VBox.margin>
                                         <Insets left="50.0" top="20.0" />
                                     </VBox.margin>
-                                    <effect>
-                                        <DropShadow height="10.0" radius="4.5" width="10.0" />
-                                    </effect>
                                 </HBox>
-                                <HBox prefHeight="37.0" prefWidth="512.0">
+                                <HBox prefHeight="91.0" prefWidth="462.0">
                                     <children>
-                                        <VBox prefHeight="51.0" prefWidth="144.0">
+                                        <VBox alignment="CENTER" prefHeight="105.0" prefWidth="398.0">
                                             <children>
-                                                <CheckBox mnemonicParsing="false" prefHeight="52.0" prefWidth="142.0" style="-fx-font-size: 1.25em;" text="Remember me" textFill="#888888">
+                                                <Button fx:id="signUpButton" mnemonicParsing="false" onMouseClicked="#signUp" prefHeight="53.0" prefWidth="154.0" style="-fx-font-family: Roboto; -fx-font-size: 1.7em; -fx-background-color: #95E743; -fx-font-weight: bold; -fx-background-radius: 5;" text="Sign Up" textFill="WHITE">
                                                     <font>
                                                         <Font name="Montserrat Regular" size="12.0" />
-                                                    </font></CheckBox>
-                                            </children>
-                                            <HBox.margin>
-                                                <Insets left="50.0" top="10.0" />
-                                            </HBox.margin>
-                                        </VBox>
-                                        <VBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="131.0">
-                                            <children>
-                                                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em; -fx-font-weight: bold;" text="Forgot password?" wrappingWidth="146.23316192626953">
+                                                    </font>
                                                     <VBox.margin>
-                                                        <Insets />
+                                                        <Insets top="10.0" />
                                                     </VBox.margin>
-                                                    <font>
-                                                        <Font name="Montserrat Regular" size="12.0" />
-                                                    </font>
-                                                </Text>
-                                            </children>
-                                            <HBox.margin>
-                                                <Insets left="110.0" />
-                                            </HBox.margin></VBox>
-                                    </children>
-                                    <VBox.margin>
-                                        <Insets top="10.0" />
-                                    </VBox.margin>
-                                </HBox>
-                                <HBox prefHeight="87.0" prefWidth="462.0">
-                                    <children>
-                                        <VBox prefHeight="134.0" prefWidth="161.0">
-                                            <children>
-                                                <Button id="login" mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="130.0" style="-fx-font-family: Roboto; -fx-font-size: 1.5em; -fx-font-weight: bold; -fx-background-radius: 5;" stylesheets="@loginStyle.css" text="Login" textFill="WHITE">
-                                                    <font>
-                                                        <Font name="Montserrat Regular" size="12.0" />
-                                                    </font></Button>
-                                            </children>
-                                        </VBox>
-                                        <VBox prefHeight="134.0" prefWidth="137.0">
-                                            <children>
-                                                <Button id="signup" mnemonicParsing="false" onMouseClicked="#signup" prefHeight="45.0" prefWidth="130.0" style="-fx-font-size: 1.5em; -fx-border-radius: 5;" stylesheets="@loginStyle.css" text="Sign Up">
-                                                    <font>
-                                                        <Font name="Montserrat Regular" size="12.0" />
-                                                    </font>
                                                 </Button>
                                             </children>
                                         </VBox>
                                     </children>
                                     <VBox.margin>
-                                        <Insets left="50.0" top="40.0" />
+                                        <Insets left="50.0" top="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="55.0" prefWidth="512.0">
+                                    <children>
+                                        <Text id="already" fx:id="loginButton" onMouseClicked="#login" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.5em; -fx-font-weight: bold;" text="Already have an account?" wrappingWidth="245.75018310546875">
+                                            <font>
+                                                <Font name="Montserrat Regular" size="12.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets />
+                                            </HBox.margin>
+                                        </Text>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets />
                                     </VBox.margin>
                                 </HBox>
                                 <HBox prefHeight="25.0" prefWidth="462.0">
@@ -195,10 +199,11 @@
                                         <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em;" text="By signing up you agree to the:">
                                             <font>
                                                 <Font name="Montserrat Regular" size="12.0" />
-                                            </font></Text>
+                                            </font>
+                                        </Text>
                                     </children>
                                     <VBox.margin>
-                                        <Insets left="50.0" />
+                                        <Insets left="50.0" top="10.0" />
                                     </VBox.margin>
                                 </HBox>
                                 <HBox prefHeight="22.0" prefWidth="512.0">
@@ -222,7 +227,6 @@
                                         </Text>
                                     </children>
                                 </HBox>
-
                             </children>
                         </VBox>
                     </children>
@@ -236,8 +240,4 @@
             </effect>
         </StackPane>
     </children>
-    <stylesheets>
-        <URL value="@loginStyle.css" />
-        <URL value="@../defaultFont.css" />
-    </stylesheets>
 </AnchorPane>

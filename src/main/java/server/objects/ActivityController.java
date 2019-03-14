@@ -19,8 +19,8 @@ import java.util.List;
 /**
  * This class handles the REST controlling for everything Activity related
  * It will handle adding, removing and retrieving activities.
- * @author wouthaakman
  *
+ * @author wouthaakman
  */
 @RestController
 public class ActivityController {
@@ -58,7 +58,7 @@ public class ActivityController {
             addActivity.setInt(2, a.itemID);
             addActivity.setDouble(3, a.amount);
             addActivity.setDate(4,
-                    new Date(new SimpleDateFormat("dd-MM-yyyy").parse(a.date).getTime()));
+                    new Date(new SimpleDateFormat("yyyy-MM-dd").parse(a.date).getTime()));
 
             ResultSet result = addActivity.executeQuery();
             result.next();
@@ -128,6 +128,7 @@ public class ActivityController {
      * This function will take a String w, that is a width/domain of date
      * that will return the domain between Now and a date w removed from Now.
      * w can be either m=month, h=half a year, y=year or else=week
+     *
      * @param w String type
      * @return a LocalDate that is w size removed from the current date
      */

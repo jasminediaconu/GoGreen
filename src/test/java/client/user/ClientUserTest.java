@@ -11,50 +11,33 @@ class ClientUserTest {
 
     @BeforeEach
     void setUp() {
-        user = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21);
-        user2 = new ClientUser("Ricardo", "Netherlands", 1200, "Mini", "Electric", 3, false, false, 21);
+        user = new ClientUser();
+        user2 = new ClientUser();
     }
 
-    @Test
-    void getCarType() {
-        Assert.assertEquals("Mini", user.getCarType());
-    }
-
-    @Test
-    void getCarEmmisionType() {
-        Assert.assertEquals("Electric", user.getCarEmissionType());
-    }
 
     @Test
     void getStreakLength() {
+        user.setStreakLength(3);
         Assert.assertEquals(3, user.getStreakLength());
     }
 
     @Test
     void hasSolarPower() {
+        user.setSolarPower(false);
         Assert.assertEquals(false, user.hasSolarPower());
     }
 
     @Test
     void hasLEDs() {
+        user.setLEDs(false);
         Assert.assertEquals(false, user.hasLEDs());
     }
 
     @Test
     void getRoomTemp() {
+        user.setRoomTemp(21);
         Assert.assertEquals(21, user.getRoomTemp());
-    }
-
-    @Test
-    void setCarType() {
-        user.setCarType("SUV");
-        Assert.assertEquals("SUV", user.getCarType());
-    }
-
-    @Test
-    void setCarEmmisionType() {
-        user.setCarEmmisionType("Gas");
-        Assert.assertEquals("Gas", user.getCarEmissionType());
     }
 
     @Test
@@ -71,7 +54,7 @@ class ClientUserTest {
 
     @Test
     void setLEDs() {
-        user.setLEDs(true);
+        user.setSolarPower(true);
         Assert.assertEquals(true, user.hasSolarPower());
     }
 
@@ -80,6 +63,7 @@ class ClientUserTest {
         user.setRoomTemp(25);
         Assert.assertEquals(25, user.getRoomTemp());
     }
+
 
     @Test
     void equalsNull() {
@@ -93,7 +77,8 @@ class ClientUserTest {
 
     @Test
     void equalsSame() {
-        Assert.assertEquals(user.equals(user2), true);
+        user2 = user.deepCopy();
+        Assert.assertTrue(user.equals(user2));
     }
 
     @Test

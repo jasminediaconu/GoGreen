@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: transparent;"
+            stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="client.loginscreen.LoginController">
+    <children>
+        <StackPane maxHeight="-Infinity" prefHeight="100.0" prefWidth="200.0"
+                   style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <HBox fillHeight="false" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <VBox prefHeight="768.0" prefWidth="512.0" HBox.hgrow="ALWAYS">
+
+                            <children>
+                                <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="487.0">
+                                    <children>
+                                        <FontAwesomeIcon id="close" fx:id="close" fill="#888888" iconName="CLOSE"
+                                                         size="1.5em">
+                                            <HBox.margin>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+                                            </HBox.margin>
+                                        </FontAwesomeIcon>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="48.0" prefWidth="512.0">
+                                    <children>
+                                        <VBox alignment="CENTER" prefHeight="160.0" prefWidth="151.0">
+                                            <children>
+                                                <Text fill="#95e743" strokeType="OUTSIDE" strokeWidth="0.0"
+                                                      style="-fx-font-size: 3em; -fx-font-weight: bold;" text="Dummy"
+                                                      wrappingWidth="168.02553749084473">
+                                                    <VBox.margin>
+                                                        <Insets/>
+                                                    </VBox.margin>
+                                                    <font>
+                                                        <Font name="Montserrat Regular" size="12.0"/>
+                                                    </font>
+                                                </Text>
+                                            </children>
+                                            <HBox.margin>
+                                                <Insets left="50.0"/>
+                                            </HBox.margin>
+                                        </VBox>
+                                        <VBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="45.0">
+                                            <children>
+                                                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0"
+                                                      style="-fx-font-size: 3em;" text="Main Screen"
+                                                      wrappingWidth="227.18183135986328">
+                                                    <VBox.margin>
+                                                        <Insets/>
+                                                    </VBox.margin>
+                                                    <font>
+                                                        <Font name="Montserrat Regular" size="12.0"/>
+                                                    </font>
+                                                </Text>
+                                            </children>
+                                            <HBox.margin>
+                                                <Insets/>
+                                            </HBox.margin>
+                                        </VBox>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets top="50.0"/>
+                                    </VBox.margin>
+                                </HBox>
+                                <VBox alignment="CENTER_LEFT" prefHeight="16.0" prefWidth="302.0">
+                                    <VBox.margin>
+                                        <Insets left="50.0" top="10.0"/>
+                                    </VBox.margin>
+                                </VBox>
+                                <HBox alignment="CENTER" prefHeight="55.0" prefWidth="512.0">
+                                    <VBox.margin>
+                                        <Insets/>
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox prefHeight="25.0" prefWidth="462.0">
+                                    <VBox.margin>
+                                        <Insets left="50.0" top="10.0"/>
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox prefHeight="22.0" prefWidth="512.0">
+                                    <children>
+                                        <VBox prefHeight="200.0" prefWidth="100.0"/>
+                                        <VBox prefHeight="27.0" prefWidth="25.0"/>
+                                        <VBox prefHeight="200.0" prefWidth="100.0">
+                                            <HBox.margin>
+                                                <Insets left="-5.5"/>
+                                            </HBox.margin>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+
+                            </children>
+                        </VBox>
+                    </children>
+                    <StackPane.margin>
+                        <Insets/>
+                    </StackPane.margin>
+                </HBox>
+            </children>
+            <effect>
+                <DropShadow/>
+            </effect>
+        </StackPane>
+    </children>
+</AnchorPane>

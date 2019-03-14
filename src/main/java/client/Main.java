@@ -1,5 +1,8 @@
 package client;
 
+
+import client.user.ClientUser;
+
 import client.objects.Item;
 
 import client.serializer.LocalDateDeserializer;
@@ -31,6 +34,7 @@ public class Main {
 
     public static Gson gson;
     public static String sessionID;
+    public static ClientUser clientUser;
 
     public static List<Item> items = new ArrayList<>();
 

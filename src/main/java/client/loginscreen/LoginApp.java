@@ -15,12 +15,14 @@ public class LoginApp extends Application {
     /**
      * This function will start the LoginScreen, and also consecutively the SignupScreen,
      * by setting the windows settings such as title and scene.
-     * @param stage The stage.
-     * @throws Exception Exception.
+     *
+     * @param stage The stage
+     * @throws Exception When the FXML files couldn't be loaded.
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/client/loginscreen/login.fxml"));
+
+        Parent root = FXMLLoader.load(getClass().getResource("/client/loginScreen/login.fxml"));
 
         Scene scene = new Scene(root);
 
@@ -31,6 +33,6 @@ public class LoginApp extends Application {
         stage.setScene(scene);
         stage.show();
 
-        stage.getIcons().add(new Image("client/windows/images/icon.png"));
+        stage.getIcons().add(new Image("/client/windows/images/icon.png"));
     }
 }

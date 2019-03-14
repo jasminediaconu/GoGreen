@@ -1,6 +1,11 @@
 package client.windows;
 
+import client.Main;
+import client.ServerRequests;
 import client.objects.Activity;
+import client.user.ClientUser;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -13,8 +18,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -23,9 +31,11 @@ import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
 import java.net.URL;
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 /**
  * This class provides functionality for:
@@ -35,13 +45,22 @@ import java.util.ResourceBundle;
  *
  * @author gforghieri
  */
-public class AgendaController implements Initializable {
+public class AgendaController extends Controller implements Initializable {
 
-    @FXML Pane agenda;
-    @FXML ScrollPane scrollAgenda;
-    @FXML FontAwesomeIcon delete;
-    @FXML StackPane stack;
-    @FXML private ComboBox<String> foodchoices = new ComboBox<>();
+    @FXML
+    Pane agenda;
+    @FXML
+    FontAwesomeIcon delete;
+    @FXML
+    private ScrollPane scrollAgenda = new ScrollPane();
+    @FXML
+    private StackPane stack;
+    @FXML
+    private ComboBox<String> foodchoices = new ComboBox<>();
+    @FXML
+    private TextField amount = new TextField();
+    @FXML
+    private DatePicker datepicker = new DatePicker();
 
     private MainScreenController mainScreenController;
     private JFXButton ssbutton2;
@@ -52,8 +71,6 @@ public class AgendaController implements Initializable {
 
     private GridPane gridPane;
     private Text dateText;
-    private List<String> items;
-    private List<Activity> activities;
     private VBox agendaBox;
     private JFXDialog dialog;
 
@@ -91,6 +108,7 @@ public class AgendaController implements Initializable {
 
     /**
      * This function will delete the activities from the agenda.
+     *
      * @param rowIndex int type.
      */
     private void deleteActivity(int rowIndex) {
@@ -101,14 +119,8 @@ public class AgendaController implements Initializable {
     }
 
     /**
-     * This function will add activities to the agenda through the JFXNodeList.
-     */
-    private void addActivity() {
-
-    }
-
-    /**
      * Count the number of rows in a pane.
+     *
      * @param pane GridPane
      * @return numRows
      */
@@ -128,66 +140,69 @@ public class AgendaController implements Initializable {
 
     /**
      * Initialize agenda with the user activities.
-     * @param url URL
+     *
+     * @param url            URL
      * @param resourceBundle ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         loadActivity();
 
-        //activities = new ArrayList<>();
-        //ClientUser.getActivityList();
-        // activityID = activity.getActivityID();
-        // amount = activity.getAmount();
-        // date = activity.getDate();
-        // System.out.println(activityID);
-        // System.out.println(amount);
-        // System.out.println(date);
-        // System.out.println(activity);
-        // activities.add(activity);
-
         agendaBox = new VBox();
-
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
 
         gridPane = new GridPane();
         gridPane.setLayoutX(420);
 
-        String css = "-fx-background-position: 20; -fx-font-size: 28;";
-        dateText = new Text("Fri 9 Mar");
-        // NEED TO PARSE THE LOCAL DATE FROM THE ACTIVITY CLASS
-
-        dateText.setStyle(css);
-        agendaBox.getChildren().add(dateText);
-
-        String path = "/client/windows/images/delete.png";
-
-        items = new ArrayList<>();
-
-        items.add("Vegan meal");
-        items.add("Local produce");
-        items.add("Public transport");
-        items.add("LEDs");
-
-        for (int i = 0; i < items.size(); i++) {
-            Text text = new Text(items.get(i));
-            text.setWrappingWidth(310.00);
-            gridPane.add(text, 1, i);
-            JFXButton button = new JFXButton("", new ImageView(path));
-            gridPane.add(button,2,i);
-            int ii = i;
-            button.setOnMouseClicked(e -> deleteActivityDialog(ii));
+        if (Main.clientUser == null) {
+            Main.clientUser = new ClientUser();
+        }
+        if (Main.clientUser.getActivityList() != null) {
+            Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
+            showAgendaActivites(activityMap);
         }
 
         gridPane.setHgap(20);
         agendaBox.getChildren().add(gridPane);
-
         scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
 
-        JFXButton ssbutton1 = new JFXButton("R1");
-        ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
+        JFXButton ssbutton5 = new JFXButton("R1");
+        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
+    }
+
+    private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
+        Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
+        for (Activity a : activities) {
+            multimap.put(a.getDate(), a);
+        }
+        return multimap;
+    }
+
+    private void showAgendaActivites(Multimap<LocalDate, Activity> activityMap) {
+        String path = "/client/windows/images/delete.png";
+
+        int counter = 0;
+        for (LocalDate date : activityMap.keySet()) {
+            String css = "-fx-background-position: 20; -fx-font-size: 28;";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM, yyy");
+            dateText = new Text(formatter.format(date));
+
+            dateText.setStyle(css);
+            gridPane.add(dateText, 1, counter);
+            counter++;
+
+            for (Activity activity : activityMap.get(date)) {
+                Text text = new Text(activity.getItemID() + ", " + activity.getAmount());
+                text.setWrappingWidth(310.00);
+                gridPane.add(text, 1, counter);
+                JFXButton button = new JFXButton("", new ImageView(path));
+                gridPane.add(button, 2, counter);
+                int ii = counter;
+                button.setOnMouseClicked(e -> deleteActivityDialog(ii));
+                counter++;
+            }
+        }
     }
 
     /**
@@ -276,16 +291,34 @@ public class AgendaController implements Initializable {
 
     private void loadActivity() {
         //Clears everything in the observable list
-        list.removeAll(list);
-
-        String first = "Eating a vegetarian meal";
-        String second = "Buying local produce";
-        String third = "Svetoslav's stroopwafel";
-        list.addAll(first, second, third);
+        if (list.size() < 1)
+            list.addAll(Main.items.stream().filter(item -> item.getType().equals("food")).map(item -> item.getName()).collect(Collectors.toList()));
 
         foodchoices.setItems(list);
         //mainScreen.getChildren().add(foodchoices);
     }
+
+    /**
+     * applyButton event
+     * agendatext should be Jasmine's agendabox
+     */
+    @FXML
+    void applyButton(MouseEvent event) {
+        String itemName = foodchoices.getValue();
+        double parsedAmount = Double.parseDouble(amount.getText());
+        LocalDate date = datepicker.getValue();
+
+        if (itemName != null && parsedAmount > 0 && date != null) {
+            System.out.println(date.toString());
+            int itemID = Main.items.stream().filter(x -> x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
+            Activity activity = new Activity(itemID, parsedAmount, date);
+            if (ServerRequests.addActivity(activity)) {
+                Main.clientUser.addToActivityList(activity);
+                showAgendaActivites(activityMap(Main.clientUser.getActivityList()));
+            }
+        }
+    }
+
 
     /**
      * Creates an empty white popup box for energy button popup.
@@ -310,4 +343,9 @@ public class AgendaController implements Initializable {
         return nodesList;
     }
 
+    @Override
+    public void update() {
+
+    }
 }
+

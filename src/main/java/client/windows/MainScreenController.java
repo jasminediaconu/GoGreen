@@ -2,16 +2,12 @@ package client.windows;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXNodesList;
-
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-
 import javafx.fxml.Initializable;
-
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,28 +20,45 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+
+/**
+ * The type Main screen controller.
+ */
 public class MainScreenController extends Pane implements Initializable {
+
+    private final String path = "/client/windows/fxml/";
+    /**
+     * The Nodes list.
+     */
 
     JFXButton ssbutton1 = new JFXButton("+");
     JFXButton ssbutton2 = new JFXButton("T");
     JFXButton ssbutton3 = new JFXButton("F");
     JFXButton ssbutton4 = new JFXButton("E");
 
-    JFXNodesList nodesList = new JFXNodesList();
-
     AgendaController agendaController = new AgendaController();
 
+    JFXNodesList nodesList = new JFXNodesList();
     @FXML
     MenuButton user;
+    private boolean welcome = true;
+    private int state = -1;
+
+
+    private ArrayList<Controller> controllers = new ArrayList<>();
     @FXML
     private Pane foodWindow;
     @FXML
@@ -53,16 +66,8 @@ public class MainScreenController extends Pane implements Initializable {
     @FXML
     private Pane welcomePane;
     @FXML
-    private Pane agenda;
-    @FXML
-    private Pane profile;
-    @FXML
-    private Pane overview;
-    @FXML
-    private Pane leaderboard;
-
-    @FXML
     private MenuItem logoutButton;
+
     @FXML
     private Button agendaButton;
     @FXML
@@ -79,23 +84,38 @@ public class MainScreenController extends Pane implements Initializable {
     private TranslateTransition slide;
     @FXML
     private Line line;
+    @FXML
+    private Circle profileImage;
+    @FXML
+    private Text usernameField;
 
     private double xcoord = 0;
     private double ycoord = 0;
-    private boolean welcome = true;
-    private int state = -1;
 
     /**
      * This function links the different screens to their fxml files.
      */
     public MainScreenController() {
+        addController("agenda.fxml");
+        addController("profile.fxml");
+        addController("overview.fxml");
+        addController("leaderboard.fxml");
+    }
+
+    /**
+     * Loads the .fxml file and adds its controller to the arrayList
+     *
+     * @param fxmlName the fxml file name
+     */
+    private void addController(String fxmlName) {
+        URL fxmlPath = this.getClass().getResource(path + fxmlName);
+        FXMLLoader loader = new FXMLLoader(fxmlPath);
         try {
-            String path = "/client/windows/fxml/";
-            profile = FXMLLoader.load(this.getClass().getResource(path + "profile.fxml"));
-            agenda = FXMLLoader.load(this.getClass().getResource(path + "agenda.fxml"));
-            overview = FXMLLoader.load(this.getClass().getResource(path + "overview.fxml"));
-            leaderboard = FXMLLoader.load(this.getClass().getResource(path + "leaderboard.fxml"));
-            foodWindow = FXMLLoader.load(this.getClass().getResource(path + "foodWindow.fxml"));
+            Pane pane = loader.load();
+            Controller controller = loader.getController();
+            controller.setMainScreenController(this);
+            controller.setPane(pane);
+            controllers.add(controller);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -113,7 +133,6 @@ public class MainScreenController extends Pane implements Initializable {
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
     }
-
 
     /**
      * This function minimizes the window, with the minus button.
@@ -186,10 +205,10 @@ public class MainScreenController extends Pane implements Initializable {
             welcome = false;
         }
         // If the button is focused change the active pane and the color
-        styleFocused(agendaButton, agenda, 0);
-        styleFocused(profileButton, profile, 1);
-        styleFocused(overviewButton, overview, 2);
-        styleFocused(leaderboardButton, leaderboard, 3);
+        styleFocused(agendaButton, 0);
+        styleFocused(profileButton, 1);
+        styleFocused(overviewButton, 2);
+        styleFocused(leaderboardButton, 3);
 
     }
 
@@ -198,12 +217,12 @@ public class MainScreenController extends Pane implements Initializable {
      * which in affect will add or remove a pane from the main screen.
      *
      * @param button The button that is checked if it is focused
-     * @param pane   The pane that clicking the button will affect
      */
-    private void styleFocused(Button button, Pane pane, int stt) {
+    private void styleFocused(Button button, int stt) {
         String css1 = "-fx-background-color:#ffffff;-fx-text-fill:#95e743;-jfx-button-type:RAISED;";
         String css2 = "-fx-background-color:#8C8686;-fx-text-fill:white;-jfx-button-type:FLAT;";
         FadeTransition ft;
+        Pane pane = controllers.get(stt).getPane();
         if (button.isFocused() && state != stt) {
             button.setStyle(css1);
 
@@ -219,11 +238,11 @@ public class MainScreenController extends Pane implements Initializable {
             nodesList = agendaController.getNodesList();
 
             // Showing any of the panes a.k.a fxml-s passed in as an argument
+            Pane agenda = controllers.get(0).getPane();
             mainPane.getChildren().add(pane);
 
             if (pane.equals(agenda)) {
                 mainPane.getChildren().add(nodesList);
-
             } else if (!pane.equals(agenda)) {
                 // Remove the plus  button if Agenda is not the screen the user selected
                 // Assign an empty nodeList to the plus button,
@@ -236,13 +255,13 @@ public class MainScreenController extends Pane implements Initializable {
 
             pane.toBack();
             state = stt;
+            controllers.get(state).update();
         }
         if (!button.isFocused()) {
             button.setStyle(css2);
             mainPane.getChildren().remove(pane);
         }
     }
-
 
     /**
      * When the toggle button is pressed, the menu bar will be hidden/shown.
@@ -300,6 +319,9 @@ public class MainScreenController extends Pane implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        for (Controller controller : controllers) {
+            controller.init();
+        }
     }
 
     public AnchorPane getMainPane() {
@@ -307,10 +329,19 @@ public class MainScreenController extends Pane implements Initializable {
     }
 
     public Pane getAgenda() {
-        return agenda;
+        return controllers.get(0).getPane();
     }
 
     public Pane getFoodWindow() {
         return foodWindow;
+    }
+
+    public void setUsernameField(String username) {
+        usernameField.setText(username);
+        usernameField.setText(username);
+    }
+
+    public void setProfileImage(Image image) {
+        profileImage.setFill(new ImagePattern(image));
     }
 }

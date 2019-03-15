@@ -151,7 +151,7 @@
                                         </VBox>
                                         <VBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="131.0">
                                             <children>
-                                                <Text fill="#888888" onMouseClicked="#forgotpassword" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em; -fx-font-weight: bold;" text="Forgot password?" wrappingWidth="146.23316192626953">
+                                                <Text id="forgot" fill="#888888" onMouseClicked="#forgotpassword" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em; -fx-font-weight: bold;" text="Forgot password?" wrappingWidth="146.23316192626953">
                                                     <VBox.margin>
                                                         <Insets />
                                                     </VBox.margin>
@@ -213,14 +213,14 @@
                                                 <Insets left="50.0" />
                                             </HBox.margin>
                                             <children>
-                                                <Text fill="#888888" onMouseClicked="#privacypolicy" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em; -fx-font-weight: bold;" text="Privacy Policy," wrappingWidth="119.63629150390625">
+                                                <Text id="privacy" fill="#888888" onMouseClicked="#privacypolicy" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em; -fx-font-weight: bold;" text="Privacy Policy," wrappingWidth="119.63629150390625">
                                                     <font>
                                                         <Font name="Montserrat Regular" size="12.0" />
                                                     </font>
                                                 </Text>
                                             </children>
                                         </VBox>
-                                        <Text fill="#888888" onMouseClicked="#termsofservice" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em; -fx-font-weight: bold;" text="Terms &amp; Conditions" wrappingWidth="167.616943359375">
+                                        <Text id="terms" fill="#888888" onMouseClicked="#termsofservice" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em; -fx-font-weight: bold;" text="Terms &amp; Conditions" wrappingWidth="167.616943359375">
                                             <font>
                                                 <Font name="Montserrat Regular" size="12.0" />
                                             </font>

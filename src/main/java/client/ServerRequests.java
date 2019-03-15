@@ -196,6 +196,22 @@ public class ServerRequests {
     }
 
     /**
+     * This function will update the user profile on the server
+     * @return a boolean on whether updating the users profile succeeded
+     */
+    public static boolean updateClientUserProfile() {
+        String response = sendRequestToServer("updateUserProfile?s=" + Main.sessionID, Main.gson.toJson(Main.clientUser));
+        if(response == null || response.equals("fail")) {
+            System.out.println("[ERROR] Updating the client users profile went wrong");
+            return false;
+        }else if(response.equals("success")) {
+            System.out.println("[INFO] Updating the client users profile went successfully");
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * This function retrieves all the users the clientuser is following from the database
      * @return a list of Users
      */

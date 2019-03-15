@@ -3,17 +3,21 @@ package client.loginscreen;
 import client.Main;
 import client.ServerRequests;
 //import com.sun.security.ntlm.Server;
+import client.windows.Controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.BufferedReader;
@@ -23,7 +27,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController implements Initializable {
+/**
+ * The type Login controller.
+ */
+public class LoginController extends Controller implements Initializable {
 
     private double xcoord = 0;
     private double ycoord = 0;
@@ -32,12 +39,19 @@ public class LoginController implements Initializable {
 
     @FXML
     private TextField tf_username;
-
     @FXML
     private PasswordField pf_password;
-
     @FXML
-    private CheckBox cb_rememberme;
+    private CheckBox rememberBox;
+    @FXML
+    private Button loginButton;
+    @FXML
+    private Button signUpButton;
+    @FXML
+    private AnchorPane loginScene;
+    @FXML
+    private Text txt_incorrectPassword;
+
     /**
      * This function handles the closing of the window, with the cross button.
      *
@@ -55,6 +69,7 @@ public class LoginController implements Initializable {
 
     /**
      * This function will update x and y when the mouse is pressed.
+     *
      * @param event MouseEvent type.
      */
     @FXML
@@ -63,8 +78,18 @@ public class LoginController implements Initializable {
         ycoord = event.getSceneY();
     }
 
+
+    private void setDisableScreen(boolean disableScreen) {
+        tf_username.setDisable(disableScreen);
+        pf_password.setDisable(disableScreen);
+        loginButton.setDisable(disableScreen);
+        signUpButton.setDisable(disableScreen);
+        rememberBox.setDisable(disableScreen);
+    }
+
     /**
      * This function will change the drag of the scene when the mouse is dragged.
+     *
      * @param event MouseEvent type.
      */
     @FXML
@@ -79,73 +104,85 @@ public class LoginController implements Initializable {
     }
 
     /**
-     * This function will handle the input of username and password when the login button is pressed
-     * It will also handle the responses returned by the ServerRequests class given it's query
+     * This function will handle the input of username and
+     * password when the login button is pressed.
+     * It will also handle the responses returned by the ServerRequests class given it's query.
      *
-     * @param event MouseEvent type
-     * @throws Exception
      */
 
     @FXML
-    private void login(MouseEvent event) throws Exception {
+    private void login() {
 
         String username = tf_username.getText();
         String password = pf_password.getText();
-
-
-        FileReader fread = new FileReader("remeberme.txt");
-        BufferedReader reader = new BufferedReader(fread);
-        String hashedPassword = null;
-        String response = null;
-        if(remembered){
-            hashedPassword = reader.readLine().split(";")[1];
-            response = ServerRequests.login(username,hashedPassword, true);
-        }else if(!remembered) {
-            hashedPassword = Main.hashString(password);
-            response = ServerRequests.login(username, password, false);
+        boolean ishashed = false;
+        String userpass = null;
+        try {
+            if(remembered) {
+                FileReader freader = new FileReader("remeberme.txt");
+                BufferedReader reader = new BufferedReader(freader);
+                userpass = reader.readLine();
+                reader.close();
+                freader.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        if (response == null) {
-            //USERNAME OR PASSWORD MISSING
-        } else if (response.equals("fail")) {
-            //WRONG USERNAME OR PASSWORD
-        } else if (response.startsWith("success:")) {
-            ServerRequests.getItems();
+        if (userpass != null && userpass.length() >= 5 && userpass.contains(";")) {
+            password = userpass.split(";")[1];
+            ishashed = true;
+        }
+        //rememberme(username,password,ishashed);
+        LoginRequest loginRequest = new LoginRequest(username, password, ishashed, this);
+        loginRequest.setDaemon(false);
+        loginRequest.execute();
+        setDisableScreen(true);
+    }
 
-            Main.clientUser = ServerRequests.getClientUserProfile();
-
-            System.out.println(ServerRequests.retrieveActivities("w").size() + "aaaaaaaaa \n\n\n\n");
-            Main.clientUser.setActivityList(ServerRequests.retrieveActivities("w"));
-
+    /**
+     * This function is called when the login was succesfull.
+     */
+    public void loginSuccess() {
+        try {
             String path = "../windows/fxml/mainScreen.fxml";
             //GOTO MAIN SCREEN
-            int passwordlength = password.length();
-            rememberme(username, hashedPassword, passwordlength);
             Parent root = FXMLLoader.load(getClass().getResource(path));
-            fillScene(root, event);
-
+            fillScene(root);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     /**
-     * This function will switch to the signup screen.
+     * This function is called when the login failed and displays that the password wass incorrect..
+     */
+    public void loginFail() {
+        txt_incorrectPassword.setVisible(true);
+        setDisableScreen(false);
+    }
+
+
+
+    /**
+     * This function will switch to the  screen.
+     *
      * @param event MouseEvent type
      * @throws IOException Exception.
      */
     @FXML
     private void signup(MouseEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("signup.fxml"));
-        fillScene(root, event);
+        Parent root = FXMLLoader.load(getClass().getResource("signUp.fxml"));
+        fillScene(root);
     }
 
     /**
      * This function will fill the screen with a new event stage evoked by the root.
+     *
      * @param root Parent type.
-     * @param event MouseEvent event.
      */
-    private void fillScene(Parent root, MouseEvent event) {
-        Node node = (Node) event.getSource();
+    private void fillScene(Parent root) {
 
-        Stage stage = (Stage) node.getScene().getWindow();
+        Stage stage = (Stage) loginScene.getScene().getWindow();
 
         Scene scene = new Scene(root);
 
@@ -187,7 +224,7 @@ public class LoginController implements Initializable {
     private void privacyandterms (MouseEvent event, String source) throws IOException {
         // will open a new window and display the terms of service in that
         Parent root = FXMLLoader.load(getClass().getResource(source));
-        fillScene(root, event);
+        fillScene(root);
     }
 
 
@@ -201,58 +238,78 @@ public class LoginController implements Initializable {
     private void forgotpassword(MouseEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("forgotPassword.fxml"));
-        fillScene(root, event);
+        fillScene(root);
     }
 
     /**
      * This function will write the username and hashed password to a file
      * @param username String type
-     * @param hashedpassword String type
+     * @param password String type
      * @throws IOException
      */
-    private void rememberme (String username, String hashedpassword, int passwordlength) throws  IOException{
-        FileWriter writer = new FileWriter("remeberme.txt");
-        if(cb_rememberme.isSelected()) {
-            writer.write(username + ";" + hashedpassword+";"+ passwordlength);
-        } else if(cb_rememberme.isSelected() == false){
-            writer.write("" );
+    private void rememberme (String username, String password, boolean ishashed){
+    /**    int passwordlength = password.length();
+        String hashedpassword = "";
+        if(!ishashed){
+            hashedpassword = Main.hashString(password);
+        } else if(ishashed){
+            hashedpassword = password;
         }
-        writer.close();
+        try {
+            FileWriter writer = new FileWriter("remeberme.txt");
+            writer.write("");
+            if (rememberBox.isSelected()) {
+                writer.write(username + ";" + hashedpassword + ";" + passwordlength);
+            }
+            writer.close();
+        }catch (IOException e){
+            e.printStackTrace();
+        } */
     }
 
     /**
      * This method will check whether a username and password are saved and set variables accordingly
      * @throws IOException
      */
-    /** public void remembermecheck () throws IOException{
+    /**public void remembermecheck () throws IOException{
         //open the file and read its contents
-        FileReader fread = new FileReader("rememberme.txt");
+        FileReader fread = new FileReader("remeberme.txt");
         BufferedReader reader = new BufferedReader(fread);
         String userpass = reader.readLine();
+        reader.close();
+        fread.close();
         //if there is something saved, set the text in textfields to the right values
-        if(userpass.length() >= 5){
-            cb_rememberme.setSelected(true);
+        if(userpass.length() >= 5 && userpass != null && userpass.contains(";")){
+            rememberBox.setSelected(true);
             String[] userpassparts = userpass.split(";");
-            tf_username.setText(userpass[0]);
+            tf_username.setText(userpassparts[0]);
             int passlength = Integer.parseInt(userpassparts[2]);
-            String randpass = "";
+            char[] randpass = new char[passlength];
             for(int i = 0; i < passlength; i++){
-                randpass.charAt(i) = 'a';
+                randpass[i]='a';
             }
-            pf_password.setText(randpass);
+            String passwordfiller = randpass.toString();
+            pf_password.setText(passwordfiller);
             remembered = true;
         } else if(userpass.length() < 5 || userpass == null){
-            cb_rememberme.setSelected(false);
+            rememberBox.setSelected(false);
         }
     }
-*/
+     */
+
     /**
      * This function remains unused, but required to stay since this class implements Initializable.
-     * @param url URL type.
+     *
+     * @param url            URL type.
      * @param resourceBundle resourceBundle type.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    @Override
+    public void update() {
 
     }
 }

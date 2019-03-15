@@ -14,6 +14,7 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -30,6 +31,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -61,6 +63,8 @@ public class AgendaController extends Controller implements Initializable {
     private TextField amount = new TextField();
     @FXML
     private DatePicker datepicker = new DatePicker();
+    @FXML
+    private Pane foodWindow;
 
     private MainScreenController mainScreenController;
     private JFXButton ssbutton2;
@@ -80,6 +84,51 @@ public class AgendaController extends Controller implements Initializable {
      */
     public AgendaController() {
         nodesList = new JFXNodesList();
+    }
+
+
+    /**
+     * Initialize agenda with the user activities.
+     *
+     * @param url            URL
+     * @param resourceBundle ResourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadActivity();
+
+        try {
+            foodWindow = FXMLLoader.load(getClass().getResource("/client/windows/fxml/foodWindow.fxml"));
+        } catch (IOException e) {
+
+        }
+        agendaBox = new VBox();
+        agendaBox.setPadding(new Insets(20, 0, 0, 20));
+
+        gridPane = new GridPane();
+        gridPane.setLayoutX(420);
+
+        if (Main.clientUser == null) {
+            Main.clientUser = new ClientUser();
+        }
+        if (Main.clientUser.getActivityList() != null) {
+            Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
+            showAgendaActivites(activityMap);
+        }
+
+        gridPane.setHgap(20);
+        agendaBox.getChildren().add(gridPane);
+        scrollAgenda.setContent(agendaBox);
+        agendaBox.setSpacing(15);
+
+        JFXButton ssbutton5 = new JFXButton("R1");
+        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
+    }
+
+    @Override
+    public void init() {
+        loadPlusButton();
+        pane.getChildren().add(nodesList);
     }
 
     /**
@@ -136,39 +185,6 @@ public class AgendaController extends Controller implements Initializable {
             }
         }
         return numRows;
-    }
-
-    /**
-     * Initialize agenda with the user activities.
-     *
-     * @param url            URL
-     * @param resourceBundle ResourceBundle
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadActivity();
-
-        agendaBox = new VBox();
-        agendaBox.setPadding(new Insets(20, 0, 0, 20));
-
-        gridPane = new GridPane();
-        gridPane.setLayoutX(420);
-
-        if (Main.clientUser == null) {
-            Main.clientUser = new ClientUser();
-        }
-        if (Main.clientUser.getActivityList() != null) {
-            Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
-            showAgendaActivites(activityMap);
-        }
-
-        gridPane.setHgap(20);
-        agendaBox.getChildren().add(gridPane);
-        scrollAgenda.setContent(agendaBox);
-        agendaBox.setSpacing(15);
-
-        JFXButton ssbutton5 = new JFXButton("R1");
-        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
     }
 
     private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
@@ -281,7 +297,7 @@ public class AgendaController extends Controller implements Initializable {
         loadActivity();
         mainScreenController = new MainScreenController();
 
-        PopOver popOver = new PopOver(mainScreenController.getFoodWindow());
+        PopOver popOver = new PopOver(foodWindow);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
         popOver.show(ssbutton3);
     }

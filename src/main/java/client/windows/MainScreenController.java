@@ -40,18 +40,7 @@ import java.util.ResourceBundle;
 public class MainScreenController extends Pane implements Initializable {
 
     private final String path = "/client/windows/fxml/";
-    /**
-     * The Nodes list.
-     */
 
-    JFXButton ssbutton1 = new JFXButton("+");
-    JFXButton ssbutton2 = new JFXButton("T");
-    JFXButton ssbutton3 = new JFXButton("F");
-    JFXButton ssbutton4 = new JFXButton("E");
-
-    AgendaController agendaController = new AgendaController();
-
-    JFXNodesList nodesList = new JFXNodesList();
     @FXML
     MenuButton user;
     private boolean welcome = true;
@@ -59,8 +48,6 @@ public class MainScreenController extends Pane implements Initializable {
 
 
     private ArrayList<Controller> controllers = new ArrayList<>();
-    @FXML
-    private Pane foodWindow;
     @FXML
     private AnchorPane mainPane;
     @FXML
@@ -231,27 +218,8 @@ public class MainScreenController extends Pane implements Initializable {
             ft.setToValue(1.0);
             ft.play();
 
-            // Loading the plusbutton with the nodes and styling
-            agendaController.loadPlusButton();
-
-            //
-            nodesList = agendaController.getNodesList();
-
             // Showing any of the panes a.k.a fxml-s passed in as an argument
-            Pane agenda = controllers.get(0).getPane();
             mainPane.getChildren().add(pane);
-
-            if (pane.equals(agenda)) {
-                mainPane.getChildren().add(nodesList);
-            } else if (!pane.equals(agenda)) {
-                // Remove the plus  button if Agenda is not the screen the user selected
-                // Assign an empty nodeList to the plus button,
-                // so the next time the user clicks Agenda
-                // Only 4 nodes are shown in total when clicking the plus button
-
-                mainPane.getChildren().remove(agendaController.getNodesList());
-                agendaController.clearPlusButton();
-            }
 
             pane.toBack();
             state = stt;
@@ -324,16 +292,8 @@ public class MainScreenController extends Pane implements Initializable {
         }
     }
 
-    public AnchorPane getMainPane() {
-        return mainPane;
-    }
-
     public Pane getAgenda() {
         return controllers.get(0).getPane();
-    }
-
-    public Pane getFoodWindow() {
-        return foodWindow;
     }
 
     public void setUsernameField(String username) {

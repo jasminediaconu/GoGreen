@@ -21,7 +21,6 @@ public class LoginApp extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-
         Parent root = FXMLLoader.load(getClass().getResource("/client/loginScreen/login.fxml"));
 
         Scene scene = new Scene(root);
@@ -35,4 +34,5 @@ public class LoginApp extends Application {
 
         stage.getIcons().add(new Image("/client/windows/images/icon.png"));
     }
+
 }

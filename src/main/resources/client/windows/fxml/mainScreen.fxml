@@ -70,7 +70,7 @@
                 </Text>
                 <FontAwesomeIcon id="close" fx:id="close" fill="#888888" iconName="CLOSE" layoutX="994.0" layoutY="29.0" onMouseClicked="#close" size="1.5em" />
                 <FontAwesomeIcon fx:id="minimize" fill="#878787" iconName="MINUS" layoutX="968.0" layoutY="30.0" onMouseClicked="#minimize" size="1.5em" />
-            <Circle fx:id="profileImage" fill="DODGERBLUE" layoutX="47.0" layoutY="22.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                <Circle fx:id="profileImage" fill="DODGERBLUE" layoutX="47.0" layoutY="22.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
             </children>
             <effect>
                 <DropShadow blurType="TWO_PASS_BOX" height="10.0" radius="4.5" width="10.0" />

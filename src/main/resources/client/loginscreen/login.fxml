@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.loginscreen.LoginController">
+<AnchorPane fx:id="loginScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.loginscreen.LoginController">
     <children>
         <StackPane maxHeight="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 22;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -33,7 +33,6 @@
                             </children>
                         </VBox>
                         <VBox prefHeight="768.0" prefWidth="512.0" HBox.hgrow="ALWAYS">
-
                             <children>
                                 <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="487.0">
                                     <children>
@@ -83,7 +82,8 @@
                                         <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.5em;" text="Welcome Back, Please login to your account.">
                                             <font>
                                                 <Font name="Montserrat Regular" size="12.0" />
-                                            </font></Text>
+                                            </font>
+                                        </Text>
                                     </children>
                                     <VBox.margin>
                                         <Insets left="50.0" top="10.0" />
@@ -120,7 +120,8 @@
                                             </HBox.margin>
                                             <font>
                                                 <Font name="Montserrat Regular" size="12.0" />
-                                            </font></PasswordField>
+                                            </font>
+                                        </PasswordField>
                                         <FontAwesomeIcon fill="#888888" iconName="LOCK" size="1.5em">
                                             <HBox.margin>
                                                 <Insets left="5.0" />
@@ -138,10 +139,11 @@
                                     <children>
                                         <VBox prefHeight="51.0" prefWidth="144.0">
                                             <children>
-                                                <CheckBox mnemonicParsing="false" prefHeight="52.0" prefWidth="142.0" style="-fx-font-size: 1.25em;" text="Remember me" textFill="#888888">
+                                                <CheckBox fx:id="rememberBox" mnemonicParsing="false" prefHeight="52.0" prefWidth="142.0" style="-fx-font-size: 1.25em;" text="Remember me" textFill="#888888">
                                                     <font>
                                                         <Font name="Montserrat Regular" size="12.0" />
-                                                    </font></CheckBox>
+                                                    </font>
+                                                </CheckBox>
                                             </children>
                                             <HBox.margin>
                                                 <Insets left="50.0" top="10.0" />
@@ -149,7 +151,7 @@
                                         </VBox>
                                         <VBox alignment="CENTER_RIGHT" prefHeight="62.0" prefWidth="131.0">
                                             <children>
-                                                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em; -fx-font-weight: bold;" text="Forgot password?" wrappingWidth="146.23316192626953">
+                                                <Text fx:id="forgotButton" fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em; -fx-font-weight: bold;" text="Forgot password?" wrappingWidth="146.23316192626953">
                                                     <VBox.margin>
                                                         <Insets />
                                                     </VBox.margin>
@@ -160,7 +162,8 @@
                                             </children>
                                             <HBox.margin>
                                                 <Insets left="110.0" />
-                                            </HBox.margin></VBox>
+                                            </HBox.margin>
+                                        </VBox>
                                     </children>
                                     <VBox.margin>
                                         <Insets top="10.0" />
@@ -170,15 +173,16 @@
                                     <children>
                                         <VBox prefHeight="134.0" prefWidth="161.0">
                                             <children>
-                                                <Button id="login" mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="130.0" style="-fx-font-family: Roboto; -fx-font-size: 1.5em; -fx-font-weight: bold; -fx-background-radius: 5;" stylesheets="@loginStyle.css" text="Login" textFill="WHITE">
+                                                <Button id="login" fx:id="loginButton" mnemonicParsing="false" onMouseClicked="#login" prefHeight="45.0" prefWidth="130.0" style="-fx-font-family: Roboto; -fx-font-size: 1.5em; -fx-font-weight: bold; -fx-background-radius: 5;" stylesheets="@loginStyle.css" text="Login" textFill="WHITE">
                                                     <font>
                                                         <Font name="Montserrat Regular" size="12.0" />
-                                                    </font></Button>
+                                                    </font>
+                                                </Button>
                                             </children>
                                         </VBox>
                                         <VBox prefHeight="134.0" prefWidth="137.0">
                                             <children>
-                                                <Button id="signup" mnemonicParsing="false" onMouseClicked="#signup" prefHeight="45.0" prefWidth="130.0" style="-fx-font-size: 1.5em; -fx-border-radius: 5;" stylesheets="@loginStyle.css" text="Sign Up">
+                                                <Button id="signup" fx:id="signUpButton" mnemonicParsing="false" onMouseClicked="#signup" prefHeight="45.0" prefWidth="130.0" style="-fx-font-size: 1.5em; -fx-border-radius: 5;" stylesheets="@loginStyle.css" text="Sign Up">
                                                     <font>
                                                         <Font name="Montserrat Regular" size="12.0" />
                                                     </font>
@@ -195,7 +199,8 @@
                                         <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 1.25em;" text="By signing up you agree to the:">
                                             <font>
                                                 <Font name="Montserrat Regular" size="12.0" />
-                                            </font></Text>
+                                            </font>
+                                        </Text>
                                     </children>
                                     <VBox.margin>
                                         <Insets left="50.0" />
@@ -222,7 +227,6 @@
                                         </Text>
                                     </children>
                                 </HBox>
-
                             </children>
                         </VBox>
                     </children>

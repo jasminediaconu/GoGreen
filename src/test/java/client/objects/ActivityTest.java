@@ -58,5 +58,8 @@ class ActivityTest {
         Assert.assertNotEquals(activity1, activity2);
         Activity activity = new Activity(1, 2, LocalDate.now());
         Assert.assertEquals(activity1, activity);
+        Assert.assertNotEquals(activity, null);
+        int number = 1;
+        Assert.assertNotEquals(activity, number);
     }
 }

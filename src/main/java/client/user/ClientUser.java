@@ -261,7 +261,7 @@ public class ClientUser extends User {
                 solarPower == that.solarPower &&
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
-                email.equalsIgnoreCase(that.email) &&
+                email.equals(that.email) &&
                 Objects.equals(following, that.following) &&
                 totalCo2 == that.totalCo2 &&
                 username.equals(that.username) &&

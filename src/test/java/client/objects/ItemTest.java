@@ -55,4 +55,17 @@ class ItemTest {
         Item item3 = new Item(2,"publictransport", "transport", 100);
         Assert.assertEquals(item1.equals(item3), false);
     }
+
+    @Test
+    void equalsSimilar() {
+        item2 = new Item(2, "pizza", "food", 10);
+        Assert.assertEquals(item1.equals(item2), false);
+        item2 = new Item(1, "pasta", "food", 10);
+        Assert.assertEquals(item1.equals(item2), false);
+        item2 = new Item(1, "pizza", "foodz", 10);
+        Assert.assertEquals(item1.equals(item2), false);
+        item2 = new Item(1,"pizza","food", 20);
+        Assert.assertEquals(item1.equals(item2), false);
+
+    }
 }

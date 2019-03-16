@@ -335,6 +335,7 @@
             <!--<exclude>**/login/**</exclude>-->
             <!--<exclude>**/InfoController.*</exclude>-->
             <!--<exclude>**/SessionController.*</exclude>-->
+            <!--<exclude>**/server/objects/**</exclude>-->
             <!--</excludes>-->
             <!--</configuration>-->
             <!--</plugin>-->

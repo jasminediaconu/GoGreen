@@ -1,7 +1,7 @@
 package client.profilescreen;
 
 import client.Main;
-import client.user.Car;
+import client.ServerRequests;
 import client.user.ClientUser;
 import client.windows.Controller;
 import com.jfoenix.controls.JFXButton;
@@ -67,31 +67,35 @@ public class ProfileController extends Controller {
 
     @Override
     public void update() {
+
         if (Main.clientUser == null) {
             return;
         }
+
         newSettings = Main.clientUser.deepCopy();
         syncUI(Main.clientUser);
+
+        System.out.println(Main.clientUser.toString());
     }
 
-    private void syncUI(ClientUser settins) {
-        usernameField.setText("Username: " + settins.getUsername());
-        emailField.setText(settins.getEmail());
+    private void syncUI(ClientUser settings) {
+        usernameField.setText("Username: " + settings.getUsername());
+        emailField.setText(settings.getEmail());
         pointsField.setText("CO2 saved: " + Main.clientUser.getTotalCo2());
         streakField.setText("Streak: " + Main.clientUser.getStreakLength());
-        solarPanels.setSelected(settins.hasSolarPower());
-        leds.setSelected(settins.hasLEDs());
-        countryField.setText(settins.getCountry());
-        tempratureField.setText("" + settins.getRoomTemp());
+        solarPanels.setSelected(settings.hasSolarPower());
+        leds.setSelected(settings.hasLEDs());
+        countryField.setText(settings.getCountry());
+        tempratureField.setText("" + settings.getRoomTemp());
         setButtonsDisable(true);
-        mainScreenController.setUsernameField(settins.getUsername());
+        setProfileImage(settings.getProfileImage());
+        if (mainScreenController != null) {
+            mainScreenController.setUsernameField(settings.getUsername());
 
-        if (settins.getCar() != null) {
-            setCarFields(settins.getCar().getCarType(), settins.getCar().getEmissionType());
-        }
-        if (settins.getProfileImage() != null) {
-            setProfileImage(settins.getProfileImage());
-            mainScreenController.setProfileImage(settins.getProfileImage());
+            setCarFields(settings.getCarType(), settings.getCarEmissionType());
+            if (settings.getProfileImage() != null) {
+                mainScreenController.setProfileImage(settings.getProfileImage());
+            }
         }
     }
 
@@ -100,7 +104,6 @@ public class ProfileController extends Controller {
      */
     @FXML
     public void initialize() {
-        setPageDisable(true);
 
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String text = change.getText();
@@ -113,10 +116,11 @@ public class ProfileController extends Controller {
         };
         TextFormatter<String> textFormatter = new TextFormatter<>(filter);
         tempratureField.setTextFormatter(textFormatter);
+    }
 
-        LoadClientProfile loadClientProfile = new LoadClientProfile(this);
-        loadClientProfile.setDaemon(false);
-        loadClientProfile.execute();
+    @Override
+    public void init() {
+        update();
     }
 
     /**
@@ -140,15 +144,18 @@ public class ProfileController extends Controller {
 
     @FXML
     private void comboBoxSelected() {
-        Car car = newSettings.getCar();
-        if (car == null) {
-            newSettings.setCar(new Car());
-            car = newSettings.getCar();
-        }
         if (carTypeField.isFocused()) {
-            car.setCarType(carTypeField.getSelectionModel().getSelectedIndex());
-        } else {
-            car.setEmissionType(emissionTypeField.getSelectionModel().getSelectedIndex());
+            String[] carType = carTypeField.getValue().toString().split("'");
+            if(carType.length == 1)
+                newSettings.setCarType(carType[0]);
+            else
+                newSettings.setCarType(carType[1]);
+        } else if (emissionTypeField.isFocused()) {
+            String[] carEmissionType = emissionTypeField.getValue().toString().split("'");
+            if(carEmissionType.length == 1)
+                newSettings.setCarEmissionType(carEmissionType[0]);
+            else
+                newSettings.setCarEmissionType(carEmissionType[1]);
         }
 
         checkNewSettings();
@@ -157,13 +164,10 @@ public class ProfileController extends Controller {
     @FXML
     private void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER) || keyEvent.getCode().equals(KeyCode.TAB)) {
-            if (emailField.isFocused()) {
-                newSettings.setEmail(emailField.getText());
-            } else if (countryField.isFocused()) {
-                newSettings.setCountry(countryField.getText());
-            } else if (tempratureField.isFocused()) {
-                newSettings.setRoomTemp(Integer.parseInt(tempratureField.getText()));
-            }
+            newSettings.setEmail(emailField.getText());
+            newSettings.setCountry(countryField.getText());
+            newSettings.setRoomTemp(Integer.parseInt(tempratureField.getText()));
+
             checkNewSettings();
             profileImage.requestFocus();
         }
@@ -176,46 +180,29 @@ public class ProfileController extends Controller {
             Main.clientUser.setProfileImage(SwingFXUtils.toFXImage(image, null));
             setProfileImage(Main.clientUser.getProfileImage());
             mainScreenController.setProfileImage(Main.clientUser.getProfileImage());
-            SendProfileUpdate imageUpdate =
-                    new SendProfileUpdate(Main.clientUser.getProfileImage());
-            imageUpdate.setDaemon(true);
-            imageUpdate.execute();
             setButtonsDisable(false);
         }
     }
 
     private void discardChanges() {
         newSettings = Main.clientUser.deepCopy();
-        setButtonsDisable(true);
         update();
     }
 
     private void saveChanges() {
         Main.clientUser = newSettings.deepCopy();
         setButtonsDisable(true);
-        SendProfileUpdate profileUpdate = new SendProfileUpdate(Main.clientUser);
-        profileUpdate.setDaemon(true);
-        profileUpdate.execute();
-        //todo send profile update
+        ServerRequests.updateClientUserProfile();
+        update();
+    }
+
+    private void checkNewSettings() {
+        setButtonsDisable(newSettings.equals(Main.clientUser));
     }
 
     private void setButtonsDisable(Boolean disable) {
         discardButton.setDisable(disable);
         saveButton.setDisable(disable);
-    }
-
-    private void checkNewSettings() {
-        if (newSettings.getCar() != null) {
-            if (newSettings.getCar().getCarType() == -1
-                    || newSettings.getCar().getEmissionType() == -1) {
-                setButtonsDisable(true);
-            } else {
-                setButtonsDisable(newSettings.equals(Main.clientUser));
-            }
-        } else {
-            setButtonsDisable(newSettings.equals(Main.clientUser));
-        }
-
     }
 
     /**
@@ -240,7 +227,7 @@ public class ProfileController extends Controller {
      * @param carType      the car type
      * @param emissionType the emission type
      */
-    public void setCarFields(int carType, int emissionType) {
+    public void setCarFields(String carType, String emissionType) {
         carTypeField.getSelectionModel().select(carType);
         emissionTypeField.getSelectionModel().select(emissionType);
     }

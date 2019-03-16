@@ -162,6 +162,11 @@ public class AgendaController extends Controller implements Initializable {
             showAgendaActivites(activityMap);
         }
 
+        gridPane.setHgap(20);
+        agendaBox.getChildren().add(gridPane);
+        scrollAgenda.setContent(agendaBox);
+        agendaBox.setSpacing(15);
+
         JFXButton ssbutton5 = new JFXButton("R1");
         ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
     }
@@ -198,11 +203,6 @@ public class AgendaController extends Controller implements Initializable {
                 counter++;
             }
         }
-
-        gridPane.setHgap(20);
-        agendaBox.getChildren().add(gridPane);
-        scrollAgenda.setContent(agendaBox);
-        agendaBox.setSpacing(15);
     }
 
     /**

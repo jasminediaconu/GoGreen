@@ -13,18 +13,20 @@ import java.util.Objects;
  */
 public class ClientUser extends User {
 
-    private Car car;
     private int streakLength;
     private boolean solarPower;
     private boolean LEDs;
     private int roomTemp;
-    private String email = "";
+    private String email;
+    private String imageURL;
+    private String carType;
+    private String carEmissionType;
 
     @Expose(deserialize = false, serialize = false)
     private Image profileImage;
-    private String imageURL;
     @Expose(deserialize = false, serialize = false)
     private List<User> following = new ArrayList<>();
+    @Expose(deserialize = false, serialize = false)
     private List<Activity> activityList;
 
 
@@ -34,25 +36,49 @@ public class ClientUser extends User {
     public ClientUser() {
     }
 
+    public ClientUser(String username, String country, double totalco2, int streakLength, boolean solarPower, boolean LEDs, int roomTemp, String email, String imageURL, String carType, String carEmissionType) {
+        super(username, country, totalco2);
+        this.streakLength = streakLength;
+        this.solarPower = solarPower;
+        this.LEDs = LEDs;
+        this.roomTemp = roomTemp;
+        this.email = email;
+        this.imageURL = imageURL;
+        this.carType = carType;
+        this.carEmissionType = carEmissionType;
+    }
+
     /**
-     * Gets car.
-     *
-     * @return the car
+     * This function will get the users car type
+     * @return the car type of the user
      */
-    public Car getCar() {
-        return car;
+    public String getCarType() {
+        return carType;
+    }
+
+    /**
+     * This function will set the car tpe
+     * @param carType String type
+     */
+    public void setCarType(String carType) {
+        this.carType = carType;
     }
 
     /**
      * This function will get the users car emission type
-     *
-     * @param car the car
-     * @return the type of emission of the users car >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
+     * @return the emission type of the car
      */
-    public void setCar(Car car) {
-        this.car = car;
+    public String getCarEmissionType() {
+        return carEmissionType;
     }
 
+    /**
+     * This function will set the users car emission type
+     * @param carEmissionType String type
+     */
+    public void setCarEmissionType(String carEmissionType) {
+        this.carEmissionType = carEmissionType;
+    }
 
     /**
      * This function will get the users streak length
@@ -64,11 +90,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * <<<<<<< HEAD
      * Sets the users streak length to the argument streakLength.
-     * =======
-     * Sets the users streak length to the argument streakLength
-     * >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      *
      * @param streakLength int type
      */
@@ -77,11 +99,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * <<<<<<< HEAD
      * This function will get whether the user is using solar power.
-     * =======
-     * This function will get whether the user is using solar power
-     * >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      *
      * @return if the user is using solar power
      */
@@ -108,11 +126,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets room temp.
-     *
-     * @param roomTemp the room temp
-     */
-    /* Sets the users room temperature to the argument roomTemp
+     * Sets the users room temperature to the argument roomTemp
      *
      * @param roomTemp int type
      */
@@ -243,26 +257,20 @@ public class ClientUser extends User {
         if (obj == null || getClass() != obj.getClass()) return false;
         ClientUser that = (ClientUser) obj;
         if (streakLength == that.streakLength &&
+                email.equals(that.email) &&
                 solarPower == that.solarPower &&
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
                 email.equalsIgnoreCase(that.email) &&
                 Objects.equals(following, that.following) &&
                 totalCo2 == that.totalCo2 &&
-                username.equalsIgnoreCase(that.username) &&
-                country.equalsIgnoreCase(that.country)) {
-            if (car != null) {
-                return car.equals(that.car);
-            } else if (that.car == null) {
-                return true;
-            }
+                username.equals(that.username) &&
+                Objects.equals(that.country, country) &&
+                carType.equals(that.carType) &&
+                carEmissionType.equals(that.carEmissionType)) {
+            return true;
         }
         return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(car.getCarType(), car.getEmissionType(), streakLength, solarPower, LEDs, roomTemp, following);
     }
 
     /**
@@ -272,10 +280,7 @@ public class ClientUser extends User {
      */
     public ClientUser deepCopy() {
         ClientUser clientUser = new ClientUser();
-        if (car != null) {
-            clientUser.setCar(new Car(car.getCarType(), car.getEmissionType()));
-        }
-        //clientUser.setProfileImage(getProfileImage());
+        clientUser.setEmail(email);
         clientUser.setUsername(username);
         clientUser.setCountry(country);
         clientUser.setImageURL(imageURL);
@@ -284,7 +289,17 @@ public class ClientUser extends User {
         clientUser.setLEDs(LEDs);
         clientUser.setStreakLength(streakLength);
         clientUser.setTotalCo2(totalCo2);
+        clientUser.setCarType(carType);
+        clientUser.setCarEmissionType(carEmissionType);
 
         return clientUser;
+    }
+
+    @Override
+    public String toString() {
+        return "[username:" + username + ";email: " + email + ";country: " + country
+                + ";streak:" + streakLength + ";CO2: " + totalCo2
+                + "; LED: " + LEDs + "; solar: " + solarPower + "; temp: " + roomTemp
+                + "; Car type: " + carType + "; Car emission type: " + carEmissionType + "]";
     }
 }

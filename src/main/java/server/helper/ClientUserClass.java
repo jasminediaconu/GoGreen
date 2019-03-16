@@ -4,6 +4,8 @@ public class ClientUserClass {
 
     public String username;
     public String country;
+    public String email;
+    public String imageURL;
     public double totalCo2;
 
     public String carType;
@@ -18,6 +20,8 @@ public class ClientUserClass {
      *
      * @param username        String type
      * @param country         String type
+     * @param email           String type
+     * @param imageURL        String type
      * @param totalCo2        double type
      * @param carType         String type
      * @param carEmissionType String type
@@ -26,9 +30,11 @@ public class ClientUserClass {
      * @param LEDs            boolean type
      * @param roomTemp        int type
      */
-    public ClientUserClass(String username, String country, double totalCo2, String carType, String carEmissionType, int streakLength, boolean solarPower, boolean LEDs, int roomTemp) {
+    public ClientUserClass(String username, String country, String email, String imageURL, double totalCo2, String carType, String carEmissionType, int streakLength, boolean solarPower, boolean LEDs, int roomTemp) {
         this.username = username;
         this.country = country;
+        this.email = email;
+        this.imageURL = imageURL;
         this.totalCo2 = totalCo2;
         this.carType = carType;
         this.carEmissionType = carEmissionType;
@@ -37,5 +43,7 @@ public class ClientUserClass {
         this.LEDs = LEDs;
         this.roomTemp = roomTemp;
     }
+
+    public ClientUserClass() {}
 
 }

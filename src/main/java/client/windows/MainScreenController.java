@@ -113,13 +113,14 @@ public class MainScreenController extends Pane implements Initializable {
         try {
             Pane pane = loader.load();
             Controller controller = loader.getController();
-            controller.setPane(pane);
             controller.setMainScreenController(this);
+            controller.setPane(pane);
             controllers.add(controller);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     /**
      * This function handles the closing of the window, with the cross button.
      *
@@ -254,6 +255,7 @@ public class MainScreenController extends Pane implements Initializable {
 
             pane.toBack();
             state = stt;
+            controllers.get(state).update();
         }
         if (!button.isFocused()) {
             button.setStyle(css2);
@@ -310,12 +312,16 @@ public class MainScreenController extends Pane implements Initializable {
             line.setVisible(true);
         }
     }
+
     @FXML
     private void applyActivity(MouseEvent event) {
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        for (Controller controller : controllers) {
+            controller.init();
+        }
     }
 
     public AnchorPane getMainPane() {

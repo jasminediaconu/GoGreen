@@ -20,16 +20,15 @@ import java.sql.ResultSet;
 @RestController
 public class SignUpController {
 
-    private static PreparedStatement select;
+    private static PreparedStatement usernameTaken;
+    private static PreparedStatement emailTaken;
     private static PreparedStatement insert;
 
     static {
         try {
-            select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login "
-                    + "WHERE username = ?;");
-            insert = ServerApp.dbConnection.prepareStatement("INSERT INTO user_login "
-                    + "(\"username\", \"email\", \"password\") "
-                    + "VALUES (?, ?, ?) RETURNING userid;");
+            usernameTaken = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE username = ?;");
+            emailTaken = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE email = ?;");
+            insert = ServerApp.dbConnection.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?) RETURNING userid;");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,11 +49,22 @@ public class SignUpController {
         String password = newUser[2];
 
         try {
-            select.setString(1, username);
+            usernameTaken.setString(1, username);
 
-            ResultSet result = select.executeQuery();
+            ResultSet result = usernameTaken.executeQuery();
             while (result.next()) {
-                return "fail";
+                return "username";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        try {
+            emailTaken.setString(1, email);
+
+            ResultSet result = emailTaken.executeQuery();
+            while (result.next()) {
+                return "email";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,10 +74,12 @@ public class SignUpController {
             insert.setString(1, username);
             insert.setString(2, email);
             insert.setString(3, password);
-            int resultID = insert.executeUpdate();
+            ResultSet result = insert.executeQuery();
+            result.next();
+            int userID = result.getInt("userid");
 
             String sessionID = ServerApp.createNewSessionID();
-            ServerApp.addSessionID(sessionID, resultID);
+            ServerApp.addSessionID(sessionID, userID);
             return sessionID;
         } catch (Exception e) {
             e.printStackTrace();

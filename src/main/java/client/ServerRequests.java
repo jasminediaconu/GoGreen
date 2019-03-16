@@ -37,7 +37,7 @@ public class ServerRequests {
         }
         String response = sendRequestToServer("login",
                 Main.gson.toJson(new String[]{username, hashedPassword}));
-        if (response != null && response != "fail") {
+        if (response != null && !response.equals("fail")) {
             String[] resArr = response.split("::");
             System.out.println("[INFO] Login returned the following user_id: " + resArr[1]);
             Main.sessionID = resArr[0];

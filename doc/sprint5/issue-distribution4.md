@@ -19,15 +19,29 @@
 * All current branches should be merged and functional in develop
 * `TEST COVERAGE`Preferable 95%, min 80%
 
+## Testing:
+
+* Tests for database and server requests, serverApp coverage - Wout
+* Activity, Item, Achievement, User, ClientUser classes with Mockito - Giuliano
+* LoginRequest, SignUpRequest - Jan Willem
+* User, ClientUser, Item, Activity - Gino
+* Divide AgendaController into helper class and test it - Mandy
+* The function in ActivityController needs to have a helper class, selectDomain method - Wout
+
+
+* Can ImageChoose.class be tested?
+
+
 
 ## Overview page, badges & achievements (Jasmine):
 * Work on the overview page, implement badges(achievements)
 * Make a scrollpane
 * Come up with realistic badges, achievements
+* Badges should be stored locally
+* Show up some title
 
 
 ## Popup windows for plus button and functionality (Giuliano):
-
 
 * Extra miscellanous plus button to be filled with items from Jan-Willem
 * Check function foodchoices filled with lambda
@@ -36,26 +50,14 @@
 
 ## Backend and General (Wout):
 
-
+* Make the request specific for username, failed username and email
 * Store the profile icon on the server
 * Help Gino with the mail responses, forgot password
 * Update the agenda screen, removing adding instand when communication with the server
 * Tests
 * Tests for the database
 * Figure out tests for server and database communication
-
-
-Are all of these done from the previous sprint?
-
-* Storing an activityID
-* Sessions properly work
-* We have data persistence, when you close and open app we have the data
-* First time signup should go to profile, from 2nd time onwards it goes to the welcome message from jasmin
-* Make request for following people.
-* Popup if trying to select another window (leaderboard,overview etc.) when profile is not complete
-* All the requests for creating activities
-* Mockito
-* Link Jasmine's acitivites to the database
+* Request to follow a person
 
 
 ## Profile (Jan Willem)
@@ -103,9 +105,11 @@ EXTRAS:
 
 MUST HAVE:
 
+* Tests PRIORITY
+
 * Remember me functionality (Needs more time, needs to consult with Wout)
 * Forgot password functionality (Consult with Wout)
 * when trying to signup, already existing username dispaly red error message, username already exists 
 * invalid password red, internet connection 
 * Terms of service 
-* Privacy policy 
+* Privacy policy

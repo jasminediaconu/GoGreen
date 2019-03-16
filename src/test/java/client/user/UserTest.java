@@ -64,4 +64,17 @@ class UserTest {
         Assert.assertEquals(user.equals(user3), false);
     }
 
+    @Test
+    void equalsSimilar() {
+        user2.setUsername("notadmin");
+        Assert.assertEquals(user.equals(user2), false);
+        user2.setUsername("admin");
+        user2.setCountry("Belgium");
+        Assert.assertEquals(user.equals(user2),false);
+        user2.setCountry("Netherlands");
+        user2.setTotalCo2(404);
+        Assert.assertEquals(user.equals(user2), false);
+
+    }
+
 }

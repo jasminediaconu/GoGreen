@@ -165,7 +165,6 @@ public class ClientUser extends User {
      * Sets the users solar power usage boolean to the argument solarPower
      *
      * @param solarPower boolean type
-    >>>>>>> 37e663ff148bcf3b286d9713501244a34b537f1a
      */
 
     /**
@@ -179,7 +178,6 @@ public class ClientUser extends User {
 
 
     /**
-     * <<<<<<< HEAD
      * Sets image url.
      *
      * @param imageURL the image url
@@ -245,6 +243,27 @@ public class ClientUser extends User {
     }
 
     /**
+     * This function will return the User List following.
+     * @return the User List following.
+     */
+    public List<User> getFollowing(){return this.following;}
+
+    /**
+     * This function will set the current User List following to a new list.
+     *
+     * @param userList List User type.
+     */
+    public void setFollowing(List<User> userList){this.following = userList;}
+
+    /**
+     * This function will as a User to the User List following.
+     *
+     * @param user User type.
+     */
+    public void addFollowing(User user){following.add(user);}
+
+
+    /**
      * This function compares this ClientUser with another ClientUser to check if they are equal.
      *
      * @param obj Object type
@@ -261,7 +280,6 @@ public class ClientUser extends User {
                 solarPower == that.solarPower &&
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
-                email.equals(that.email) &&
                 Objects.equals(following, that.following) &&
                 totalCo2 == that.totalCo2 &&
                 username.equals(that.username) &&

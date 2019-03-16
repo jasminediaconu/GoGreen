@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class ClientUserTest {
 
     ClientUser user;
@@ -12,6 +15,10 @@ class ClientUserTest {
     @BeforeEach
     void setUp() {
         user = new ClientUser("username", "country", 10.0, 3, true, false, 21, "email", "default", "SUV", "Gas");
+        User newuser = new User("admin","Netherlands", 10);
+        List<User> following = new ArrayList<>();
+        user.addFollowing(newuser);
+        user.setFollowing(following);
         user2 = user.deepCopy();
     }
 
@@ -112,6 +119,10 @@ class ClientUserTest {
         user3.setCarType("SUV");
         user3.setCarEmissionType("diesel");
         Assert.assertEquals(user.equals(user3), false);
+        /**user3.setCarEmissionType("gas");
+        List<User> followers = new ArrayList<>();
+        user3.setFollowing(followers);
+        Assert.assertEquals(user.equals(user3), false);*/
     }
 
     @Test

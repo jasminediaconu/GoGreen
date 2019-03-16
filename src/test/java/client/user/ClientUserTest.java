@@ -119,10 +119,7 @@ class ClientUserTest {
         user3.setCarType("SUV");
         user3.setCarEmissionType("diesel");
         Assert.assertEquals(user.equals(user3), false);
-        /**user3.setCarEmissionType("gas");
-        List<User> followers = new ArrayList<>();
-        user3.setFollowing(followers);
-        Assert.assertEquals(user.equals(user3), false);*/
+        
     }
 
     @Test

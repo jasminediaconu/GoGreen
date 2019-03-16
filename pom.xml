@@ -275,7 +275,7 @@
                         <exclude>**/loginscreen/**</exclude>
                         <exclude>**/helper/*Class.*</exclude>
                         <exclude>**/login/**</exclude>
-                        <exclude>**/objects/**</exclude>
+                        <exclude>**/server/objects/**</exclude>
                         <exclude>**/InfoController.*</exclude>
                         <exclude>**/SessionController.*</exclude>
                         <exclude>**/profilescreen/**</exclude>
@@ -335,7 +335,7 @@
             <!--<exclude>**/login/**</exclude>-->
             <!--<exclude>**/InfoController.*</exclude>-->
             <!--<exclude>**/SessionController.*</exclude>-->
-            <!--<exclude>**/server/objects/**</exclude>-->
+            <!--<exclude>**/objects/**</exclude>-->
             <!--</excludes>-->
             <!--</configuration>-->
             <!--</plugin>-->

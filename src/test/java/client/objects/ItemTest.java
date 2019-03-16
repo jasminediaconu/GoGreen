@@ -41,6 +41,12 @@ class ItemTest {
     }
 
     @Test
+    void equalsOtherType(){
+        int number = 1;
+        Assert.assertEquals(item1.equals(number), false);
+    }
+
+    @Test
     void equalsSelf() {
         Assert.assertEquals(item1.equals(item1), true);
     }

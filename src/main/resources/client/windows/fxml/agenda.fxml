@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+
 <?import java.net.URL?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
@@ -15,9 +9,10 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-background-radius: 24 24 24 24;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.AgendaController">
+
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-background-radius: 25 25 25 25;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.AgendaController">
     <children>
-        <Pane fx:id="agenda" layoutX="-2.0" layoutY="43.0" prefHeight="725.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 0 24 24;" stylesheets="@../css/agenda.css">
+        <Pane fx:id="agenda" layoutX="-2.0" layoutY="43.0" prefHeight="725.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 0 28 28;" stylesheets="@../css/agenda.css">
             <children>
                 <Text id="agendaTitle" fill="#95e743" layoutX="560.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
                     <font>
@@ -35,7 +30,7 @@
         </Pane>
     </children>
     <stylesheets>
-        <URL value="@../css/agenda.css"/>
-        <URL value="@../../loginscreen/loginStyle.css"/>
+        <URL value="@../css/agenda.css" />
+        <URL value="@../../loginscreen/loginStyle.css" />
     </stylesheets>
 </AnchorPane>

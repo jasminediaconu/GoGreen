@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="222.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.AgendaController">
+   <children>
+      <HBox alignment="TOP_CENTER" layoutY="14.0" prefHeight="25.0" prefWidth="222.0">
+         <children>
+            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Energy" textAlignment="CENTER" wrappingWidth="110.41997528076172">
+               <font>
+                  <Font name="Montserrat Bold" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <HBox layoutX="18.0" layoutY="79.0" prefHeight="44.0" prefWidth="186.0">
+         <children>
+            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Choices:" wrappingWidth="64.01989364624012">
+               <font>
+                  <Font name="Montserrat Regular" size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </Text>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ComboBox id="foodmenu" fx:id="energyChoices" prefHeight="26.0" prefWidth="126.0" promptText="Energy Saving" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
+                     <effect>
+                        <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
+                     </effect>
+                     <padding>
+                        <Insets left="3.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="1.0" />
+                     </HBox.margin>
+                  </ComboBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <HBox layoutX="18.0" layoutY="145.0" prefHeight="44.0" prefWidth="200.0">
+         <children>
+            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="45.61993026733387">
+               <font>
+                  <Font name="Montserrat Regular" size="15.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="2.0" />
+               </HBox.margin>
+            </Text>
+            <DatePicker fx:id="datepicker" maxHeight="-Infinity" prefHeight="25.0" prefWidth="108.0" style="-fx-border-radius: 0;">
+               <effect>
+                  <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
+               </effect>
+            </DatePicker>
+         </children>
+      </HBox>
+      <Line endX="-0.800018310546875" endY="7.62939453125E-6" layoutX="169.0" layoutY="42.0" startX="-117.60001373291016" startY="7.62939453125E-6" stroke="#95e743" strokeLineCap="ROUND" strokeWidth="2.0" />
+      <JFXButton id="apply" layoutX="59.0" layoutY="210.0" onMouseClicked="#applyButton" prefHeight="36.0" prefWidth="102.0" style="-fx-background-radius: 5;" stylesheets="@../css/agenda.css" text="Apply" textFill="WHITE">
+         <font>
+            <Font name="Montserrat Bold" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+   <stylesheets>
+      <URL value="@../../defaultFont.css" />
+      <URL value="@../css/agenda.css" />
+   </stylesheets>
+</Pane>

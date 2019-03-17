@@ -279,10 +279,6 @@ public class MainScreenController extends Pane implements Initializable {
         }
     }
 
-    @FXML
-    private void applyActivity(MouseEvent event) {
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         for (Controller controller : controllers) {

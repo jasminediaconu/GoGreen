@@ -3,6 +3,7 @@ package client.windows;
 import client.Main;
 import client.ServerRequests;
 import client.objects.Activity;
+import client.objects.Item;
 import client.user.ClientUser;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -224,7 +225,8 @@ public class AgendaController extends Controller implements Initializable {
             counter++;
 
             for (Activity activity : activityMap.get(date)) {
-                Text text = new Text(activity.getItemID() + ", " + activity.getAmount());
+                Item item = Main.items.get(activity.getItemID()-1);
+                Text text = new Text(item.getName() + ", co2: " + round((item.getCo2()*activity.getAmount())/1000, 2));
                 text.setWrappingWidth(310.00);
                 gridPane.add(text, 1, counter);
                 JFXButton button = new JFXButton("", new ImageView(path));
@@ -239,6 +241,20 @@ public class AgendaController extends Controller implements Initializable {
         agendaBox.getChildren().add(gridPane);
 
 
+    }
+    /**
+     * This function rounds a double value to N decimal places.
+     * @param value double type
+     * @param places int type
+     * @return a double rounded down to N decimal places
+     */
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 
     /**

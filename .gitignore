@@ -17,6 +17,8 @@ buildNumber.properties
 .project
 .settings
 *.jar
+.vscode/
+
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar

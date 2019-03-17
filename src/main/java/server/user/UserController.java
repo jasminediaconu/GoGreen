@@ -1,15 +1,14 @@
 package server.user;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import server.ServerApp;
 import server.helper.ClientUserClass;
 import server.helper.UserClass;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,8 @@ public class UserController {
 
     private static PreparedStatement createClientUser;
     private static PreparedStatement selectClientUser;
+    private static PreparedStatement updateClientUserProfile;
+    private static PreparedStatement updateClientUserLogin;
     private static PreparedStatement updateStreak;
     private static PreparedStatement selectFollowing;
     private static PreparedStatement selectGlobalBest;
@@ -30,13 +31,22 @@ public class UserController {
             );
 
             selectClientUser = ServerApp.dbConnection.prepareStatement(
-                    "SELECT username, countryname, totalco2, cartype, caremissiontype, lastonline, streaklength, solarpower, leds, roomtemp " +
+                    "SELECT username, countryname, email, imageurl, totalco2, cartype, caremissiontype, lastonline, streaklength, solarpower, leds, roomtemp " +
                             "FROM user_login AS ul JOIN user_profile AS up ON ul.userid = up.userid " +
                             "WHERE ul.userid = ?;"
             );
 
+            updateClientUserProfile = ServerApp.dbConnection.prepareStatement(
+                    "UPDATE user_profile SET countryname = ?, imageurl = ?, totalco2 = ?, cartype = ?, caremissiontype = ?, solarpower = ?, leds = ?, roomtemp = ? " +
+                            "WHERE userid = ?;"
+            );
+
+            updateClientUserLogin = ServerApp.dbConnection.prepareStatement(
+                    "UPDATE user_login SET email = ? WHERE userid = ?;"
+            );
+
             updateStreak = ServerApp.dbConnection.prepareStatement(
-                    "UPDATE user_profile SET streaklength = ? WHERE userid = ?;"
+                    "UPDATE user_profile SET streaklength = ?, lastonline = ? WHERE userid = ?;"
             );
 
             selectFollowing = ServerApp.dbConnection.prepareStatement(
@@ -60,8 +70,10 @@ public class UserController {
     @RequestMapping(value = "/getUserProfile", method = RequestMethod.POST)
     public ClientUserClass getUserProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
-        if (userID == -1)
+        if (userID == -1){
             return null;
+        }
+
         try {
             createClientUser.setInt(1, userID);
             createClientUser.executeUpdate();
@@ -73,20 +85,23 @@ public class UserController {
             ResultSet result = selectClientUser.executeQuery();
 
             while (result.next()) {
-                LocalDate date = result.getDate(6).toLocalDate();
-                int streakLength = result.getInt(7);
+                LocalDate date = result.getDate("lastonline").toLocalDate();
+                int streakLength = result.getInt("streaklength");
                 if (LocalDate.now().minusDays(1).equals(date)) {
                     streakLength++;
                 } else if (!LocalDate.now().equals(date)) {
                     streakLength = 0;
                 }
 
-                ClientUserClass clientUser = new ClientUserClass(result.getString(1), result.getString(2), result.getDouble(3),
-                        result.getString(4), result.getString(5), streakLength, result.getBoolean(8),
-                        result.getBoolean(9), result.getInt(10));
+                ClientUserClass clientUser = new ClientUserClass(result.getString("username"), result.getString("countryname"),
+                        result.getString("email"), result.getString("imageurl"), result.getDouble("totalco2"),
+                        result.getString("cartype"), result.getString("caremissiontype"), streakLength,
+                        result.getBoolean("solarpower"), result.getBoolean("leds"), result.getInt("roomtemp")
+                );
 
                 updateStreak.setInt(1, streakLength);
-                updateStreak.setInt(2, userID);
+                updateStreak.setDate(2, new Date(new SimpleDateFormat("yyyy-MM-dd").parse(LocalDate.now().toString()).getTime()));
+                updateStreak.setInt(3, userID);
                 updateStreak.executeUpdate();
 
                 return clientUser;
@@ -99,6 +114,36 @@ public class UserController {
         }
     }
 
+    @RequestMapping(value ="/updateUserProfile", method = RequestMethod.POST)
+    public String updateUserProfile(@RequestParam String s, @RequestBody ClientUserClass client) {
+        int userID = ServerApp.getUserIDFromSession(s);
+        if (userID == -1){
+            return null;
+        }
+
+        try{
+            updateClientUserProfile.setString(1, client.country);
+            updateClientUserProfile.setString(2, client.imageURL);
+            updateClientUserProfile.setDouble(3, client.totalCo2);
+            updateClientUserProfile.setString(4, client.carType);
+            updateClientUserProfile.setString(5, client.carEmissionType);
+            updateClientUserProfile.setBoolean(6, client.solarPower);
+            updateClientUserProfile.setBoolean(7, client.LEDs);
+            updateClientUserProfile.setInt(8, client.roomTemp);
+            updateClientUserProfile.setInt(9, userID);
+            updateClientUserProfile.executeUpdate();
+
+            updateClientUserLogin.setString(1, client.email);
+            updateClientUserLogin.setInt(2, userID);
+            updateClientUserLogin.executeUpdate();
+
+            return "success";
+        }catch (Exception e){
+            e.printStackTrace();
+            return "fail";
+        }
+    }
+
     /**
      * This function will get the users a ClientUser is following, associated with its sessionID
      * @param s String type
@@ -107,8 +152,9 @@ public class UserController {
     @RequestMapping(value = "/getFollowingProfile", method = RequestMethod.POST)
     public List<UserClass> getFollowingProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
-        if (userID == -1)
+        if (userID == -1){
             return null;
+        }
         return getUsers(-1, selectFollowing);
     }
 
@@ -120,8 +166,9 @@ public class UserController {
     @RequestMapping(value = "/getGlobalBestProfile", method = RequestMethod.POST)
     public List<UserClass> getGlobalBestProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
-        if (userID == -1)
+        if (userID == -1){
             return null;
+        }
         return getUsers(-1, selectGlobalBest);
     }
 

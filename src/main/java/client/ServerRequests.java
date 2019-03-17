@@ -37,7 +37,7 @@ public class ServerRequests {
         }
         String response = sendRequestToServer("login",
                 Main.gson.toJson(new String[]{username, hashedPassword}));
-        if (response != null && response != "fail") {
+        if (response != null && !response.equals("fail")) {
             String[] resArr = response.split("::");
             System.out.println("[INFO] Login returned the following user_id: " + resArr[0]);
             Main.sessionID = resArr[0];
@@ -189,6 +189,22 @@ public class ServerRequests {
     public static ClientUser getClientUserProfile() {
         String response = sendRequestToServer("getUserProfile?s=" + Main.sessionID, null);
         return Main.gson.fromJson(response, ClientUser.class);
+    }
+
+    /**
+     * This function will update the user profile on the server
+     * @return a boolean on whether updating the users profile succeeded
+     */
+    public static boolean updateClientUserProfile() {
+        String response = sendRequestToServer("updateUserProfile?s=" + Main.sessionID, Main.gson.toJson(Main.clientUser));
+        if(response == null || response.equals("fail")) {
+            System.out.println("[ERROR] Updating the client users profile went wrong");
+            return false;
+        }else if(response.equals("success")) {
+            System.out.println("[INFO] Updating the client users profile went successfully");
+            return true;
+        }
+        return false;
     }
 
     /**

@@ -56,9 +56,9 @@ public class SignUpRequest extends AsyncTask {
 
     @Override
     public Boolean doInBackground(Object[] params) {
-
+        ServerRequests sv = new ServerRequests();
         if (signUp()) {
-            clientUser = ServerRequests.getClientUserProfile();
+            clientUser = sv.getClientUserProfile();
             if (clientUser != null) {
                 return true;
             }
@@ -80,7 +80,8 @@ public class SignUpRequest extends AsyncTask {
 
     //
     private boolean signUp() {
-        String response = ServerRequests.signUp(username, email, password);
+        ServerRequests sv = new ServerRequests();
+        String response = sv.signUp(username, email, password);
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
         } else if (response.equals("syntax")) {
@@ -90,7 +91,7 @@ public class SignUpRequest extends AsyncTask {
             //SIGN UP WAS UNSUCCESSFUL
             this.response = FAIL;
         } else if (response.equals("ok")) {
-            ServerRequests.getItems();
+            sv.getItems();
             this.response = OK;
             return true;
         }

@@ -39,6 +39,8 @@ public class ServerApp {
         builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
         gson = builder.setPrettyPrinting().create();
 
+        sessions.put("test", 1);
+
         SpringApplication app = new SpringApplication(ServerApp.class);
         app.run(args);
     }

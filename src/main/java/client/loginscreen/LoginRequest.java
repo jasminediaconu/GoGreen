@@ -57,7 +57,8 @@ public class LoginRequest extends AsyncTask {
     }
 
     private boolean login() {
-        String response = ServerRequests.login(username, password);
+        ServerRequests sv = new ServerRequests();
+        String response = sv.login(username, password);
 
         if (response == null) {
             //USERNAME OR PASSWORD MISSING
@@ -66,16 +67,17 @@ public class LoginRequest extends AsyncTask {
             //WRONG USERNAME OR PASSWORD
             return false;
         } else if (response.startsWith("success:")) {
-            ServerRequests.getItems();
+            sv.getItems();
             return true;
         }
         return false;
     }
 
     private boolean getUserProfile() {
-        clientUser = ServerRequests.getClientUserProfile();
+        ServerRequests sv = new ServerRequests();
+        clientUser = sv.getClientUserProfile();
         if (clientUser != null) {
-            clientUser.setActivityList(ServerRequests.retrieveActivities("w"));
+            clientUser.setActivityList(sv.retrieveActivities("w"));
             String url = clientUser.getImageURL();
             if (url != null && url.length() != 0 && !url.equals("default")) {
                 Image image = new Image(url);

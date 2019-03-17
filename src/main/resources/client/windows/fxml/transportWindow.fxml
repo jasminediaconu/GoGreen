@@ -18,7 +18,7 @@
    <children>
       <HBox alignment="TOP_CENTER" layoutY="14.0" prefHeight="25.0" prefWidth="222.0">
          <children>
-            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Food">
+            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Transport" textAlignment="CENTER" wrappingWidth="110.41997528076172">
                <font>
                   <Font name="Montserrat Bold" size="20.0" />
                </font>
@@ -27,7 +27,7 @@
       </HBox>
       <HBox layoutX="25.0" layoutY="71.0" prefHeight="44.0" prefWidth="186.0">
          <children>
-            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal:" wrappingWidth="44.01995468139637">
+            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Vehicle:" wrappingWidth="60.81994247436512">
                <font>
                   <Font name="Montserrat Regular" size="15.0" />
                </font>
@@ -37,13 +37,16 @@
             </Text>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ComboBox id="foodmenu" fx:id="foodchoices" prefHeight="26.0" prefWidth="132.0" promptText="Select a meal" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
+                  <ComboBox id="foodmenu" fx:id="transportChoices" prefHeight="26.0" prefWidth="122.0" promptText="Types of transport" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
                      </effect>
                      <padding>
                         <Insets left="3.0" />
                      </padding>
+                     <HBox.margin>
+                        <Insets left="1.0" />
+                     </HBox.margin>
                   </ComboBox>
                </children>
             </HBox>
@@ -51,7 +54,7 @@
       </HBox>
       <HBox layoutX="25.0" layoutY="126.0" prefHeight="25.0" prefWidth="200.0">
          <children>
-            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount:" wrappingWidth="72.81994247436512">
+            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" wrappingWidth="72.81994247436512">
                <font>
                   <Font name="Montserrat Regular" size="15.0" />
                </font>
@@ -59,19 +62,25 @@
                   <Insets top="2.0" />
                </HBox.margin>
             </Text>
-            <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
+            <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="26.0" prefWidth="78.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
                <effect>
                   <DropShadow blurType="TWO_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
                </effect>
                <children>
-                  <TextField fx:id="amount" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: transparent;">
+                  <TextField fx:id="amount" prefHeight="26.0" prefWidth="95.0" style="-fx-background-color: transparent;">
                      <font>
                         <Font name="Montserrat Regular" size="12.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </TextField>
                </children>
+               <HBox.margin>
+                  <Insets left="1.0" />
+               </HBox.margin>
             </HBox>
-            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="g" wrappingWidth="13.79998779296875">
+            <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="km" wrappingWidth="25.79998779296875">
                <font>
                   <Font name="Montserrat Regular" size="15.0" />
                </font>
@@ -98,7 +107,7 @@
             </DatePicker>
          </children>
       </HBox>
-      <Line endX="-1.600006103515625" layoutX="169.0" layoutY="40.0" startX="-114.9999771118164" stroke="#95e743" strokeLineCap="ROUND" strokeWidth="2.0" />
+      <Line endX="7.199981689453125" endY="7.62939453125E-6" layoutX="169.0" layoutY="42.0" startX="-123.19998931884766" startY="7.62939453125E-6" stroke="#95e743" strokeLineCap="ROUND" strokeWidth="2.0" />
       <JFXButton id="apply" layoutX="60.0" layoutY="239.0" onMouseClicked="#applyButton" prefHeight="36.0" prefWidth="102.0" style="-fx-background-radius: 5;" stylesheets="@../css/agenda.css" text="Apply" textFill="WHITE">
          <font>
             <Font name="Montserrat Bold" size="15.0" />

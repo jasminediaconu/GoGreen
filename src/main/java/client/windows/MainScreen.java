@@ -4,22 +4,15 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
-/**
- * The type Main screen.
- */
 public class MainScreen extends Application {
 
     private static Stage primaryStage;
 
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
@@ -35,20 +28,18 @@ public class MainScreen extends Application {
 
     /**
      * This function will start the Application wrapper for the MainScreen, sets the size and title.
-     *
      * @param primaryStage The primary stage
-     * @throws Exception Exception.
+     * @throws Exception
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        MainScreen.primaryStage = primaryStage;
-        //Parent root = FXMLLoader.load(getClass().getResource("/client/windows/fxml/mainScreen.fxml"));
         Parent root = FXMLLoader.load(getClass().getResource("fxml/mainScreen.fxml"));
         primaryStage.setTitle("GoGreen");
         primaryStage.setScene(new Scene(root, 1024, 768));
+        primaryStage.getScene().setFill(Color.TRANSPARENT);
         primaryStage.setResizable(false);
         primaryStage.show();
-        primaryStage.getIcons().add(new Image("/client/windows/images/icon.png"));
-    }
-}
 
+    }
+
+}

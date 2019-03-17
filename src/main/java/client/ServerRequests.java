@@ -139,6 +139,7 @@ public class ServerRequests {
 
     /**
      * This function will add an activity to the database
+     *
      * @param activity
      * @return a boolean whether adding went successfully
      */
@@ -162,6 +163,7 @@ public class ServerRequests {
 
     /**
      * This function removes an activity with gien acitivtiID from the database.
+     *
      * @param activityID
      * @return a boolean whether removing went successfully
      */
@@ -185,6 +187,7 @@ public class ServerRequests {
 
     /**
      * This function retrieves all activities within a given period for a specific user from the database
+     *
      * @param period
      * @return a list of activities
      */
@@ -199,6 +202,7 @@ public class ServerRequests {
 
     /**
      * This funtion retrieves the clients user profile from the database
+     *
      * @return a ClientUser class
      */
     public static ClientUser getClientUserProfile() {
@@ -208,14 +212,15 @@ public class ServerRequests {
 
     /**
      * This function will update the user profile on the server
+     *
      * @return a boolean on whether updating the users profile succeeded
      */
     public static boolean updateClientUserProfile() {
         String response = sendRequestToServer("updateUserProfile?s=" + Main.sessionID, Main.gson.toJson(Main.clientUser));
-        if(response == null || response.equals("fail")) {
+        if (response == null || response.equals("fail")) {
             System.out.println("[ERROR] Updating the client users profile went wrong");
             return false;
-        }else if(response.equals("success")) {
+        } else if (response.equals("success")) {
             System.out.println("[INFO] Updating the client users profile went successfully");
             return true;
         }
@@ -224,6 +229,7 @@ public class ServerRequests {
 
     /**
      * This function retrieves all the users the clientuser is following from the database
+     *
      * @return a list of Users
      */
     public static List<User> getFollowingProfile() {
@@ -237,6 +243,7 @@ public class ServerRequests {
 
     /**
      * This funtion gets the global best users.
+     *
      * @return a list of Users
      */
     public static List<User> getGlobalBestProfile() {

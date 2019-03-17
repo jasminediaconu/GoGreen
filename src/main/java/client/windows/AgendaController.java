@@ -11,12 +11,16 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXNodesList;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
@@ -27,9 +31,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -61,6 +68,8 @@ public class AgendaController extends Controller implements Initializable {
     private TextField amount = new TextField();
     @FXML
     private DatePicker datepicker = new DatePicker();
+    @FXML
+    private Pane foodWindow;
 
     private MainScreenController mainScreenController;
     private JFXButton ssbutton2;
@@ -74,12 +83,53 @@ public class AgendaController extends Controller implements Initializable {
     private VBox agendaBox;
     private JFXDialog dialog;
 
+
     /**
      * Constructor to be used in the MainScreenController.
      * To be able to use the variables, methods of this class.
      */
     public AgendaController() {
         nodesList = new JFXNodesList();
+    }
+
+
+    /**
+     * Initialize agenda with the user activities.
+     *
+     * @param url            URL
+     * @param resourceBundle ResourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadFoodItems();
+
+        agendaBox = new VBox();
+        agendaBox.setPadding(new Insets(20, 0, 0, 20));
+
+        gridPane = new GridPane();
+        gridPane.setLayoutX(420);
+
+        if (Main.clientUser == null) {
+            Main.clientUser = new ClientUser();
+        }
+        if (Main.clientUser.getActivityList() != null) {
+            Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
+            showAgendaActivites(activityMap);
+        }
+
+        gridPane.setHgap(20);
+//        agendaBox.getChildren().add(gridPane);
+        scrollAgenda.setContent(agendaBox);
+        agendaBox.setSpacing(15);
+
+        JFXButton ssbutton5 = new JFXButton("R1");
+        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
+    }
+
+    @Override
+    public void init() {
+        loadPlusButton();
+        pane.getChildren().add(nodesList);
     }
 
     /**
@@ -138,39 +188,6 @@ public class AgendaController extends Controller implements Initializable {
         return numRows;
     }
 
-    /**
-     * Initialize agenda with the user activities.
-     *
-     * @param url            URL
-     * @param resourceBundle ResourceBundle
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadActivity();
-
-        agendaBox = new VBox();
-        agendaBox.setPadding(new Insets(20, 0, 0, 20));
-
-        gridPane = new GridPane();
-        gridPane.setLayoutX(420);
-
-        if (Main.clientUser == null) {
-            Main.clientUser = new ClientUser();
-        }
-        if (Main.clientUser.getActivityList() != null) {
-            Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
-            showAgendaActivites(activityMap);
-        }
-
-        gridPane.setHgap(20);
-        agendaBox.getChildren().add(gridPane);
-        scrollAgenda.setContent(agendaBox);
-        agendaBox.setSpacing(15);
-
-        JFXButton ssbutton5 = new JFXButton("R1");
-        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
-    }
-
     private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
         Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
         for (Activity a : activities) {
@@ -180,6 +197,12 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     private void showAgendaActivites(Multimap<LocalDate, Activity> activityMap) {
+        agendaBox.getChildren().removeAll();
+
+
+        gridPane = new GridPane();
+        gridPane.setLayoutX(420);
+
         String path = "/client/windows/images/delete.png";
 
         int counter = 0;
@@ -203,6 +226,11 @@ public class AgendaController extends Controller implements Initializable {
                 counter++;
             }
         }
+
+        gridPane.setHgap(20);
+        agendaBox.getChildren().add(gridPane);
+
+
     }
 
     /**
@@ -274,14 +302,19 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This method appends the foodWindow.fxml to the
+     * This method appends the foodWindow.fxml to the 3rd node i.e. the foodButton
      */
     @FXML
     public void foodButtonAction(javafx.scene.input.MouseEvent event) {
-        loadActivity();
+        loadFoodItems();
         mainScreenController = new MainScreenController();
 
-        PopOver popOver = new PopOver(mainScreenController.getFoodWindow());
+        try {
+            foodWindow = FXMLLoader.load(getClass().getResource("/client/windows/fxml/foodWindow.fxml"));
+        } catch (IOException e) {}
+
+
+        PopOver popOver = new PopOver(foodWindow);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
         popOver.show(ssbutton3);
     }
@@ -290,7 +323,7 @@ public class AgendaController extends Controller implements Initializable {
      * Loads the food dropdown menu with items.
      */
 
-    private void loadActivity() {
+    private void loadFoodItems() {
 
         //Clears everything in the observable list
         if (list.size() < 1)
@@ -316,10 +349,14 @@ public class AgendaController extends Controller implements Initializable {
             Activity activity = new Activity(itemID, parsedAmount, date);
             if (ServerRequests.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
+                //refresh agenda
+
                 showAgendaActivites(activityMap(Main.clientUser.getActivityList()));
             }
         }
     }
+
+
 
 
     /**

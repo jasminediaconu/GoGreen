@@ -68,6 +68,8 @@ public class AgendaController extends Controller implements Initializable {
     private TextField amount = new TextField();
     @FXML
     private DatePicker datepicker = new DatePicker();
+    @FXML
+    private Pane foodWindow;
 
     private MainScreenController mainScreenController;
     private JFXButton ssbutton2;
@@ -80,7 +82,6 @@ public class AgendaController extends Controller implements Initializable {
     private Text dateText;
     private VBox agendaBox;
     private JFXDialog dialog;
-    private Pane foodWindow;
 
 
     /**
@@ -89,6 +90,46 @@ public class AgendaController extends Controller implements Initializable {
      */
     public AgendaController() {
         nodesList = new JFXNodesList();
+    }
+
+
+    /**
+     * Initialize agenda with the user activities.
+     *
+     * @param url            URL
+     * @param resourceBundle ResourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadFoodItems();
+
+        agendaBox = new VBox();
+        agendaBox.setPadding(new Insets(20, 0, 0, 20));
+
+        gridPane = new GridPane();
+        gridPane.setLayoutX(420);
+
+        if (Main.clientUser == null) {
+            Main.clientUser = new ClientUser();
+        }
+        if (Main.clientUser.getActivityList() != null) {
+            Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
+            showAgendaActivites(activityMap);
+        }
+
+        gridPane.setHgap(20);
+//        agendaBox.getChildren().add(gridPane);
+        scrollAgenda.setContent(agendaBox);
+        agendaBox.setSpacing(15);
+
+        JFXButton ssbutton5 = new JFXButton("R1");
+        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
+    }
+
+    @Override
+    public void init() {
+        loadPlusButton();
+        pane.getChildren().add(nodesList);
     }
 
     /**
@@ -145,42 +186,6 @@ public class AgendaController extends Controller implements Initializable {
             }
         }
         return numRows;
-    }
-
-    /**
-     * Initialize agenda with the user activities.
-     *
-     * @param url            URL
-     * @param resourceBundle ResourceBundle
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadFoodItems();
-
-        agendaBox = new VBox();
-        agendaBox.setPadding(new Insets(20, 0, 0, 20));
-
-        gridPane = new GridPane();
-        gridPane.setLayoutX(420);
-
-        if (Main.clientUser == null) {
-            Main.clientUser = new ClientUser();
-        }
-        if (Main.clientUser.getActivityList() != null) {
-            Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
-            showAgendaActivites(activityMap);
-        }
-
-        gridPane.setHgap(20);
-//        agendaBox.getChildren().add(gridPane);
-        scrollAgenda.setContent(agendaBox);
-        agendaBox.setSpacing(15);
-
-        scrollAgenda.setContent(agendaBox);
-        agendaBox.setSpacing(15);
-
-        JFXButton ssbutton5 = new JFXButton("R1");
-        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
     }
 
     private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
@@ -305,19 +310,9 @@ public class AgendaController extends Controller implements Initializable {
         mainScreenController = new MainScreenController();
 
         try {
-            foodWindow = FXMLLoader.load(getClass().getResource("foodWindow.fxml"));
+            foodWindow = FXMLLoader.load(getClass().getResource("/client/windows/fxml/foodWindow.fxml"));
+        } catch (IOException e) {}
 
-            Stage stage = (Stage) foodWindow.getScene().getWindow();
-
-            Scene scene = new Scene(foodWindow);
-
-            stage.setScene(scene);
-
-            scene.setFill(Color.TRANSPARENT);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         PopOver popOver = new PopOver(foodWindow);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);

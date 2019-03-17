@@ -60,12 +60,21 @@ public class LoginRequest extends AsyncTask {
         String response = ServerRequests.login(username, password);
 
         if (response == null) {
-            //USERNAME OR PASSWORD MISSING
+            //USERNAME, EMAIL, OR PASSWORD MISSING
+            return false;
+        } else if (response.equals("syntax")) {
+            //IMPROPER SYNTAX
             return false;
         } else if (response.equals("fail")) {
-            //WRONG USERNAME OR PASSWORD
+            //SOMETHING WENT WRONG
             return false;
-        } else if (response.startsWith("success:")) {
+        } else if (response.equals("username")) {
+            //WRONG USERNAME
+            return false;
+        } else if (response.equals("password")) {
+            //WRONG PASSWORD
+            return false;
+        } else if (response.equals("success")) {
             ServerRequests.getItems();
             return true;
         }

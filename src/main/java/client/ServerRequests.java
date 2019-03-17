@@ -35,17 +35,28 @@ public class ServerRequests {
         if (username == null || hashedPassword == null) {
             return null;
         }
+
+        Pattern stdPattern = Pattern.compile("^([A-Za-z0-9_]{4,}$)");
+
+        if (!stdPattern.matcher(username).matches()
+                || !stdPattern.matcher(password).matches()) {
+            return "syntax";
+        }
+
         String response = sendRequestToServer("login",
                 Main.gson.toJson(new String[]{username, hashedPassword}));
-        if (response != null && !response.equals("fail")) {
-            String[] resArr = response.split("::");
-            System.out.println("[INFO] Login returned the following user_id: " + resArr[0]);
-            Main.sessionID = resArr[0];
-            return "success: " + resArr[0];
-        } else {
-            System.out.println("[ERROR] Wrong username or password");
-            return "fail";
+        if("username".equals(response)) {
+            System.out.println("[ERROR] User specified an invalid username");
+            return response;
+        }else if("password".equals(response)) {
+            System.out.println("[ERROR] User specified an invalid password");
+            return response;
+        }else if(response != null && !response.equals("fail")){
+            System.out.println("[INFO] Login was successful");
+            Main.sessionID = response;
+            return "success";
         }
+        return "fail";
     }
 
     /**
@@ -61,12 +72,13 @@ public class ServerRequests {
      */
     public static String signUp(String username, String email, String password) {
         String hashedPassword = Main.hashString(password);
-        Pattern stdPattern = Pattern.compile("[A-Za-z0-9_]+");
-        Pattern emailPattern =
-                Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
         if (username == null || email == null || hashedPassword == null) {
             return null;
         }
+
+        Pattern stdPattern = Pattern.compile("^([A-Za-z0-9_]{8,}$)");
+        Pattern emailPattern =
+                Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
 
         if (!stdPattern.matcher(username).matches() || !emailPattern.matcher(email).matches()
                 || !stdPattern.matcher(password).matches()) {
@@ -75,14 +87,17 @@ public class ServerRequests {
 
         String response = sendRequestToServer("signup",
                 Main.gson.toJson(new String[]{username, email, hashedPassword}));
-        if (response != null && !response.equals("fail")) {
+        if("username".equals(response)) {
+            System.out.println("[ERROR] This username has already been taken");
+            return response;
+        } else if("email".equals(response)) {
+            System.out.println("[ERROR] This email has already been taken");
+            return response;
+        } else if(response != null && !response.equals("fail")) {
             Main.sessionID = response;
-            System.out.println("[INFO] The sign up was successful: " + Main.sessionID);
-            return "ok";
-        } else {
-            System.out.println("[ERROR] The sign up was not successful.");
-            return "fail";
+            return "success";
         }
+        return "fail";
     }
 
     /**

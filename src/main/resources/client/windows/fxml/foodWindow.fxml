@@ -37,7 +37,7 @@
             </Text>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <ComboBox id="foodmenu" fx:id="foodchoices" prefHeight="26.0" prefWidth="132.0" promptText="Select a meal" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
+                  <ComboBox id="foodmenu" fx:id="foodChoices" prefHeight="26.0" prefWidth="132.0" promptText="Select a meal" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
                      <effect>
                         <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
                      </effect>

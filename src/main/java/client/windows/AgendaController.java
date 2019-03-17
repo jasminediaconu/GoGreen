@@ -11,7 +11,6 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXNodesList;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,8 +18,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
@@ -31,9 +28,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -63,19 +58,29 @@ public class AgendaController extends Controller implements Initializable {
     @FXML
     private StackPane stack;
     @FXML
-    private ComboBox<String> foodchoices = new ComboBox<>();
+    private ComboBox<String> foodChoices = new ComboBox<>();
+    @FXML
+    private ComboBox<String> energyChoices = new ComboBox<>();
+    @FXML
+    private ComboBox<String> transportChoices = new ComboBox<>();
     @FXML
     private TextField amount = new TextField();
     @FXML
     private DatePicker datepicker = new DatePicker();
     @FXML
     private Pane foodWindow;
+    @FXML
+    private Pane transportWindow;
+    @FXML
+    private Pane energyWindow;
 
     private MainScreenController mainScreenController;
     private JFXButton ssbutton2;
     private JFXButton ssbutton3;
     private JFXButton ssbutton4;
-    private ObservableList list = FXCollections.observableArrayList();
+    private ObservableList foodList = FXCollections.observableArrayList();
+    private ObservableList transportList = FXCollections.observableArrayList();
+    private ObservableList energyList = FXCollections.observableArrayList();
     private JFXNodesList nodesList;
 
     private GridPane gridPane;
@@ -102,6 +107,9 @@ public class AgendaController extends Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         loadFoodItems();
+        loadTransportItems();
+        loadEnergyItems();
+
 
         agendaBox = new VBox();
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
@@ -289,25 +297,33 @@ public class AgendaController extends Controller implements Initializable {
      */
 
     public void transportButtonAction(javafx.scene.input.MouseEvent event) {
-        VBox vBox = new VBox();
-        vBox.setPrefHeight(250.0);
-        vBox.setPrefWidth(200.0);
+        loadTransportItems();
 
-        vBox.setStyle("-fx-background-color: white");
+        try {
+            transportWindow = FXMLLoader.load(getClass().getResource("/client/windows/fxml/transportWindow.fxml"));
+        } catch (IOException e) {}
 
-        PopOver popOver = new PopOver(vBox);
+
+        PopOver popOver = new PopOver(transportWindow);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
         popOver.show(ssbutton2);
-
     }
+
+//        VBox vBox = new VBox();
+//        vBox.setPrefHeight(250.0);
+//        vBox.setPrefWidth(200.0);
+//
+//        vBox.setStyle("-fx-background-color: white");
+//
+//        PopOver popOver = new PopOver(vBox);
+//        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+//        popOver.show(ssbutton2);
 
     /**
      * This method appends the foodWindow.fxml to the 3rd node i.e. the foodButton
      */
     @FXML
     public void foodButtonAction(javafx.scene.input.MouseEvent event) {
-        loadFoodItems();
-        mainScreenController = new MainScreenController();
 
         try {
             foodWindow = FXMLLoader.load(getClass().getResource("/client/windows/fxml/foodWindow.fxml"));
@@ -326,11 +342,69 @@ public class AgendaController extends Controller implements Initializable {
     private void loadFoodItems() {
 
         //Clears everything in the observable list
-        if (list.size() < 1)
-            list.addAll(Main.items.stream().filter(item -> item.getType().equals("food")).map(item -> item.getName()).collect(Collectors.toList()));
+        if (foodList.size() < 1)
+            foodList.addAll(Main.items.stream().filter(item -> item.getType().equals("food")).map(item -> item.getName()).collect(Collectors.toList()));
 
-        foodchoices.setItems(list);
-        //mainScreen.getChildren().add(foodchoices);
+        foodChoices.setItems(foodList);
+        //mainScreen.getChildren().add(foodChoices);
+    }
+
+    /**
+     * Loads the transport dropdown menu with items from the database
+     *
+     */
+    private void loadTransportItems() {
+
+        //Clears everything in the observable list
+        if (transportList.size() < 1)
+            transportList.addAll(Main.items.stream().filter(item -> item.getType().equals("transport")).map(item -> item.getName()).collect(Collectors.toList()));
+
+        transportChoices.setItems(transportList);
+        //mainScreen.getChildren().add(foodChoices);
+
+    }
+
+
+
+    /**
+     * Creates an empty white popup box for energy button popup.
+     * To be finished.
+     */
+
+    public void energyButtonAction(javafx.scene.input.MouseEvent event) {
+        try {
+            energyWindow = FXMLLoader.load(getClass().getResource("/client/windows/fxml/energyWindow.fxml"));
+        } catch (IOException e) {}
+
+
+        PopOver popOver = new PopOver(energyWindow);
+        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+        popOver.show(ssbutton4);
+
+//        VBox vBox = new VBox();
+//        vBox.setPrefHeight(250.0);
+//        vBox.setPrefWidth(200.0);
+//
+//        vBox.setStyle("-fx-background-color: white");
+//
+//        PopOver popOver = new PopOver(vBox);
+//        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+//        popOver.show(ssbutton4);
+
+    }
+
+    /**
+     * Loads the energy dropdown menu with items from the database
+     */
+
+    private void loadEnergyItems() {
+
+        //Clears everything in the observable list
+        if (energyList.size() < 1)
+            energyList.addAll(Main.items.stream().filter(item -> item.getType().equals("energy")).map(item -> item.getName()).collect(Collectors.toList()));
+
+        energyChoices.setItems(energyList);
+        //mainScreen.getChildren().add(foodChoices);
     }
 
     /**
@@ -339,7 +413,7 @@ public class AgendaController extends Controller implements Initializable {
      */
     @FXML
     void applyButton(MouseEvent event) {
-        String itemName = foodchoices.getValue();
+        String itemName = foodChoices.getValue();
         double parsedAmount = Double.parseDouble(amount.getText());
         LocalDate date = datepicker.getValue();
 
@@ -356,27 +430,6 @@ public class AgendaController extends Controller implements Initializable {
         }
     }
 
-
-
-
-    /**
-     * Creates an empty white popup box for energy button popup.
-     * To be finished.
-     */
-
-    public void energyButtonAction(javafx.scene.input.MouseEvent event) {
-
-        VBox vBox = new VBox();
-        vBox.setPrefHeight(250.0);
-        vBox.setPrefWidth(200.0);
-
-        vBox.setStyle("-fx-background-color: white");
-
-        PopOver popOver = new PopOver(vBox);
-        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-        popOver.show(ssbutton4);
-
-    }
 
     public JFXNodesList getNodesList() {
         return nodesList;

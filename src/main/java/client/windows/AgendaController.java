@@ -205,6 +205,13 @@ public class AgendaController extends Controller implements Initializable {
         return multimap;
     }
 
+    /**
+     * This function shows the activity on the agenda
+     * Takes in a multimap(date from datepicker and activity object)
+     * Wout is still looking into how to show the activity instantly after adding
+     * without reloading the app
+     * @param activityMap
+     */
     private void showAgendaActivites(Multimap<LocalDate, Activity> activityMap) {
         agendaBox.getChildren().removeAll();
 

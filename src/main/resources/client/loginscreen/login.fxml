@@ -47,7 +47,7 @@
                                     <children>
                                         <VBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="45.0">
                                             <children>
-                                                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 3em;" text="We are" wrappingWidth="131.98181915283203">
+                                                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 3em;" text="We are" wrappingWidth="196.78174591064453">
                                                     <VBox.margin>
                                                         <Insets right="3.0" />
                                                     </VBox.margin>
@@ -62,7 +62,7 @@
                                         </VBox>
                                         <VBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="78.0">
                                             <children>
-                                                <Text id="green" fill="#95e743" strokeType="OUTSIDE" strokeWidth="0.0" text="Greenly" wrappingWidth="156.0255126953125">
+                                                <Text id="green" fill="#95e743" strokeType="OUTSIDE" strokeWidth="0.0" text="Greenly" wrappingWidth="188.0255126953125">
                                                     <VBox.margin>
                                                         <Insets left="2.0" />
                                                     </VBox.margin>

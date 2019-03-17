@@ -53,6 +53,10 @@ public class SignUpRequestTest {
         res = signUpRequest.doInBackground(null);
         Assert.assertFalse(res);
 
+        signUpRequest = new SignUpRequest(";;/asdf", "admin", genString() + "@test.com", null);
+        res = signUpRequest.doInBackground(null);
+        Assert.assertFalse(res);
+
         signUpRequest = new SignUpRequest(genString(), "4trafasdfasdfasdfasdfdf", "admin@test.com", null);
         res = signUpRequest.doInBackground(null);
         Assert.assertFalse(res);

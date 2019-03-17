@@ -39,7 +39,8 @@ public class LoginRequest extends AsyncTask {
     @Override
     public Boolean doInBackground(Object[] params) {
         if (login()) {
-            success = getUserProfile();
+            getUserProfile();
+            success = loadImage();
         } else {
             success = false;
         }
@@ -92,12 +93,10 @@ public class LoginRequest extends AsyncTask {
      *
      * @return the user profile
      */
-    public boolean getUserProfile() {
+    public void getUserProfile() {
         ServerRequests sv = new ServerRequests();
         clientUser = sv.getClientUserProfile();
         clientUser.setActivityList(sv.retrieveActivities("w"));
-        return loadImage();
-
     }
 
     /**

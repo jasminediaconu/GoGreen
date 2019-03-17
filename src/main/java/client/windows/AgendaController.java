@@ -239,8 +239,6 @@ public class AgendaController extends Controller implements Initializable {
 
         gridPane.setHgap(20);
         agendaBox.getChildren().add(gridPane);
-
-
     }
     /**
      * This function rounds a double value to N decimal places.

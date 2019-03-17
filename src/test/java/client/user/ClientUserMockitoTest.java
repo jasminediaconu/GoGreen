@@ -16,11 +16,12 @@ import static org.mockito.Mockito.*;
 
 public class ClientUserMockitoTest {
 
+    public List<Activity> activityList = new ArrayList<>();
+
     @Before
     public void setUp() {
         //Image img = new Image("aaa");
 
-        List<Activity> activityList = new ArrayList<>();
         Activity activity1 = new Activity(1, 100, LocalDate.now());
         Activity activity2 = new Activity(2, 140, LocalDate.now().minusDays(1));
         Activity activity3 = new Activity(3, 50, LocalDate.now().minusDays(2));
@@ -157,25 +158,14 @@ public class ClientUserMockitoTest {
 
     @Test
     public void getActivityList() {
-        List<Activity> activityList = new ArrayList<>();
-        Activity activity1 = new Activity(1, 100, LocalDate.now());
-        Activity activity2 = new Activity(2, 140, LocalDate.now().minusDays(1));
-        Activity activity3 = new Activity(3, 50, LocalDate.now().minusDays(2));
-
-        activityList.add(activity1);
-        activityList.add(activity2);
-        activityList.add(activity3);
-
         assertEquals(mockedClientUser.getActivityList(), activityList);
 
     }
 
     @Test
     public void setActivityList() {
-        List<Activity> activityList = new ArrayList<>();
-        Activity activity1 = new Activity(1, 349, LocalDate.now());
-
-        activityList.add(activity1);
+        Activity activity = new Activity(1, 349, LocalDate.now());
+        activityList.add(activity);
 
         doCallRealMethod().when(mockedClientUser).setActivityList(eq(activityList));
         mockedClientUser.setActivityList(activityList);
@@ -184,22 +174,22 @@ public class ClientUserMockitoTest {
 
     @Test
     public void addToActivityList() {
-//        List<Activity> activityList = new ArrayList<>();
-//        Activity activity1 = new Activity(1, 100, LocalDate.now());
-//        Activity activity2 = new Activity(2, 140, LocalDate.now().minusDays(1));
-//        Activity activity3 = new Activity(3, 50, LocalDate.now().minusDays(2));
-//        Activity activity4 = new Activity(4, 232, LocalDate.now());
-//
-//        activityList.add(activity1);
-//        activityList.add(activity2);
-//        activityList.add(activity3);
-//        activityList.add(activity4);
-//
-//        doCallRealMethod().when(mockedClientUser).addToActivityList(eq(activity4));
-//        mockedClientUser.addToActivityList(activity4);
-//
-//        when(mockedClientUser.getActivityList()).thenReturn(activityList);
-//        assertEquals(mockedClientUser.getActivityList(), activityList);
+        List<Activity> activityList2 = new ArrayList<>();
+        Activity activity1 = new Activity(1, 100, LocalDate.now());
+        Activity activity2 = new Activity(2, 140, LocalDate.now().minusDays(1));
+        Activity activity3 = new Activity(3, 50, LocalDate.now().minusDays(2));
+        Activity activity4 = new Activity(4, 232, LocalDate.now());
+
+        activityList.add(activity4);
+
+        activityList2.add(activity1);
+        activityList2.add(activity2);
+        activityList2.add(activity3);
+        activityList2.add(activity4);
+
+        doCallRealMethod().when(mockedClientUser).addToActivityList(eq(activity4));
+        when(mockedClientUser.getActivityList()).thenReturn(activityList);
+        assertEquals(mockedClientUser.getActivityList(), activityList2);
     }
 
     @Test

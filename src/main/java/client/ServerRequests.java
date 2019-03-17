@@ -51,7 +51,7 @@ public class ServerRequests {
         }else if("password".equals(response)) {
             System.out.println("[ERROR] User specified an invalid password");
             return response;
-        }else if(response != null && !response.equals("fail")){
+        }else if(response != null && !"fail".equals(response)){
             System.out.println("[INFO] Login was successful");
             Main.sessionID = response;
             return "success";
@@ -113,7 +113,7 @@ public class ServerRequests {
         System.out.println("[INFO] Ending session, "
                 + "create a new session to continue or close the application.");
         String response = sendRequestToServer("end", Main.gson.toJson(Main.sessionID));
-        if (response.equals("ok")) {
+        if ("ok".equals(response)) {
             System.out.println("[INFO] The session has been ended successfully.");
         } else {
             System.out.println("[WARNING] Something went wrong ending the session.");
@@ -182,7 +182,7 @@ public class ServerRequests {
         System.out.println("[INFO] Removing activity from database. " + activityID);
         String response = sendRequestToServer("removeActivity?s="
                 + Main.sessionID, Main.gson.toJson(activityID));
-        if (response.equals("ok")) {
+        if ("ok".equals(response)) {
             System.out.println("[INFO] Removing activity from database was successful");
             return true;
         } else {
@@ -224,14 +224,13 @@ public class ServerRequests {
      */
     public boolean updateClientUserProfile() {
         String response = sendRequestToServer("updateUserProfile?s=" + Main.sessionID, Main.gson.toJson(Main.clientUser));
-        if (response == null || response.equals("fail")) {
-            System.out.println("[ERROR] Updating the client users profile went wrong");
-            return false;
-        } else if (response.equals("success")) {
+        if("success".equals(response)) {
             System.out.println("[INFO] Updating the client users profile went successfully");
             return true;
+        } else {
+            System.out.println("[ERROR] Updating the client users profile went wrong");
+            return false;
         }
-        return false;
     }
 
     /**
@@ -244,7 +243,7 @@ public class ServerRequests {
         }.getType();
         String response = sendRequestToServer("getFollowingProfile?s=" + Main.sessionID, null);
         if (response == null)
-            return new ArrayList<User>();
+            return new ArrayList<>();
         return Main.gson.fromJson(response, listType);
     }
 
@@ -258,7 +257,7 @@ public class ServerRequests {
         }.getType();
         String response = sendRequestToServer("getGlobalBestProfile?s=" + Main.sessionID, null);
         if (response == null)
-            return new ArrayList<User>();
+            return new ArrayList<>();
         return Main.gson.fromJson(response, listType);
     }
 

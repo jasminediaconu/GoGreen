@@ -155,7 +155,7 @@ public class UserController {
         if (userID == -1){
             return null;
         }
-        return getUsers(-1, selectFollowing);
+        return getUsers(userID, selectFollowing);
     }
 
     /**
@@ -169,7 +169,7 @@ public class UserController {
         if (userID == -1){
             return null;
         }
-        return getUsers(-1, selectGlobalBest);
+        return getUsers(userID, selectGlobalBest);
     }
 
     /**

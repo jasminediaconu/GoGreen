@@ -11,10 +11,11 @@ import javafx.scene.image.Image;
  */
 public class LoginRequest extends AsyncTask {
 
+
+    public ClientUser clientUser;
     private LoginController loginController;
     private String username;
     private String password;
-    private ClientUser clientUser;
     private boolean success = false;
 
     /**
@@ -43,7 +44,7 @@ public class LoginRequest extends AsyncTask {
             success = false;
         }
 
-        return true;
+        return success;
     }
 
     @Override
@@ -56,7 +57,12 @@ public class LoginRequest extends AsyncTask {
         }
     }
 
-    private boolean login() {
+    /**
+     * Login boolean.
+     *
+     * @return the boolean
+     */
+    public boolean login() {
         ServerRequests sv = new ServerRequests();
         String response = sv.login(username, password);
 
@@ -65,9 +71,6 @@ public class LoginRequest extends AsyncTask {
             return false;
         } else if (response.equals("syntax")) {
             //IMPROPER SYNTAX
-            return false;
-        } else if (response.equals("fail")) {
-            //SOMETHING WENT WRONG
             return false;
         } else if (response.equals("username")) {
             //WRONG USERNAME
@@ -78,21 +81,40 @@ public class LoginRequest extends AsyncTask {
         } else if (response.equals("success")) {
             sv.getItems();
             return true;
+        } else {
+            //something went wrong
+            return false;
         }
-        return false;
     }
 
-    private boolean getUserProfile() {
+    /**
+     * Gets user profile.
+     *
+     * @return the user profile
+     */
+    public boolean getUserProfile() {
         ServerRequests sv = new ServerRequests();
         clientUser = sv.getClientUserProfile();
-        if (clientUser != null) {
-            clientUser.setActivityList(sv.retrieveActivities("w"));
-            String url = clientUser.getImageURL();
-            if (url != null && url.length() != 0 && !url.equals("default")) {
-                Image image = new Image(url);
-                clientUser.setProfileImage(image);
+        clientUser.setActivityList(sv.retrieveActivities("w"));
+        return loadImage();
 
+    }
+
+    /**
+     * Load image boolean.
+     *
+     * @return the boolean
+     */
+    public boolean loadImage() {
+        String url = clientUser.getImageURL();
+        if (url != null) {
+
+            if (url.equals("default")) {
+                return true;
             }
+
+            Image image = new Image(url);
+            clientUser.setProfileImage(image);
             return true;
         }
         return false;

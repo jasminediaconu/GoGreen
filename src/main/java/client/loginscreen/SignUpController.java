@@ -60,11 +60,13 @@ public class SignUpController implements Initializable {
     }
 
     private void setDisableScreen(boolean disableScreen) {
-        tf_username.setDisable(disableScreen);
-        pf_password.setDisable(disableScreen);
-        tf_email.setDisable(disableScreen);
-        signUpButton.setDisable(disableScreen);
-        loginButton.setDisable(disableScreen);
+        if (tf_username != null) {
+            tf_username.setDisable(disableScreen);
+            pf_password.setDisable(disableScreen);
+            tf_email.setDisable(disableScreen);
+            signUpButton.setDisable(disableScreen);
+            loginButton.setDisable(disableScreen);
+        }
     }
 
     /**
@@ -129,13 +131,15 @@ public class SignUpController implements Initializable {
      * This function will be called when the signUp was successful.
      */
     public void signUpSucces() {
-        //GOTO MAIN SCREEN
-        try {
-            String path = "../windows/fxml/mainScreen.fxml";
-            Parent root = FXMLLoader.load(getClass().getResource(path));
-            fillScene(root);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (tf_username != null) {
+            //GOTO MAIN SCREEN
+            try {
+                String path = "../windows/fxml/mainScreen.fxml";
+                Parent root = FXMLLoader.load(getClass().getResource(path));
+                fillScene(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -146,8 +150,10 @@ public class SignUpController implements Initializable {
      */
     public void signUpFail(int response) {
         //sign up failed
-        setDisableScreen(false);
-        System.out.println("FAIL CODE:  " + response);
+        if (tf_username != null) {
+            setDisableScreen(false);
+            System.out.println("FAIL CODE:  " + response);
+        }
     }
 
     /**

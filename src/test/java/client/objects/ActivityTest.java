@@ -55,8 +55,23 @@ class ActivityTest {
 
     @Test
     void equals() {
+        Assert.assertEquals(activity1,activity1);
         Assert.assertNotEquals(activity1, activity2);
         Activity activity = new Activity(1, 2, LocalDate.now());
         Assert.assertEquals(activity1, activity);
+        Assert.assertNotEquals(activity, null);
+        int number = 1;
+        Assert.assertNotEquals(activity, number);
+        activity.setItemID(2);
+        Assert.assertNotEquals(activity1,activity);
+        activity.setItemID(1);
+        activity.setAmount(5);
+        Assert.assertNotEquals(activity1, activity);
+        activity.setAmount(2);
+        activity.setDate(LocalDate.now().minusDays(2));
+        Assert.assertNotEquals(activity1,activity);
+        activity.setDate(LocalDate.now());
+        activity.setActivityID(1);
+        Assert.assertNotEquals(activity1,activity);
     }
 }

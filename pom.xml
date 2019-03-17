@@ -333,9 +333,9 @@
             <!--<exclude>**/loginscreen/**</exclude>-->
             <!--<exclude>**/helper/*Class.*</exclude>-->
             <!--<exclude>**/login/**</exclude>-->
-            <!--<exclude>**/objects/**</exclude>-->
             <!--<exclude>**/InfoController.*</exclude>-->
             <!--<exclude>**/SessionController.*</exclude>-->
+            <!--<exclude>**/objects/**</exclude>-->
             <!--</excludes>-->
             <!--</configuration>-->
             <!--</plugin>-->

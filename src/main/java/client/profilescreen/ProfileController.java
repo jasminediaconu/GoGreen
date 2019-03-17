@@ -192,9 +192,10 @@ public class ProfileController extends Controller {
     }
 
     private void saveChanges() {
+        ServerRequests sv = new ServerRequests();
         Main.clientUser = newSettings.deepCopy();
         setButtonsDisable(true);
-        ServerRequests.updateClientUserProfile();
+        sv.updateClientUserProfile();
         update();
     }
 

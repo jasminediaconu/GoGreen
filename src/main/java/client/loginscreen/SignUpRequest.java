@@ -60,6 +60,7 @@ public class SignUpRequest extends AsyncTask {
         if (signUp()) {
             clientUser = sv.getClientUserProfile();
             if (clientUser != null) {
+                this.response = OK;
                 return true;
             }
         }
@@ -84,15 +85,21 @@ public class SignUpRequest extends AsyncTask {
         String response = sv.signUp(username, email, password);
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
+            return false;
         } else if (response.equals("syntax")) {
-            //INCORRECT SYNTAX
-            this.response = SYNTAX;
+            //IMPROPER SYNTAX
+            return false;
         } else if (response.equals("fail")) {
-            //SIGN UP WAS UNSUCCESSFUL
-            this.response = FAIL;
-        } else if (response.equals("ok")) {
+            //SOMETHING WENT WRONG
+            return false;
+        } else if (response.equals("username")) {
+            //WRONG USERNAME
+            return false;
+        } else if (response.equals("email")) {
+            //WRONG PASSWORD
+            return false;
+        } else if (response.equals("success")) {
             sv.getItems();
-            this.response = OK;
             return true;
         }
         return false;

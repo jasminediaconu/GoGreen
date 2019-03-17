@@ -162,12 +162,6 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users solar power usage boolean to the argument solarPower
-     *
-     * @param solarPower boolean type
-     */
-
-    /**
      * Gets image url.
      *
      * @return the image url

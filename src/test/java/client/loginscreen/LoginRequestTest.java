@@ -63,12 +63,13 @@ public class LoginRequestTest {
         loginRequest.getUserProfile();
 
         JFXPanel jfxPanel = new JFXPanel();
+        jfxPanel.setToolTipText("default");
 
         loginRequest.clientUser.setImageURL(null);
         boolean res = loginRequest.loadImage();
         Assert.assertFalse(res);
 
-        loginRequest.clientUser.setImageURL("default");
+        loginRequest.clientUser.setImageURL(jfxPanel.getToolTipText());
         res = loginRequest.loadImage();
         Assert.assertTrue(res);
 

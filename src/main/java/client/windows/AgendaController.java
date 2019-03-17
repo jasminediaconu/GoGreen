@@ -339,6 +339,7 @@ public class AgendaController extends Controller implements Initializable {
      */
     @FXML
     void applyButton(MouseEvent event) {
+        ServerRequests sv = new ServerRequests();
         String itemName = foodchoices.getValue();
         double parsedAmount = Double.parseDouble(amount.getText());
         LocalDate date = datepicker.getValue();
@@ -347,7 +348,7 @@ public class AgendaController extends Controller implements Initializable {
             System.out.println(date.toString());
             int itemID = Main.items.stream().filter(x -> x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
             Activity activity = new Activity(itemID, parsedAmount, date);
-            if (ServerRequests.addActivity(activity)) {
+            if (sv.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
                 //refresh agenda
 

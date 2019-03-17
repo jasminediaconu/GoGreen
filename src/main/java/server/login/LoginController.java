@@ -22,8 +22,8 @@ public class LoginController {
 
     static {
         try {
-            select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login "
-                    + "WHERE username = ? AND password = ?;");
+            select = ServerApp.dbConnection.prepareStatement("SELECT userid, password FROM user_login "
+                    + "WHERE username = ?;");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,19 +45,23 @@ public class LoginController {
             String password = user[1];
 
             select.setString(1, username);
-            select.setString(2, password);
 
             ResultSet result = select.executeQuery();
             while (result.next()) {
-                String sessionID = ServerApp.createNewSessionID();
-                int userID = Integer.parseInt(result.getString("userid"));
-                ServerApp.addSessionID(sessionID, userID);
-                return sessionID + "::" + userID;
+                if(result.getString("password").equals(password)) {
+                    int userID = result.getInt("userid");
+                    String sessionID = ServerApp.createNewSessionID();
+                    ServerApp.addSessionID(sessionID, userID);
+                    return sessionID;
+                }
+                return "password";
             }
+            return "username";
+
         } catch (Exception e) {
             e.printStackTrace();
+            return "fail";
         }
-        return "fail";
     }
 
 }

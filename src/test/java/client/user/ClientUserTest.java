@@ -85,5 +85,4 @@ class ClientUserTest {
         user2.setStreakLength(25);
         Assert.assertEquals(user.equals(user2), false);
     }
-
 }

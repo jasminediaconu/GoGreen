@@ -11,10 +11,12 @@ public class User {
      * The Username.
      */
     protected String username;
+
     /**
      * The Country.
      */
     protected String country;
+
     /**
      * The Total co2.
      */
@@ -114,5 +116,4 @@ public class User {
                 && Objects.equals(username, user.username)
                 && Objects.equals(country, user.country);
     }
-
 }

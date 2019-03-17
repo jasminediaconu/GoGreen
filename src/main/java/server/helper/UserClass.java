@@ -7,7 +7,7 @@ public class UserClass {
     public double totalCo2;
 
     /**
-     * This is the UserClass, all user classes will be populated here
+     * This is the UserClass, all user classes will be populated here.
      *
      * @param username String type
      * @param country  String type

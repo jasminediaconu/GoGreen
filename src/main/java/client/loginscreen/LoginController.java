@@ -41,7 +41,7 @@ public class LoginController extends Controller implements Initializable {
 
 
     @FXML
-    private AnchorPane loginScene;
+    private AnchorPane loginScene = new AnchorPane();
 
     /**
      * This function handles the closing of the window, with the cross button.

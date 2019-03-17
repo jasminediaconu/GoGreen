@@ -260,7 +260,7 @@ public class AgendaController extends Controller implements Initializable {
      * To be finished.
      */
 
-    public void transportButtonAction(javafx.scene.input.MouseEvent event) {
+    public void transportButtonAction(MouseEvent event) {
         VBox box = new VBox();
         box.setPrefHeight(250.0);
         box.setPrefWidth(200.0);
@@ -276,7 +276,7 @@ public class AgendaController extends Controller implements Initializable {
      * This method appends the foodWindow.fxml to the
      */
     @FXML
-    public void foodButtonAction(javafx.scene.input.MouseEvent event) {
+    public void foodButtonAction(MouseEvent event) {
         loadActivity();
         mainScreenController = new MainScreenController();
 
@@ -325,7 +325,7 @@ public class AgendaController extends Controller implements Initializable {
      * To be finished.
      */
 
-    public void energyButtonAction(javafx.scene.input.MouseEvent event) {
+    public void energyButtonAction(MouseEvent event) {
 
         VBox box = new VBox();
         box.setPrefHeight(250.0);

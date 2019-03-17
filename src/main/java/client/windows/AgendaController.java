@@ -425,7 +425,7 @@ public class AgendaController extends Controller implements Initializable {
 
     /**
      * applyButton event
-     * agendatext should be Jasmine's agendabox
+     * Applies the activity to the agenda, still needs a restart of the application
      */
     @FXML
     void applyButton(MouseEvent event) {

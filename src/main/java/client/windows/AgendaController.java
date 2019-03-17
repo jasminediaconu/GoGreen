@@ -133,7 +133,7 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This function will display a dialog message to the user when he want to delete an activity.
+     * This function will display a dialog message to the user when he wants to delete an activity.
      * The dialog button contains a message and two buttons:
      * a close button and a delete one connected to the deleteActivity function.
      */

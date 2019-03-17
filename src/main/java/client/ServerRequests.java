@@ -242,7 +242,7 @@ public class ServerRequests {
     }
 
     /**
-     * This funtion gets the global best users.
+     * This function gets the global best users.
      *
      * @return a list of Users
      */

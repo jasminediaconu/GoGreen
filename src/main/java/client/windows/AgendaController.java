@@ -1,5 +1,6 @@
 package client.windows;
 
+import client.helper.RowCount;
 import client.Main;
 import client.ServerRequests;
 import client.objects.Activity;
@@ -11,16 +12,12 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXNodesList;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
@@ -31,9 +28,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -114,7 +109,7 @@ public class AgendaController extends Controller implements Initializable {
         }
         if (Main.clientUser.getActivityList() != null) {
             Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
-            showAgendaActivites(activityMap);
+            showAgendaActivities(activityMap);
         }
 
         gridPane.setHgap(20);
@@ -133,7 +128,7 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This function will display a dialog message to the user when he want to delete an activity.
+     * This function will display a dialog message to the user when he wants to delete an activity.
      * The dialog button contains a message and two buttons:
      * a close button and a delete one connected to the deleteActivity function.
      */
@@ -164,28 +159,8 @@ public class AgendaController extends Controller implements Initializable {
     private void deleteActivity(int rowIndex) {
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
-        agendaBox.getChildren().removeIf(dateText -> getRowCount(gridPane) == 0);
+        agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
         dialog.close();
-    }
-
-    /**
-     * Count the number of rows in a pane.
-     *
-     * @param pane GridPane
-     * @return numRows
-     */
-    private int getRowCount(GridPane pane) {
-        int numRows = pane.getRowConstraints().size();
-        for (int i = 0; i < pane.getChildren().size(); i++) {
-            Node child = pane.getChildren().get(i);
-            if (child.isManaged()) {
-                Integer rowIndex = GridPane.getRowIndex(child);
-                if (rowIndex != null) {
-                    numRows = Math.max(numRows, rowIndex + 1);
-                }
-            }
-        }
-        return numRows;
     }
 
     private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
@@ -196,7 +171,7 @@ public class AgendaController extends Controller implements Initializable {
         return multimap;
     }
 
-    private void showAgendaActivites(Multimap<LocalDate, Activity> activityMap) {
+    private void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
         agendaBox.getChildren().removeAll();
 
 
@@ -352,7 +327,7 @@ public class AgendaController extends Controller implements Initializable {
                 Main.clientUser.addToActivityList(activity);
                 //refresh agenda
 
-                showAgendaActivites(activityMap(Main.clientUser.getActivityList()));
+                showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }
     }

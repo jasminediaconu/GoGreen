@@ -23,29 +23,13 @@
    <children>
       <Pane fx:id="overview" layoutX="-16.0" layoutY="40.0" prefHeight="727.0" prefWidth="1025.0" style="-fx-background-color: #ffffff; -fx-border-radius: 0 0 24 24;">
          <children>
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <ImageView layoutX="315.0" layoutY="33.0">
-=======
-            <ImageView layoutX="407.0" layoutY="40.0">
->>>>>>> parent of ea2e6d9... overview changes drop box for day and month
-=======
-            <ImageView layoutX="313.0" layoutY="40.0">
->>>>>>> develop
+             <ImageView layoutX="313.0" layoutY="40.0">
                <image>
                   <Image url="@../images/chart.png" />
                </image>
             </ImageView>
             <JFXNodesList layoutX="742.0" layoutY="615.0" prefHeight="0.0" prefWidth="0.0" />
-<<<<<<< HEAD
-<<<<<<< HEAD
-            <Text fill="#95e743" layoutX="417.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" wrappingWidth="293.9101963043213">
-=======
-            <Text fill="#95e743" layoutX="509.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" wrappingWidth="293.9101963043213">
->>>>>>> parent of ea2e6d9... overview changes drop box for day and month
-=======
-            <Text fill="#95e743" layoutX="403.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" wrappingWidth="293.9101963043213">
->>>>>>> develop
+             <Text fill="#95e743" layoutX="403.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overview" wrappingWidth="293.9101963043213">
                <font>
                   <Font name="Century Gothic" size="61.0" />
                </font>

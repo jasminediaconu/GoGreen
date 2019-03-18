@@ -43,17 +43,17 @@ class ServerRequestsTest {
 
     @Test
     void loginUsername() {
-        Assert.assertEquals("username", sv.login("username", "password"));
+        Assert.assertEquals("username", sv.login("dafdsfsfgsrfsdafafasfas", "password"));
     }
 
     @Test
     void loginPassword() {
-        Assert.assertEquals("password", sv.login("WoutHaakman", "test"));
+        Assert.assertEquals("password", sv.login("admin", "test"));
     }
 
     @Test
     void loginSuccess() {
-        Assert.assertEquals("success", sv.login("WoutHaakman", "password"));
+        Assert.assertEquals("success", sv.login("admin", "admin"));
     }
 
     @Test
@@ -78,12 +78,12 @@ class ServerRequestsTest {
 
     @Test
     void signUpUsername() {
-        Assert.assertEquals("username", sv.signUp("WoutHaakman", "email@email.com", "password"));
+        Assert.assertEquals("username", sv.signUp("admin", "email@email.com", "password"));
     }
 
     @Test
     void signUpEmail() {
-        Assert.assertEquals("email", sv.signUp("username", "wouthaakman@hotmail.com", "password"));
+        Assert.assertEquals("email", sv.signUp("randomusername", "admin@test.com", "password"));
     }
 
     @Test
@@ -186,7 +186,7 @@ class ServerRequestsTest {
     void getClientUserProfile() {
         ClientUser cu = sv.getClientUserProfile();
         Assert.assertNotNull(cu);
-        Assert.assertEquals("WoutHaakman", cu.getUsername());
+        Assert.assertEquals("admin", cu.getUsername());
     }
 
     @Test

@@ -1,49 +1,34 @@
 # Task and Issue distribution SPRINT 6
 
-## `3rd DEMO DEADLINE 1st April: Final Feedback of TA"`
+## `3rd DEMO DEADLINE 1st April, week 8: Final Feedback of TA"`
 
 * `4 of the 6 minimal features from Food, Transportation and Energy have been implemented (0.4)`
 * `The full workflow for "Track the CO2 that you save and compare to your friends" is implemented`
 * `You are able to have an overview of the CO2 that you have saved. (0.2)`
 * `You are able to have an overview of the CO2 that others have saved. (0.2)`
+* week 8 thursday draft of final report, week 9 monday Lab Trial run for presentation
 
 ## TO DO General for next demo:
 * When activity is applied it should show up immediately on the agenda
-* Everybody should know JUnit 5 tests and mockito
 * Everybody should have checkstyle plugin, know how to autoformat and manual format.
 * Start cleaning up fully functional classes according to checkstyle
 * All current branches should be merged and functional in develop
+* `week 8 thursday draft of final report, week 9 monday Lab Trial run for presentation`
 * `TEST COVERAGE`Preferable 95%, min 80%
 
 ## Testing:
 
-* Tests for database and server requests, serverApp coverage - Wout
-* Activity, Item, Achievement, User, ClientUser classes with Mockito - Giuliano
-* LoginRequest, SignUpRequest - Jan Willem
-* User, ClientUser, Item, Activity - Gino
-* Divide AgendaController into helper class and test it - Mandy
-* The function in ActivityController needs to have a helper class, selectDomain method - Wout
-* Can ImageChoose.class be tested?
+* Divide AgendaController into helper class and test it - Mandy: getRowCount, round, activityMap functions
 
 ## Overview page, badges & achievements (Jasmine):
-	* 
-Click on the badge, show up a popup box, say title, what the user has to do to achieve it and show progress bar.
-	* 
-Make them go vertical 6 in a row.
-	* 
-AchievementController class not same the same as FXML controller
-	* 
-Call an updating function depending on what activity you added to the agenda
-	* 
-To update the progress bar in the achievements
+* Click on the badge, show up a popup box, say title, what the user has to do to achieve it and show progress bar.
+* Make them go vertical 6 in a row.
+* AchievementController class not same the same as FXML controller
+* Call an updating function depending on what activity you added to the agenda
+* To update the progress bar in the achievements
 
 
-
-	* 
-
-
-
-
+FROM LAST WEEK:
 
 * Work on the overview page, implement badges(achievements)
 * Make a scrollpane
@@ -54,62 +39,35 @@ To update the progress bar in the achievements
 
 ## Popup windows for plus button and functionality (Giuliano):
 
-	* 
-Fix applyButton to add energy and transport to the agenda
-	* 
-Make applyButton generic
-	* 
-Check if its already in that day if not take it from the database and add it to the day.
-	* 
-lower temperature
-	* 
-solarpanels
-	* 
-main.clientuser.getsolarpanels
-	* 
-main.clientuser.getleds
-	* 
-add unit to Text km if g if food
-	* 
-Ask on mattermost java app, if not able to contribute that much
+* Fix applyButton method in AgendaController to add energy and transport to the agenda when clicked apply
+* Make applyButton generic
+* Check if solarpanel, leds, lowered temperate already in agenda for that day if not take it from the database and add it to the day.
+* lower temperature
+* solarpanels
+* main.clientuser.getsolarpanels and implement in show agendaactivities function
+* main.clientuser.getleds and implement in show agendaactivities function
+* add unit to Text km if g if food - 
+* Ask on mattermost java app, if not able to contribute that much
 
 
+FROM LAST WEEK:
 
+* Mockito Achievement, Item, Activity
 
-
-	* 
-Mockito Achievement, Item, Activity
-
-
-	* 
-Extra miscellaneous plus button to be filled with items from Jan-Willem
-	* 
-Connect profile car to transportChoices dropdown button option by car
-	* 
-Connect profile energy to energyChoices
+* Extra miscellaneous plus button to be filled with items from Jan-Willem
+* Connect profile car to transportChoices dropdown button option by car
+* Connect profile energy to energyChoices
 
 
 
 ## Backend and General (Wout):
 
-	* 
-Make a follow request
+* Make a follow request
+* Link CO2 saved from Agenda to show under ProfileScreen - data persistence
+* Make a request to make the profile picture persistentMake an in id for the image, client sends it to the server then send it back when user logs in
+* Change database to be able to receive the number of solar panels and leds from the profile
 
-
-	* 
-Link CO2 saved from Agenda to show under ProfileScreen - data persistence
-
-
-	* 
-Make a request to make the profile picture persistent
-Make an in id for the image, client sends it to the server then send it back when user logs in
-
-
-	* 
-Change database to be able to receive the number of solar panels and leds from the profile
-
-
-
+FROM LAST WEEK:
 
 * Make the request specific for username, failed username and email
 * Store the profile icon on the server
@@ -122,22 +80,13 @@ Change database to be able to receive the number of solar panels and leds from t
 
 ## Profile (Jan Willem)
 
-	* 
-Update the @username on welcomeScreen to the actual username
+	* Update the @username on welcomeScreen to the actual username
+	* Updating the agendaScreen when an activity is added without having to restart the application
+	* Option textfield to put the number of solar panels and leds on the profile
+	* Call the function to make the profile picture load from database
 
+FROM LAST WEEK:
 
-	* 
-Updating the agendaScreen when an activity is added without having to restart the application
-
-
-	* 
-Option textfield to put the number of solar panels and leds on the profile
-	* 
-Call the function to make the profile picture load from database
-
-
-
-MUST HAVE:
 * Linking between profile and agenda Wout & Jan-Willem
 * Miscellanous items for the activities, using a cup at the coffeshop, which hep reduce CO2
 * Sprint review
@@ -149,15 +98,9 @@ EXTRA: Multithreaded application
 
 MUST HAVE:
 * Overview graph part, part of gamification bonus points
-	* 
-In the serverRequest class there is getactivities
-	* 
-Get the activity list
-	* 
-Retrieve activities
-
-
-
+* In the serverRequest class there is getactivities
+* Get the activity list
+* Retrieve activities
 
 FROM LAST SRINT:
 * Overview of the graph of cO2 saved
@@ -170,22 +113,13 @@ FROM LAST SRINT:
 
 ## Leaderboard (Mandy):
 
-	* 
-Make a follow button
-	* 
-Change Global to Following Pane
+* Make a follow button
+* Change Global to Following Pane
 
-
-
-MUST HAVE:
-	* 
-Follow and compare CO2 to the users,
-	* 
-Global and following to be populated with users
-	* 
-In global all the users which are in the database should show up, show CO2 next to their names and show the follow button.
-
-
+MUST HAVE:	
+* Follow and compare CO2 to the users	
+* Global and following to be populated with users
+* In global all the users which are in the database should show up, show CO2 next to their names and show the follow button.
 
 EXTRAS:
 * Search bar, you can look up somebodies profile, if there is no user show --> no user
@@ -196,14 +130,10 @@ EXTRAS:
 
 
 ## Mixed Tasks (Gino): MUST HAVE:
-	* 
-There is a great readme (0.1)
-	* 
+* There is a great readme (0.1)
+* Working on achievements with Jasmine, communicate and divide tasks
 
-
-
-
-MUST HAVE:
+FROM LAST WEEK:
 
 * Tests PRIORITY
 
@@ -220,11 +150,3 @@ EXTRAS:
 * Following list, show only the people you follow, show their CO2 reduction, if already followed, unfollow button shows up
 * Use Wout's function to populate the leaderboard.
 * Dropdown menu with countries
-
-
-
-
-
-
-
-

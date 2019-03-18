@@ -88,9 +88,8 @@ class ServerRequestsTest {
 
     @Test
     void signUpSuccess() {
-        String random = "TestAccount" + new Random().nextInt(1000);
+        String random = "TestAccount" + new Random().nextInt(10000);
 
-        System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" + random + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         Assert.assertEquals("success", sv.signUp(random, random + "@gmail.com", "password"));
     }
 

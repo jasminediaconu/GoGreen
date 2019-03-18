@@ -119,6 +119,14 @@ class ClientUserTest {
         user3.setCarType("SUV");
         user3.setCarEmissionType("diesel");
         Assert.assertEquals(user.equals(user3), false);
+        user3.setCarEmissionType("gas");
+        User newuser = new User("admin","Netherlands", 10);
+        User neweruser = new User("test","Netherlands", 5);
+        ArrayList<User> userlist = new ArrayList<User>();
+        userlist.add(newuser);
+        userlist.add(neweruser);
+        user3.setFollowing(userlist);
+        Assert.assertEquals(user.equals(user3), false);
         
     }
 

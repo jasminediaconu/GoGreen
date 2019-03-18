@@ -193,7 +193,7 @@ public class AgendaController extends Controller implements Initializable {
      * without reloading the app
      * @param activityMap
      */
-    private void showAgendaActivites(Multimap<LocalDate, Activity> activityMap) {
+    private void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
         agendaBox.getChildren().removeAll();
 
 

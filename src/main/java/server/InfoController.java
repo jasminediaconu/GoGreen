@@ -26,6 +26,7 @@ public class InfoController {
 
     /**
      * This function will retrieve the userID associated with a given sessionID
+     *
      * @param s String type
      * @return an int from the map of sessionIDs
      */

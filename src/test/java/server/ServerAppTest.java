@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 class ServerAppTest {
 
 
-
     @Test
     void addSessionID() {
         String uuid = ServerApp.createNewSessionID();

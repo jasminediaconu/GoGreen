@@ -20,7 +20,7 @@ import java.util.List;
  * This application is made by:
  *
  * @author wouthaakman, ginotramontina, giulianoforghieri,
- *         janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
+ * janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
  */
 public class Main {
 
@@ -32,6 +32,7 @@ public class Main {
 
     /**
      * Main function.
+     *
      * @param args type.
      */
     public static void main(String[] args) {

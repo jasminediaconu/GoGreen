@@ -1,10 +1,6 @@
 package server.objects;
 
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import server.ServerApp;
 import server.helper.ActivityClass;
 
@@ -46,6 +42,7 @@ public class ActivityController {
     /**
      * This function will handle adding an Activity to the database,
      * that belongs to a given sessionid.
+     *
      * @param s String type sessionID
      * @param a ActivityClass type
      * @return int containing the id of the activity
@@ -71,7 +68,8 @@ public class ActivityController {
 
     /**
      * This function will remove an Activity with a given id and corresponding user.
-     * @param s String type sessionID.
+     *
+     * @param s          String type sessionID.
      * @param activityID int type.
      * @return a String telling the client whether the transaction succeeded.
      */
@@ -93,9 +91,10 @@ public class ActivityController {
     /**
      * This function will handle all retrieve Activity requests.
      * It will retrieve all activities that a given user has on their profile.
-     * @param s String type sessionID
+     *
+     * @param s      String type sessionID
      * @param period A String consisting of the sessionID and domain type,
-     *        split by a whitespace character
+     *               split by a whitespace character
      * @return a JSON with a list of activities
      */
     @RequestMapping(value = "/retrieveActivities", method = RequestMethod.POST)

@@ -1,4 +1,3 @@
-
 package client.user;
 
 import java.awt.image.BufferedImage;

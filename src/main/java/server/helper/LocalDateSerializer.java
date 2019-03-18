@@ -15,9 +15,10 @@ public class LocalDateSerializer implements JsonSerializer<LocalDate> {
     /**
      * This function will make sure that the LocalDate class will be properly serialized, given the yyyyMMdd format,
      * to prepare for JSON requests.
+     *
      * @param localDate LocalDate type
-     * @param srcType Type type
-     * @param context JsonSerialization type
+     * @param srcType   Type type
+     * @param context   JsonSerialization type
      * @return a JsonElement with the LocalDate, but then serialized
      */
     @Override

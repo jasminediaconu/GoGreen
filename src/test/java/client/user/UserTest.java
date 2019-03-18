@@ -27,7 +27,7 @@ class UserTest {
 
     @Test
     void getTotalCo2() {
-        Assert.assertEquals(user.getTotalCo2() == 2000,true);
+        Assert.assertEquals(user.getTotalCo2() == 2000, true);
     }
 
     @Test
@@ -44,7 +44,9 @@ class UserTest {
     }
 
     @Test
-    void equalsNull() { Assert.assertEquals(user.equals(null), false); }
+    void equalsNull() {
+        Assert.assertEquals(user.equals(null), false);
+    }
 
     @Test
     void equalsOtherType() {
@@ -53,14 +55,18 @@ class UserTest {
     }
 
     @Test
-    void equalsSelf() {Assert.assertEquals(user.equals(user),true);}
+    void equalsSelf() {
+        Assert.assertEquals(user.equals(user), true);
+    }
 
     @Test
-    void equalsSame() {Assert.assertEquals(user.equals(user2), true);}
+    void equalsSame() {
+        Assert.assertEquals(user.equals(user2), true);
+    }
 
     @Test
     void equalsNotSame() {
-        User user3 = new User("test","Germany",5);
+        User user3 = new User("test", "Germany", 5);
         Assert.assertEquals(user.equals(user3), false);
     }
 
@@ -70,7 +76,7 @@ class UserTest {
         Assert.assertEquals(user.equals(user2), false);
         user2.setUsername("admin");
         user2.setCountry("Belgium");
-        Assert.assertEquals(user.equals(user2),false);
+        Assert.assertEquals(user.equals(user2), false);
         user2.setCountry("Netherlands");
         user2.setTotalCo2(404);
         Assert.assertEquals(user.equals(user2), false);

@@ -8,6 +8,7 @@ import server.ServerApp;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * This class handles the REST controlling for any signup request.
@@ -26,10 +27,17 @@ public class SignUpController {
 
     static {
         try {
-            usernameTaken = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE username = ?;");
-            emailTaken = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE email = ?;");
-            insert = ServerApp.dbConnection.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?) RETURNING userid;");
-        } catch (Exception e) {
+            usernameTaken = ServerApp.dbConnection.prepareStatement(
+                    "SELECT userid FROM user_login WHERE username = ?;"
+            );
+            emailTaken = ServerApp.dbConnection.prepareStatement(
+                    "SELECT userid FROM user_login WHERE email = ?;"
+            );
+            insert = ServerApp.dbConnection.prepareStatement(
+                    "INSERT INTO user_login (\"username\", \"email\", \"password\") "
+                            + "VALUES (?, ?, ?) RETURNING userid;"
+            );
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -55,7 +63,7 @@ public class SignUpController {
             while (result.next()) {
                 return "username";
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -66,7 +74,7 @@ public class SignUpController {
             while (result.next()) {
                 return "email";
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -81,7 +89,7 @@ public class SignUpController {
             String sessionID = ServerApp.createNewSessionID();
             ServerApp.addSessionID(sessionID, userID);
             return sessionID;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return "fail";
         }

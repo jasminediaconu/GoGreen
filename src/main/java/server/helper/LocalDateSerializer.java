@@ -13,7 +13,8 @@ public class LocalDateSerializer implements JsonSerializer<LocalDate> {
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     /**
-     * This function will make sure that the LocalDate class will be properly serialized, given the yyyyMMdd format,
+     * This function will make sure that the LocalDate class will be properly serialized,
+     * given the yyyyMMdd format,
      * to prepare for JSON requests.
      *
      * @param localDate LocalDate type

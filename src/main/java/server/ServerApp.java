@@ -2,6 +2,7 @@ package server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import server.helper.LocalDateDeserializer;
@@ -81,9 +82,10 @@ public class ServerApp {
      * @param sessionID String type.
      * @return an integer corresponding to the userID in the database.
      */
-    public static int getUserIDFromSession(String sessionID) {
-        if (sessions.get(sessionID) == null)
+    public static int getUserIDfromSession(String sessionID) {
+        if (sessions.get(sessionID) == null) {
             return -1;
+        }
         return sessions.get(sessionID);
     }
 }

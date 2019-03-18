@@ -35,3 +35,7 @@ This was solved by doing 'clean' again.
 - We were able to progress a lot during the previous sprint, thanks to the extra meeting we had.
 - Using the rubric and the moscow for issue distribution made us more efficient.
 - So now for the coming sprint we distributed the tasks better, to give everyone an equal amount of workload.
+
+### Wout (whaakman)
+- We got everything to work properly and everybody is finally getting set up.
+- Extra meetings greatly improved our productivity and should be done more in the future.

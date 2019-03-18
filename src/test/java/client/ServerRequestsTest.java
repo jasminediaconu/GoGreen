@@ -48,12 +48,12 @@ class ServerRequestsTest {
 
     @Test
     void loginPassword() {
-        Assert.assertEquals("password", sv.login("WoutHaakman", "password"));
+        Assert.assertEquals("password", sv.login("WoutHaakman", "test"));
     }
 
     @Test
     void loginSuccess() {
-        Assert.assertEquals("success", sv.login("WoutHaakman", "test"));
+        Assert.assertEquals("success", sv.login("WoutHaakman", "password"));
     }
 
     @Test

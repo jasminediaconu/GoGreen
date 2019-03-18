@@ -10,7 +10,7 @@ It appears that the branch user-profile has some compatibility issues.
 To solve this task have been divided to fix these issues. 
 
 ### Problem 2: Checkstyle
-We have to manny checkstyle warnings
+We have to many checkstyle warnings
 
 To solve this we are going to follow and implement the checkstyle very strictly.
 
@@ -29,9 +29,8 @@ To solve this we are going to follow and implement the checkstyle very strictly.
  - 
 
 ### Jasmine (jdiaconu)
- - 
- - 
- - 
+- The workload was better spread as some people didn't have to many commits
+- Thanks to the extra meeting we were able to link the GUI parts together (MainScreen and LoginScreen)
  
  
  ### Giuliano (gforghieri)

@@ -47,7 +47,7 @@
                                 <TableColumn prefWidth="53.5999755859375" sortable="false" text="pic" />
                                 <TableColumn fx:id="usernameColumn" prefWidth="120.0" sortable="false" text="Username" />
                                 <TableColumn fx:id="countryColumn" prefWidth="88.0" sortable="false" text="country" />
-                                <TableColumn fx:id="totalCo2Column" prefWidth="87.99993896484375" sortType="DESCENDING" sortable="false" text="points" />
+                                <TableColumn fx:id="totalCo2Column" prefWidth="87.99993896484375" sortType="ASCENDING" sortable="false" text="CO2 reduced" />
                             </columns>
                         </TableView>
                     </children>

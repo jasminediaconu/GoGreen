@@ -28,9 +28,11 @@ public class LeaderboardController extends Controller implements Initializable {
     }
 
     public ObservableList<User> getUsers(){
-        ObservableList<User> oListUsers = FXCollections.observableArrayList(ServerRequests.getGlobalBestProfile());
+        ObservableList<User> users = FXCollections.observableArrayList(ServerRequests.getGlobalBestProfile());
 
-        return oListUsers;
+
+
+        return users;
     }
 
 

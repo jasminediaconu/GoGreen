@@ -54,10 +54,6 @@ FROM LAST WEEK:
 
 * Mockito Achievement, Item, Activity
 
-* Extra miscellaneous plus button to be filled with items from Jan-Willem
-* Connect profile car to transportChoices dropdown button option by car
-* Connect profile energy to energyChoices
-
 
 
 ## Backend and General (Wout):

@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -74,8 +75,6 @@ public class ProfileController extends Controller {
 
         newSettings = Main.clientUser.deepCopy();
         syncUI(Main.clientUser);
-
-        System.out.println(Main.clientUser.toString());
     }
 
     private void syncUI(ClientUser settings) {
@@ -84,20 +83,21 @@ public class ProfileController extends Controller {
         pointsField.setText("CO2 saved: " + Main.clientUser.getTotalCo2());
         streakField.setText("Streak: " + Main.clientUser.getStreakLength());
         solarPanels.setSelected(settings.hasSolarPower());
-        leds.setSelected(settings.hasLEDs());
+        leds.setSelected(settings.hasLeds());
         countryField.setText(settings.getCountry());
         tempratureField.setText("" + settings.getRoomTemp());
         setButtonsDisable(true);
         setProfileImage(settings.getProfileImage());
+        setCarFields(settings.getCarType(), settings.getCarEmissionType());
         if (mainScreenController != null) {
             mainScreenController.setUsernameField(settings.getUsername());
 
-            setCarFields(settings.getCarType(), settings.getCarEmissionType());
             if (settings.getProfileImage() != null) {
                 mainScreenController.setProfileImage(settings.getProfileImage());
             }
         }
     }
+
 
     /**
      * Initialize.
@@ -129,7 +129,7 @@ public class ProfileController extends Controller {
     @FXML
     private void buttonPressed() {
         if (leds.isFocused()) {
-            newSettings.setLEDs(leds.isSelected());
+            newSettings.setLeds(leds.isSelected());
         } else if (solarPanels.isFocused()) {
             newSettings.setSolarPower(solarPanels.isSelected());
         } else if (discardButton.isFocused()) {
@@ -146,16 +146,18 @@ public class ProfileController extends Controller {
     private void comboBoxSelected() {
         if (carTypeField.isFocused()) {
             String[] carType = carTypeField.getValue().toString().split("'");
-            if(carType.length == 1)
+            if (carType.length == 1) {
                 newSettings.setCarType(carType[0]);
-            else
+            } else {
                 newSettings.setCarType(carType[1]);
+            }
         } else if (emissionTypeField.isFocused()) {
             String[] carEmissionType = emissionTypeField.getValue().toString().split("'");
-            if(carEmissionType.length == 1)
+            if (carEmissionType.length == 1) {
                 newSettings.setCarEmissionType(carEmissionType[0]);
-            else
+            } else {
                 newSettings.setCarEmissionType(carEmissionType[1]);
+            }
         }
 
         checkNewSettings();
@@ -190,9 +192,10 @@ public class ProfileController extends Controller {
     }
 
     private void saveChanges() {
+        ServerRequests sv = new ServerRequests();
         Main.clientUser = newSettings.deepCopy();
         setButtonsDisable(true);
-        ServerRequests.updateClientUserProfile();
+        sv.updateClientUserProfile();
         update();
     }
 
@@ -228,8 +231,13 @@ public class ProfileController extends Controller {
      * @param emissionType the emission type
      */
     public void setCarFields(String carType, String emissionType) {
-        carTypeField.getSelectionModel().select(carType);
-        emissionTypeField.getSelectionModel().select(emissionType);
+
+        Label car = (Label) carTypeField.getItems().filtered(e ->
+                ((Label) e).getText().equals(carType)).get(0);
+        Label emission = (Label) emissionTypeField.getItems().filtered(e ->
+                ((Label) e).getText().equals(emissionType)).get(0);
+        carTypeField.getSelectionModel().select(car);
+        emissionTypeField.getSelectionModel().select(emission);
     }
 
 

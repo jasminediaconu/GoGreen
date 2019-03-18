@@ -83,7 +83,7 @@ public class ProfileController extends Controller {
         pointsField.setText("CO2 saved: " + Main.clientUser.getTotalCo2());
         streakField.setText("Streak: " + Main.clientUser.getStreakLength());
         solarPanels.setSelected(settings.hasSolarPower());
-        leds.setSelected(settings.hasLEDs());
+        leds.setSelected(settings.hasLeds());
         countryField.setText(settings.getCountry());
         tempratureField.setText("" + settings.getRoomTemp());
         setButtonsDisable(true);
@@ -129,7 +129,7 @@ public class ProfileController extends Controller {
     @FXML
     private void buttonPressed() {
         if (leds.isFocused()) {
-            newSettings.setLEDs(leds.isSelected());
+            newSettings.setLeds(leds.isSelected());
         } else if (solarPanels.isFocused()) {
             newSettings.setSolarPower(solarPanels.isSelected());
         } else if (discardButton.isFocused()) {

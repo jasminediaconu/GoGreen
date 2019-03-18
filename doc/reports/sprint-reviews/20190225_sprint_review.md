@@ -1,4 +1,4 @@
-# Sprint Review
+# Sprint Review of Sprint 2
 
 ## Main problems  Encountered
 
@@ -16,3 +16,7 @@ In order to solve this problem, we decided to populate the scrumboard backlog wi
 ## Adjustments for next sprint
  - Crete MoSCoW
  - Organize extra meeting
+
+## Reflection on the previous sprint
+ - The previous sprint was just a weekend long, where the team researched the HTTPS protocol
+ - JavaFX, JFoenix, Scenebuilder, Maven amongst other technologies

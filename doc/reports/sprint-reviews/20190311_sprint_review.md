@@ -1,6 +1,6 @@
 <!-- An example of how you can do a sprint review -->
 
-# Sprint Review
+# Sprint Review of Sprint 4
 
 ## Main problems  Encountered
 
@@ -22,3 +22,18 @@ To solve this we are going to follow and implement the checkstyle very strictly.
 ## Adjustments for next sprint
  - Increase branch coverage
  - Apply the checkstyle to every class
+
+## Reflection on the previous sprint
+## Mandy (mchang)
+ - 
+ - 
+
+### Jasmine (jdiaconu)
+ - 
+ - 
+ - 
+ 
+ 
+ ### Giuliano (gforghieri)
+- The extra meeting on Thursday or Friday became a habit for the group, since we experienced that it significantly increases productivity
+- We were able to finish most of the requirements for week6 demo2 during sprint 4

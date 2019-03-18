@@ -11,6 +11,8 @@ import server.helper.ActivityClass;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -38,7 +40,7 @@ public class ActivityController {
                     + "WHERE  userid = ? AND activityid = ?");
             retrieveActivities = ServerApp.dbConnection.prepareStatement("SELECT * "
                     + "FROM user_activities WHERE userid = ? AND date < now() AND date > ?");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -46,14 +48,16 @@ public class ActivityController {
     /**
      * This function will handle adding an Activity to the database,
      * that belongs to a given sessionid.
+     *
      * @param s String type sessionID
      * @param a ActivityClass type
      * @return int containing the id of the activity
      */
+    @SuppressWarnings("naming") // Abstraction of parameter name for security reasons
     @RequestMapping(value = "/addActivity", method = RequestMethod.POST)
     public int addActivity(@RequestParam String s, @RequestBody ActivityClass a) {
         try {
-            int userID = ServerApp.getUserIDFromSession(s);
+            int userID = ServerApp.getUserIDfromSession(s);
             addActivity.setInt(1, userID);
             addActivity.setInt(2, a.itemID);
             addActivity.setDouble(3, a.amount);
@@ -63,7 +67,7 @@ public class ActivityController {
             ResultSet result = addActivity.executeQuery();
             result.next();
             return result.getInt(1);
-        } catch (Exception e) {
+        } catch (SQLException | ParseException e) {
             e.printStackTrace();
             return -1;
         }
@@ -71,20 +75,22 @@ public class ActivityController {
 
     /**
      * This function will remove an Activity with a given id and corresponding user.
-     * @param s String type sessionID.
+     *
+     * @param s          String type sessionID.
      * @param activityID int type.
      * @return a String telling the client whether the transaction succeeded.
      */
+    @SuppressWarnings("naming") // Abstraction of parameter name for security reasons
     @RequestMapping(value = "/removeActivity", method = RequestMethod.POST)
     public String removeActivity(@RequestParam String s, @RequestBody int activityID) {
         try {
-            int userID = ServerApp.getUserIDFromSession(s);
+            int userID = ServerApp.getUserIDfromSession(s);
             removeActivity.setInt(1, userID);
             removeActivity.setInt(2, activityID);
             removeActivity.executeUpdate();
 
             return "ok";
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return "fail";
         }
@@ -93,15 +99,17 @@ public class ActivityController {
     /**
      * This function will handle all retrieve Activity requests.
      * It will retrieve all activities that a given user has on their profile.
-     * @param s String type sessionID
+     *
+     * @param s      String type sessionID
      * @param period A String consisting of the sessionID and domain type,
-     *        split by a whitespace character
+     *               split by a whitespace character
      * @return a JSON with a list of activities
      */
+    @SuppressWarnings("naming") // Abstraction of parameter name for security reasons
     @RequestMapping(value = "/retrieveActivities", method = RequestMethod.POST)
     public String retrieveActivities(@RequestParam String s, @RequestBody String period) {
         try {
-            int userID = ServerApp.getUserIDFromSession(s);
+            int userID = ServerApp.getUserIDfromSession(s);
             LocalDate domain = selectDomain(period);
 
             retrieveActivities.setInt(1, userID);
@@ -117,7 +125,7 @@ public class ActivityController {
             }
 
             return ServerApp.gson.toJson(activities);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return "fail";
         }
@@ -132,6 +140,7 @@ public class ActivityController {
      * @param w String type
      * @return a LocalDate that is w size removed from the current date
      */
+    @SuppressWarnings("naming") // Abstraction of parameter name for security reasons
     private LocalDate selectDomain(String w) {
         LocalDate now = LocalDate.now();
         LocalDate domain = now.minusWeeks(1);

@@ -11,8 +11,8 @@ class ItemTest {
 
     @BeforeEach
     void setUp() {
-        item1 = new Item(1,"pizza","food", 10);
-        item2 = new Item(1,"pizza", "food", 10);
+        item1 = new Item(1, "pizza", "food", 10);
+        item2 = new Item(1, "pizza", "food", 10);
     }
 
     @Test
@@ -41,7 +41,7 @@ class ItemTest {
     }
 
     @Test
-    void equalsOtherType(){
+    void equalsOtherType() {
         int number = 1;
         Assert.assertEquals(item1.equals(number), false);
     }
@@ -58,7 +58,7 @@ class ItemTest {
 
     @Test
     void equalsOther() {
-        Item item3 = new Item(2,"publictransport", "transport", 100);
+        Item item3 = new Item(2, "publictransport", "transport", 100);
         Assert.assertEquals(item1.equals(item3), false);
     }
 
@@ -70,7 +70,7 @@ class ItemTest {
         Assert.assertEquals(item1.equals(item2), false);
         item2 = new Item(1, "pizza", "foodz", 10);
         Assert.assertEquals(item1.equals(item2), false);
-        item2 = new Item(1,"pizza","food", 20);
+        item2 = new Item(1, "pizza", "food", 20);
         Assert.assertEquals(item1.equals(item2), false);
 
     }

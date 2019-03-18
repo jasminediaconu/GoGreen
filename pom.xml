@@ -275,7 +275,6 @@
                         <exclude>**/client/loginscreen/*App**</exclude>
                         <exclude>**/client/profilescreen/**</exclude>
                         <exclude>**/client/windows/**</exclude>
-
                         <exclude>**/server/helper/*Class.*</exclude>
                         <exclude>**/server/login/**</exclude>
                         <exclude>**/server/objects/**</exclude>

@@ -42,7 +42,7 @@ public class SignUpRequest extends AsyncTask {
      * @param signUpController the signUp controller
      */
     SignUpRequest(String username, String password, String email,
-                         SignUpController signUpController) {
+                  SignUpController signUpController) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -59,10 +59,9 @@ public class SignUpRequest extends AsyncTask {
         ServerRequests sv = new ServerRequests();
         if (signUp()) {
             clientUser = sv.getClientUserProfile();
-            if (clientUser != null) {
-                this.response = OK;
-                return true;
-            }
+            System.out.println("CLIENT: " + clientUser);
+            this.response = OK;
+            return true;
         }
         this.response = FAIL;
         return false;
@@ -89,9 +88,6 @@ public class SignUpRequest extends AsyncTask {
         } else if (response.equals("syntax")) {
             //IMPROPER SYNTAX
             return false;
-        } else if (response.equals("fail")) {
-            //SOMETHING WENT WRONG
-            return false;
         } else if (response.equals("username")) {
             //WRONG USERNAME
             return false;
@@ -101,8 +97,10 @@ public class SignUpRequest extends AsyncTask {
         } else if (response.equals("success")) {
             sv.getItems();
             return true;
+        } else {
+            //something failed
+            return false;
         }
-        return false;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package client.windows;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXNodesList;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
@@ -277,10 +275,6 @@ public class MainScreenController extends Pane implements Initializable {
             leaderboardButton.setVisible(true);
             line.setVisible(true);
         }
-    }
-
-    @FXML
-    private void applyActivity(MouseEvent event) {
     }
 
     @Override

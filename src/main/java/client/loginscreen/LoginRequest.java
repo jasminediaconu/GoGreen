@@ -11,10 +11,11 @@ import javafx.scene.image.Image;
  */
 public class LoginRequest extends AsyncTask {
 
+
+    public ClientUser clientUser;
     private LoginController loginController;
     private String username;
     private String password;
-    private ClientUser clientUser;
     private boolean success = false;
 
     /**
@@ -38,12 +39,13 @@ public class LoginRequest extends AsyncTask {
     @Override
     public Boolean doInBackground(Object[] params) {
         if (login()) {
-            success = getUserProfile();
+            getUserProfile();
+            success = loadImage();
         } else {
             success = false;
         }
 
-        return true;
+        return success;
     }
 
     @Override
@@ -56,17 +58,20 @@ public class LoginRequest extends AsyncTask {
         }
     }
 
-    private boolean login() {
-        String response = ServerRequests.login(username, password);
+    /**
+     * Login boolean.
+     *
+     * @return the boolean
+     */
+    public boolean login() {
+        ServerRequests sv = new ServerRequests();
+        String response = sv.login(username, password);
 
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
             return false;
         } else if (response.equals("syntax")) {
             //IMPROPER SYNTAX
-            return false;
-        } else if (response.equals("fail")) {
-            //SOMETHING WENT WRONG
             return false;
         } else if (response.equals("username")) {
             //WRONG USERNAME
@@ -75,22 +80,40 @@ public class LoginRequest extends AsyncTask {
             //WRONG PASSWORD
             return false;
         } else if (response.equals("success")) {
-            ServerRequests.getItems();
+            sv.getItems();
             return true;
+        } else {
+            //something went wrong
+            return false;
         }
-        return false;
     }
 
-    private boolean getUserProfile() {
-        clientUser = ServerRequests.getClientUserProfile();
-        if (clientUser != null) {
-            clientUser.setActivityList(ServerRequests.retrieveActivities("w"));
-            String url = clientUser.getImageURL();
-            if (url != null && url.length() != 0 && !url.equals("default")) {
-                Image image = new Image(url);
-                clientUser.setProfileImage(image);
+    /**
+     * Gets user profile.
+     *
+     * @return the user profile
+     */
+    public void getUserProfile() {
+        ServerRequests sv = new ServerRequests();
+        clientUser = sv.getClientUserProfile();
+        clientUser.setActivityList(sv.retrieveActivities("w"));
+    }
 
+    /**
+     * Load image boolean.
+     *
+     * @return the boolean
+     */
+    public boolean loadImage() {
+        String url = clientUser.getImageURL();
+        if (url != null) {
+
+            if (url.equals("default")) {
+                return true;
             }
+
+            Image image = new Image(url);
+            clientUser.setProfileImage(image);
             return true;
         }
         return false;

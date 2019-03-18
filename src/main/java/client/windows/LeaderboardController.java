@@ -52,6 +52,7 @@ public class LeaderboardController extends Controller implements Initializable {
 
                     {
                         followButton.setOnAction((ActionEvent event) -> {
+                            //TODO follow user function
                             User data = getTableView().getItems().get(getIndex());
                             System.out.println("selectedData: " + data);
                             if (followButton.getText() == "unfollow"){

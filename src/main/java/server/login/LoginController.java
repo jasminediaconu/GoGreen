@@ -8,6 +8,7 @@ import server.ServerApp;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * This class handles the REST controlling for any login request.
@@ -22,9 +23,9 @@ public class LoginController {
 
     static {
         try {
-            select = ServerApp.dbConnection.prepareStatement("SELECT userid, password FROM user_login "
-                    + "WHERE username = ?;");
-        } catch (Exception e) {
+            select = ServerApp.dbConnection.prepareStatement("SELECT userid, password "
+                    + "FROM user_login WHERE username = ?;");
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -48,7 +49,7 @@ public class LoginController {
 
             ResultSet result = select.executeQuery();
             while (result.next()) {
-                if(result.getString("password").equals(password)) {
+                if (result.getString("password").equals(password)) {
                     int userID = result.getInt("userid");
                     String sessionID = ServerApp.createNewSessionID();
                     ServerApp.addSessionID(sessionID, userID);
@@ -58,7 +59,7 @@ public class LoginController {
             }
             return "username";
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return "fail";
         }

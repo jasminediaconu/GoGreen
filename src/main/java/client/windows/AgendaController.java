@@ -1,5 +1,6 @@
 package client.windows;
 
+import client.helper.RowCount;
 import client.Main;
 import client.ServerRequests;
 import client.objects.Activity;
@@ -123,7 +124,7 @@ public class AgendaController extends Controller implements Initializable {
         }
         if (Main.clientUser.getActivityList() != null) {
             Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
-            showAgendaActivites(activityMap);
+            showAgendaActivities(activityMap);
         }
 
         gridPane.setHgap(20);
@@ -142,7 +143,7 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This function will display a dialog message to the user when he want to delete an activity.
+     * This function will display a dialog message to the user when he wants to delete an activity.
      * The dialog button contains a message and two buttons:
      * a close button and a delete one connected to the deleteActivity function.
      */
@@ -173,28 +174,8 @@ public class AgendaController extends Controller implements Initializable {
     private void deleteActivity(int rowIndex) {
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
-        agendaBox.getChildren().removeIf(dateText -> getRowCount(gridPane) == 0);
+        agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
         dialog.close();
-    }
-
-    /**
-     * Count the number of rows in a pane.
-     *
-     * @param pane GridPane
-     * @return numRows
-     */
-    private int getRowCount(GridPane pane) {
-        int numRows = pane.getRowConstraints().size();
-        for (int i = 0; i < pane.getChildren().size(); i++) {
-            Node child = pane.getChildren().get(i);
-            if (child.isManaged()) {
-                Integer rowIndex = GridPane.getRowIndex(child);
-                if (rowIndex != null) {
-                    numRows = Math.max(numRows, rowIndex + 1);
-                }
-            }
-        }
-        return numRows;
     }
 
     private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
@@ -212,7 +193,7 @@ public class AgendaController extends Controller implements Initializable {
      * without reloading the app
      * @param activityMap
      */
-    private void showAgendaActivites(Multimap<LocalDate, Activity> activityMap) {
+    private void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
         agendaBox.getChildren().removeAll();
 
 
@@ -449,7 +430,7 @@ public class AgendaController extends Controller implements Initializable {
                 Main.clientUser.addToActivityList(activity);
                 //refresh agenda
 
-                showAgendaActivites(activityMap(Main.clientUser.getActivityList()));
+                showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }
     }

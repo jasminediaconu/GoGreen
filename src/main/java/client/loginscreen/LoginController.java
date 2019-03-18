@@ -98,7 +98,6 @@ public class LoginController extends Controller implements Initializable {
      * This function will handle the input of username and
      * password when the login button is pressed.
      * It will also handle the responses returned by the ServerRequests class given it's query.
-     *
      */
 
     @FXML
@@ -117,13 +116,15 @@ public class LoginController extends Controller implements Initializable {
      * This function is called when the login was succesfull.
      */
     public void loginSuccess() {
-        try {
-            String path = "../windows/fxml/mainScreen.fxml";
-            //GOTO MAIN SCREEN
-            Parent root = FXMLLoader.load(getClass().getResource(path));
-            fillScene(root);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (tf_username != null) {
+            try {
+                String path = "../windows/fxml/mainScreen.fxml";
+                //GOTO MAIN SCREEN
+                Parent root = FXMLLoader.load(getClass().getResource(path));
+                fillScene(root);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -131,7 +132,9 @@ public class LoginController extends Controller implements Initializable {
      * This function is called when the login failed.
      */
     public void loginFail() {
-        setDisableScreen(false);
+        if (tf_username != null) {
+            setDisableScreen(false);
+        }
     }
 
 

@@ -18,6 +18,7 @@ buildNumber.properties
 .settings
 *.jar
 .vscode/
+*.txt
 
 
 # Exclude maven wrapper

@@ -18,9 +18,9 @@
     </parent>
 
     <properties>
-        <java.version>1.8</java.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <java.version>1.11</java.version>
+        <maven.compiler.source>1.11</maven.compiler.source>
+        <maven.compiler.target>1.11</maven.compiler.target>
 
         <mainClass>client.Main</mainClass>
 
@@ -100,6 +100,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>11.0.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>de.jensd</groupId>
             <artifactId>fontawesomefx</artifactId>
             <version>8.1</version>
@@ -138,11 +144,21 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>1.2.0</version>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.4.0</version>
-            <scope>test</scope>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>5.2.0</version>
         </dependency>
 
         <dependency>
@@ -169,6 +185,12 @@
             <artifactId>mockito-all</artifactId>
             <version>1.9.5</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.victorlaerte</groupId>
+            <artifactId>jfx-asynctask</artifactId>
+            <version>1.0.1</version>
         </dependency>
 
     </dependencies>
@@ -232,9 +254,35 @@
             </plugin>
 
             <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>1.2.0</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${jacoco-maven-plugin.version}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/client/loginscreen/*Controller**</exclude>
+                        <exclude>**/client/loginscreen/*App**</exclude>
+                        <exclude>**/client/profilescreen/**</exclude>
+                        <exclude>**/client/windows/**</exclude>
+                        <exclude>**/server/helper/*Class.*</exclude>
+                        <exclude>**/server/login/**</exclude>
+                        <exclude>**/server/objects/**</exclude>
+                        <exclude>**/server/user/**</exclude>
+                        <exclude>**/server/InfoController.*</exclude>
+                        <exclude>**/server/SessionController.*</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>default-prepare-agent</id>
@@ -255,17 +303,12 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
-                                <excludes>
-                                    <exclude>**/loginScreen/**</exclude>
-                                    <exclude>**/windows/**</exclude>
-                                </excludes>
                             <rules>
                             </rules>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-
         </plugins>
 
     </build>
@@ -282,23 +325,22 @@
                     <configLocation>CSE1105.checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>${jacoco-maven-plugin.version}</version>
-                <configuration>
-                <excludes>
-                    <exclude>**/loginScreen/**</exclude>
-                    <exclude>**/windows/**</exclude>
-                    <exclude>**/helper/*Class.*</exclude>
-                    <exclude>**/login/**</exclude>
-                    <exclude>**/objects/**</exclude>
-                    <exclude>**/InfoController.*</exclude>
-                    <exclude>**/SessionController.*</exclude>
-                </excludes>
-                </configuration>
-            </plugin>
+            <!--<plugin>-->
+            <!--<groupId>org.jacoco</groupId>-->
+            <!--<artifactId>jacoco-maven-plugin</artifactId>-->
+            <!--<version>${jacoco-maven-plugin.version}</version>-->
+            <!--<configuration>-->
+            <!--<excludes>-->
+            <!--<exclude>**/windows/**</exclude>-->
+            <!--<exclude>**/loginscreen/**</exclude>-->
+            <!--<exclude>**/helper/*Class.*</exclude>-->
+            <!--<exclude>**/login/**</exclude>-->
+            <!--<exclude>**/InfoController.*</exclude>-->
+            <!--<exclude>**/SessionController.*</exclude>-->
+            <!--<exclude>**/objects/**</exclude>-->
+            <!--</excludes>-->
+            <!--</configuration>-->
+            <!--</plugin>-->
         </plugins>
     </reporting>
-
 </project>

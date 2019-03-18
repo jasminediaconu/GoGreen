@@ -8,24 +8,36 @@ import server.ServerApp;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * This class handles the REST controlling for any signup request.
- * It will check the username and password for correct syntax, add them to the database and returns a String on completion.
- * @author wouthaakman
+ * It will check the username and password for correct syntax,
+ * add them to the database and returns a String on completion.
  *
+ * @author wouthaakman
+ * @author wouthaakman
  */
 @RestController
 public class SignUpController {
 
-    private static PreparedStatement select;
+    private static PreparedStatement usernameTaken;
+    private static PreparedStatement emailTaken;
     private static PreparedStatement insert;
 
     static {
-        try{
-            select = ServerApp.dbConnection.prepareStatement("SELECT userid FROM user_login WHERE username = ?;");
-            insert = ServerApp.dbConnection.prepareStatement("INSERT INTO user_login (\"username\", \"email\", \"password\") VALUES (?, ?, ?) SELECT SCOPE_IDENTITY();");
-        }catch(Exception e) {
+        try {
+            usernameTaken = ServerApp.dbConnection.prepareStatement(
+                    "SELECT userid FROM user_login WHERE username = ?;"
+            );
+            emailTaken = ServerApp.dbConnection.prepareStatement(
+                    "SELECT userid FROM user_login WHERE email = ?;"
+            );
+            insert = ServerApp.dbConnection.prepareStatement(
+                    "INSERT INTO user_login (\"username\", \"email\", \"password\") "
+                            + "VALUES (?, ?, ?) RETURNING userid;"
+            );
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -34,32 +46,50 @@ public class SignUpController {
      * This function handles the request mapping for a user going to /signup url.
      * Requires two parameters, namely the username, email and hashed password.
      * It will make a query to insert a new user into the database.
+     *
      * @param newUser A String array containing the username, email and hashed password.
      * @return a boolean value telling the client whether the request was successful.
      */
-    @RequestMapping(value="/signup", method= RequestMethod.POST)
-    public String signUp(@RequestBody String[] newUser){
-        try{
-            String username = newUser[0];
-            String email = newUser[1];
-            String password = newUser[2];
+    @RequestMapping(value = "/signup", method = RequestMethod.POST)
+    public String signUp(@RequestBody String[] newUser) {
+        String username = newUser[0];
+        String email = newUser[1];
+        String password = newUser[2];
 
-            select.setString(1, username);
+        try {
+            usernameTaken.setString(1, username);
 
-            ResultSet result = select.executeQuery();
-            while(result.next()) {
-                return "fail";
+            ResultSet result = usernameTaken.executeQuery();
+            while (result.next()) {
+                return "username";
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+        try {
+            emailTaken.setString(1, email);
+
+            ResultSet result = emailTaken.executeQuery();
+            while (result.next()) {
+                return "email";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
             insert.setString(1, username);
             insert.setString(2, email);
             insert.setString(3, password);
-            int resultID = insert.executeUpdate();
+            ResultSet result = insert.executeQuery();
+            result.next();
+            int userID = result.getInt("userid");
 
             String sessionID = ServerApp.createNewSessionID();
-            ServerApp.addSessionID(sessionID, resultID);
+            ServerApp.addSessionID(sessionID, userID);
             return sessionID;
-        }catch(Exception e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return "fail";
         }

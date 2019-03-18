@@ -1,4 +1,4 @@
-package client.loginScreen;
+package client.loginscreen;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,24 +14,25 @@ public class LoginApp extends Application {
 
     /**
      * This function will start the LoginScreen, and also consecutively the SignupScreen,
-     * by setting the windows settings such as title and scene
+     * by setting the windows settings such as title and scene.
+     *
      * @param stage The stage
-     * @throws Exception
+     * @throws Exception When the FXML files couldn't be loaded.
      */
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/client/loginScreen/login.fxml"));
 
         Scene scene = new Scene(root);
 
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
 
-        stage.setTitle("GoGreen");
+        stage.setTitle("Greenly");
         stage.setScene(scene);
         stage.show();
 
-        stage.getIcons().add(new Image("client/windows/images/icon.png"));
+        stage.getIcons().add(new Image("/client/windows/images/icon.png"));
     }
 
 }

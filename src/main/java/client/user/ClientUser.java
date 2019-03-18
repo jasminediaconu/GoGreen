@@ -1,12 +1,15 @@
 package client.user;
 
-import client.objects.Activity;
 import com.google.gson.annotations.Expose;
+
+import client.objects.Activity;
+
 import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 
 /**
  * The type Client user.
@@ -15,10 +18,11 @@ public class ClientUser extends User {
 
     private int streakLength;
     private boolean solarPower;
-    private boolean LEDs;
+    private boolean leds;
     private int roomTemp;
     private String email;
-    private String imageURL;
+
+    private String imageUrl;
     private String carType;
     private String carEmissionType;
 
@@ -36,20 +40,38 @@ public class ClientUser extends User {
     public ClientUser() {
     }
 
-    public ClientUser(String username, String country, double totalco2, int streakLength, boolean solarPower, boolean LEDs, int roomTemp, String email, String imageURL, String carType, String carEmissionType) {
+    /**
+     * Instantiates a new Client user.
+     *
+     * @param username        the username
+     * @param country         the country
+     * @param totalco2        the totalco 2
+     * @param streakLength    the streak length
+     * @param solarPower      the solar power
+     * @param leds            the leds
+     * @param roomTemp        the room temp
+     * @param email           the email
+     * @param imageUrl        the image url
+     * @param carType         the car type
+     * @param carEmissionType the car emission type
+     */
+    @SuppressWarnings("ParameterNumberCheck")//We need these parameters for Gson.
+    public ClientUser(String username, String country, double totalco2, int streakLength,
+                      boolean solarPower, boolean leds, int roomTemp, String email,
+                      String imageUrl, String carType, String carEmissionType) {
         super(username, country, totalco2);
         this.streakLength = streakLength;
         this.solarPower = solarPower;
-        this.LEDs = LEDs;
+        this.leds = leds;
         this.roomTemp = roomTemp;
         this.email = email;
-        this.imageURL = imageURL;
+        this.imageUrl = imageUrl;
         this.carType = carType;
         this.carEmissionType = carEmissionType;
     }
 
     /**
-     * This function will get the users car type
+     * This function will get the users car type.
      *
      * @return the car type of the user
      */
@@ -58,7 +80,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will set the car tpe
+     * This function will set the car tpe.
      *
      * @param carType String type
      */
@@ -67,7 +89,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get the users car emission type
+     * This function will get the users car emission type.
      *
      * @return the emission type of the car
      */
@@ -76,7 +98,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will set the users car emission type
+     * This function will set the users car emission type.
      *
      * @param carEmissionType String type
      */
@@ -85,7 +107,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get the users streak length
+     * This function will get the users streak length.
      *
      * @return the length of the users streak
      */
@@ -112,12 +134,12 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will get whether the user is using LEDs.
+     * This function will get whether the user is using leds.
      *
-     * @return if the user is using LEDs
+     * @return if the user is using leds
      */
-    public boolean hasLEDs() {
-        return LEDs;
+    public boolean hasLeds() {
+        return leds;
     }
 
     /**
@@ -130,7 +152,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * Sets the users room temperature to the argument roomTemp
+     * Sets the users room temperature to the argument roomTemp.
      *
      * @param roomTemp int type
      */
@@ -170,27 +192,28 @@ public class ClientUser extends User {
      *
      * @return the image url
      */
+    @SuppressWarnings("abbriviationaswordinnamecheck")
     public String getImageURL() {
-        return imageURL;
+        return imageUrl;
     }
 
 
     /**
      * Sets image url.
      *
-     * @param imageURL the image url
+     * @param imageUrl the image url
      */
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setImageURL(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     /**
-     * Sets the users LEDs usage boolean to the argument LEDS.
+     * Sets the users leds usage boolean to the argument leds.
      *
-     * @param LEDs boolean type
+     * @param leds boolean type
      */
-    public void setLEDs(boolean LEDs) {
-        this.LEDs = LEDs;
+    public void setLeds(boolean leds) {
+        this.leds = leds;
     }
 
 
@@ -229,15 +252,16 @@ public class ClientUser extends User {
      */
     public void setActivityList(List<Activity> activityList) {
         this.activityList = activityList;
+        this.activityList = activityList;
     }
 
     /**
      * This function will add an Activity to the User's list of activities.
      *
-     * @param a Activity type
+     * @param activity Activity type
      */
-    public void addToActivityList(Activity a) {
-        activityList.add(a);
+    public void addToActivityList(Activity activity) {
+        activityList.add(activity);
     }
 
     /**
@@ -275,22 +299,27 @@ public class ClientUser extends User {
      * @return a boolean, whether they are equal or not
      */
     @Override
-
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        } else if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         ClientUser that = (ClientUser) obj;
-        return streakLength == that.streakLength &&
-                email.equals(that.email) &&
-                solarPower == that.solarPower &&
-                LEDs == that.LEDs &&
-                roomTemp == that.roomTemp &&
-                Objects.equals(following, that.following) &&
-                totalCo2 == that.totalCo2 &&
-                username.equals(that.username) &&
-                Objects.equals(that.country, country) &&
-                carType.equals(that.carType) &&
-                carEmissionType.equals(that.carEmissionType);
+        if (streakLength == that.streakLength
+                && email.equals(that.email)
+                && solarPower == that.solarPower
+                && leds == that.leds
+                && roomTemp == that.roomTemp
+                && Objects.equals(following, that.following)
+                && totalCo2 == that.totalCo2
+                && username.equals(that.username)
+                && Objects.equals(that.country, country)
+                && carType.equals(that.carType)
+                && carEmissionType.equals(that.carEmissionType)) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -303,10 +332,10 @@ public class ClientUser extends User {
         clientUser.setEmail(email);
         clientUser.setUsername(username);
         clientUser.setCountry(country);
-        clientUser.setImageURL(imageURL);
+        clientUser.setImageURL(imageUrl);
         clientUser.setSolarPower(solarPower);
         clientUser.setRoomTemp(roomTemp);
-        clientUser.setLEDs(LEDs);
+        clientUser.setLeds(leds);
         clientUser.setStreakLength(streakLength);
         clientUser.setTotalCo2(totalCo2);
         clientUser.setCarType(carType);
@@ -319,7 +348,7 @@ public class ClientUser extends User {
     public String toString() {
         return "[username:" + username + ";email: " + email + ";country: " + country
                 + ";streak:" + streakLength + ";CO2: " + totalCo2
-                + "; LED: " + LEDs + "; solar: " + solarPower + "; temp: " + roomTemp
+                + "; led: " + leds + "; solar: " + solarPower + "; temp: " + roomTemp
                 + "; Car type: " + carType + "; Car emission type: " + carEmissionType + "]";
     }
 }

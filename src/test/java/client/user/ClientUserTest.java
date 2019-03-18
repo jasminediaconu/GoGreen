@@ -37,8 +37,8 @@ class ClientUserTest {
 
     @Test
     void hasLEDs() {
-        user.setLEDs(false);
-        Assert.assertEquals(false, user.hasLEDs());
+        user.setLeds(false);
+        Assert.assertEquals(false, user.hasLeds());
     }
 
     @Test
@@ -105,9 +105,9 @@ class ClientUserTest {
         user3.setSolarPower(false);
         Assert.assertEquals(user.equals(user3), false);
         user3.setSolarPower(true);
-        user3.setLEDs(true);
+        user3.setLeds(true);
         Assert.assertEquals(user.equals(user3), false);
-        user3.setLEDs(false);
+        user3.setLeds(false);
         user3.setRoomTemp(20);
         Assert.assertEquals(user.equals(user3), false);
         user3.setRoomTemp(21);
@@ -119,7 +119,14 @@ class ClientUserTest {
         user3.setCarType("SUV");
         user3.setCarEmissionType("diesel");
         Assert.assertEquals(user.equals(user3), false);
-
+        user3.setCarEmissionType("gas");
+        User newuser = new User("admin","Netherlands", 10);
+        User neweruser = new User("test","Netherlands", 5);
+        ArrayList<User> userlist = new ArrayList<User>();
+        userlist.add(newuser);
+        userlist.add(neweruser);
+        user3.setFollowing(userlist);
+        Assert.assertEquals(user.equals(user3), false);
     }
 
     @Test

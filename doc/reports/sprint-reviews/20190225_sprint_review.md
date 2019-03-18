@@ -1,4 +1,4 @@
-# Sprint Review of Sprint 2
+# Sprint Review of Sprint 1 & 2
 
 ## Main problems  Encountered
 
@@ -18,5 +18,7 @@ In order to solve this problem, we decided to populate the scrumboard backlog wi
  - Organize extra meeting
 
 ## Reflection on the previous sprint
- - The previous sprint was just a weekend long, where the team researched the HTTPS protocol
+ - The first sprint was a just a weekend long so did not engage with the project enough to be able to reflect.
+ - During the second sprint the team researched the HTTPS protocol
  - JavaFX, JFoenix, Scenebuilder, Maven amongst other technologies
+ - It was a slow start but we got up to speed

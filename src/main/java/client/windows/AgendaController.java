@@ -229,7 +229,16 @@ public class AgendaController extends Controller implements Initializable {
 
             for (Activity activity : activityMap.get(date)) {
                 Item item = Main.items.get(activity.getItemID() - 1);
-                Text text = new Text(item.getName() + ", co2: " + round((item.getCo2() * activity.getAmount()) / 1000, 2));
+                String unit = null;
+                if (item.getType().equals("food")) {
+                    unit = "g";
+                }
+                else if (item.getType().equals("transport")) {
+                    unit = "km";
+                }
+                    Text text = new Text(item.getName() + ", amount: " + activity.getAmount() + " " + unit +
+                        ", co2: " + round((item.getCo2() * activity.getAmount()) / 1000, 2));
+
                 text.setWrappingWidth(310.00);
                 gridPane.add(text, 1, counter);
                 JFXButton button = new JFXButton("", new ImageView(path));

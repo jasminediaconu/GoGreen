@@ -44,6 +44,7 @@ public class ClientUserClass {
         this.roomTemp = roomTemp;
     }
 
-    public ClientUserClass() {}
+    public ClientUserClass() {
+    }
 
 }

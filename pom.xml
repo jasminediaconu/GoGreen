@@ -22,7 +22,7 @@
         <maven.compiler.source>1.11</maven.compiler.source>
         <maven.compiler.target>1.11</maven.compiler.target>
 
-        <mainClass>client.Main</mainClass>
+        <mainClass>client.windows.MainScreen</mainClass>
 
 
         <checkstyle.version>8.17</checkstyle.version>
@@ -230,7 +230,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>client.Main</mainClass>
+                    <mainClass>client.windows.MainScreen</mainClass>
                 </configuration>
             </plugin>
 
@@ -271,14 +271,16 @@
                 <version>${jacoco-maven-plugin.version}</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/windows/**</exclude>
-                        <exclude>**/loginscreen/**</exclude>
-                        <exclude>**/helper/*Class.*</exclude>
-                        <exclude>**/login/**</exclude>
+                        <exclude>**/client/loginscreen/*Controller**</exclude>
+                        <exclude>**/client/loginscreen/*App**</exclude>
+                        <exclude>**/client/profilescreen/**</exclude>
+                        <exclude>**/client/windows/**</exclude>
+                        <exclude>**/server/helper/*Class.*</exclude>
+                        <exclude>**/server/login/**</exclude>
                         <exclude>**/server/objects/**</exclude>
-                        <exclude>**/InfoController.*</exclude>
-                        <exclude>**/SessionController.*</exclude>
-                        <exclude>**/profilescreen/**</exclude>
+                        <exclude>**/server/user/**</exclude>
+                        <exclude>**/server/InfoController.*</exclude>
+                        <exclude>**/server/SessionController.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -333,9 +335,9 @@
             <!--<exclude>**/loginscreen/**</exclude>-->
             <!--<exclude>**/helper/*Class.*</exclude>-->
             <!--<exclude>**/login/**</exclude>-->
-            <!--<exclude>**/objects/**</exclude>-->
             <!--<exclude>**/InfoController.*</exclude>-->
             <!--<exclude>**/SessionController.*</exclude>-->
+            <!--<exclude>**/objects/**</exclude>-->
             <!--</excludes>-->
             <!--</configuration>-->
             <!--</plugin>-->

@@ -48,7 +48,7 @@ public class LoginController {
 
             ResultSet result = select.executeQuery();
             while (result.next()) {
-                if(result.getString("password").equals(password)) {
+                if (result.getString("password").equals(password)) {
                     int userID = result.getInt("userid");
                     String sessionID = ServerApp.createNewSessionID();
                     ServerApp.addSessionID(sessionID, userID);

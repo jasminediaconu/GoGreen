@@ -29,6 +29,7 @@ public class ServerApp {
 
     /**
      * Starts the web application.
+     *
      * @param args type.
      */
     public static void main(String[] args) throws Exception {
@@ -38,6 +39,8 @@ public class ServerApp {
         builder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
         builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
         gson = builder.setPrettyPrinting().create();
+
+        sessions.put("test", 1);
 
         SpringApplication app = new SpringApplication(ServerApp.class);
         app.run(args);
@@ -65,6 +68,7 @@ public class ServerApp {
 
     /**
      * Removes the sessionID from the list, by taking the username.
+     *
      * @param sessionID String type.
      */
     public static void removeSessionID(String sessionID) {
@@ -73,6 +77,7 @@ public class ServerApp {
 
     /**
      * This function will get the userID from the sessions list.
+     *
      * @param sessionID String type.
      * @return an integer corresponding to the userID in the database.
      */

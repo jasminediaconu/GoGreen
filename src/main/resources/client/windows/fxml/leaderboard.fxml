@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -36,18 +37,13 @@
                                 <Font name="Century Gothic" size="36.0" />
                             </font>
                         </Text>
-                        <ImageView layoutX="250.0" layoutY="429.0">
-                            <image>
-                                <Image url="@../images/arrow_down.png" />
-                            </image>
-                        </ImageView>
-                        <TableView fx:id="table" layoutX="30.0" layoutY="141.0" prefHeight="297.0" prefWidth="512.0">
+                        <TableView fx:id="table" layoutX="30.0" layoutY="141.0" prefHeight="280.0" prefWidth="512.0">
                             <columns>
                                 <TableColumn prefWidth="40.00006103515625" sortable="false" text="rank" />
                                 <TableColumn prefWidth="53.5999755859375" sortable="false" text="pic" />
                                 <TableColumn fx:id="usernameColumn" prefWidth="120.0" sortable="false" text="Username" />
                                 <TableColumn fx:id="countryColumn" prefWidth="88.0" sortable="false" text="country" />
-                                <TableColumn fx:id="totalCo2Column" prefWidth="87.99993896484375" sortType="ASCENDING" sortable="false" text="CO2 reduced" />
+                                <TableColumn fx:id="totalCo2Column" prefWidth="87.99993896484375" sortType="DESCENDING" sortable="false" text="CO2 reduced" />
                             </columns>
                         </TableView>
                     </children>

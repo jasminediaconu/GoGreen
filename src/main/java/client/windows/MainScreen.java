@@ -34,7 +34,7 @@ public class MainScreen extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("fxml/mainScreen.fxml"));
-        primaryStage.setTitle("GoGreen");
+        primaryStage.setTitle("Greenly");
         primaryStage.setScene(new Scene(root, 1024, 768));
         primaryStage.getScene().setFill(Color.TRANSPARENT);
         primaryStage.setResizable(false);

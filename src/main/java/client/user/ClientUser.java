@@ -50,6 +50,7 @@ public class ClientUser extends User {
 
     /**
      * This function will get the users car type
+     *
      * @return the car type of the user
      */
     public String getCarType() {
@@ -58,6 +59,7 @@ public class ClientUser extends User {
 
     /**
      * This function will set the car tpe
+     *
      * @param carType String type
      */
     public void setCarType(String carType) {
@@ -66,6 +68,7 @@ public class ClientUser extends User {
 
     /**
      * This function will get the users car emission type
+     *
      * @return the emission type of the car
      */
     public String getCarEmissionType() {
@@ -74,6 +77,7 @@ public class ClientUser extends User {
 
     /**
      * This function will set the users car emission type
+     *
      * @param carEmissionType String type
      */
     public void setCarEmissionType(String carEmissionType) {
@@ -172,7 +176,6 @@ public class ClientUser extends User {
 
 
     /**
-     * <<<<<<< HEAD
      * Sets image url.
      *
      * @param imageURL the image url
@@ -238,6 +241,34 @@ public class ClientUser extends User {
     }
 
     /**
+     * This function will return the User List following.
+     *
+     * @return the User List following.
+     */
+    public List<User> getFollowing() {
+        return this.following;
+    }
+
+    /**
+     * This function will set the current User List following to a new list.
+     *
+     * @param userList List User type.
+     */
+    public void setFollowing(List<User> userList) {
+        this.following = userList;
+    }
+
+    /**
+     * This function will as a User to the User List following.
+     *
+     * @param user User type.
+     */
+    public void addFollowing(User user) {
+        following.add(user);
+    }
+
+
+    /**
      * This function compares this ClientUser with another ClientUser to check if they are equal.
      *
      * @param obj Object type
@@ -249,21 +280,17 @@ public class ClientUser extends User {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         ClientUser that = (ClientUser) obj;
-        if (streakLength == that.streakLength &&
+        return streakLength == that.streakLength &&
                 email.equals(that.email) &&
                 solarPower == that.solarPower &&
                 LEDs == that.LEDs &&
                 roomTemp == that.roomTemp &&
-                email.equalsIgnoreCase(that.email) &&
                 Objects.equals(following, that.following) &&
                 totalCo2 == that.totalCo2 &&
                 username.equals(that.username) &&
                 Objects.equals(that.country, country) &&
                 carType.equals(that.carType) &&
-                carEmissionType.equals(that.carEmissionType)) {
-            return true;
-        }
-        return false;
+                carEmissionType.equals(that.carEmissionType);
     }
 
     /**

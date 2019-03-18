@@ -13,7 +13,8 @@ import java.util.Locale;
 public class LocalDateDeserializer implements JsonDeserializer<LocalDate> {
     /**
      * This function will make sure that the LocalDate class will be properly deserialized to prepare for JSON requests.
-     * @param json JsonElement type
+     *
+     * @param json    JsonElement type
      * @param typeOfT Type type
      * @param context JsonDeserialization type
      * @return a LocalDate class

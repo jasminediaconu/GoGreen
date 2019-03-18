@@ -42,7 +42,7 @@ public class SignUpRequest extends AsyncTask {
      * @param signUpController the signUp controller
      */
     SignUpRequest(String username, String password, String email,
-                         SignUpController signUpController) {
+                  SignUpController signUpController) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -56,13 +56,12 @@ public class SignUpRequest extends AsyncTask {
 
     @Override
     public Boolean doInBackground(Object[] params) {
-
+        ServerRequests sv = new ServerRequests();
         if (signUp()) {
-            clientUser = ServerRequests.getClientUserProfile();
-            if (clientUser != null) {
-                this.response = OK;
-                return true;
-            }
+            clientUser = sv.getClientUserProfile();
+            System.out.println("CLIENT: " + clientUser);
+            this.response = OK;
+            return true;
         }
         this.response = FAIL;
         return false;
@@ -81,16 +80,13 @@ public class SignUpRequest extends AsyncTask {
 
     //
     private boolean signUp() {
-        String response = ServerRequests.signUp(username, email, password);
-
+        ServerRequests sv = new ServerRequests();
+        String response = sv.signUp(username, email, password);
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
             return false;
         } else if (response.equals("syntax")) {
             //IMPROPER SYNTAX
-            return false;
-        } else if (response.equals("fail")) {
-            //SOMETHING WENT WRONG
             return false;
         } else if (response.equals("username")) {
             //WRONG USERNAME
@@ -99,10 +95,12 @@ public class SignUpRequest extends AsyncTask {
             //WRONG PASSWORD
             return false;
         } else if (response.equals("success")) {
-            ServerRequests.getItems();
+            sv.getItems();
             return true;
+        } else {
+            //something failed
+            return false;
         }
-        return false;
     }
 
     @Override

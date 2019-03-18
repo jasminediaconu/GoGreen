@@ -64,13 +64,14 @@ public class UserController {
 
     /**
      * This function will get the users profile, associated with a sessionID.
+     *
      * @param s String type
      * @return a ClientUser prepared JSON
      */
     @RequestMapping(value = "/getUserProfile", method = RequestMethod.POST)
     public ClientUserClass getUserProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
-        if (userID == -1){
+        if (userID == -1) {
             return null;
         }
 
@@ -114,14 +115,14 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value ="/updateUserProfile", method = RequestMethod.POST)
+    @RequestMapping(value = "/updateUserProfile", method = RequestMethod.POST)
     public String updateUserProfile(@RequestParam String s, @RequestBody ClientUserClass client) {
         int userID = ServerApp.getUserIDFromSession(s);
-        if (userID == -1){
+        if (userID == -1) {
             return null;
         }
 
-        try{
+        try {
             updateClientUserProfile.setString(1, client.country);
             updateClientUserProfile.setString(2, client.imageURL);
             updateClientUserProfile.setDouble(3, client.totalCo2);
@@ -138,7 +139,7 @@ public class UserController {
             updateClientUserLogin.executeUpdate();
 
             return "success";
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "fail";
         }
@@ -146,36 +147,39 @@ public class UserController {
 
     /**
      * This function will get the users a ClientUser is following, associated with its sessionID
+     *
      * @param s String type
      * @return a list of Users
      */
     @RequestMapping(value = "/getFollowingProfile", method = RequestMethod.POST)
     public List<UserClass> getFollowingProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
-        if (userID == -1){
+        if (userID == -1) {
             return null;
         }
-        return getUsers(-1, selectFollowing);
+        return getUsers(userID, selectFollowing);
     }
 
     /**
      * This function will get the global best users, it uses the sessionID to valid the request
+     *
      * @param s String type
      * @return a list of Users
      */
     @RequestMapping(value = "/getGlobalBestProfile", method = RequestMethod.POST)
     public List<UserClass> getGlobalBestProfile(@RequestParam String s) {
         int userID = ServerApp.getUserIDFromSession(s);
-        if (userID == -1){
+        if (userID == -1) {
             return null;
         }
-        return getUsers(-1, selectGlobalBest);
+        return getUsers(userID, selectGlobalBest);
     }
 
     /**
      * This is a helper function that generalizes fetching user data from the database.
+     *
      * @param userID int type
-     * @param query PreparedStatement type
+     * @param query  PreparedStatement type
      * @return a list of users, returned given a specific query
      */
     private List<UserClass> getUsers(int userID, PreparedStatement query) {

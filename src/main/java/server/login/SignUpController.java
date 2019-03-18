@@ -13,8 +13,8 @@ import java.sql.ResultSet;
  * This class handles the REST controlling for any signup request.
  * It will check the username and password for correct syntax,
  * add them to the database and returns a String on completion.
- * @author wouthaakman
  *
+ * @author wouthaakman
  * @author wouthaakman
  */
 @RestController

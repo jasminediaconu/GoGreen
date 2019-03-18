@@ -45,13 +45,13 @@ public class ServerRequests {
 
         String response = sendRequestToServer("login",
                 Main.gson.toJson(new String[]{username, hashedPassword}));
-        if("username".equals(response)) {
+        if ("username".equals(response)) {
             System.out.println("[ERROR] User specified an invalid username");
             return response;
-        }else if("password".equals(response)) {
+        } else if ("password".equals(response)) {
             System.out.println("[ERROR] User specified an invalid password");
             return response;
-        }else if(response != null && !"fail".equals(response)){
+        } else if (response != null && !"fail".equals(response)) {
             System.out.println("[INFO] Login was successful");
             Main.sessionID = response;
             return "success";
@@ -87,13 +87,13 @@ public class ServerRequests {
 
         String response = sendRequestToServer("signup",
                 Main.gson.toJson(new String[]{username, email, hashedPassword}));
-        if("username".equals(response)) {
+        if ("username".equals(response)) {
             System.out.println("[ERROR] This username has already been taken");
             return response;
-        } else if("email".equals(response)) {
+        } else if ("email".equals(response)) {
             System.out.println("[ERROR] This email has already been taken");
             return response;
-        } else if(response != null && !response.equals("fail")) {
+        } else if (response != null && !response.equals("fail")) {
             Main.sessionID = response;
             return "success";
         }
@@ -154,9 +154,9 @@ public class ServerRequests {
         String response = sendRequestToServer("addActivity?s=" + Main.sessionID, json);
         int activityID = -1;
 
-        try{
+        try {
             activityID = Integer.parseInt(response);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -224,7 +224,7 @@ public class ServerRequests {
      */
     public boolean updateClientUserProfile() {
         String response = sendRequestToServer("updateUserProfile?s=" + Main.sessionID, Main.gson.toJson(Main.clientUser));
-        if("success".equals(response)) {
+        if ("success".equals(response)) {
             System.out.println("[INFO] Updating the client users profile went successfully");
             return true;
         } else {

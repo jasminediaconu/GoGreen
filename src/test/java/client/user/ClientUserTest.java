@@ -15,7 +15,7 @@ class ClientUserTest {
     @BeforeEach
     void setUp() {
         user = new ClientUser("username", "country", 10.0, 3, true, false, 21, "email", "default", "SUV", "Gas");
-        User newuser = new User("admin","Netherlands", 10);
+        User newuser = new User("admin", "Netherlands", 10);
         List<User> following = new ArrayList<>();
         user.addFollowing(newuser);
         user.setFollowing(following);
@@ -88,7 +88,7 @@ class ClientUserTest {
     }
 
     @Test
-    void equalsSimilar(){
+    void equalsSimilar() {
         ClientUser user3 = new ClientUser("username", "country", 10.0, 3, true, false, 21, "email", "default", "SUV", "Gas");
         user3.setUsername("usernaem");
         Assert.assertEquals(user.equals(user3), false);
@@ -119,7 +119,7 @@ class ClientUserTest {
         user3.setCarType("SUV");
         user3.setCarEmissionType("diesel");
         Assert.assertEquals(user.equals(user3), false);
-        
+
     }
 
     @Test

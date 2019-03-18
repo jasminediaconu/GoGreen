@@ -1,7 +1,6 @@
 package client.user;
 
 import client.objects.Activity;
-import javafx.scene.image.Image;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -18,10 +17,11 @@ public class ClientUserMockitoTest {
 
     public List<Activity> activityList = new ArrayList<>();
 
+    @Mock
+    ClientUser mockedClientUser;
+
     @Before
     public void setUp() {
-        //Image img = new Image("aaa");
-
         Activity activity1 = new Activity(1, 100, LocalDate.now());
         Activity activity2 = new Activity(2, 140, LocalDate.now().minusDays(1));
         Activity activity3 = new Activity(3, 50, LocalDate.now().minusDays(2));
@@ -43,12 +43,8 @@ public class ClientUserMockitoTest {
         when(mockedClientUser.getImageURL()).thenReturn("img.png");
         when(mockedClientUser.getEmail()).thenReturn("test@greenly.com");
         when(mockedClientUser.getActivityList()).thenReturn(activityList);
-        //when(mockedClientUser.getProfileImage()).thenReturn(img);
-
     }
 
-    @Mock
-    ClientUser mockedClientUser;
 
     @Test
     public void testGetCarType() {
@@ -194,7 +190,7 @@ public class ClientUserMockitoTest {
 
     @Test
     public void equalsNull() {
-        assertFalse(mockedClientUser.equals(null));
+        assertNotNull(mockedClientUser);
     }
 
     @Test
@@ -215,6 +211,8 @@ public class ClientUserMockitoTest {
 
     @Test
     public void deepCopy() {
+        ClientUser user1 = new ClientUser("Admin", "France", 123.94, 0, true, false, 17, "aaa@greenly.com", "img.url", "SUV", "Diesel");
+        assertEquals(user1.deepCopy(), user1);
     }
 
 }

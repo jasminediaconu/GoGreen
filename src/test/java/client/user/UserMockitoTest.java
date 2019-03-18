@@ -5,9 +5,13 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 
 public class UserMockitoTest {
+
+    @Mock
+    User mockedUser;
 
     @Before
     public void setup() {
@@ -16,9 +20,6 @@ public class UserMockitoTest {
         when(mockedUser.getCountry()).thenReturn("Italy");
         when(mockedUser.getTotalCo2()).thenReturn(200.00);
     }
-
-    @Mock
-    User mockedUser;
 
     @Test
     public void testGetUsername() {
@@ -30,7 +31,6 @@ public class UserMockitoTest {
         doCallRealMethod().when(mockedUser).setUsername(eq("Admin"));
         mockedUser.setUsername("Admin");
         verify(mockedUser).setUsername("Admin");
-
     }
 
     @Test
@@ -63,12 +63,11 @@ public class UserMockitoTest {
         mockedUser.increaseTotalCo2(5.00);
         when(mockedUser.getTotalCo2()).thenReturn(205.00);
         assertEquals(mockedUser.getTotalCo2(), 205.00, 1);
-
     }
 
     @Test
     public void testEqualsNull() {
-        assertEquals(mockedUser.equals(null), false);
+        assertNotNull(mockedUser);
     }
 
     @Test

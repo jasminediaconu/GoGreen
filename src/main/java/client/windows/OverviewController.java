@@ -30,11 +30,9 @@ public class OverviewController extends Controller implements Initializable {
 
     List<JFXButton> badges;
 
-
     @Override
     public void update() {
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -57,6 +55,13 @@ public class OverviewController extends Controller implements Initializable {
         JFXButton button2 = new JFXButton("", new ImageView(path + "energy.png"));
         JFXButton button3 = new JFXButton("", new ImageView(path + "medal.png"));
         JFXButton button4 = new JFXButton("", new ImageView(path + "sprout.png"));
+        JFXButton button5 = new JFXButton("", new ImageView(path + "drop.png"));
+        JFXButton button6 = new JFXButton("", new ImageView(path + "earth.png"));
+        JFXButton button7 = new JFXButton("", new ImageView(path + "green-energy.png"));
+        JFXButton button8 = new JFXButton("", new ImageView(path + "leds.png"));
+        JFXButton button9 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button10 = new JFXButton("", new ImageView(path + "radiator.png"));
+        JFXButton button11 = new JFXButton("", new ImageView(path + "recycle.png"));
 
         button2.setTooltip(tooltip);
         button3.setTooltip(tooltipDisable);
@@ -68,6 +73,13 @@ public class OverviewController extends Controller implements Initializable {
         badges.add(button2);
         badges.add(button3);
         badges.add(button4);
+        badges.add(button5);
+        badges.add(button6);
+        badges.add(button7);
+        badges.add(button8);
+        badges.add(button9);
+        badges.add(button10);
+        badges.add(button11);
 
         for(int i=0; i<badges.size(); i++ ) {
             badgesColumn.getChildren().add(i, badges.get(i));

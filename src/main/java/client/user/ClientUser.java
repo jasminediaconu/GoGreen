@@ -71,11 +71,7 @@ public class ClientUser extends User {
     }
 
     /**
-<<<<<<< HEAD
      * This function will get the users car type.
-=======
-     * This function will get the users car type
->>>>>>> ffc3711b865a6d70dece917f332781cddb52f903
      *
      * @return the car type of the user
      */
@@ -84,11 +80,7 @@ public class ClientUser extends User {
     }
 
     /**
-<<<<<<< HEAD
      * This function will set the car tpe.
-=======
-     * This function will set the car tpe
->>>>>>> ffc3711b865a6d70dece917f332781cddb52f903
      *
      * @param carType String type
      */
@@ -97,11 +89,7 @@ public class ClientUser extends User {
     }
 
     /**
-<<<<<<< HEAD
      * This function will get the users car emission type.
-=======
-     * This function will get the users car emission type
->>>>>>> ffc3711b865a6d70dece917f332781cddb52f903
      *
      * @return the emission type of the car
      */
@@ -110,11 +98,7 @@ public class ClientUser extends User {
     }
 
     /**
-<<<<<<< HEAD
      * This function will set the users car emission type.
-=======
-     * This function will set the users car emission type
->>>>>>> ffc3711b865a6d70dece917f332781cddb52f903
      *
      * @param carEmissionType String type
      */
@@ -267,6 +251,7 @@ public class ClientUser extends User {
      * @param activityList List Activity type.
      */
     public void setActivityList(List<Activity> activityList) {
+        this.activityList = activityList;
         this.activityList = activityList;
     }
 

@@ -1,14 +1,9 @@
 package client.windows;
 
-import client.ServerRequests;
-import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 
 import javafx.scene.image.ImageView;
@@ -24,7 +19,6 @@ import java.util.ResourceBundle;
 public class OverviewController extends Controller implements Initializable {
 
     List<JFXButton> badges;
-    public List<Achievement> achievements;
 
     @FXML
     Pane overview;
@@ -39,70 +33,27 @@ public class OverviewController extends Controller implements Initializable {
     public void update() {
     }
 
-//    private ArrayList<Achievement> achievementsShow(ArrayList<Achievement> achievements) {
-//        for (Achievement a : achievements) {
-//            achievements.add(a);
-//        }
-//        return achievements;
-//    }
-
-//    public ObservableList<Achievement> getAchievements(){
-//        ServerRequests serverRequests = new ServerRequests();
-//        ObservableList<Achievement> achievements = FXCollections.observableArrayList(serverRequests.get());
-//
-//        return achievements;
-//    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        // 1: CREATE FOR LOOP WITH ARRAY LIST WHERE I RETRIEVE ALL THE ACHIEVEMENTS
-        // 2: ADD THEM IN VBOX & HBOX AND SHOW THEM ON THE SCREEN WITH OPACITY
-        // 3: FUNCTION TO CHECK IF THE ACHIEVEMENT WAS UNLOCKED -> OPACITY 100%
-
         badgesBox = new VBox();
+        badgesBox.setPadding(new Insets(20, 0, 0, 20));
 
-            badgesBox.setPadding(new Insets(20, 20, 0, 20));
-//
-           badgesColumn = new HBox();
-//
+        badgesColumn = new HBox();
+
         badges = new ArrayList<>();
-//
-//        String path = "/client/windows/images/badges/";
-//        JFXButton button = new JFXButton("", new ImageView(path + "burger.png"));
-//        JFXButton button2 = new JFXButton("", new ImageView(path + "vegetarian.png"));
-//        JFXButton button3 = new JFXButton("", new ImageView(path + "nomad.png"));
-//        JFXButton button4 = new JFXButton("", new ImageView(path + "travel.png"));
-//        JFXButton button5 = new JFXButton("", new ImageView(path + "solar-panel.png"));
-//        JFXButton button6 = new JFXButton("", new ImageView(path + "solar-panels.png"));
-//        JFXButton button7 = new JFXButton("", new ImageView(path + "thermometer.png"));
-//        JFXButton button8 = new JFXButton("", new ImageView(path + "activity.png"));
-//        JFXButton button9 = new JFXButton("", new ImageView(path + "progress.png"));
-//        JFXButton button10 = new JFXButton("", new ImageView(path + "top-player.png"));
-//        JFXButton button11 = new JFXButton("", new ImageView(path + "top10.png"));
-//        JFXButton button12 = new JFXButton("", new ImageView(path + "stalker.png"));
-//        JFXButton button13 = new JFXButton("", new ImageView(path + "bronze-medal.png"));
-//        JFXButton button14 = new JFXButton("", new ImageView(path + "silver-medal.png"));
-//        JFXButton button15 = new JFXButton("", new ImageView(path + "gold-medal.png"));
-//
-//        badges.add(button);
-//        badges.add(button2);
-//        badges.add(button3);
-//        badges.add(button4);
-//        badges.add(button5);
-//        badges.add(button6);
-//        badges.add(button7);
-//        badges.add(button8);
-//        badges.add(button9);
-//        badges.add(button10);
-//        badges.add(button11);
-//        badges.add(button12);
-//        badges.add(button13);
-//        badges.add(button14);
-//        badges.add(button15);
 
-        //badgesColumn.getChildren().add(badges);
-//        badgesBox.getChildren().add(badgesColumn);
-//        scrollBadges.setContent(badgesBox);
+        String path = "/client/windows/images/badges/";
+        JFXButton button = new JFXButton("", new ImageView(path + "solar-panel.png"));
+
+        badges.add(button);
+
+
+        for (int i = 0; i < badges.size(); i++ ) {
+            badgesColumn.getChildren().add(i, badges.get(i));
+        }
+
+        badgesBox.getChildren().add(badgesColumn);
+        scrollBadges.setContent(badgesBox);
     }
 }

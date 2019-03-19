@@ -11,7 +11,10 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="222.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11" fx:controller="client.windows.AgendaController">
+<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity"
+      prefHeight="289.0" prefWidth="222.0" style="-fx-background-color: white;"
+      xmlns="http://javafx.com/javafx/11" fx:controller="client.windows.AgendaController">
     <children>
         <HBox alignment="TOP_CENTER" layoutY="14.0" prefHeight="25.0" prefWidth="222.0">
             <children>
@@ -98,7 +101,7 @@
                 <DatePicker fx:id="datepicker" maxHeight="-Infinity" prefHeight="25.0" prefWidth="108.0"
                             style="-fx-border-radius: 0;">
                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0"/>7
+                        <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0"/>
                     </effect>
                 </DatePicker>
             </children>

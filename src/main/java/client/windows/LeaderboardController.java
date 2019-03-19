@@ -1,21 +1,20 @@
 package client.windows;
 
 import client.ServerRequests;
-import javafx.event.ActionEvent;
-import javafx.fxml.Initializable;
 import client.user.User;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class LeaderboardController extends Controller implements Initializable {
 
@@ -37,6 +36,7 @@ public class LeaderboardController extends Controller implements Initializable {
         ServerRequests serverRequests = new ServerRequests();
         ObservableList<User> users = FXCollections.observableArrayList(serverRequests.getGlobalBestProfile());
 
+        addFollowButtons();
         return users;
     }
 
@@ -81,7 +81,6 @@ public class LeaderboardController extends Controller implements Initializable {
 
         table.getColumns().add(followButtonColumn);
     }
-
 
     @Override
     public void update() {

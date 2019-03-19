@@ -6,7 +6,9 @@ import client.helper.RowCount;
 import client.objects.Activity;
 import client.objects.Item;
 import client.user.ClientUser;
+//CHECKSTYLE:OFF
 import com.google.common.collect.ArrayListMultimap;
+//CHECKSTYLE:ON
 import com.google.common.collect.Multimap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;

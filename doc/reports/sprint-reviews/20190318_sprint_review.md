@@ -33,3 +33,8 @@ This also became apparent in the additional meeting, where it was not clear for 
 - The sprint went fine, given that the midterm took place we still got a lot done.
 - I forsee the application to be finished soon, and this sprint gave us a good ground base to go from.
 - Where communication was a bit poor at first, we can finally see all team members picking up to regularly update one another and ask questions.
+
+### Jasmine (jdiaconu)
+- Despite of the midterm, we still managed to complete the Demo and fulfill all its requirements
+- The test coverage got really high and we were able to implement Mockito
+- The extra meeting was definitely needed to take stock of the situation as the first part of the week we weren't able to make much progress due to the midterm

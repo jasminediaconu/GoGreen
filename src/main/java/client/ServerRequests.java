@@ -134,14 +134,15 @@ public class ServerRequests {
         Type listType = new TypeToken<List<Item>>() {
         }.getType();
         String response = sendRequestToServer("getItems", null);
-        if (response != null)
+        if (response != null) {
             Main.items = Main.gson.fromJson(response, listType);
+        }
     }
 
     /**
-     * This function will add an activity to the database
+     * This function will add an activity to the database.
      *
-     * @param activity
+     * @param activity Activity type.
      * @return a boolean whether adding went successfully
      */
     public boolean addActivity(Activity activity) {
@@ -172,7 +173,7 @@ public class ServerRequests {
     /**
      * This function removes an activity with gien acitivtiID from the database.
      *
-     * @param activityID
+     * @param activityID int type.
      * @return a boolean whether removing went successfully
      */
     public boolean removeActivity(int activityID) {
@@ -194,22 +195,25 @@ public class ServerRequests {
     }
 
     /**
-     * This function retrieves all activities within a given period for a specific user from the database
+     * This function retrieves all activities within a given period for a specific
+     * user from the database.
      *
-     * @param period
+     * @param period String type.
      * @return a list of activities
      */
     public List<Activity> retrieveActivities(String period) {
         Type listType = new TypeToken<List<Activity>>() {
         }.getType();
-        String response = sendRequestToServer("retrieveActivities?s=" + Main.sessionID, Main.gson.toJson(period));
-        if (response == null)
+        String response = sendRequestToServer("retrieveActivities?s="
+                + Main.sessionID, Main.gson.toJson(period));
+        if (response == null) {
             return new ArrayList<>();
+        }
         return Main.gson.fromJson(response, listType);
     }
 
     /**
-     * This funtion retrieves the clients user profile from the database
+     * This funtion retrieves the clients user profile from the database.
      *
      * @return a ClientUser class
      */
@@ -219,12 +223,13 @@ public class ServerRequests {
     }
 
     /**
-     * This function will update the user profile on the server
+     * This function will update the user profile on the server.
      *
      * @return a boolean on whether updating the users profile succeeded
      */
     public boolean updateClientUserProfile() {
-        String response = sendRequestToServer("updateUserProfile?s=" + Main.sessionID, Main.gson.toJson(Main.clientUser));
+        String response = sendRequestToServer("updateUserProfile?s="
+                + Main.sessionID, Main.gson.toJson(Main.clientUser));
         if ("success".equals(response)) {
             System.out.println("[INFO] Updating the client users profile went successfully");
             return true;
@@ -235,7 +240,7 @@ public class ServerRequests {
     }
 
     /**
-     * This function retrieves all the users the clientuser is following from the database
+     * This function retrieves all the users the clientuser is following from the database.
      *
      * @return a list of Users
      */
@@ -243,8 +248,9 @@ public class ServerRequests {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
         String response = sendRequestToServer("getFollowingProfile?s=" + Main.sessionID, null);
-        if (response == null)
+        if (response == null) {
             return new ArrayList<>();
+        }
         return Main.gson.fromJson(response, listType);
     }
 
@@ -257,15 +263,17 @@ public class ServerRequests {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
         String response = sendRequestToServer("getGlobalBestProfile?s=" + Main.sessionID, null);
-        if (response == null)
+        if (response == null) {
             return new ArrayList<>();
+        }
         return Main.gson.fromJson(response, listType);
     }
 
     public int getUserID() {
         String response = sendRequestToServer("userID?s=" + Main.sessionID, null);
-        if (response == null)
+        if (response == null) {
             return -1;
+        }
         return Integer.parseInt(response);
     }
 

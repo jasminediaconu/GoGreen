@@ -37,14 +37,12 @@ public class OverviewController extends Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        final Tooltip tooltip = new Tooltip();
-        final Tooltip tooltipDisable = new Tooltip();
-
-        tooltip.setText("You logged in 5 days in a row!");
-        tooltipDisable.setText("You don't have this badge yet.");
+        // 1: CREATE FOR LOOP WITH ARRAY LIST WHERE I RETRIEVE ALL THE ACHIEVEMENTS
+        // 2: ADD THEM IN VBOX & HBOX AND SHOW THEM ON THE SCREEN WITH OPACITY
+        // 3: FUNCTION TO CHECK IF THE ACHIEVEMENT WAS UNLOCKED -> OPACITY 100%
 
         badgesBox = new VBox();
-        badgesBox.setPadding(new Insets(20, 0, 0, 20));
+        badgesBox.setPadding(new Insets(20, 20, 0, 20));
 
         badgesColumn = new HBox();
 
@@ -82,10 +80,6 @@ public class OverviewController extends Controller implements Initializable {
         badges.add(button13);
         badges.add(button14);
         badges.add(button15);
-
-        for (int i = 0; i < 15; i++) {
-            badges.get(i).setTooltip(tooltip);
-        }
 
         for (int i = 0; i < 5; i++ ) {
             badgesColumn.getChildren().add(i, badges.get(i));

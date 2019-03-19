@@ -284,6 +284,10 @@
                         <exclude>**/server/user/**</exclude>
                         <exclude>**/server/InfoController.*</exclude>
                         <exclude>**/server/SessionController.*</exclude>
+
+
+                        <exclude>**/client/loginscreen/*Request**</exclude>
+                        <exclude>**/client/ServerRequests.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

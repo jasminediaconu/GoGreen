@@ -1,12 +1,15 @@
 package client.windows;
 
+import client.ServerRequests;
+import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tooltip;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -21,6 +24,7 @@ import java.util.ResourceBundle;
 public class OverviewController extends Controller implements Initializable {
 
     List<JFXButton> badges;
+    public List<Achievement> achievements;
 
     @FXML
     Pane overview;
@@ -35,6 +39,20 @@ public class OverviewController extends Controller implements Initializable {
     public void update() {
     }
 
+//    private ArrayList<Achievement> achievementsShow(ArrayList<Achievement> achievements) {
+//        for (Achievement a : achievements) {
+//            achievements.add(a);
+//        }
+//        return achievements;
+//    }
+
+//    public ObservableList<Achievement> getAchievements(){
+//        ServerRequests serverRequests = new ServerRequests();
+//        ObservableList<Achievement> achievements = FXCollections.observableArrayList(serverRequests.get());
+//
+//        return achievements;
+//    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -43,6 +61,7 @@ public class OverviewController extends Controller implements Initializable {
         // 3: FUNCTION TO CHECK IF THE ACHIEVEMENT WAS UNLOCKED -> OPACITY 100%
 
         badgesBox = new VBox();
+
             badgesBox.setPadding(new Insets(20, 20, 0, 20));
 //
            badgesColumn = new HBox();
@@ -85,6 +104,5 @@ public class OverviewController extends Controller implements Initializable {
         //badgesColumn.getChildren().add(badges);
 //        badgesBox.getChildren().add(badgesColumn);
 //        scrollBadges.setContent(badgesBox);
-
     }
 }

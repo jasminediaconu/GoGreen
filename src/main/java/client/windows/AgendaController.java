@@ -214,7 +214,6 @@ public class AgendaController extends Controller implements Initializable {
     private void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
         agendaBox.getChildren().removeAll();
 
-
         gridPane = new GridPane();
         gridPane.setLayoutX(420);
 

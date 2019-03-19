@@ -2,6 +2,7 @@ package server.user;
 
 import server.ServerApp;
 import server.helper.AchievementClass;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

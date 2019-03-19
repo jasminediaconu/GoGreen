@@ -173,7 +173,7 @@ public class ServerRequests {
     /**
      * This function removes an activity with gien acitivtiID from the database.
      *
-     * @param activityID int type.
+     * @param activityID int type
      * @return a boolean whether removing went successfully
      */
     public boolean removeActivity(int activityID) {
@@ -195,8 +195,8 @@ public class ServerRequests {
     }
 
     /**
-     * This function retrieves all activities within a given period for a specific
-     * user from the database.
+     * This function retrieves all activities within a given period for a specific user from
+     * the database.
      *
      * @param period String type.
      * @return a list of activities
@@ -269,6 +269,10 @@ public class ServerRequests {
         return Main.gson.fromJson(response, listType);
     }
 
+    /**
+     * Get the UserID.
+     * @return response int type
+     */
     public int getUserID() {
         String response = sendRequestToServer("userID?s=" + Main.sessionID, null);
         if (response == null) {

@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 
@@ -42,50 +43,48 @@ public class OverviewController extends Controller implements Initializable {
         // 3: FUNCTION TO CHECK IF THE ACHIEVEMENT WAS UNLOCKED -> OPACITY 100%
 
         badgesBox = new VBox();
-        badgesBox.setPadding(new Insets(20, 20, 0, 20));
-
-        badgesColumn = new HBox();
-
+            badgesBox.setPadding(new Insets(20, 20, 0, 20));
+//
+           badgesColumn = new HBox();
+//
         badges = new ArrayList<>();
+//
+//        String path = "/client/windows/images/badges/";
+//        JFXButton button = new JFXButton("", new ImageView(path + "burger.png"));
+//        JFXButton button2 = new JFXButton("", new ImageView(path + "vegetarian.png"));
+//        JFXButton button3 = new JFXButton("", new ImageView(path + "nomad.png"));
+//        JFXButton button4 = new JFXButton("", new ImageView(path + "travel.png"));
+//        JFXButton button5 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+//        JFXButton button6 = new JFXButton("", new ImageView(path + "solar-panels.png"));
+//        JFXButton button7 = new JFXButton("", new ImageView(path + "thermometer.png"));
+//        JFXButton button8 = new JFXButton("", new ImageView(path + "activity.png"));
+//        JFXButton button9 = new JFXButton("", new ImageView(path + "progress.png"));
+//        JFXButton button10 = new JFXButton("", new ImageView(path + "top-player.png"));
+//        JFXButton button11 = new JFXButton("", new ImageView(path + "top10.png"));
+//        JFXButton button12 = new JFXButton("", new ImageView(path + "stalker.png"));
+//        JFXButton button13 = new JFXButton("", new ImageView(path + "bronze-medal.png"));
+//        JFXButton button14 = new JFXButton("", new ImageView(path + "silver-medal.png"));
+//        JFXButton button15 = new JFXButton("", new ImageView(path + "gold-medal.png"));
+//
+//        badges.add(button);
+//        badges.add(button2);
+//        badges.add(button3);
+//        badges.add(button4);
+//        badges.add(button5);
+//        badges.add(button6);
+//        badges.add(button7);
+//        badges.add(button8);
+//        badges.add(button9);
+//        badges.add(button10);
+//        badges.add(button11);
+//        badges.add(button12);
+//        badges.add(button13);
+//        badges.add(button14);
+//        badges.add(button15);
 
-        String path = "/client/windows/images/badges/";
-        JFXButton button = new JFXButton("", new ImageView(path + "burger.png"));
-        JFXButton button2 = new JFXButton("", new ImageView(path + "vegetarian.png"));
-        JFXButton button3 = new JFXButton("", new ImageView(path + "nomad.png"));
-        JFXButton button4 = new JFXButton("", new ImageView(path + "travel.png"));
-        JFXButton button5 = new JFXButton("", new ImageView(path + "solar-panel.png"));
-        JFXButton button6 = new JFXButton("", new ImageView(path + "solar-panels.png"));
-        JFXButton button7 = new JFXButton("", new ImageView(path + "thermometer.png"));
-        JFXButton button8 = new JFXButton("", new ImageView(path + "activity.png"));
-        JFXButton button9 = new JFXButton("", new ImageView(path + "progress.png"));
-        JFXButton button10 = new JFXButton("", new ImageView(path + "top-player.png"));
-        JFXButton button11 = new JFXButton("", new ImageView(path + "top10.png"));
-        JFXButton button12 = new JFXButton("", new ImageView(path + "stalker.png"));
-        JFXButton button13 = new JFXButton("", new ImageView(path + "bronze-medal.png"));
-        JFXButton button14 = new JFXButton("", new ImageView(path + "silver-medal.png"));
-        JFXButton button15 = new JFXButton("", new ImageView(path + "gold-medal.png"));
+        //badgesColumn.getChildren().add(badges);
+//        badgesBox.getChildren().add(badgesColumn);
+//        scrollBadges.setContent(badgesBox);
 
-        badges.add(button);
-        badges.add(button2);
-        badges.add(button3);
-        badges.add(button4);
-        badges.add(button5);
-        badges.add(button6);
-        badges.add(button7);
-        badges.add(button8);
-        badges.add(button9);
-        badges.add(button10);
-        badges.add(button11);
-        badges.add(button12);
-        badges.add(button13);
-        badges.add(button14);
-        badges.add(button15);
-
-        for (int i = 0; i < 5; i++ ) {
-            badgesColumn.getChildren().add(i, badges.get(i));
-        }
-
-        badgesBox.getChildren().add(badgesColumn);
-        scrollBadges.setContent(badgesBox);
     }
 }

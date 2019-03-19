@@ -36,15 +36,14 @@ import java.util.ResourceBundle;
  */
 public class MainScreenController extends Pane implements Initializable {
 
+    private final String path = "/client/windows/fxml/";
+
     @FXML
     MenuButton user;
-
-    private final String path = "/client/windows/fxml/";
     private boolean welcome = true;
     private int state = -1;
 
     private ArrayList<Controller> controllers = new ArrayList<>();
-
     @FXML
     private AnchorPane mainPane;
     @FXML

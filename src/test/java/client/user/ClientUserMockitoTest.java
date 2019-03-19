@@ -38,7 +38,7 @@ public class ClientUserMockitoTest {
         when(mockedClientUser.getCarEmissionType()).thenReturn("Gasoline");
         when(mockedClientUser.getStreakLength()).thenReturn(5);
         when(mockedClientUser.hasSolarPower()).thenReturn(true);
-        when(mockedClientUser.hasLEDs()).thenReturn(true);
+        when(mockedClientUser.hasLeds()).thenReturn(true);
         when(mockedClientUser.getRoomTemp()).thenReturn(21);
         when(mockedClientUser.getImageURL()).thenReturn("img.png");
         when(mockedClientUser.getEmail()).thenReturn("test@greenly.com");
@@ -89,7 +89,7 @@ public class ClientUserMockitoTest {
 
     @Test
     public void hasLEDs() {
-        assertEquals(mockedClientUser.hasLEDs(), true);
+        assertEquals(mockedClientUser.hasLeds(), true);
     }
 
     @Test
@@ -135,9 +135,9 @@ public class ClientUserMockitoTest {
 
     @Test
     public void setLEDs() {
-        doCallRealMethod().when(mockedClientUser).setLEDs(eq(false));
-        mockedClientUser.setLEDs(false);
-        verify(mockedClientUser).setLEDs(false);
+        doCallRealMethod().when(mockedClientUser).setLeds(eq(false));
+        mockedClientUser.setLeds(false);
+        verify(mockedClientUser).setLeds(false);
     }
 
     @Test

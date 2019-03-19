@@ -9,7 +9,7 @@
 <?import javafx.scene.text.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
             minWidth="-Infinity"
-            prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1"
+            prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11"
             fx:controller="client.windows.LeaderboardController">
     <children>
         <Pane fx:id="leaderboard" layoutX="-2.0" layoutY="43.0" prefHeight="725.0" prefWidth="1025.0"

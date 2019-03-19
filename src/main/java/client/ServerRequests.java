@@ -77,7 +77,7 @@ public class ServerRequests {
             return null;
         }
 
-        Pattern stdPattern = Pattern.compile("^([A-Za-z0-9_]{8,}$)");
+        Pattern stdPattern = Pattern.compile("^([A-Za-z0-9_]{4,}$)");
         Pattern emailPattern =
                 Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
 

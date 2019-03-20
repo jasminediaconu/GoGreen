@@ -38,3 +38,8 @@ This also became apparent in the additional meeting, where it was not clear for 
 - Despite of the midterm, we still managed to complete the Demo and fulfill all its requirements
 - The test coverage got really high and we were able to implement Mockito
 - The extra meeting was definitely needed to take stock of the situation as the first part of the week we weren't able to make much progress due to the midterm
+
+### Giuliano (gforghieri)
+- We completed everything for the demo's requirement.
+- The extra meeting on Friday made sure that we also got the test coverage up.
+- This sprint we will hopefully get close to or actually finishing the coding part of the project.

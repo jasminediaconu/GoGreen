@@ -14,7 +14,7 @@
 <Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity"
       prefHeight="289.0" prefWidth="222.0" style="-fx-background-color: white;"
-      xmlns="http://javafx.com/javafx/11.0.1" fx:controller="client.windows.AgendaController">
+      xmlns="http://javafx.com/javafx/11" fx:controller="client.windows.AgendaController">
     <children>
         <HBox alignment="TOP_CENTER" layoutY="14.0" prefHeight="25.0" prefWidth="222.0">
             <children>

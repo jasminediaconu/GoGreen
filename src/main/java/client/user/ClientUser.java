@@ -45,7 +45,7 @@ public class ClientUser extends User {
      *
      * @param username        the username
      * @param country         the country
-     * @param totalco2        the totalco 2
+     * @param totalCo2        the totalCo2
      * @param streakLength    the streak length
      * @param solarPower      the solar power
      * @param leds            the leds

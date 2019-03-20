@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -28,6 +27,7 @@ public class LeaderboardController extends Controller implements Initializable {
     @FXML public Button followingButton;
 
     ServerRequests serverRequests = new ServerRequests();
+    ClientUser clientUser = new ClientUser();
 
     public void initialize(URL url, ResourceBundle rb) {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
@@ -62,7 +62,7 @@ public class LeaderboardController extends Controller implements Initializable {
      * The globalButton switches the contents of the table with the global list
      */
     public void switchToGlobal(){
-        globalButton.setOnAction((ActionEvent gEvent) -> {
+        globalButton.setOnAction((ActionEvent switchToGlobalEvent) -> {
             table.setItems(getGlobalUsers());
         });
     }
@@ -71,7 +71,7 @@ public class LeaderboardController extends Controller implements Initializable {
      * The followingButton switches the contents of the table with the following list
      */
     public void switchToFollowing(){
-        followingButton.setOnAction((ActionEvent fEvent) -> {
+        followingButton.setOnAction((ActionEvent switchToFollowingEvent) -> {
             table.setItems(getFollowingUsers());
         });
     }
@@ -79,18 +79,18 @@ public class LeaderboardController extends Controller implements Initializable {
     public void addFollowButtons(){
         TableColumn<User, Void> followButtonColumn = new TableColumn<>("Follow");
 
-        Callback<TableColumn<User, Void>, TableCell<User, Void>> cellFactory = new Callback<TableColumn<User, Void>, TableCell<User, Void>>() {
+        Callback<TableColumn<User, Void>, TableCell<User, Void>> cellFactory = new Callback<>() {
             @Override
             public TableCell<User, Void> call(final TableColumn<User, Void> param) {
-                final TableCell<User, Void> cell = new TableCell<User, Void>() {
+                final TableCell<User, Void> cell = new TableCell<>() {
 
-                    private final Button followButton = new Button("follow");
+                    private Button followButton = new Button("follow");
 
                     {
-                        followButton.setOnAction((ActionEvent event) -> {
+                        followButton.setOnAction((ActionEvent followUserEvent) -> {
                             //TODO follow user function
+                            //TODO update list with setFollowing
 
-                            //ClientUser clientUser = new ClientUser();
                             //clientUser.addFollowing();
 
                             if (followButton.getText() == "unfollow"){
@@ -104,6 +104,9 @@ public class LeaderboardController extends Controller implements Initializable {
                     @Override
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);
+
+                        //TODO if clientuserid is userid of row then setGraphic(null)
+
                         if (empty) {
                             setGraphic(null);
                         } else {

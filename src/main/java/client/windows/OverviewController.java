@@ -25,9 +25,10 @@ public class OverviewController extends Controller implements Initializable {
 
     @FXML
     private ScrollPane scrollBadges;
-
     private VBox badgesBox;
-    private HBox badgesColumn;
+    private HBox row;
+    private HBox row2;
+    private HBox row3;
 
     @Override
     public void update() {
@@ -37,23 +38,58 @@ public class OverviewController extends Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         badgesBox = new VBox();
-        badgesBox.setPadding(new Insets(20, 0, 0, 20));
+        badgesBox.setPadding(new Insets(10, 10, 10, 15));
 
-        badgesColumn = new HBox();
+        row = new HBox();
+        row2 = new HBox();
+        row3 = new HBox();
 
         badges = new ArrayList<>();
 
         String path = "/client/windows/images/badges/";
         JFXButton button = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button2 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button3 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button4 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button5 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button6 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button7 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button8 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button9 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button10 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button11 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button12 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button13 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button14 = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        JFXButton button15 = new JFXButton("", new ImageView(path + "solar-panel.png"));
 
         badges.add(button);
+        badges.add(button2);
+        badges.add(button3);
+        badges.add(button4);
+        badges.add(button5);
+        badges.add(button6);
+        badges.add(button7);
+        badges.add(button8);
+        badges.add(button9);
+        badges.add(button10);
+        badges.add(button11);
+        badges.add(button12);
+        badges.add(button13);
+        badges.add(button14);
+        badges.add(button15);
 
-
-        for (int i = 0; i < badges.size(); i++ ) {
-            badgesColumn.getChildren().add(i, badges.get(i));
+        for(int i = 0; i < 5; i++){
+            //ADD 3 HBOXES
+            row.getChildren().add(i, badges.get(i));
+            row2.getChildren().add(i, badges.get(i+5));
+            row3.getChildren().add(i, badges.get(i+10));
         }
 
-        badgesBox.getChildren().add(badgesColumn);
+        badgesBox.getChildren().add(row);
+        badgesBox.getChildren().add(row2);
+        badgesBox.getChildren().add(row3);
+
         scrollBadges.setContent(badgesBox);
     }
 }

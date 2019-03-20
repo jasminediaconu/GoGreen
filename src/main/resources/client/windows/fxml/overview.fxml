@@ -37,7 +37,7 @@
                     </yAxis>
                 </LineChart>
                 <ComboBox layoutX="497.0" layoutY="453.0" prefWidth="150.0" />
-                <ScrollPane fx:id="scrollBadges" layoutX="332.0" layoutY="500.0" prefHeight="200.0" prefWidth="514.0" style="-fx-background-radius: 10 10 10 10;" stylesheets="@../css/overview.css" />
+                <ScrollPane fx:id="scrollBadges" layoutX="332.0" layoutY="500.0" prefHeight="200.0" prefWidth="514.0" style="-fx-background-radius: 10 0 0 10;" stylesheets="@../css/overview.css" />
             </children>
         </Pane>
     </children>

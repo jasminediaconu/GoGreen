@@ -1,6 +1,6 @@
 .scroll-pane > .viewport {
     -fx-background-color: #e5e5e5;
-    -fx-border-radius: 10 10 10 10;
+    -fx-border-radius: 10 0 0 10;
 }
 
 .viewport {
@@ -8,12 +8,14 @@
     -fx-border-radius: 10 0 0 10;
 }
 
-.scroll-bar:horizontal, .scroll-bar:vertical{
+.scroll-bar:vertical {
     -fx-background-color:transparent;
+    -fx-padding: 2 -1 2 -2;
 }
 
-.increment-button, .decrement-button {
-    -fx-content-display: null;
+.scroll-bar:vertical .increment-button,.scroll-bar:vertical .decrement-button,
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 0;
 }
 
 .scroll-bar:horizontal .track,
@@ -26,4 +28,8 @@
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
     -fx-background-radius: 5em;
+}
+
+JFXButton {
+    -fx-opacity: 50%;
 }

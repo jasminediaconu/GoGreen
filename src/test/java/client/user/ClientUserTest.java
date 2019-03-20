@@ -140,5 +140,4 @@ class ClientUserTest {
         int number = 1;
         Assert.assertEquals(user.equals(number), false);
     }
-
 }

@@ -1,6 +1,6 @@
 package client;
 
-import client.loginscreen.LoginApp;
+
 import client.objects.Item;
 import client.serializer.LocalDateDeserializer;
 import client.serializer.LocalDateSerializer;
@@ -20,18 +20,19 @@ import java.util.List;
  * This application is made by:
  *
  * @author wouthaakman, ginotramontina, giulianoforghieri,
- *         janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
+ * janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
  */
 public class Main {
 
     public static Gson gson;
     public static String sessionID;
-
     public static ClientUser clientUser;
+
     public static List<Item> items = new ArrayList<>();
 
     /**
      * Main function.
+     *
      * @param args type.
      */
     public static void main(String[] args) {
@@ -40,8 +41,8 @@ public class Main {
         builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
         gson = builder.setPrettyPrinting().create();
 
-        Application.launch(LoginApp.class, args);
-        ServerRequests.endSession();
+        Application.launch(client.loginscreen.LoginApp.class, args);
+        new ServerRequests().endSession();
     }
 
     /**

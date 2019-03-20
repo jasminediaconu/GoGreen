@@ -8,6 +8,7 @@ import server.helper.ItemClass;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +26,7 @@ public class ItemController {
     static {
         try {
             getItems = ServerApp.dbConnection.prepareStatement("SELECT * FROM items");
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -50,7 +51,7 @@ public class ItemController {
             }
 
             return ServerApp.gson.toJson(items);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return "fail";
         }

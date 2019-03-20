@@ -10,11 +10,12 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: transparent;"
-            stylesheets="@loginStyle.css" xmlns="http://javafx.com/javafx/11.0.1"
-            fx:controller="client.loginscreen.SignupController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="signUpScene" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0"
+            style="-fx-background-color: transparent;" stylesheets="@loginStyle.css"
+            xmlns="http://javafx.com/javafx/10.0.1"
+            fx:controller="client.loginscreen.SignUpController">
     <children>
         <StackPane maxHeight="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="100.0"
                    prefWidth="200.0" style="-fx-background-color: white; -fx-background-radius: 22;"
@@ -185,8 +186,8 @@
                                     <children>
                                         <VBox alignment="CENTER" prefHeight="105.0" prefWidth="398.0">
                                             <children>
-                                                <Button mnemonicParsing="false" onMouseClicked="#signup"
-                                                        prefHeight="53.0" prefWidth="154.0"
+                                                <Button fx:id="signUpButton" mnemonicParsing="false"
+                                                        onMouseClicked="#signUp" prefHeight="53.0" prefWidth="154.0"
                                                         style="-fx-font-family: Roboto; -fx-font-size: 1.7em; -fx-background-color: #95E743; -fx-font-weight: bold; -fx-background-radius: 5;"
                                                         text="Sign Up" textFill="WHITE">
                                                     <font>
@@ -205,8 +206,9 @@
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="55.0" prefWidth="512.0">
                                     <children>
-                                        <Text id="already" onMouseClicked="#login" strokeType="OUTSIDE"
-                                              strokeWidth="0.0" style="-fx-font-size: 1.5em; -fx-font-weight: bold;"
+                                        <Text id="already" fx:id="loginButton" onMouseClicked="#login"
+                                              strokeType="OUTSIDE" strokeWidth="0.0"
+                                              style="-fx-font-size: 1.5em; -fx-font-weight: bold;"
                                               text="Already have an account?" wrappingWidth="245.75018310546875">
                                             <font>
                                                 <Font name="Montserrat Regular" size="12.0"/>

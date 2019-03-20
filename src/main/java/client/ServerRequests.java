@@ -208,7 +208,7 @@ public class ServerRequests {
     }
 
     /**
-     * This funtion retrieves the clients user profile from the database
+     * This function retrieves the clients user profile from the database
      *
      * @return a ClientUser class
      */

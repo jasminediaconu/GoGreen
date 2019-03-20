@@ -1,12 +1,14 @@
 package client.windows;
 
 import client.ServerRequests;
+import client.user.ClientUser;
 import client.user.User;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -22,22 +24,56 @@ public class LeaderboardController extends Controller implements Initializable {
     @FXML public TableColumn<User, String> usernameColumn;
     @FXML public TableColumn<User, String> countryColumn;
     @FXML public TableColumn<User, Double> totalCo2Column;
+    @FXML public Button globalButton;
+    @FXML public Button followingButton;
+
+    ServerRequests serverRequests = new ServerRequests();
 
     public void initialize(URL url, ResourceBundle rb) {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
         countryColumn.setCellValueFactory(new PropertyValueFactory<User, String>("country"));
         totalCo2Column.setCellValueFactory(new PropertyValueFactory<User, Double>("totalCo2"));
 
+        switchToGlobal();
+        switchToFollowing();
         addFollowButtons();
-        table.setItems(getUsers());
+        table.setItems(getGlobalUsers());
     }
 
-    public ObservableList<User> getUsers(){
-        ServerRequests serverRequests = new ServerRequests();
-        ObservableList<User> users = FXCollections.observableArrayList(serverRequests.getGlobalBestProfile());
+    /**
+     * The observable list contains the top 10 global users
+     * @return the list of global users
+     */
+    public ObservableList<User> getGlobalUsers(){
+        ObservableList<User> globalUsers = FXCollections.observableArrayList(serverRequests.getGlobalBestProfile());
+        return globalUsers;
+    }
 
-        addFollowButtons();
-        return users;
+    /**
+     * The observable list contains the users the client is following
+     * @return the list of following users
+     */
+    public ObservableList<User> getFollowingUsers(){
+        ObservableList<User> followingUsers = FXCollections.observableArrayList(serverRequests.getFollowingProfile());
+        return followingUsers;
+    }
+
+    /**
+     * The globalButton switches the contents of the table with the global list
+     */
+    public void switchToGlobal(){
+        globalButton.setOnAction((ActionEvent gEvent) -> {
+            table.setItems(getGlobalUsers());
+        });
+    }
+
+    /**
+     * The followingButton switches the contents of the table with the following list
+     */
+    public void switchToFollowing(){
+        followingButton.setOnAction((ActionEvent fEvent) -> {
+            table.setItems(getFollowingUsers());
+        });
     }
 
     public void addFollowButtons(){
@@ -53,8 +89,10 @@ public class LeaderboardController extends Controller implements Initializable {
                     {
                         followButton.setOnAction((ActionEvent event) -> {
                             //TODO follow user function
-                            User data = getTableView().getItems().get(getIndex());
-                            System.out.println("selectedData: " + data);
+
+                            //ClientUser clientUser = new ClientUser();
+                            //clientUser.addFollowing();
+
                             if (followButton.getText() == "unfollow"){
                                 followButton.setText("follow");
                             } else {

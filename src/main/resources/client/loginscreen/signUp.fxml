@@ -14,7 +14,7 @@
             minHeight="-Infinity"
             minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0"
             style="-fx-background-color: transparent;" stylesheets="@loginStyle.css"
-            xmlns="http://javafx.com/javafx/10.0.1"
+            xmlns="http://javafx.com/javafx/11"
             fx:controller="client.loginscreen.SignUpController">
     <children>
         <StackPane maxHeight="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" prefHeight="100.0"

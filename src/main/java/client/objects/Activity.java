@@ -92,7 +92,7 @@ public class Activity {
     /**
      * This function changes the current date to a new date.
      *
-     * @param date
+     * @param date LocalDate type.
      */
     public void setDate(LocalDate date) {
         this.date = date;

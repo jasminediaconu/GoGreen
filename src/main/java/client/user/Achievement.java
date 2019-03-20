@@ -4,14 +4,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 
-
-
 /**
  * The type Achievement.
  */
 public class Achievement {
 
+    private int id;
     private String title;
+    private String description;
     private BufferedImage image;
 
     /**
@@ -20,8 +20,9 @@ public class Achievement {
      * @param title the title
      * @param path  the path
      */
-    public Achievement(String title, String path) {
+    public Achievement(int id, String title, String description, String path) {
         this.title = title;
+        this.description = description;
         this.image = loadImage(path);
     }
 
@@ -45,6 +46,24 @@ public class Achievement {
      *
      * @return the title
      */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * Sets title.
+     *
+     * @param id the id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Gets title.
+     *
+     * @return the title
+     */
     public String getTitle() {
         return title;
     }
@@ -56,6 +75,24 @@ public class Achievement {
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * Gets description.
+     *
+     * @return the title
+     */
+    public String getDescription() {
+        return title;
+    }
+
+    /**
+     * Sets description.
+     *
+     * @param description the description
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     /**

@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS user_profile (
 #### USER FOLLOWS TABLE
 CREATE TABLE IF NOT EXISTS user_follows (
     userid INTEGER NOT NULL, 
-    followingid INTEGER NOT NULL
+    followingid INTEGER NOT NULL,
+    CONSTRAINT unq_userid_followingid UNIQUE(userid, followingid)
 );
 
 #### USER ACTIVITIES TABLE

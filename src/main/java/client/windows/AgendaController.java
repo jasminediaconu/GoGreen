@@ -245,14 +245,16 @@ public class AgendaController extends Controller implements Initializable {
 
                 Item item = Main.items.get(activity.getItemID() - 1);
                 String unit = "";
+                Double co2Saved = round((item.getCo2() * activity.getAmount()), 2);
+
                 if (item.getType().equals("food")) {
                     unit = "g";
+                    co2Saved = co2Saved / 1000;
                 } else if (item.getType().equals("transport")) {
                     unit = "km";
                 }
                 Text text = new Text(item.getName() + ", amount: " + activity.getAmount()
-                        + unit + ", CO2 saved: " + round((item.getCo2() * activity.getAmount())
-                        / 1000, 2) + "kg");
+                        + unit + ", CO2 saved: " + co2Saved + "kg");
 
                 text.setWrappingWidth(310.00);
                 gridPane.add(text, 1, counter);

@@ -6,8 +6,9 @@ import com.jfoenix.controls.JFXDialogLayout;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -26,16 +27,19 @@ public class OverviewController extends Controller implements Initializable {
 
     @FXML
     Pane overview;
+    @FXML
+    LineChart<String, Integer> lineChart;
     @FXML private StackPane popup;
     @FXML private ScrollPane scrollBadges;
     private VBox badgesBox;
     private HBox row;
     private HBox row2;
     private HBox row3;
-
     private JFXButton button;
     private JFXDialog dialog;
-
+    @FXML private JFXButton aabutton1;
+    @FXML private JFXButton aabutton11;
+    @FXML private JFXButton aabutton2;
     @Override
     public void update() {
     }
@@ -62,6 +66,15 @@ public class OverviewController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        lineChart.getData().clear();
+        XYChart.Series<String, Integer> series = new XYChart.Series<String, Integer>();
+        series.getData().add(new XYChart.Data<String, Integer>("Monday",200));
+        series.getData().add(new XYChart.Data<String, Integer>("Friday",123));
+        series.getData().add(new XYChart.Data<String, Integer>("Saturday",23));
+        aabutton1.setOnMouseClicked(e -> lineChart.getData().add(series));
+        series.setName("Week");
+
+
 
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));

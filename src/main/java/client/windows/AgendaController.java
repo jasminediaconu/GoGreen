@@ -14,7 +14,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXNodesList;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -35,10 +34,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
-
-import javax.security.auth.callback.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;

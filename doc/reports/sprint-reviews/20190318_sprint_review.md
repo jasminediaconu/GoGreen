@@ -43,12 +43,13 @@ This also became apparent in the additional meeting, where it was not clear for 
 - We completed everything for the demo's requirement.
 - The extra meeting on Friday made sure that we also got the test coverage up.
 - This sprint we will hopefully get close to or actually finishing the coding part of the project.
-
 ### Mandy (mchang)
 - The demo went well
 - We seem to be very up-to-date with demo's
 - I had a few problems with contents in the table of the leaderboard, it was fixed
+<<<<<<< HEAD
 
 ### Gino (gtramontina)
 - We were well prepared for the demo
 - We did very well on creating tests and achieving a good branch coverage.
+

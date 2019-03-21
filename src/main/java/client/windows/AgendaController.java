@@ -15,6 +15,9 @@ import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXNodesList;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -32,12 +35,15 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 
+import javax.security.auth.callback.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -78,14 +84,20 @@ public class AgendaController extends Controller implements Initializable {
     private Pane energyWindow;
 
     private MainScreenController mainScreenController;
+    private JFXButton ssbutton1;
     private JFXButton ssbutton2;
     private JFXButton ssbutton3;
     private JFXButton ssbutton4;
     private ObservableList foodList = FXCollections.observableArrayList();
     private ObservableList transportList = FXCollections.observableArrayList();
     private ObservableList energyList = FXCollections.observableArrayList();
-    private JFXNodesList nodesList;
+    private PopOver popOver1 = new PopOver();
+    private PopOver popOver2 = new PopOver();
+    private PopOver popOver3 = new PopOver();
 
+    private String itemName;
+
+    private JFXNodesList nodesList;
     private GridPane gridPane;
     private Text dateText;
     private VBox agendaBox;
@@ -126,9 +138,11 @@ public class AgendaController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         loadFoodItems();
         loadTransportItems();
         loadEnergyItems();
+
 
 
         agendaBox = new VBox();
@@ -159,6 +173,7 @@ public class AgendaController extends Controller implements Initializable {
     public void init() {
         loadPlusButton();
         pane.getChildren().add(nodesList);
+
     }
 
     /**
@@ -232,16 +247,17 @@ public class AgendaController extends Controller implements Initializable {
             counter++;
 
             for (Activity activity : activityMap.get(date)) {
+
                 Item item = Main.items.get(activity.getItemID() - 1);
-                String unit = null;
+                String unit = "";
                 if (item.getType().equals("food")) {
                     unit = "g";
                 } else if (item.getType().equals("transport")) {
                     unit = "km";
                 }
-                Text text = new Text(item.getName() + ", amount: " + activity.getAmount() + " "
-                        + unit + ", co2: " + round((item.getCo2() * activity.getAmount())
-                        / 1000, 2));
+                Text text = new Text(item.getName() + ", amount: " + activity.getAmount() +
+                        unit + ", CO2 saved: " + round((item.getCo2() * activity.getAmount())
+                        / 1000, 2) + "kg");
 
                 text.setWrappingWidth(310.00);
                 gridPane.add(text, 1, counter);
@@ -263,10 +279,18 @@ public class AgendaController extends Controller implements Initializable {
 
     public void loadPlusButton() {
         // This code creates the GREEN animated PLUS button when agenda is selected
-        JFXButton ssbutton1 = new JFXButton();
+        ssbutton1 = new JFXButton();
         ssbutton1.setId("plusbutton");
         ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
         ssbutton1.getStyleClass().addAll("animated-option-button", "animated-option-sub-button");
+
+        nodesList.addAnimatedNode(ssbutton1, (expanded, duration) -> {
+                    List<KeyFrame> frames = new ArrayList<>();
+                    frames.add(new KeyFrame(duration,
+                            new KeyValue(ssbutton1.rotateProperty(), expanded ? 180 : 0, Interpolator.EASE_BOTH)));
+                    return frames;
+                }
+        );
 
         ssbutton2 = new JFXButton();
         ssbutton2.setId("transportbutton");
@@ -288,7 +312,7 @@ public class AgendaController extends Controller implements Initializable {
 
         nodesList.getStylesheets().add("client/windows/css/agenda.css");
 
-        nodesList.addAnimatedNode(ssbutton1);
+
         nodesList.addAnimatedNode(ssbutton2);
         nodesList.addAnimatedNode(ssbutton3);
         nodesList.addAnimatedNode(ssbutton4);
@@ -308,7 +332,7 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * Creates an empty white popup box for transportation button popup.
+     * Creates the transportation popup box.
      * To be finished.
      */
     public void transportButtonAction(javafx.scene.input.MouseEvent event) {
@@ -320,53 +344,12 @@ public class AgendaController extends Controller implements Initializable {
             e.printStackTrace();
         }
 
-
-        PopOver popOver = new PopOver(transportWindow);
-        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-        popOver.show(ssbutton2);
-    }
-
-    //        VBox vBox = new VBox();
-    //        vBox.setPrefHeight(250.0);
-    //        vBox.setPrefWidth(200.0);
-    //
-    //        vBox.setStyle("-fx-background-color: white");
-    //
-    //        PopOver popOver = new PopOver(vBox);
-    //        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-    //        popOver.show(ssbutton2);
-
-    /**
-     * This method appends the foodWindow.fxml to the 3rd node i.e. the foodButton
-     */
-    @FXML
-    public void foodButtonAction(javafx.scene.input.MouseEvent event) {
-        String path = "/client/windows/fxml/foodWindow.fxml";
-
-        try {
-            foodWindow = FXMLLoader.load(getClass().getResource(path));
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (!(popOver1.isShowing())) {
+            popOver1 = new PopOver(transportWindow);
+            popOver1.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+            popOver1.setDetachable(false);
+            popOver1.show(ssbutton2);
         }
-
-
-        PopOver popOver = new PopOver(foodWindow);
-        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-        popOver.show(ssbutton3);
-    }
-
-    /**
-     * Loads the food dropdown menu with items.
-     */
-    private void loadFoodItems() {
-        //Clears everything in the observable list
-        if (foodList.size() < 1) {
-            foodList.addAll(Main.items.stream().filter(item ->
-                    item.getType().equals("food")).map(item ->
-                    item.getName()).collect(Collectors.toList()));
-        }
-        foodChoices.setItems(foodList);
-        //mainScreen.getChildren().add(foodChoices);
     }
 
     /**
@@ -387,6 +370,45 @@ public class AgendaController extends Controller implements Initializable {
 
 
     /**
+     * This method appends the foodWindow.fxml to the 3rd node i.e. the foodButton
+     */
+    @FXML
+    public void foodButtonAction(javafx.scene.input.MouseEvent event) {
+        String path = "/client/windows/fxml/foodWindow.fxml";
+
+        try {
+            foodWindow = FXMLLoader.load(getClass().getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (!popOver2.isShowing()) {
+            popOver2 = new PopOver(foodWindow);
+            popOver2.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+            popOver2.setDetachable(false);
+            popOver2.show(ssbutton3);
+        }
+
+    }
+
+
+    /**
+     * Loads the food dropdown menu with items.
+     */
+    private void loadFoodItems() {
+        //Clears everything in the observable list
+        if (foodList.size() < 1) {
+            foodList.addAll(Main.items.stream().filter(item ->
+                    item.getType().equals("food")).map(item ->
+                    item.getName()).collect(Collectors.toList()));
+        }
+        foodChoices.setItems(foodList);
+        //mainScreen.getChildren().add(foodChoices);
+    }
+
+
+
+    /**
      * Creates an empty white popup box for energy button popup.
      * To be finished.
      */
@@ -398,22 +420,12 @@ public class AgendaController extends Controller implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        PopOver popOver = new PopOver(energyWindow);
-        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-        popOver.show(ssbutton4);
-
-        //        VBox vBox = new VBox();
-        //        vBox.setPrefHeight(250.0);
-        //        vBox.setPrefWidth(200.0);
-        //
-        //        vBox.setStyle("-fx-background-color: white");
-        //
-        //        PopOver popOver = new PopOver(vBox);
-        //        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-        //        popOver.show(ssbutton4);
-
+        if (!popOver3.isShowing()) {
+            popOver3 = new PopOver(energyWindow);
+            popOver3.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+            popOver3.setDetachable(false);
+            popOver3.show(ssbutton4);
+        }
     }
 
     /**
@@ -431,13 +443,31 @@ public class AgendaController extends Controller implements Initializable {
         //mainScreen.getChildren().add(foodChoices);
     }
 
+    @FXML
+    void applyTransport(MouseEvent event) {
+        itemName = transportChoices.getValue();
+        applyButton(itemName);
+    }
+
+    @FXML
+    void applyFood(MouseEvent event) {
+        itemName = foodChoices.getValue();
+        applyButton(itemName);
+    }
+
+    @FXML
+    void applyEnergy(MouseEvent event) {
+        itemName = energyChoices.getValue();
+        applyButton(itemName);
+    }
+
+
     /**
      * applyButton event.
      * Applies the activity to the agenda, still needs a restart of the application.
      */
     @FXML
-    void applyButton(MouseEvent event) {
-        String itemName = foodChoices.getValue();
+    private void applyButton(String itemName) {
         ServerRequests sv = new ServerRequests();
         double parsedAmount = Double.parseDouble(amount.getText());
         LocalDate date = datepicker.getValue();
@@ -455,7 +485,6 @@ public class AgendaController extends Controller implements Initializable {
             }
         }
     }
-
 
     public JFXNodesList getNodesList() {
         return nodesList;

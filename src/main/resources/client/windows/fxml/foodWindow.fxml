@@ -1,51 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.geometry.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.*?>
-<?import java.net.URL?>
-<Pane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity"
-      prefHeight="289.0" prefWidth="222.0" style="-fx-background-color: white;"
-      xmlns="http://javafx.com/javafx/11" fx:controller="client.windows.AgendaController">
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="289.0" prefWidth="222.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.AgendaController">
     <children>
         <HBox alignment="TOP_CENTER" layoutY="14.0" prefHeight="25.0" prefWidth="222.0">
             <children>
                 <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Food">
                     <font>
-                        <Font name="Montserrat Bold" size="20.0"/>
+                        <Font name="Montserrat Bold" size="20.0" />
                     </font>
                 </Text>
             </children>
         </HBox>
         <HBox layoutX="25.0" layoutY="71.0" prefHeight="44.0" prefWidth="186.0">
             <children>
-                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal:"
-                      wrappingWidth="44.01995468139637">
+                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal:" wrappingWidth="44.01995468139637">
                     <font>
-                        <Font name="Montserrat Regular" size="15.0"/>
+                        <Font name="Montserrat Regular" size="15.0" />
                     </font>
                     <HBox.margin>
-                        <Insets top="5.0"/>
+                        <Insets top="5.0" />
                     </HBox.margin>
                 </Text>
                 <HBox prefHeight="100.0" prefWidth="200.0">
                     <children>
-                        <ComboBox id="foodmenu" fx:id="foodChoices" prefHeight="26.0" prefWidth="132.0"
-                                  promptText="Select a meal"
-                                  style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
+                        <ComboBox id="foodmenu" fx:id="foodChoices" prefHeight="26.0" prefWidth="132.0" promptText="Select a meal" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
                             <effect>
-                                <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0"/>
+                                <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
                             </effect>
                             <padding>
-                                <Insets left="3.0"/>
+                                <Insets left="3.0" />
                             </padding>
                         </ComboBox>
                     </children>
@@ -54,73 +51,65 @@
         </HBox>
         <HBox layoutX="25.0" layoutY="126.0" prefHeight="25.0" prefWidth="200.0">
             <children>
-                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount:"
-                      wrappingWidth="72.81994247436512">
+                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount:" wrappingWidth="72.81994247436512">
                     <font>
-                        <Font name="Montserrat Regular" size="15.0"/>
+                        <Font name="Montserrat Regular" size="15.0" />
                     </font>
                     <HBox.margin>
-                        <Insets top="2.0"/>
+                        <Insets top="2.0" />
                     </HBox.margin>
                 </Text>
-                <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="25.0" prefWidth="90.0"
-                      style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
+                <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
                     <effect>
-                        <DropShadow blurType="TWO_PASS_BOX" height="10.0" radius="4.5" width="10.0"/>
+                        <DropShadow blurType="TWO_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
                     </effect>
                     <children>
-                        <TextField fx:id="amount" prefHeight="25.0" prefWidth="90.0"
-                                   style="-fx-background-color: transparent;">
+                        <TextField fx:id="amount" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: transparent;">
                             <font>
-                                <Font name="Montserrat Regular" size="12.0"/>
+                                <Font name="Montserrat Regular" size="12.0" />
                             </font>
                         </TextField>
                     </children>
                 </HBox>
                 <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="g" wrappingWidth="13.79998779296875">
                     <font>
-                        <Font name="Montserrat Regular" size="15.0"/>
+                        <Font name="Montserrat Regular" size="15.0" />
                     </font>
                     <HBox.margin>
-                        <Insets left="6.0" top="2.0"/>
+                        <Insets left="6.0" top="2.0" />
                     </HBox.margin>
                 </Text>
             </children>
         </HBox>
         <HBox layoutX="25.0" layoutY="182.0" prefHeight="44.0" prefWidth="200.0">
             <children>
-                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:"
-                      wrappingWidth="45.61993026733387">
+                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" text="Date:" wrappingWidth="45.61993026733387">
                     <font>
-                        <Font name="Montserrat Regular" size="15.0"/>
+                        <Font name="Montserrat Regular" size="15.0" />
                     </font>
                     <HBox.margin>
-                        <Insets top="2.0"/>
+                        <Insets top="2.0" />
                     </HBox.margin>
                 </Text>
-                <DatePicker fx:id="datepicker" maxHeight="-Infinity" prefHeight="25.0" prefWidth="108.0"
-                            style="-fx-border-radius: 0;">
+                <DatePicker fx:id="datepicker" maxHeight="-Infinity" prefHeight="25.0" prefWidth="108.0" style="-fx-border-radius: 0;">
                     <effect>
-                        <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0"/>
+                        <DropShadow blurType="ONE_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
                     </effect>
                 </DatePicker>
             </children>
         </HBox>
-        <Line endX="-1.600006103515625" layoutX="169.0" layoutY="40.0" startX="-114.9999771118164" stroke="#95e743"
-              strokeLineCap="ROUND" strokeWidth="2.0"/>
-        <JFXButton id="apply" layoutX="60.0" layoutY="239.0" onMouseClicked="#applyButton" prefHeight="36.0"
-                   prefWidth="102.0" style="-fx-background-radius: 5;" stylesheets="@../css/agenda.css" text="Apply"
-                   textFill="WHITE">
+        <Line endX="-1.600006103515625" layoutX="169.0" layoutY="40.0" startX="-114.9999771118164" stroke="#95e743" strokeLineCap="ROUND" strokeWidth="2.0" />
+        <JFXButton id="apply" layoutX="60.0" layoutY="239.0" onMouseClicked="#applyFood" prefHeight="36.0" prefWidth="102.0" style="-fx-background-radius: 5;" stylesheets="@../css/agenda.css" text="Apply" textFill="WHITE">
             <font>
-                <Font name="Montserrat Bold" size="15.0"/>
+                <Font name="Montserrat Bold" size="15.0" />
             </font>
             <cursor>
-                <Cursor fx:constant="HAND"/>
+                <Cursor fx:constant="HAND" />
             </cursor>
         </JFXButton>
     </children>
     <stylesheets>
-        <URL value="@../../defaultFont.css"/>
-        <URL value="@../css/agenda.css"/>
+        <URL value="@../../defaultFont.css" />
+        <URL value="@../css/agenda.css" />
     </stylesheets>
 </Pane>

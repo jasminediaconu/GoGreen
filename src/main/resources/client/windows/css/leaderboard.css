@@ -1,0 +1,9 @@
+.button:enabled{
+    font-weight: normal;
+    text-decoration: none;
+}
+.button:disabled{
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: #95e743;
+}

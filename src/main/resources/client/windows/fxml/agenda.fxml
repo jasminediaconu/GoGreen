@@ -1,35 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-background-radius: 25 25 25 25;" xmlns="http://javafx.com/javafx/11" fx:controller="client.windows.AgendaController">
+<AnchorPane fx:id="anchor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-background-radius: 25 25 25 25;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.AgendaController">
     <children>
-        <Pane fx:id="agenda" layoutX="-2.0" layoutY="43.0" prefHeight="725.0" prefWidth="1025.0"
-              style="-fx-background-color: white; -fx-background-radius: 0 0 28 28;" stylesheets="@../css/agenda.css">
+        <Pane fx:id="agenda" layoutX="-2.0" layoutY="43.0" prefHeight="725.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 0 28 28;" stylesheets="@../css/agenda.css">
             <children>
-                <Text id="agendaTitle" fill="#95e743" layoutX="560.0" layoutY="101.0" strokeType="OUTSIDE"
-                      strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
+                <Text id="agendaTitle" fill="#95e743" layoutX="560.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Agenda" wrappingWidth="259.0011386871338">
                     <font>
-                        <Font name="Century Gothic" size="61.0"/>
+                        <Font name="Century Gothic" size="61.0" />
                     </font>
                 </Text>
                 <ImageView layoutX="455.0" layoutY="43.0">
                     <image>
-                        <Image url="@../images/agenda.png"/>
+                        <Image url="@../images/agenda.png" />
                     </image>
                 </ImageView>
-                <ScrollPane fx:id="scrollAgenda" layoutX="427.0" layoutY="150.0" prefHeight="478.0" prefWidth="420.0"
-                            style="-fx-background-radius: 20;" stylesheets="@../css/agenda.css"/>
-                <StackPane fx:id="stack" layoutX="406.0" layoutY="175.0" prefHeight="109.0" prefWidth="218.0"/>
+                <ScrollPane fx:id="scrollAgenda" layoutX="427.0" layoutY="150.0" prefHeight="478.0" prefWidth="420.0" style="-fx-background-radius: 20;" stylesheets="@../css/agenda.css">
+               <content>
+                  <VBox prefHeight="478.0" prefWidth="420.0">
+                     <children>
+                        <GridPane fx:id="agendaPane" prefHeight="478.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </GridPane>
+                     </children>
+                     <padding>
+                        <Insets right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </content></ScrollPane>
+                <StackPane fx:id="stack" layoutX="406.0" layoutY="175.0" prefHeight="109.0" prefWidth="218.0" />
             </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
         </Pane>
     </children>
     <stylesheets>

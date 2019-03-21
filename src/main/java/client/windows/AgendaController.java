@@ -50,12 +50,14 @@ import java.util.stream.Collectors;
  *
  * @author gforghieri
  */
-public class AgendaController extends Controller implements Initializable {
+public class AgendaController extends Controller  {
 
     @FXML
     Pane agenda;
     @FXML
     FontAwesomeIcon delete;
+    @FXML
+    private GridPane agendaPane;
     @FXML
     private ScrollPane scrollAgenda = new ScrollPane();
     @FXML
@@ -86,9 +88,8 @@ public class AgendaController extends Controller implements Initializable {
     private ObservableList energyList = FXCollections.observableArrayList();
     private JFXNodesList nodesList;
 
-    private GridPane gridPane;
+    static GridPane gridPane;
     private Text dateText;
-    private VBox agendaBox;
     private JFXDialog dialog;
 
 
@@ -97,7 +98,7 @@ public class AgendaController extends Controller implements Initializable {
      * To be able to use the variables, methods of this class.
      */
     public AgendaController() {
-        nodesList = new JFXNodesList();
+
     }
 
     /**
@@ -118,24 +119,17 @@ public class AgendaController extends Controller implements Initializable {
         return (double) tmp / factor;
     }
 
-    /**
-     * Initialize agenda with the user activities.
-     *
-     * @param url            URL
-     * @param resourceBundle ResourceBundle
-     */
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void init() {
+        gridPane = agendaPane;
+        nodesList = new JFXNodesList();
+        loadPlusButton();
+        pane.getChildren().add(nodesList);
+
         loadFoodItems();
         loadTransportItems();
         loadEnergyItems();
 
-
-        agendaBox = new VBox();
-        agendaBox.setPadding(new Insets(20, 0, 0, 20));
-
-        gridPane = new GridPane();
-        gridPane.setLayoutX(420);
 
         if (Main.clientUser == null) {
             Main.clientUser = new ClientUser();
@@ -146,20 +140,24 @@ public class AgendaController extends Controller implements Initializable {
             showAgendaActivities(activityMap);
         }
 
-        gridPane.setHgap(20);
+
         //        agendaBox.getChildren().add(gridPane);
-        scrollAgenda.setContent(agendaBox);
-        agendaBox.setSpacing(15);
+
 
         JFXButton ssbutton5 = new JFXButton("R1");
         ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
     }
 
     @Override
-    public void init() {
-        loadPlusButton();
-        pane.getChildren().add(nodesList);
+    public void update() {
+        if (Main.clientUser.getActivityList() != null) {
+            Multimap<LocalDate, Activity> activityMap =
+                    activityMap(Main.clientUser.getActivityList());
+            showAgendaActivities(activityMap);
+        }
     }
+
+
 
     /**
      * This function will display a dialog message to the user when he wants to delete an activity.
@@ -193,7 +191,7 @@ public class AgendaController extends Controller implements Initializable {
     private void deleteActivity(int rowIndex) {
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
-        agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
+        gridPane.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
         dialog.close();
     }
 
@@ -214,11 +212,7 @@ public class AgendaController extends Controller implements Initializable {
      * @param activityMap Multimap type.
      */
     private void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
-        agendaBox.getChildren().removeAll();
-
-        gridPane = new GridPane();
-        gridPane.setLayoutX(420);
-
+        gridPane.getChildren().clear();
         String path = "/client/windows/images/delete.png";
 
         int counter = 0;
@@ -252,9 +246,6 @@ public class AgendaController extends Controller implements Initializable {
                 counter++;
             }
         }
-
-        gridPane.setHgap(20);
-        agendaBox.getChildren().add(gridPane);
     }
 
     /**
@@ -437,23 +428,28 @@ public class AgendaController extends Controller implements Initializable {
      */
     @FXML
     void applyButton(MouseEvent event) {
-        String itemName = foodChoices.getValue();
         ServerRequests sv = new ServerRequests();
+
+        String itemName = foodChoices.getValue();
         double parsedAmount = Double.parseDouble(amount.getText());
         LocalDate date = datepicker.getValue();
+//        String itemName = "";
+//        double parsedAmount = 101;
+//        LocalDate date = LocalDate.now();
+
 
         if (itemName != null && parsedAmount > 0 && date != null) {
             System.out.println(date.toString());
             int itemID = Main.items.stream().filter(x ->
                     x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
+//            int itemID = 2;
             Activity activity = new Activity(itemID, parsedAmount, date);
-            if (sv.addActivity(activity)) {
+            if (/*sv.addActivity(activity*/true) {
                 Main.clientUser.addToActivityList(activity);
                 //refresh agenda
-
-                showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }
+        update();
     }
 
 
@@ -461,9 +457,6 @@ public class AgendaController extends Controller implements Initializable {
         return nodesList;
     }
 
-    @Override
-    public void update() {
 
-    }
 }
 

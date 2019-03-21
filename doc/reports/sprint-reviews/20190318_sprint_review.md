@@ -11,7 +11,7 @@ We progressed a lot but not according to what was scheduled for this sprint.
 
 ### Problem 2: Communication
 Especially the first half of the week and also the additional meeting we had, 
-the main confliction point was communication.
+the main conflict point was communication.
 
 There should have been a better understanding of others progress which could have been communicated better than we did this sprint. 
 This also became apparent in the additional meeting, where it was not clear for some team members when it took place.
@@ -38,3 +38,13 @@ This also became apparent in the additional meeting, where it was not clear for 
 - Despite of the midterm, we still managed to complete the Demo and fulfill all its requirements
 - The test coverage got really high and we were able to implement Mockito
 - The extra meeting was definitely needed to take stock of the situation as the first part of the week we weren't able to make much progress due to the midterm
+
+### Giuliano (gforghieri)
+- We completed everything for the demo's requirement.
+- The extra meeting on Friday made sure that we also got the test coverage up.
+- This sprint we will hopefully get close to or actually finishing the coding part of the project.
+
+### Mandy (mchang)
+- The demo went well
+- We seem to be very up-to-date with demo's
+- I had a few problems with contents in the table of the leaderboard, it was fixed

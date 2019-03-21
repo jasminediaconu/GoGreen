@@ -12,7 +12,9 @@ public class Achievement {
     private int id;
     private String title;
     private String description;
+    private String path;
     private BufferedImage image;
+    private int goal;
 
     /**
      * Instantiates a new Achievement.
@@ -20,10 +22,12 @@ public class Achievement {
      * @param title the title
      * @param path  the path
      */
-    public Achievement(int id, String title, String description, String path) {
+    public Achievement(int id, String title, String description, String path, int goal) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.image = loadImage(path);
+        this.goal = goal;
     }
 
     /**
@@ -32,9 +36,9 @@ public class Achievement {
      * @param path the path
      * @return the buffered image
      */
-    public static BufferedImage loadImage(String path) {
+    private static BufferedImage loadImage(String path) {
         try {
-            return ImageIO.read(Achievement.class.getResourceAsStream("client/user/" + path));
+            return ImageIO.read(Achievement.class.getResourceAsStream("/client/windows/images/badges/" + path + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -114,11 +118,47 @@ public class Achievement {
     }
 
     /**
+     * This function will get the path String.
+     *
+     * @return the path to the image
+     */
+    public String getPath() {
+        return path;
+    }
+
+    /**
+     * This function will set the path of the image.
+     *
+     * @param path String type
+     */
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    /**
+     * This function will get the goal a user has to hit to achieve the achievement.
+     *
+     * @return the goal as an Integer
+     */
+    public int getGoal() {
+        return goal;
+    }
+
+    /**
+     * This function will set the goal of the achievement.
+     *
+     * @param goal int type
+     */
+    public void setGoal(int goal) {
+        this.goal = goal;
+    }
+
+    /**
      * Sets image path.
      *
      * @param path the path
      */
-    public void setImagePath(String path) {
+    public void setImageWithPath(String path) {
         setImage(loadImage(path));
     }
 }

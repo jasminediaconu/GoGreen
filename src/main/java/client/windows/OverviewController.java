@@ -3,18 +3,23 @@ package client.windows;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.controlsfx.control.PopOver;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +29,8 @@ public class OverviewController extends Controller implements Initializable {
 
     List<JFXButton> badges;
 
-    @FXML
-    Pane overview;
-    @FXML private StackPane popup;
+    @FXML Pane overview;
+    @FXML private Pane popup;
     @FXML private ScrollPane scrollBadges;
     private VBox badgesBox;
     private HBox row;
@@ -34,30 +38,10 @@ public class OverviewController extends Controller implements Initializable {
     private HBox row3;
 
     private JFXButton button;
-    private JFXDialog dialog;
+    private PopOver popOver = new PopOver();
 
     @Override
     public void update() {
-    }
-
-    // Parameter: badge id (to be implemented)
-    public void popupMessage() {
-        JFXDialogLayout dialogLayout = new JFXDialogLayout();
-        Text heading = new Text("Solar panel");
-        dialogLayout.setHeading(heading);
-
-        JFXButton close = new JFXButton("Close");
-        String css = "-fx-border-color:#95e743;-fx-border-radius:2;-fx-background-color:#ecffe6";
-        close.setStyle(css);
-
-        close.setOnMouseClicked(e -> dialog.close());
-        String message = "Install your first solar panel.";
-        dialogLayout.setBody(new Text(message), close);
-
-        dialog = new JFXDialog(popup, dialogLayout, JFXDialog.DialogTransition.CENTER);
-        dialogLayout.setActions(close);
-        dialog.show();
-        dialog.setOverlayClose(false);
     }
 
     @Override
@@ -105,9 +89,8 @@ public class OverviewController extends Controller implements Initializable {
         badges.add(button14);
         badges.add(button15);
 
+        button.setOnMouseEntered(this::popupBadges);
         button.setStyle("-fx-opacity: 100%;");
-
-        button.setOnMouseClicked(e -> popupMessage());
 
         // This adds the badges to the different rows of the VBOX
         for(int i = 0; i < 5; i++){
@@ -121,5 +104,29 @@ public class OverviewController extends Controller implements Initializable {
         badgesBox.getChildren().add(row3);
 
         scrollBadges.setContent(badgesBox);
+    }
+
+    @FXML
+    public void popupBadges(javafx.scene.input.MouseEvent event) {
+        String path = "/client/windows/fxml/popup.fxml";
+
+        try {
+            //title = new Text("Get title");
+            //description = new Text("Get message");
+            popup = FXMLLoader.load(getClass().getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //popOver = new PopOver(popup);
+        //popOver.setArrowLocation(PopOver.ArrowLocation.TOP_CENTER);
+        //popOver.show(button);
+        if (!(popOver.isShowing())) {
+            popOver = new PopOver(popup);
+
+            popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_CENTER);
+            popOver.setDetachable(false);
+            popOver.show(button);
+        }
     }
 }

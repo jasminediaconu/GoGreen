@@ -73,11 +73,11 @@ public class UserController {
             );
 
             followUser = ServerApp.dbConnection.prepareStatement(
-                    "INSERT INTO user_follows (\"userid\", \"followingid\") VALUES (?, ?)"
+                    "INSERT INTO user_follows (\"userid\", \"followingid\") VALUES (?, (SELECT userid FROM user_login WHERE username = ?))"
             );
 
             unFollowUser = ServerApp.dbConnection.prepareStatement(
-                    "DELETE FROM user_follows WHERE userid = ? AND followingid = ?"
+                    "DELETE FROM user_follows WHERE userid = ? AND followingid = (SELECT userid FROM user_login WHERE username = ?)"
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -211,17 +211,12 @@ public class UserController {
 
     @RequestMapping(value = "/followUser", method = RequestMethod.POST)
     public String followUser(@RequestParam String sessionID, @RequestBody String username) {
-        int userID = ServerApp.getUserIDfromSession(sessionID);
-        if(userID == -1) {
-            return null;
-        }
-
-        return null;
+        return unfollowOrFollowUser(sessionID, username, followUser);
     }
 
     @RequestMapping(value = "/unFollowUser", method = RequestMethod.POST)
     public String unFollowUser(@RequestParam String sessionID, @RequestBody String username) {
-        return null;
+        return unfollowOrFollowUser(sessionID, username, unFollowUser);
     }
 
     /**
@@ -247,6 +242,24 @@ public class UserController {
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private String unfollowOrFollowUser(String sessionID, String username, PreparedStatement query) {
+        int userID = ServerApp.getUserIDfromSession(sessionID);
+        if(userID == -1) {
+            return null;
+        }
+
+        try {
+            query.setInt(1, userID);
+            query.setString(2, username);
+            query.executeUpdate();
+
+            return "success";
+        }catch(SQLException e) {
+            e.printStackTrace();
+            return "fail";
         }
     }
 }

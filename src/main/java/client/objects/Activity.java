@@ -26,6 +26,7 @@ public class Activity {
 
     /**
      * This function will get the activity ID.
+     *
      * @return the activityID.
      */
     public int getActivityID() {
@@ -44,7 +45,7 @@ public class Activity {
     }
 
     /**
-     * This function will get the itemID belonging to this Activity
+     * This function will get the itemID belonging to this Activity.
      *
      * @return the itemID of this Activity
      */
@@ -53,12 +54,30 @@ public class Activity {
     }
 
     /**
-     * This function will return the wager of the co2 of the Item, in terms of amount
+     * This function changes the current itemId to a new itemID.
+     *
+     * @param itemID int type
+     */
+    public void setItemID(int itemID) {
+        this.itemID = itemID;
+    }
+
+    /**
+     * This function will return the wager of the co2 of the Item, in terms of amount.
      *
      * @return a double of amount
      */
     public double getAmount() {
         return amount;
+    }
+
+    /**
+     * This function changes the current amount to a new amount.
+     *
+     * @param amount double type
+     */
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     /**
@@ -68,6 +87,15 @@ public class Activity {
      */
     public LocalDate getDate() {
         return date;
+    }
+
+    /**
+     * This function changes the current date to a new date.
+     *
+     * @param date LocalDate type.
+     */
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     /**

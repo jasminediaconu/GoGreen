@@ -19,8 +19,10 @@ buildNumber.properties
 *.txt
 *.jar
 .vscode/
+*.txt
 
 
 # Exclude maven wrapper
 !/.mvn/wrapper/maven-wrapper.jar
 /bin/
+data.sqlite

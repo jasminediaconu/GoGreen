@@ -1,26 +1,26 @@
-<?xml version="1.0" encoding="UTF-8"?><?import com.jfoenix.controls.JFXButton?>
-<?import de.jensd.fx.glyphs.fontawesome.*?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.*?>
-<?import java.net.URL?>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>-->
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<!--<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>-->
-
-<AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" pickOnBounds="false" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: white; -fx-background-radius: 25 25 25 25;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.MainScreenController">
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity" onMouseDragged="#dragged" onMousePressed="#pressed" pickOnBounds="false"
+            prefHeight="768.0" prefWidth="1024.0"
+            style="-fx-background-color: white; -fx-background-radius: 25 25 25 25;"
+            xmlns="http://javafx.com/javafx/11"
+            fx:controller="client.windows.MainScreenController">
     <children>
         <AnchorPane id="slide" fx:id="menuBar" cache="true" depthTest="DISABLE" layoutX="-1.0" layoutY="45.0"
                     prefHeight="724.0" prefWidth="209.0"
@@ -61,22 +61,25 @@
                 <Cursor fx:constant="DEFAULT"/>
             </cursor>
         </AnchorPane>
-        <Pane layoutX="-1.0" prefHeight="44.0" prefWidth="1024.0" style="-fx-background-color: #95E743; -fx-background-radius: 24 24 0 0;">
+        <Pane layoutX="-1.0" prefHeight="46.0" prefWidth="1025.0"
+              style="-fx-background-color: #95E743; -fx-background-radius: 24 24 0 0;">
             <children>
-                <Text fx:id="usernameField" fill="WHITE" layoutX="76.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="402.5818843986053">
+                <Text fx:id="usernameField" fill="WHITE" layoutX="76.0" layoutY="30.0" strokeType="OUTSIDE"
+                      strokeWidth="0.0" text="Username" wrappingWidth="402.5818843986053">
                     <font>
                         <Font name="Century Gothic" size="24.0"/>
                     </font>
                 </Text>
-                <FontAwesomeIcon id="close" fx:id="close" fill="#888888" iconName="CLOSE" layoutX="994.0" layoutY="29.0" onMouseClicked="#close" size="1.5em" />
-                <FontAwesomeIcon fx:id="minimize" fill="#878787" iconName="MINUS" layoutX="968.0" layoutY="30.0" onMouseClicked="#minimize" size="1.5em" />
-            <Circle fx:id="profileImage" fill="DODGERBLUE" layoutX="47.0" layoutY="22.0" radius="15.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+                <FontAwesomeIcon id="close" fx:id="close" fill="#888888" iconName="CLOSE" layoutX="994.0" layoutY="29.0"
+                                 onMouseClicked="#close" size="1.5em"/>
+                <FontAwesomeIcon fx:id="minimize" fill="#878787" iconName="MINUS" layoutX="968.0" layoutY="30.0"
+                                 onMouseClicked="#minimize" size="1.5em"/>
+                <Circle fx:id="profileImage" fill="DODGERBLUE" layoutX="47.0" layoutY="22.0" radius="15.0"
+                        stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0"/>
             </children>
-            <effect>
-                <DropShadow blurType="TWO_PASS_BOX" height="10.0" radius="4.5" width="10.0" />
-            </effect>
         </Pane>
-        <Pane fx:id="welcomePane" layoutX="262.0" layoutY="116.0" prefHeight="614.0" prefWidth="696.0" style="-fx-background-color: null;">
+        <Pane fx:id="welcomePane" layoutX="262.0" layoutY="116.0" prefHeight="614.0" prefWidth="696.0"
+              style="-fx-background-color: null;">
             <children>
                 <Text fill="#8c8686" layoutX="61.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0"
                       text="This is the " wrappingWidth="128.0921115875244">
@@ -126,7 +129,7 @@
                       style="-fx-background-color: null;"/>
     </children>
     <stylesheets>
-        <URL value="@../css/mainScreen.css" />
-        <URL value="@../../defaultFont.css" />
+        <URL value="@../css/mainScreen.css"/>
+        <URL value="@../../defaultFont.css"/>
     </stylesheets>
 </AnchorPane>

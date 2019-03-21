@@ -11,10 +11,12 @@ public class User {
      * The Username.
      */
     protected String username;
+
     /**
      * The Country.
      */
     protected String country;
+
     /**
      * The Total co2.
      */
@@ -26,6 +28,13 @@ public class User {
     public User() {
     }
 
+    /**
+     * Instantiates a new User.
+     *
+     * @param username the username
+     * @param country  the country
+     * @param totalCo2 the total co 2
+     */
     public User(String username, String country, double totalCo2) {
         this.username = username;
         this.country = country;
@@ -98,21 +107,20 @@ public class User {
     /**
      * This function compares this User with another User to check if they are equal.
      *
-     * @param o Object type
+     * @param obj Object type
      * @return a boolean, whether they are equal or not
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        User user = (User) o;
+        User user = (User) obj;
         return Double.compare(user.totalCo2, totalCo2) == 0
                 && Objects.equals(username, user.username)
                 && Objects.equals(country, user.country);
     }
-
 }

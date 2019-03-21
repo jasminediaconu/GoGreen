@@ -2,6 +2,7 @@ package server;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import server.helper.LocalDateDeserializer;
@@ -30,6 +31,7 @@ public class ServerApp {
 
     /**
      * Starts the web application.
+     *
      * @param args type.
      */
     public static void main(String[] args) throws Exception {
@@ -39,6 +41,8 @@ public class ServerApp {
         builder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
         builder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
         gson = builder.setPrettyPrinting().create();
+
+        sessions.put("test", 1);
 
         SpringApplication app = new SpringApplication(ServerApp.class);
         app.run(args);
@@ -66,6 +70,7 @@ public class ServerApp {
 
     /**
      * Removes the sessionID from the list, by taking the username.
+     *
      * @param sessionID String type.
      */
     public static void removeSessionID(String sessionID) {
@@ -74,12 +79,14 @@ public class ServerApp {
 
     /**
      * This function will get the userID from the sessions list.
+     *
      * @param sessionID String type.
      * @return an integer corresponding to the userID in the database.
      */
-    public static int getUserIDFromSession(String sessionID) {
-        if (sessions.get(sessionID) == null)
+    public static int getUserIDfromSession(String sessionID) {
+        if (sessions.get(sessionID) == null) {
             return -1;
+        }
         return sessions.get(sessionID);
     }
 

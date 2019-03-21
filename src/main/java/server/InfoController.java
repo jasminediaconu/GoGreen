@@ -25,13 +25,15 @@ public class InfoController {
     }
 
     /**
-     * This function will retrieve the userID associated with a given sessionID
-     * @param s String type
+     * This function will retrieve the userID associated with a given sessionID.
+     *
+     * @param sessionID String type
      * @return an int from the map of sessionIDs
      */
+    @SuppressWarnings("naming") // Abstraction of parameter name for security reasons
     @RequestMapping("/userID")
-    public int getUserID(@RequestParam String s) {
-        return ServerApp.getUserIDFromSession(s);
+    public int getUserID(@RequestParam String sessionID) {
+        return ServerApp.getUserIDfromSession(sessionID);
     }
 
 }

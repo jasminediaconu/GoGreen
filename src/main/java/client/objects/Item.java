@@ -26,6 +26,7 @@ public class Item {
 
     /**
      * This function will get the item's ID.
+     *
      * @return the ID of the item.
      */
     public int getItemID() {
@@ -34,6 +35,7 @@ public class Item {
 
     /**
      * This function will get the item's name.
+     *
      * @return the name of the item.
      */
     public String getName() {
@@ -42,6 +44,7 @@ public class Item {
 
     /**
      * This function will get the item's type.
+     *
      * @return the type of the item.
      */
     public String getType() {
@@ -50,6 +53,7 @@ public class Item {
 
     /**
      * This function will get the item's co2.
+     *
      * @return the default co2 of this item.
      */
     public double getCo2() {
@@ -57,6 +61,7 @@ public class Item {
     }
 
     /**
+     * Equals method.
      * @param o Object type.
      * @return a boolean, whether they are equal or not.
      */

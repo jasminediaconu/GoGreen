@@ -27,7 +27,7 @@ public class LoginApp extends Application {
         scene.setFill(Color.TRANSPARENT);
         stage.initStyle(StageStyle.TRANSPARENT);
 
-        stage.setTitle("GoGreen");
+        stage.setTitle("Greenly");
         stage.setScene(scene);
         stage.show();
 

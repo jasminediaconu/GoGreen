@@ -249,6 +249,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.plugin.version}</version>
+                <configuration>
+                    <configLocation>CSE1105.checkstyle.xml</configLocation>
+                </configuration>
                 <dependencies>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
@@ -276,14 +279,20 @@
                 <version>${jacoco-maven-plugin.version}</version>
                 <configuration>
                     <excludes>
-                        <exclude>**/windows/**</exclude>
-                        <exclude>**/loginscreen/**</exclude>
-                        <exclude>**/helper/*Class.*</exclude>
-                        <exclude>**/login/**</exclude>
-                        <exclude>**/objects/**</exclude>
-                        <exclude>**/InfoController.*</exclude>
-                        <exclude>**/SessionController.*</exclude>
-                        <exclude>**/profilescreen/**</exclude>
+                        <exclude>**/client/loginscreen/*Controller**</exclude>
+                        <exclude>**/client/loginscreen/*App**</exclude>
+                        <exclude>**/client/profilescreen/**</exclude>
+                        <exclude>**/client/windows/**</exclude>
+                        <exclude>**/server/helper/*Class.*</exclude>
+                        <exclude>**/server/login/**</exclude>
+                        <exclude>**/server/objects/**</exclude>
+                        <exclude>**/server/user/**</exclude>
+                        <exclude>**/server/InfoController.*</exclude>
+                        <exclude>**/server/SessionController.*</exclude>
+
+
+                        <exclude>**/client/loginscreen/*Request**</exclude>
+                        <exclude>**/client/ServerRequests.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -338,9 +347,9 @@
             <!--<exclude>**/loginscreen/**</exclude>-->
             <!--<exclude>**/helper/*Class.*</exclude>-->
             <!--<exclude>**/login/**</exclude>-->
-            <!--<exclude>**/objects/**</exclude>-->
             <!--<exclude>**/InfoController.*</exclude>-->
             <!--<exclude>**/SessionController.*</exclude>-->
+            <!--<exclude>**/objects/**</exclude>-->
             <!--</excludes>-->
             <!--</configuration>-->
             <!--</plugin>-->

@@ -2,9 +2,13 @@ package client.windows;
 
 import client.Main;
 import client.ServerRequests;
+import client.helper.RowCount;
 import client.objects.Activity;
+import client.objects.Item;
 import client.user.ClientUser;
+//CHECKSTYLE:OFF
 import com.google.common.collect.ArrayListMultimap;
+//CHECKSTYLE:ON
 import com.google.common.collect.Multimap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -14,9 +18,9 @@ import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
@@ -30,6 +34,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -56,23 +61,36 @@ public class AgendaController extends Controller implements Initializable {
     @FXML
     private StackPane stack;
     @FXML
-    private ComboBox<String> foodchoices = new ComboBox<>();
+    private ComboBox<String> foodChoices = new ComboBox<>();
+    @FXML
+    private ComboBox<String> energyChoices = new ComboBox<>();
+    @FXML
+    private ComboBox<String> transportChoices = new ComboBox<>();
     @FXML
     private TextField amount = new TextField();
     @FXML
     private DatePicker datepicker = new DatePicker();
+    @FXML
+    private Pane foodWindow;
+    @FXML
+    private Pane transportWindow;
+    @FXML
+    private Pane energyWindow;
 
     private MainScreenController mainScreenController;
     private JFXButton ssbutton2;
     private JFXButton ssbutton3;
     private JFXButton ssbutton4;
-    private ObservableList list = FXCollections.observableArrayList();
+    private ObservableList foodList = FXCollections.observableArrayList();
+    private ObservableList transportList = FXCollections.observableArrayList();
+    private ObservableList energyList = FXCollections.observableArrayList();
     private JFXNodesList nodesList;
 
     private GridPane gridPane;
     private Text dateText;
     private VBox agendaBox;
     private JFXDialog dialog;
+
 
     /**
      * Constructor to be used in the MainScreenController.
@@ -83,7 +101,68 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This function will display a dialog message to the user when he want to delete an activity.
+     * This function rounds a double value to N decimal places.
+     *
+     * @param value  double type
+     * @param places int type
+     * @return a double rounded down to N decimal places
+     */
+    public static double round(double value, int places) {
+        if (places < 0) {
+            throw new IllegalArgumentException();
+        }
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
+    }
+
+    /**
+     * Initialize agenda with the user activities.
+     *
+     * @param url            URL
+     * @param resourceBundle ResourceBundle
+     */
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadFoodItems();
+        loadTransportItems();
+        loadEnergyItems();
+
+
+        agendaBox = new VBox();
+        agendaBox.setPadding(new Insets(20, 0, 0, 20));
+
+        gridPane = new GridPane();
+        gridPane.setLayoutX(420);
+
+        if (Main.clientUser == null) {
+            Main.clientUser = new ClientUser();
+        }
+        if (Main.clientUser.getActivityList() != null) {
+            Multimap<LocalDate, Activity> activityMap =
+                    activityMap(Main.clientUser.getActivityList());
+            showAgendaActivities(activityMap);
+        }
+
+        gridPane.setHgap(20);
+        //        agendaBox.getChildren().add(gridPane);
+        scrollAgenda.setContent(agendaBox);
+        agendaBox.setSpacing(15);
+
+        JFXButton ssbutton5 = new JFXButton("R1");
+        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
+    }
+
+    @Override
+    public void init() {
+        loadPlusButton();
+        pane.getChildren().add(nodesList);
+    }
+
+    /**
+     * This function will display a dialog message to the user when he wants to delete an activity.
      * The dialog button contains a message and two buttons:
      * a close button and a delete one connected to the deleteActivity function.
      */
@@ -114,61 +193,8 @@ public class AgendaController extends Controller implements Initializable {
     private void deleteActivity(int rowIndex) {
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
-        agendaBox.getChildren().removeIf(dateText -> getRowCount(gridPane) == 0);
+        agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
         dialog.close();
-    }
-
-    /**
-     * Count the number of rows in a pane.
-     *
-     * @param pane GridPane
-     * @return numRows
-     */
-    private int getRowCount(GridPane pane) {
-        int numRows = pane.getRowConstraints().size();
-        for (int i = 0; i < pane.getChildren().size(); i++) {
-            Node child = pane.getChildren().get(i);
-            if (child.isManaged()) {
-                Integer rowIndex = GridPane.getRowIndex(child);
-                if (rowIndex != null) {
-                    numRows = Math.max(numRows, rowIndex + 1);
-                }
-            }
-        }
-        return numRows;
-    }
-
-    /**
-     * Initialize agenda with the user activities.
-     *
-     * @param url            URL
-     * @param resourceBundle ResourceBundle
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        loadActivity();
-
-        agendaBox = new VBox();
-        agendaBox.setPadding(new Insets(20, 0, 0, 20));
-
-        gridPane = new GridPane();
-        gridPane.setLayoutX(420);
-
-        if (Main.clientUser == null) {
-            Main.clientUser = new ClientUser();
-        }
-        if (Main.clientUser.getActivityList() != null) {
-            Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
-            showAgendaActivites(activityMap);
-        }
-
-        gridPane.setHgap(20);
-        agendaBox.getChildren().add(gridPane);
-        scrollAgenda.setContent(agendaBox);
-        agendaBox.setSpacing(15);
-
-        JFXButton ssbutton5 = new JFXButton("R1");
-        ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
     }
 
     private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
@@ -179,7 +205,20 @@ public class AgendaController extends Controller implements Initializable {
         return multimap;
     }
 
-    private void showAgendaActivites(Multimap<LocalDate, Activity> activityMap) {
+    /**
+     * This function shows the activity on the agenda.
+     * Takes in a multimap(date from datepicker and activity object)
+     * Wout is still looking into how to show the activity instantly after adding
+     * without reloading the app
+     *
+     * @param activityMap Multimap type.
+     */
+    private void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
+        agendaBox.getChildren().removeAll();
+
+        gridPane = new GridPane();
+        gridPane.setLayoutX(420);
+
         String path = "/client/windows/images/delete.png";
 
         int counter = 0;
@@ -193,7 +232,17 @@ public class AgendaController extends Controller implements Initializable {
             counter++;
 
             for (Activity activity : activityMap.get(date)) {
-                Text text = new Text(activity.getItemID() + ", " + activity.getAmount());
+                Item item = Main.items.get(activity.getItemID() - 1);
+                String unit = null;
+                if (item.getType().equals("food")) {
+                    unit = "g";
+                } else if (item.getType().equals("transport")) {
+                    unit = "km";
+                }
+                Text text = new Text(item.getName() + ", amount: " + activity.getAmount() + " "
+                        + unit + ", co2: " + round((item.getCo2() * activity.getAmount())
+                        / 1000, 2));
+
                 text.setWrappingWidth(310.00);
                 gridPane.add(text, 1, counter);
                 JFXButton button = new JFXButton("", new ImageView(path));
@@ -203,6 +252,9 @@ public class AgendaController extends Controller implements Initializable {
                 counter++;
             }
         }
+
+        gridPane.setHgap(20);
+        agendaBox.getChildren().add(gridPane);
     }
 
     /**
@@ -259,29 +311,46 @@ public class AgendaController extends Controller implements Initializable {
      * Creates an empty white popup box for transportation button popup.
      * To be finished.
      */
-
     public void transportButtonAction(javafx.scene.input.MouseEvent event) {
-        VBox vBox = new VBox();
-        vBox.setPrefHeight(250.0);
-        vBox.setPrefWidth(200.0);
+        loadTransportItems();
+        String path = "/client/windows/fxml/transportWindow.fxml";
+        try {
+            transportWindow = FXMLLoader.load(getClass().getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        vBox.setStyle("-fx-background-color: white");
 
-        PopOver popOver = new PopOver(vBox);
+        PopOver popOver = new PopOver(transportWindow);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
         popOver.show(ssbutton2);
-
     }
 
+    //        VBox vBox = new VBox();
+    //        vBox.setPrefHeight(250.0);
+    //        vBox.setPrefWidth(200.0);
+    //
+    //        vBox.setStyle("-fx-background-color: white");
+    //
+    //        PopOver popOver = new PopOver(vBox);
+    //        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+    //        popOver.show(ssbutton2);
+
     /**
-     * This method appends the foodWindow.fxml to the
+     * This method appends the foodWindow.fxml to the 3rd node i.e. the foodButton
      */
     @FXML
     public void foodButtonAction(javafx.scene.input.MouseEvent event) {
-        loadActivity();
-        mainScreenController = new MainScreenController();
+        String path = "/client/windows/fxml/foodWindow.fxml";
 
-        PopOver popOver = new PopOver(mainScreenController.getFoodWindow());
+        try {
+            foodWindow = FXMLLoader.load(getClass().getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        PopOver popOver = new PopOver(foodWindow);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
         popOver.show(ssbutton3);
     }
@@ -289,36 +358,31 @@ public class AgendaController extends Controller implements Initializable {
     /**
      * Loads the food dropdown menu with items.
      */
-
-    private void loadActivity() {
-
+    private void loadFoodItems() {
         //Clears everything in the observable list
-        if (list.size() < 1)
-            list.addAll(Main.items.stream().filter(item -> item.getType().equals("food")).map(item -> item.getName()).collect(Collectors.toList()));
-
-        foodchoices.setItems(list);
-        //mainScreen.getChildren().add(foodchoices);
+        if (foodList.size() < 1) {
+            foodList.addAll(Main.items.stream().filter(item ->
+                    item.getType().equals("food")).map(item ->
+                    item.getName()).collect(Collectors.toList()));
+        }
+        foodChoices.setItems(foodList);
+        //mainScreen.getChildren().add(foodChoices);
     }
 
     /**
-     * applyButton event
-     * agendatext should be Jasmine's agendabox
+     * Loads the transport dropdown menu with items from the database.
      */
-    @FXML
-    void applyButton(MouseEvent event) {
-        String itemName = foodchoices.getValue();
-        double parsedAmount = Double.parseDouble(amount.getText());
-        LocalDate date = datepicker.getValue();
+    private void loadTransportItems() {
 
-        if (itemName != null && parsedAmount > 0 && date != null) {
-            System.out.println(date.toString());
-            int itemID = Main.items.stream().filter(x -> x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
-            Activity activity = new Activity(itemID, parsedAmount, date);
-            if (ServerRequests.addActivity(activity)) {
-                Main.clientUser.addToActivityList(activity);
-                showAgendaActivites(activityMap(Main.clientUser.getActivityList()));
-            }
+        //Clears everything in the observable list
+        if (transportList.size() < 1) {
+            transportList.addAll(Main.items.stream().filter(item ->
+                    item.getType().equals("transport")).map(item ->
+                    item.getName()).collect(Collectors.toList()));
         }
+        transportChoices.setItems(transportList);
+        //mainScreen.getChildren().add(foodChoices);
+
     }
 
 
@@ -326,20 +390,72 @@ public class AgendaController extends Controller implements Initializable {
      * Creates an empty white popup box for energy button popup.
      * To be finished.
      */
-
     public void energyButtonAction(javafx.scene.input.MouseEvent event) {
+        String path = "/client/windows/fxml/energyWindow.fxml";
 
-        VBox vBox = new VBox();
-        vBox.setPrefHeight(250.0);
-        vBox.setPrefWidth(200.0);
+        try {
+            energyWindow = FXMLLoader.load(getClass().getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        vBox.setStyle("-fx-background-color: white");
 
-        PopOver popOver = new PopOver(vBox);
+        PopOver popOver = new PopOver(energyWindow);
         popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
         popOver.show(ssbutton4);
 
+        //        VBox vBox = new VBox();
+        //        vBox.setPrefHeight(250.0);
+        //        vBox.setPrefWidth(200.0);
+        //
+        //        vBox.setStyle("-fx-background-color: white");
+        //
+        //        PopOver popOver = new PopOver(vBox);
+        //        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+        //        popOver.show(ssbutton4);
+
     }
+
+    /**
+     * Loads the energy dropdown menu with items from the database.
+     */
+    private void loadEnergyItems() {
+
+        //Clears everything in the observable list
+        if (energyList.size() < 1) {
+            energyList.addAll(Main.items.stream().filter(item ->
+                    item.getType().equals("energy")).map(item ->
+                    item.getName()).collect(Collectors.toList()));
+        }
+        energyChoices.setItems(energyList);
+        //mainScreen.getChildren().add(foodChoices);
+    }
+
+    /**
+     * applyButton event.
+     * Applies the activity to the agenda, still needs a restart of the application.
+     */
+    @FXML
+    void applyButton(MouseEvent event) {
+        String itemName = foodChoices.getValue();
+        ServerRequests sv = new ServerRequests();
+        double parsedAmount = Double.parseDouble(amount.getText());
+        LocalDate date = datepicker.getValue();
+
+        if (itemName != null && parsedAmount > 0 && date != null) {
+            System.out.println(date.toString());
+            int itemID = Main.items.stream().filter(x ->
+                    x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
+            Activity activity = new Activity(itemID, parsedAmount, date);
+            if (sv.addActivity(activity)) {
+                Main.clientUser.addToActivityList(activity);
+                //refresh agenda
+
+                showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
+            }
+        }
+    }
+
 
     public JFXNodesList getNodesList() {
         return nodesList;

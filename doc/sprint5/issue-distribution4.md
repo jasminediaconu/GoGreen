@@ -18,19 +18,18 @@
 * Start cleaning up fully functional classes according to checkstyle
 * All current branches should be merged and functional in develop
 * `TEST COVERAGE`Preferable 95%, min 80%
-* 
 
-Testing:
+## Testing:
 
-Tests for database and server requests, serverApp coverage - Wout
-Activity, Item, Achievement, User, ClientUser classes with Mockito - Giuliano
-LoginRequest, SignUpRequest - Jan Willem
-User, ClientUser, Item, Activity - Gino
-Divide AgendaController into helper class and test it - Mandy
-The function in ActivityController needs to have a helper class, selectDomain method - Wout
+* Tests for database and server requests, serverApp coverage - Wout
+* Activity, Item, Achievement, User, ClientUser classes with Mockito - Giuliano
+* LoginRequest, SignUpRequest - Jan Willem
+* User, ClientUser, Item, Activity - Gino
+* Divide AgendaController into helper class and test it - Mandy
+* The function in ActivityController needs to have a helper class, selectDomain method - Wout
 
 
-Can ImageChoose.class be tested?
+* Can ImageChoose.class be tested?
 
 
 

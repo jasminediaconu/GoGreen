@@ -42,7 +42,7 @@ public class SignUpRequest extends AsyncTask {
      * @param signUpController the signUp controller
      */
     SignUpRequest(String username, String password, String email,
-                         SignUpController signUpController) {
+                  SignUpController signUpController) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -56,12 +56,12 @@ public class SignUpRequest extends AsyncTask {
 
     @Override
     public Boolean doInBackground(Object[] params) {
-
+        ServerRequests sv = new ServerRequests();
         if (signUp()) {
-            clientUser = ServerRequests.getClientUserProfile();
-            if (clientUser != null) {
-                return true;
-            }
+            clientUser = sv.getClientUserProfile();
+            System.out.println("CLIENT: " + clientUser);
+            this.response = OK;
+            return true;
         }
         this.response = FAIL;
         return false;
@@ -80,21 +80,28 @@ public class SignUpRequest extends AsyncTask {
 
     //
     private boolean signUp() {
-        String response = ServerRequests.signUp(username, email, password);
+        ServerRequests sv = new ServerRequests();
+        String response = sv.signUp(username, email, password);
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
+            return false;
         } else if (response.equals("syntax")) {
-            //INCORRECT SYNTAX
-            this.response = SYNTAX;
-        } else if (response.equals("fail")) {
-            //SIGN UP WAS UNSUCCESSFUL
-            this.response = FAIL;
-        } else if (response.equals("ok")) {
-            ServerRequests.getItems();
-            this.response = OK;
+            //IMPROPER SYNTAX
+            return false;
+        } else if (response.equals("username")) {
+            //WRONG USERNAME
+            return false;
+        } else if (response.equals("email")) {
+            //WRONG PASSWORD
+            return false;
+        } else if (response.equals("success")) {
+            sv.getItems();
+            sv.getAchievements();
             return true;
+        } else {
+            //something failed
+            return false;
         }
-        return false;
     }
 
     @Override

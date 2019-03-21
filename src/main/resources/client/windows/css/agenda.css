@@ -1,13 +1,6 @@
-/*#agenda {*/
-<<<<<<< HEAD
-/*-fx-background-color: #95e743;*/
-=======
-/**/
->>>>>>> 611c1dc2acb0a8f7f60307ea14e08788dd56807d
-/*}*/
 
 .scroll-pane > .viewport {
-    -fx-background-color:  #e5e5e5;
+    -fx-background-color: #e5e5e5;
     -fx-border-radius: 10 10 10 10;
 }
 
@@ -37,9 +30,14 @@
     -fx-background-image: url("../images/car.png");
 }
 
-#apply {
-    -fx-background-color: #95E743;
+#apply:hover {
+    -fx-background-color: #73cb1a;
 }
+
+#apply {
+    -fx-background-color: #95e743;
+}
+
 
 #foodbutton {
     -fx-background-image: url("../images/food.png");
@@ -52,7 +50,7 @@
 
 
 .animated-option-button-sub-button {
-    -fx-background-color: #95E743;
+
 }
 
 .animated-option-button-sub-button2 {
@@ -64,7 +62,7 @@
 }
 
 .animated-option-button-sub-button4 {
-    -fx-background-color: #95E743;
+
 }
 
 GridPane > Text {
@@ -73,5 +71,44 @@ GridPane > Text {
 
 #agendaTitle {
     -fx-font-size: 61px;
+}
 
+#calendar {
+    -fx-fill: #95E743;
+}
+
+#calendar:hover {
+    -fx-fill: #73cb1a;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: #e5e5e5;
+    -fx-border-radius: 10 0 0 10;
+}
+
+.viewport {
+    -fx-background-radius: 10 0 0 10;
+    -fx-border-radius: 10 0 0 10;
+}
+
+.scroll-bar:vertical {
+    -fx-background-color:transparent;
+    -fx-padding: 2 -1 2 -2;
+}
+
+.scroll-bar:vertical .increment-button,.scroll-bar:vertical .decrement-button,
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 0;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-radius: 5em;
 }

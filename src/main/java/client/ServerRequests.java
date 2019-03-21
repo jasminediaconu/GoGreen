@@ -2,6 +2,7 @@ package client;
 
 import client.objects.Activity;
 import client.objects.Item;
+import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
 import com.google.gson.reflect.TypeToken;
@@ -153,7 +154,7 @@ public class ServerRequests {
         System.out.println("[INFO] Adding activity to database. " + activity.getActivityID());
         String json = Main.gson.toJson(activity);
         System.out.println("\n\n " + json + " \n\n");
-        String response = sendRequestToServer("addActivity?s=" + Main.sessionID, json);
+        String response = sendRequestToServer("addActivity?sessionID=" + Main.sessionID, json);
         int activityID = -1;
 
         try {
@@ -182,7 +183,7 @@ public class ServerRequests {
         }
 
         System.out.println("[INFO] Removing activity from database. " + activityID);
-        String response = sendRequestToServer("removeActivity?s="
+        String response = sendRequestToServer("removeActivity?sessionID="
                 + Main.sessionID, Main.gson.toJson(activityID));
         if ("ok".equals(response)) {
             System.out.println("[INFO] Removing activity from database was successful");
@@ -204,7 +205,7 @@ public class ServerRequests {
     public List<Activity> retrieveActivities(String period) {
         Type listType = new TypeToken<List<Activity>>() {
         }.getType();
-        String response = sendRequestToServer("retrieveActivities?s="
+        String response = sendRequestToServer("retrieveActivities?sessionID="
                 + Main.sessionID, Main.gson.toJson(period));
         if (response == null) {
             return new ArrayList<>();
@@ -218,7 +219,7 @@ public class ServerRequests {
      * @return a ClientUser class
      */
     public ClientUser getClientUserProfile() {
-        String response = sendRequestToServer("getUserProfile?s=" + Main.sessionID, null);
+        String response = sendRequestToServer("getUserProfile?sessionID=" + Main.sessionID, null);
         return Main.gson.fromJson(response, ClientUser.class);
     }
 
@@ -228,7 +229,7 @@ public class ServerRequests {
      * @return a boolean on whether updating the users profile succeeded
      */
     public boolean updateClientUserProfile() {
-        String response = sendRequestToServer("updateUserProfile?s="
+        String response = sendRequestToServer("updateUserProfile?sessionID="
                 + Main.sessionID, Main.gson.toJson(Main.clientUser));
         if ("success".equals(response)) {
             System.out.println("[INFO] Updating the client users profile went successfully");
@@ -247,7 +248,7 @@ public class ServerRequests {
     public List<User> getFollowingProfile() {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
-        String response = sendRequestToServer("getFollowingProfile?s=" + Main.sessionID, null);
+        String response = sendRequestToServer("getFollowingProfile?sessionID=" + Main.sessionID, null);
         if (response == null) {
             return new ArrayList<>();
         }
@@ -262,7 +263,7 @@ public class ServerRequests {
     public List<User> getGlobalBestProfile() {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
-        String response = sendRequestToServer("getGlobalBestProfile?s=" + Main.sessionID, null);
+        String response = sendRequestToServer("getGlobalBestProfile?sessionID=" + Main.sessionID, null);
         if (response == null) {
             return new ArrayList<>();
         }
@@ -274,11 +275,45 @@ public class ServerRequests {
      * @return response int type
      */
     public int getUserID() {
-        String response = sendRequestToServer("userID?s=" + Main.sessionID, null);
+        String response = sendRequestToServer("userID?sessionID=" + Main.sessionID, null);
         if (response == null) {
             return -1;
         }
         return Integer.parseInt(response);
+    }
+
+    public boolean followUser(String username) {
+        String response = sendRequestToServer(
+                "followUser?sessionID=" + Main.sessionID, Main.gson.toJson(username));
+        if("success".equals(response)) {
+            System.out.println("[INFO] You successfully followed the following person: " + username);
+            return true;
+        } else {
+            System.out.println("[ERROR] A failure occurred trying to follow the following person: " + username);
+            return false;
+        }
+    }
+
+    public boolean unFollowUser(String username) {
+        String response = sendRequestToServer(
+                "unFollowUser?sessionID=" + Main.sessionID, Main.gson.toJson(username));
+        if("success".equals(response)) {
+            System.out.println("[INFO] You successfully unfollowed the following person: " + username);
+            return true;
+        } else {
+            System.out.println("[ERROR] A failure occurred trying to unfollow the following person: " + username);
+            return false;
+        }
+    }
+
+    public void getAchievements() {
+        System.out.println("[INFO] Retrieving achievements from database.");
+        Type listType = new TypeToken<List<Achievement>>() {
+        }.getType();
+        String response = sendRequestToServer("getAchievements", null);
+        if (response != null) {
+            Main.achievements = Main.gson.fromJson(response, listType);
+        }
     }
 
     /**

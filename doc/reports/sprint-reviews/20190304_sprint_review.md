@@ -39,3 +39,7 @@ This was solved by doing 'clean' again.
 ### Wout (whaakman)
 - We got everything to work properly and everybody is finally getting set up.
 - Extra meetings greatly improved our productivity and should be done more in the future.
+
+### Gino (gtramontina)
+- The extra meeting was useful as it made sure i actually had work done before the weekend.
+- I didn't have my IDE set up correctly, but that issue was resolved during the monday meeting

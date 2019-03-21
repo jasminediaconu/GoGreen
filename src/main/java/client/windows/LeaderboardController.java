@@ -5,17 +5,17 @@ import client.user.ClientUser;
 import client.user.User;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.util.Callback;
+import org.controlsfx.control.PropertySheet;
 
 public class LeaderboardController extends Controller implements Initializable {
 
@@ -84,14 +84,16 @@ public class LeaderboardController extends Controller implements Initializable {
             public TableCell<User, Void> call(final TableColumn<User, Void> param) {
                 final TableCell<User, Void> cell = new TableCell<>() {
 
-                    private Button followButton = new Button("follow");
+                    private JFXButton followButton = new JFXButton("follow");
 
                     {
                         followButton.setOnAction((ActionEvent followUserEvent) -> {
                             //TODO follow user function
                             //TODO update list with setFollowing
 
-                            //clientUser.addFollowing();
+                            String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
+                            System.out.println(data);
+                            serverRequests.followUser("admin");
 
                             if (followButton.getText().equals("unfollow")){
                                 followButton.setText("follow");
@@ -107,9 +109,7 @@ public class LeaderboardController extends Controller implements Initializable {
 
                         //TODO if clientuserid is userid of row then setGraphic(null)
 
-                        if (empty) {
-                            setGraphic(null);
-                        } else {
+                        if (!empty) {
                             setGraphic(followButton);
                         }
                     }

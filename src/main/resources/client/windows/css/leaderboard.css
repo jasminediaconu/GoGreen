@@ -7,7 +7,7 @@
     text-decoration: underline;
     text-decoration-color: #95e743;
 }
-.button{
+.jfxbutton{
     -fx-background-color: #95e743;
 }
 #globalButton, #followingButton{

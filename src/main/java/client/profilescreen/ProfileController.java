@@ -46,9 +46,9 @@ public class ProfileController extends Controller {
     @FXML
     private JFXComboBox emissionTypeField;
     @FXML
-    private JFXToggleButton leds;
+    private JFXTextField ledsField;
     @FXML
-    private JFXToggleButton solarPanels;
+    private JFXTextField solarPanelsField;
     @FXML
     private JFXTextField tempratureField;
     @FXML
@@ -82,8 +82,8 @@ public class ProfileController extends Controller {
         emailField.setText(settings.getEmail());
         pointsField.setText("CO2 saved: " + Main.clientUser.getTotalCo2());
         streakField.setText("Streak: " + Main.clientUser.getStreakLength());
-        solarPanels.setSelected(settings.hasSolarPower());
-        leds.setSelected(settings.hasLeds());
+        solarPanelsField.setText("" + Main.clientUser.getNumOfSolarPanels());
+        ledsField.setText("" + Main.clientUser.getNumOfLeds());
         countryField.setText(settings.getCountry());
         tempratureField.setText("" + settings.getRoomTemp());
         setButtonsDisable(true);
@@ -116,6 +116,10 @@ public class ProfileController extends Controller {
         };
         TextFormatter<String> textFormatter = new TextFormatter<>(filter);
         tempratureField.setTextFormatter(textFormatter);
+        textFormatter = new TextFormatter<String>(filter);
+        ledsField.setTextFormatter(textFormatter);
+        textFormatter = new TextFormatter<String>(filter);
+        solarPanelsField.setTextFormatter(textFormatter);
     }
 
     @Override
@@ -128,11 +132,7 @@ public class ProfileController extends Controller {
      */
     @FXML
     private void buttonPressed() {
-        if (leds.isFocused()) {
-            newSettings.setLeds(leds.isSelected());
-        } else if (solarPanels.isFocused()) {
-            newSettings.setSolarPower(solarPanels.isSelected());
-        } else if (discardButton.isFocused()) {
+        if (discardButton.isFocused()) {
             discardChanges();
         } else if (saveButton.isFocused()) {
             saveChanges();
@@ -166,12 +166,18 @@ public class ProfileController extends Controller {
     @FXML
     private void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER) || keyEvent.getCode().equals(KeyCode.TAB)) {
-            newSettings.setEmail(emailField.getText());
-            newSettings.setCountry(countryField.getText());
-            newSettings.setRoomTemp(Integer.parseInt(tempratureField.getText()));
+            if (emailField.getText().length() > 0 && countryField.getText().length() > 0
+                    && tempratureField.getText().length() > 0 && ledsField.getText().length() > 0
+                    && solarPanelsField.getText().length() > 0) {
+                newSettings.setEmail(emailField.getText());
+                newSettings.setCountry(countryField.getText());
+                newSettings.setRoomTemp(Integer.parseInt(tempratureField.getText()));
+                newSettings.setNumOfLeds(Integer.parseInt(ledsField.getText()));
+                newSettings.setNumOfSolarPanels(Integer.parseInt(solarPanelsField.getText()));
 
-            checkNewSettings();
-            profileImage.requestFocus();
+                checkNewSettings();
+                profileImage.requestFocus();
+            }
         }
     }
 
@@ -218,8 +224,8 @@ public class ProfileController extends Controller {
         countryField.setDisable(disable);
         carTypeField.setDisable(disable);
         emissionTypeField.setDisable(disable);
-        leds.setDisable(disable);
-        solarPanels.setDisable(disable);
+        ledsField.setDisable(disable);
+        solarPanelsField.setDisable(disable);
         tempratureField.setDisable(disable);
     }
 

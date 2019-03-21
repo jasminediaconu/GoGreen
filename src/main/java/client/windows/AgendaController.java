@@ -96,12 +96,12 @@ public class AgendaController extends Controller implements Initializable {
     private PopOver popOver3 = new PopOver();
 
     private String itemName;
-
-    private JFXNodesList nodesList;
-    private GridPane gridPane;
     private Text dateText;
-    private VBox agendaBox;
+    private JFXNodesList nodesList;
     private JFXDialog dialog;
+
+    private static GridPane gridPane;
+    private static VBox agendaBox;
 
 
     /**
@@ -138,12 +138,15 @@ public class AgendaController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         loadFoodItems();
         loadTransportItems();
         loadEnergyItems();
+    }
 
-
+    @Override
+    public void init() {
+        loadPlusButton();
+        pane.getChildren().add(nodesList);
 
         agendaBox = new VBox();
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
@@ -162,17 +165,12 @@ public class AgendaController extends Controller implements Initializable {
 
         gridPane.setHgap(20);
         //        agendaBox.getChildren().add(gridPane);
+        agendaBox.getChildren().add(gridPane);
         scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
 
         JFXButton ssbutton5 = new JFXButton("R1");
         ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
-    }
-
-    @Override
-    public void init() {
-        loadPlusButton();
-        pane.getChildren().add(nodesList);
 
     }
 
@@ -229,10 +227,7 @@ public class AgendaController extends Controller implements Initializable {
      * @param activityMap Multimap type.
      */
     private void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
-        agendaBox.getChildren().removeAll();
-
-        gridPane = new GridPane();
-        gridPane.setLayoutX(420);
+        gridPane.getChildren().clear();
 
         String path = "/client/windows/images/delete.png";
 
@@ -255,8 +250,8 @@ public class AgendaController extends Controller implements Initializable {
                 } else if (item.getType().equals("transport")) {
                     unit = "km";
                 }
-                Text text = new Text(item.getName() + ", amount: " + activity.getAmount() +
-                        unit + ", CO2 saved: " + round((item.getCo2() * activity.getAmount())
+                Text text = new Text(item.getName() + ", amount: " + activity.getAmount()
+                        + unit + ", CO2 saved: " + round((item.getCo2() * activity.getAmount())
                         / 1000, 2) + "kg");
 
                 text.setWrappingWidth(310.00);
@@ -268,9 +263,6 @@ public class AgendaController extends Controller implements Initializable {
                 counter++;
             }
         }
-
-        gridPane.setHgap(20);
-        agendaBox.getChildren().add(gridPane);
     }
 
     /**
@@ -365,7 +357,6 @@ public class AgendaController extends Controller implements Initializable {
         }
         transportChoices.setItems(transportList);
         //mainScreen.getChildren().add(foodChoices);
-
     }
 
 
@@ -407,7 +398,6 @@ public class AgendaController extends Controller implements Initializable {
     }
 
 
-
     /**
      * Creates an empty white popup box for energy button popup.
      * To be finished.
@@ -446,6 +436,9 @@ public class AgendaController extends Controller implements Initializable {
     @FXML
     void applyTransport(MouseEvent event) {
         itemName = transportChoices.getValue();
+//        if (itemName.equals("By Car")) {
+//            itemName = Main.clientUser.getCarEmissionType() + ", " + Main.clientUser.getCarEmissionType();
+//        }
         applyButton(itemName);
     }
 
@@ -469,7 +462,11 @@ public class AgendaController extends Controller implements Initializable {
     @FXML
     private void applyButton(String itemName) {
         ServerRequests sv = new ServerRequests();
-        double parsedAmount = Double.parseDouble(amount.getText());
+        double parsedAmount = -1;
+        if (amount.getText() != null && amount.getText().length() > 0) {
+            parsedAmount = Double.parseDouble(amount.getText());
+        }
+
         LocalDate date = datepicker.getValue();
 
         if (itemName != null && parsedAmount > 0 && date != null) {

@@ -96,6 +96,7 @@ public class SignUpRequest extends AsyncTask {
             return false;
         } else if (response.equals("success")) {
             sv.getItems();
+            sv.getAchievements();
             return true;
         } else {
             //something failed

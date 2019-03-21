@@ -2,6 +2,7 @@ package client;
 
 import client.objects.Activity;
 import client.objects.Item;
+import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
 import com.google.gson.reflect.TypeToken;
@@ -302,6 +303,16 @@ public class ServerRequests {
         } else {
             System.out.println("[ERROR] A failure occurred trying to unfollow the following person: " + username);
             return false;
+        }
+    }
+
+    public void getAchievements() {
+        System.out.println("[INFO] Retrieving achievements from database.");
+        Type listType = new TypeToken<List<Achievement>>() {
+        }.getType();
+        String response = sendRequestToServer("getAchievements", null);
+        if (response != null) {
+            Main.achievements = Main.gson.fromJson(response, listType);
         }
     }
 

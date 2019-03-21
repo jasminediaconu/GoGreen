@@ -81,6 +81,7 @@ public class LoginRequest extends AsyncTask {
             return false;
         } else if (response.equals("success")) {
             sv.getItems();
+            sv.getAchievements();
             return true;
         } else {
             //something went wrong

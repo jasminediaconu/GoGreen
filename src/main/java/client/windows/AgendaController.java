@@ -55,8 +55,6 @@ public class AgendaController extends Controller implements Initializable {
     @FXML
     Pane agenda;
     @FXML
-    FontAwesomeIcon delete;
-    @FXML
     private ScrollPane scrollAgenda = new ScrollPane();
     @FXML
     private StackPane stack;

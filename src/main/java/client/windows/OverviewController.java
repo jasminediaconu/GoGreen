@@ -1,6 +1,8 @@
 package client.windows;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -9,7 +11,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,16 +26,38 @@ public class OverviewController extends Controller implements Initializable {
 
     @FXML
     Pane overview;
-
-    @FXML
-    private ScrollPane scrollBadges;
+    @FXML private StackPane popup;
+    @FXML private ScrollPane scrollBadges;
     private VBox badgesBox;
     private HBox row;
     private HBox row2;
     private HBox row3;
 
+    private JFXButton button;
+    private JFXDialog dialog;
+
     @Override
     public void update() {
+    }
+
+    // Parameter: badge id (to be implemented)
+    public void popupMessage() {
+        JFXDialogLayout dialogLayout = new JFXDialogLayout();
+        Text heading = new Text("Solar panel");
+        dialogLayout.setHeading(heading);
+
+        JFXButton close = new JFXButton("Close");
+        String css = "-fx-border-color:#95e743;-fx-border-radius:2;-fx-background-color:#ecffe6";
+        close.setStyle(css);
+
+        close.setOnMouseClicked(e -> dialog.close());
+        String message = "Install your first solar panel.";
+        dialogLayout.setBody(new Text(message), close);
+
+        dialog = new JFXDialog(popup, dialogLayout, JFXDialog.DialogTransition.CENTER);
+        dialogLayout.setActions(close);
+        dialog.show();
+        dialog.setOverlayClose(false);
     }
 
     @Override
@@ -47,7 +73,7 @@ public class OverviewController extends Controller implements Initializable {
         badges = new ArrayList<>();
 
         String path = "/client/windows/images/badges/";
-        JFXButton button = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        button = new JFXButton("", new ImageView(path + "solar-panel.png"));
         JFXButton button2 = new JFXButton("", new ImageView(path + "solar-panels.png"));
         JFXButton button3 = new JFXButton("", new ImageView(path + "burger.png"));
         JFXButton button4 = new JFXButton("", new ImageView(path + "vegetarian.png"));
@@ -80,6 +106,8 @@ public class OverviewController extends Controller implements Initializable {
         badges.add(button15);
 
         button.setStyle("-fx-opacity: 100%;");
+
+        button.setOnMouseClicked(e -> popupMessage());
 
         // This adds the badges to the different rows of the VBOX
         for(int i = 0; i < 5; i++){

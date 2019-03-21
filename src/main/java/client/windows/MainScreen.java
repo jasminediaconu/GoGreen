@@ -42,7 +42,7 @@ public class MainScreen extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         MainScreen.primaryStage = primaryStage;
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/mainScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("client/windows/fxml/mainScreen.fxml"));
         primaryStage.setTitle("Greenly");
         primaryStage.setScene(new Scene(root, 1024, 768));
         primaryStage.setResizable(false);

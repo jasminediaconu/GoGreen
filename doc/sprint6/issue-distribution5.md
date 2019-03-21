@@ -49,7 +49,6 @@ FROM LAST WEEK:
 * add unit to Text km if g if food - 
 * Ask on mattermost java app, if not able to contribute that much
 
-
 FROM LAST WEEK:
 
 * Mockito Achievement, Item, Activity

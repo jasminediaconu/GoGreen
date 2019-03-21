@@ -7,3 +7,10 @@
     text-decoration: underline;
     text-decoration-color: #95e743;
 }
+.button{
+    -fx-background-color: #95e743;
+}
+#globalButton, #followingButton{
+    -fx-background-color: rgba(0,0,0,0);
+    font-weight: bold;
+}

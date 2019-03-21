@@ -93,7 +93,7 @@ public class LeaderboardController extends Controller implements Initializable {
 
                             //clientUser.addFollowing();
 
-                            if (followButton.getText() == "unfollow"){
+                            if (followButton.getText().equals("unfollow")){
                                 followButton.setText("follow");
                             } else {
                                 followButton.setText("unfollow");

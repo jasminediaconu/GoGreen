@@ -1,105 +1,183 @@
-# How To Write a great README,  There is a great readme (0.1) - RUBRIC
+# Greenly <br> ![Greenly_logo](/images/logo.jpg)
+Greenly is a activity tracker showing you how much CO2 you save trough you daily actions.
 
-## 1. Write an Example, Right Now
-The very first thing that should be written in a readme is a short example code snippet. This snippet should show what your library does, and as little else as possible. In the ideal case, people should be able to infer from your example how your library works.
+clone git repos via http: https://gitlab.ewi.tudelft.nl/cse1105/2018-2019/oopp-group-72/template.git
 
-For example, here’s a stubbed-out readme for a small utility by SubStack:
+## Installation
+Requirements:
+- JDK 11
+- Maven
 
-mkdirp
-Like mkdir -p, but in node.js!
+To install:
+- download the project
+- import as maven project
+- Maven install
+- run as exec:java 
 
-Example
-pow.js
-var mkdirp = require('mkdirp');
- mkdirp('/tmp/foo/bar/baz', 0755, function (err) {
-    if (err) console.error(err)
-    else console.log('pow!')
-});
-Output pow!
+## Features
+//Insert screenshots and GIFs of application with context here//
 
-And now /tmp/foo/bar/baz exists, huzzah!
+## About us
+### Name: Wout Haakman, whaakman
+![Wout Haakman](/images/readmePictures/WoutHaakman.jpg)<br/>
+#### Personal Development Plan:
+##### 2 strong points:
+- Good at programming, I have some years of programming and I am a quick learner.
+- Can explain material to others well, I like helping other people and I think I am good at helping with questions.
 
-This probably isn’t the greatest readme of all time. However, the example is a perfect case study. In four lines, a programmer more or less fluent in javascript can tell that mkdirp:
+##### My goals:
+- Improve teamwork skills, <br/>
+	I want to learn how to work better in a team.
+	I want to achieve this by communicating better,
+	Asking questions when needed,
+	Making sure everybody is on the same line and understands most of what is happening in the team.
+- Become a scrum amateur,
+	I want to better understand how scrums work.
+	I want to achieve this by investing more time to efficiently divide tasks on the time board,
+	And by learning from mistakes from the past sprint.
 
-Is a function.
-Takes 3 arguments:
-file path
-octal permissions
-An errorback
-Probably makes directories.
-Add in the mention of “like mkdir -p” and, without any other documentation, we can tell how it works.
 
-Of course, mkdir -p is small enough that you can actually cover 100% of the API in one example. Not all projects are so lucky, but they can still strive to get a common use case across.
+### Name: Giuliano Forghieri, gforghieri
+![Giuliano Forghieri](/images/readmePictures/gforghieri.jpg)<br/>
+Personal Development Plan: 
 
-Here’s another good example of an example, from node-tap. The example in this code saves what would otherwise be a terrible readme, to the point where node-tap has a solid contingent of loyal users despite its readme.
+Good at:
+ 
+- Planning, organizing
+- Helping other team members
+- Ideas regarding design, user experience/flow
+- Work ethic
 
-## 2. Describe the install procedure.
-A project that I think does a really good job of this is hook.io:
+Seeking improvement:
 
-Getting Start / Demo
- npm install hook.io-helloworld -g
-Now run:
+- Programming skills
+- To be able to absorb/retain large amounts of information faster
+- To be able to use documentation/stack overflow effectively
 
- hookio-helloworld
-Spawn up as many as you want. The first one becomes a server, the rest will become clients. Each helloworld hook emits a hello on an interval. Now watch the i/o party go!
+Goals:
 
-Two. Lines. You now know how to get up and going with hook.io!
+- To learn how to build software in a team
+- To improve my technical skills
+- To make this project something that I can be proud of
 
-Node.js projects like hook.io are lucky in this regard, as npm makes most installations for node projects a one-liner. This is ideal, as ease of installation is another selling point for your project.
+Steps:
 
-If you’re not lucky enough to have an easy installation procedure, then this section becomes even more important. In the case of hook.io, I may have been able to put 2 and 2 together and went looking for it on npm. For a more complicated yet poorly-documented install procedure, developers will screw it up, at which point they will either complain to you or give up and move on.
+- I will take on technical challenges, to improve my programming skills.
+- I will read guides, ask others and practice how to use technical documentation effectively
+- I will research and watch tutorials on specific technologies
 
-Why?
-Assuming your example made a sale, the second question a developer is going to ask is, “How do I install this thing?” Make it easy for them.
+### Name: Gino Tramontina, gtramontina
+![Gino Tramontina](/images/readmePictures/GinoTramontina.jpg)<br/>
+Personal Development Plan:
 
-## 3. Stub out the API docs.
-Now that you have a basic example and installation instructions, you can move on to documenting the basic API.
+Good at:
+ 
+- Searching for information on Google
+- Java (kind of)
 
-When I write API docs (and this is admittedly a weak point for me), I like to start with obvious entry points (your module only has one obvious entry point, right?) and work from there.
 
-For example, here’s a snippet from some API docs I wrote for union:
+Seeking improvement:
 
-union.createServer(options)
-The options object is required. Options include:
+- Teamwork
+- Programming skills
 
-options.before
-options.before is an array of middlewares, which are used to route and serve incoming requests. For instance, in the example, favicon is a middleware which handles requests for /favicon.ico.
+Goals:
 
-Union’s request handling is connect-compatible, meaning that all existing connect middlewares should work out-of-the-box with union.
+- To get better at teamwork
+- To enhance my programming skills
+- To make a cool program
 
-In addition, the response object passed to middlewares listens for a “next” event, which is equivalent to calling next(). Flatiron middlewares are written in this manner, meaning they are not reverse-compatible with connect.
+Steps:
 
-options.after
-options.after is an array of stream filters, which are applied after the request handlers in options.before. Stream filters inherit from union.ResponseStream, which implements the Node.js core streams api with a bunch of other goodies.
+- practice programming
+- work together with the rest
+- programming
 
-The advantage to streaming middlewares is that they do not require buffering the entire stream in order to execute their function.
 
-options.limit (optional)
-This argument is passed to internal instantiations of union.BufferedStream.
+### Name: Mandy Chang, mchang
+![Mandy Chang](/images/readmePictures/MandyChang.jpeg)<br/>
+Personal Development Plan:
 
-In union, the obvious entry point is union.createServer. In this example, I tried to explain what you do with it, and what all the pieces mean.
+Good at:
+- Communicating
+- Being creative
+- Helping others
 
-Why?
-Hopefully the idea of documenting your code isn’t completely foreign. That said, you may be tempted to think that an example is “enough”. I would suggest that this is true only in very rare cases. Even mkdirp could use a short paragraph explaining the arguments and behavior of the module. Inferrence is great, but shouldn’t be completely relied upon. Be straightforward.
+Seeking improvement:
+- Programming skills
+- Management skills
 
-## 4. Tests
-Your module may or may not have tests. If it does have tests (and tests are a wonderful idea!), you should describe how to run them. For example, here’s a snippet that’s very familiar to us at Nodejitsu:
+Goals:
+- Learn how to improve teamwork
+- Learn how to program better and more efficiently
+- Become better at managing and organising
 
-Run Tests
-Tests are written in vows and give complete coverage of all APIs and storage engines.
+Steps:
+- Programming: doing some code every week
+- Programming: watching how others solve problems
+- Programming: asking for help
+- Managing: read notes from others
+- Managing: be secretary/chair for a meeting
+- Managing: use "issues" and "agenda" every week
 
-$ npm test
-This is pretty much ideal.
+### Name: Jan Willem Eriks
+![Jan Willem Eriks](/images/readmePictures/jan_willem.jpg)<br/>
+Personal Development Plan:
 
-Why?
-Like installation instructions, testing directions should be as straightforward as possible. If you’re using node and npm, npm test is great because it distills testing into a one-liner.
+Good at:
+- Java
+- Learning
 
-(Choosing the right testing framework is another discussion entirely. I personally like node-tap).
+Seeking improvement:
+- Team work skills
+- Git and GitLab
 
-## 5. Licensing and Contributors
-Finally, tag on your license and contributors.
+Goals:
+- Learn how to use JavaFX
+- Learn how to program as team member
 
-The content of this isn’t actually too important in the context of a readme. For example, I usually just write the following:
+Steps:
+- JavaFX: program almost daily
+- JavaFX: discuss how to implement things
+- JavaFX: asking others for help
+- Team: discuss with others and ask for help
+- Git: trying advanced functions during this quarter
 
-License:
-MIT/X11.
+### Name: Svetoslav Stanoev, sstanoev
+![Svetoslav Stanoev](/images/readmePictures/Svetoslav.JPG)<br/>
+Personal Development Plan:
+*Strong points and weak points
+- Communicative and motivated
+- Communication is key in a good execution of a team project
+- Weaker points in me are lack of programming skills and procrastination
+*Plan to achive my goal 
+- My goal is to make an awesome app and have fun with my team
+- I need to stop being lazy that's my biggest problem
+
+
+### Name: Jasmine Diaconu, jdiaconu
+![Jasmine Diaconu](/images/readmePictures/jasmine_diaconu.jpg)<br/>
+Personal Development Plan: 
+
+Good at:
+ 
+- Programming
+- Problem solving
+- Creative
+
+Seeking improvement:
+
+- Organizational skills
+- Coding skills
+
+Goals:
+
+- To learn how to work in a team
+- To make a great application
+
+Steps:
+
+- Make a well organized plan
+- Google, search for information, learn how to use the available resources
+- Code
+- Ask for help when stuck/discuss with the team when needed

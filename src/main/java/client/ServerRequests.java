@@ -6,6 +6,7 @@ import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
 import com.google.gson.reflect.TypeToken;
+import org.apache.commons.io.FileUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -13,8 +14,11 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -313,6 +317,17 @@ public class ServerRequests {
         String response = sendRequestToServer("getAchievements", null);
         if (response != null) {
             Main.achievements = Main.gson.fromJson(response, listType);
+        }
+    }
+
+    public void uploadImage() {
+        try {
+            byte[] fileContent = FileUtils.readFileToByteArray(new File("test.png"));
+            String encodedImage = Base64.getEncoder().encodeToString(fileContent);
+            String response = sendRequestToServer("/upload?sessionID=" + Main.sessionID, Main.gson.toJson(encodedImage));
+            System.out.println(response);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

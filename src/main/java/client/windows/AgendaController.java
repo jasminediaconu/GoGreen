@@ -14,6 +14,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXNodesList;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -35,6 +36,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -136,7 +138,6 @@ public class AgendaController extends Controller implements Initializable {
         loadFoodItems();
         loadTransportItems();
         loadEnergyItems();
-
 
 
         agendaBox = new VBox();
@@ -401,7 +402,6 @@ public class AgendaController extends Controller implements Initializable {
     }
 
 
-
     /**
      * Creates an empty white popup box for energy button popup.
      * To be finished.
@@ -489,4 +489,3 @@ public class AgendaController extends Controller implements Initializable {
 
     }
 }
-

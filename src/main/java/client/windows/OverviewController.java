@@ -1,18 +1,16 @@
 package client.windows;
 
 import client.Main;
-import client.ServerRequests;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -31,6 +29,9 @@ public class OverviewController extends Controller implements Initializable {
     List<JFXButton> badges = new ArrayList<>();
     List<Achievement> achievementList = new ArrayList<>();
 
+
+    @FXML
+    LineChart<String, Integer> lineChart;
     @FXML Pane overview;
 
     @FXML
@@ -41,12 +42,17 @@ public class OverviewController extends Controller implements Initializable {
 
     @FXML
     private ScrollPane scrollBadges = new ScrollPane();
+
     private VBox badgesBox;
     private HBox row;
     private HBox row2;
     private HBox row3;
-
     private JFXButton button;
+
+    @FXML private JFXButton aabutton1;
+    @FXML private JFXButton aabutton11;
+    @FXML private JFXButton aabutton2;
+
     private PopOver popOver = new PopOver();
 
     @Override
@@ -55,6 +61,14 @@ public class OverviewController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+//        lineChart.getData().clear();
+//        XYChart.Series<String, Integer> series = new XYChart.Series<String, Integer>();
+//        series.getData().add(new XYChart.Data<String, Integer>("Monday",200));
+//        series.getData().add(new XYChart.Data<String, Integer>("Friday",123));
+//        series.getData().add(new XYChart.Data<String, Integer>("Saturday",23));
+//        aabutton1.setOnMouseClicked(e -> lineChart.getData().add(series));
+//        series.setName("Week");
+
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
 

@@ -17,7 +17,6 @@ public class LoginRequest extends AsyncTask {
     private String username;
     private String password;
     private boolean ishashed;
-    private ClientUser clientUser;
     private boolean success = false;
 
     /**

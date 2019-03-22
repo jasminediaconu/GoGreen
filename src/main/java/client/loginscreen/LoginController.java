@@ -4,6 +4,7 @@ import client.Main;
 import client.ServerRequests;
 //import com.sun.security.ntlm.Server;
 import client.windows.Controller;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -14,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -25,6 +27,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.security.Key;
 import java.util.ResourceBundle;
 
 /**
@@ -107,35 +110,43 @@ public class LoginController extends Controller implements Initializable {
      * This function will handle the input of username and
      * password when the login button is pressed.
      * It will also handle the responses returned by the ServerRequests class given it's query.
+     * @param event Event type.
      */
 
     @FXML
-    private void login() {
+    private void login(Event event) {
 
         String username = tf_username.getText();
         String password = pf_password.getText();
         boolean ishashed = false;
         String userpass = null;
-        try {
-            if(remembered) {
-                FileReader freader = new FileReader("remeberme.txt");
-                BufferedReader reader = new BufferedReader(freader);
-                userpass = reader.readLine();
-                reader.close();
-                freader.close();
+        String keycode = "";
+        if (event instanceof KeyEvent){
+            KeyEvent keyevent = (KeyEvent)event;
+            keycode = keyevent.getCode().toString();
+        }
+        if (event instanceof MouseEvent||keycode.equals("ENTER")) {
+            try {
+                if (remembered) {
+                    FileReader freader = new FileReader("remeberme.txt");
+                    BufferedReader reader = new BufferedReader(freader);
+                    userpass = reader.readLine();
+                    reader.close();
+                    freader.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            if (userpass != null && userpass.length() >= 5 && userpass.contains(";")) {
+                password = userpass.split(";")[1];
+                ishashed = true;
+            }
+            //rememberme(username,password,ishashed);
+            LoginRequest loginRequest = new LoginRequest(username, password, ishashed, this);
+            loginRequest.setDaemon(false);
+            loginRequest.execute();
+            setDisableScreen(true);
         }
-        if (userpass != null && userpass.length() >= 5 && userpass.contains(";")) {
-            password = userpass.split(";")[1];
-            ishashed = true;
-        }
-        //rememberme(username,password,ishashed);
-        LoginRequest loginRequest = new LoginRequest(username, password, ishashed, this);
-        loginRequest.setDaemon(false);
-        loginRequest.execute();
-        setDisableScreen(true);
     }
 
     /**
@@ -155,10 +166,12 @@ public class LoginController extends Controller implements Initializable {
     }
 
     /**
-     * This function is called when the login failed and displays that the password wass incorrect..
+     * This function is called when the login failed and displays that the password was incorrect..
      */
     public void loginFail() {
-        txt_incorrectPassword.setVisible(true);
+        try {
+            txt_incorrectPassword.setVisible(true);
+        }catch (NullPointerException e) {e.printStackTrace();}
         if (tf_username != null) {
             setDisableScreen(false);
         }
@@ -196,35 +209,32 @@ public class LoginController extends Controller implements Initializable {
 
     /**
      * This function takes the termsOfService fxml file as file to load in a new popup window
-     * @param event MouseEvent type
      * @throws IOException
      */
     @FXML
-    private void termsofservice(MouseEvent event) throws IOException {
+    private void termsofservice() throws IOException {
         // will open a new window and display the terms of service in that
         String source = "termsOfService.fxml";
-        privacyandterms(event, source);
+        privacyandterms(source);
     }
 
     /**
      * This function takes the privacyPolicy fxml file to load in a new popup window
-     * @param event MouseEvent type
      * @throws IOException
      */
     @FXML
-    private void privacypolicy (MouseEvent event) throws IOException {
+    private void privacypolicy () throws IOException {
         String source = "privacyPolicy.fxml";
-        privacyandterms(event,source);
+        privacyandterms(source);
     }
 
     /**
      * This function opens a new popup window containing the source
-     * @param event MouseEvent type
      * @param source String type
      * @throws IOException
      */
     @FXML
-    private void privacyandterms (MouseEvent event, String source) throws IOException {
+    private void privacyandterms (String source) throws IOException {
         // will open a new window and display the terms of service in that
         Parent root = FXMLLoader.load(getClass().getResource(source));
         fillScene(root);

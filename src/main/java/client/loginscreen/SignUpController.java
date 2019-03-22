@@ -1,6 +1,7 @@
 package client.loginscreen;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -114,19 +116,27 @@ public class SignUpController implements Initializable {
      * and password when the sign up button is pressed.
      * It will also handle the responses returned by the ServerRequests class given it's query.
      *
+     * @param event Event type.
      * @throws Exception Exception.
      */
     @FXML
-    private void signUp() {
-        setDisableScreen(true);
+    private void signUp(Event event) {
+        String keycode = "";
+        if (event instanceof KeyEvent){
+            KeyEvent keyevent = (KeyEvent)event;
+            keycode = keyevent.getCode().toString();
+        }
+        if (event instanceof MouseEvent||keycode.equals("ENTER")) {
+            setDisableScreen(true);
 
-        String username = tf_username.getText();
-        String email = tf_email.getText();
-        String password = pf_password.getText();
+            String username = tf_username.getText();
+            String email = tf_email.getText();
+            String password = pf_password.getText();
 
-        SignUpRequest signUpRequest = new SignUpRequest(username, password, email, this);
-        signUpRequest.setDaemon(false);
-        signUpRequest.execute();
+            SignUpRequest signUpRequest = new SignUpRequest(username, password, email, this);
+            signUpRequest.setDaemon(false);
+            signUpRequest.execute();
+        }
     }
 
 
@@ -153,7 +163,13 @@ public class SignUpController implements Initializable {
      */
     public void signUpFail(int response) {
         //sign up failed
-        txt_usernametaken.setVisible(true);
+        try {
+            txt_usernametaken.setVisible(true);
+            if(response == 0){txt_usernametaken.setText("Please enter a valid email address.");}
+            else if(response == 1){txt_usernametaken.setText("Something went wrong, please try again later.");}
+            else if(response == 3){txt_usernametaken.setText("Username already taken.");}
+            else if(response == 4){txt_usernametaken.setText("Email address already taken.");}
+        }catch (NullPointerException e){e.printStackTrace();}
         if (tf_username != null) {
             setDisableScreen(false);
             System.out.println("FAIL CODE:  " + response);

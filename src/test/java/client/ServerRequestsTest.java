@@ -31,35 +31,35 @@ class ServerRequestsTest {
 
     @Test
     void loginNull() {
-        Assert.assertNull(sv.login(null, "password"));
-        Assert.assertNull(sv.login("username", null));
+        Assert.assertNull(sv.login(null, "password", false));
+        Assert.assertNull(sv.login("username", null, false));
     }
 
     @Test
     void loginSyntax() {
-        Assert.assertEquals("syntax", sv.login("usr", "password"));
-        Assert.assertEquals("syntax", sv.login("username", "pwd"));
+        Assert.assertEquals("syntax", sv.login("usr", "password", false));
+        Assert.assertEquals("syntax", sv.login("username", "pwd", false));
     }
 
     @Test
     void loginUsername() {
-        Assert.assertEquals("username", sv.login("dafdsfsfgsrfsdafafasfas", "password"));
+        Assert.assertEquals("username", sv.login("dafdsfsfgsrfsdafafasfas", "password", false));
     }
 
     @Test
     void loginPassword() {
-        Assert.assertEquals("password", sv.login("admin", "test"));
+        Assert.assertEquals("password", sv.login("admin", "test", false));
     }
 
     @Test
     void loginSuccess() {
-        Assert.assertEquals("success", sv.login("admin", "admin"));
+        Assert.assertEquals("success", sv.login("admin", "admin", true));
     }
 
     @Test
     void loginFail() {
         ServerRequests.requestUrl = "";
-        Assert.assertEquals("fail", sv.login("username", "password"));
+        Assert.assertEquals("fail", sv.login("username", "password", false));
     }
 
     @Test

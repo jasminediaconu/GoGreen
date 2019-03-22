@@ -121,6 +121,7 @@ public class LoginController extends Controller implements Initializable {
         boolean ishashed = false;
         String userpass = null;
         String keycode = "";
+        int passwordlength = password.length();
         if (event instanceof KeyEvent){
             KeyEvent keyevent = (KeyEvent)event;
             keycode = keyevent.getCode().toString();
@@ -141,7 +142,8 @@ public class LoginController extends Controller implements Initializable {
                 password = userpass.split(";")[1];
                 ishashed = true;
             }
-            //rememberme(username,password,ishashed);
+            rememberme(username,password,ishashed,passwordlength);
+
             LoginRequest loginRequest = new LoginRequest(username, password, ishashed, this);
             loginRequest.setDaemon(false);
             loginRequest.execute();
@@ -260,8 +262,7 @@ public class LoginController extends Controller implements Initializable {
      * @param password String type
      * @throws IOException
      */
-    private void rememberme (String username, String password, boolean ishashed){
-    /**    int passwordlength = password.length();
+    private void rememberme (String username, String password, boolean ishashed, int passwordlength){
         String hashedpassword = "";
         if(!ishashed){
             hashedpassword = Main.hashString(password);
@@ -277,38 +278,43 @@ public class LoginController extends Controller implements Initializable {
             writer.close();
         }catch (IOException e){
             e.printStackTrace();
-        } */
+        }
     }
 
     /**
      * This method will check whether a username and password are saved and set variables accordingly
      * @throws IOException
      */
-    /**public void remembermecheck () throws IOException{
+    @FXML
+    public void remembermecheck () throws IOException{
         //open the file and read its contents
-        FileReader fread = new FileReader("remeberme.txt");
-        BufferedReader reader = new BufferedReader(fread);
-        String userpass = reader.readLine();
-        reader.close();
-        fread.close();
-        //if there is something saved, set the text in textfields to the right values
-        if(userpass.length() >= 5 && userpass != null && userpass.contains(";")){
-            rememberBox.setSelected(true);
-            String[] userpassparts = userpass.split(";");
-            tf_username.setText(userpassparts[0]);
-            int passlength = Integer.parseInt(userpassparts[2]);
-            char[] randpass = new char[passlength];
-            for(int i = 0; i < passlength; i++){
-                randpass[i]='a';
+        if(!remembered) {
+            FileReader fread = new FileReader("remeberme.txt");
+            BufferedReader reader = new BufferedReader(fread);
+            String userpass = null;
+            userpass = reader.readLine();
+            reader.close();
+            fread.close();
+            //if there is something saved, set the text in textfields to the right values
+            if (userpass != null && userpass.contains(";")) {
+                rememberBox.setSelected(true);
+                String[] userpassparts = userpass.split(";");
+                tf_username.setText(userpassparts[0]);
+                int passlength = Integer.parseInt(userpassparts[2]);
+                char[] randpass = new char[passlength];
+                for (int i = 0; i < passlength; i++) {
+                    randpass[i] = 'a';
+                }
+                String passwordfiller = randpass.toString();
+                pf_password.setText(passwordfiller);
+                remembered = true;
+            } else if (userpass == null) {
+                rememberBox.setSelected(false);
             }
-            String passwordfiller = randpass.toString();
-            pf_password.setText(passwordfiller);
-            remembered = true;
-        } else if(userpass.length() < 5 || userpass == null){
-            rememberBox.setSelected(false);
         }
     }
-     */
+
+
 
     /**
      * This function remains unused, but required to stay since this class implements Initializable.
@@ -318,7 +324,8 @@ public class LoginController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        try{remembermecheck();}
+        catch (IOException e){ e.printStackTrace();}
     }
 
     @Override

@@ -31,8 +31,10 @@ public class ServerRequests {
      * @param username type.
      * @param password type.
      */
-    public String login(String username, String password) {
-        String hashedPassword = Main.hashString(password);
+    public String login(String username, String password, boolean ishashed) {
+        String hashedPassword = null;
+        if(!ishashed) {hashedPassword = Main.hashString(password);}
+        else if(ishashed){hashedPassword = password;}
         if (username == null || hashedPassword == null) {
             return null;
         }

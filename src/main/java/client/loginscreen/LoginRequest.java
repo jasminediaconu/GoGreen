@@ -68,7 +68,7 @@ public class LoginRequest extends AsyncTask {
      */
     public boolean login() {
         ServerRequests sv = new ServerRequests();
-        String response = sv.login(username, password);
+        String response = sv.login(username, password, ishashed);
 
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING

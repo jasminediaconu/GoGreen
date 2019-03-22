@@ -1,16 +1,19 @@
 package client.windows;
 
+import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
+import org.controlsfx.control.PopOver;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +26,17 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     Pane overview;
 
+    @FXML private Pane popup;
+
     @FXML
     private ScrollPane scrollBadges;
     private VBox badgesBox;
     private HBox row;
     private HBox row2;
     private HBox row3;
+
+    private JFXButton button;
+    private PopOver popOver = new PopOver();
 
     @Override
     public void update() {
@@ -47,7 +55,7 @@ public class OverviewController extends Controller implements Initializable {
         badges = new ArrayList<>();
 
         String path = "/client/windows/images/badges/";
-        JFXButton button = new JFXButton("", new ImageView(path + "solar-panel.png"));
+        button = new JFXButton("", new ImageView(path + "solar-panel.png"));
         JFXButton button2 = new JFXButton("", new ImageView(path + "solar-panels.png"));
         JFXButton button3 = new JFXButton("", new ImageView(path + "burger.png"));
         JFXButton button4 = new JFXButton("", new ImageView(path + "vegetarian.png"));
@@ -79,6 +87,7 @@ public class OverviewController extends Controller implements Initializable {
         badges.add(button14);
         badges.add(button15);
 
+        button.setOnMouseEntered(this::popupBadges);
         button.setStyle("-fx-opacity: 100%;");
 
         // This adds the badges to the different rows of the VBOX
@@ -93,5 +102,25 @@ public class OverviewController extends Controller implements Initializable {
         badgesBox.getChildren().add(row3);
 
         scrollBadges.setContent(badgesBox);
+    }
+
+    @FXML
+    public void popupBadges(javafx.scene.input.MouseEvent event) {
+        String path = "/client/windows/fxml/popup.fxml";
+
+        try {
+            //title = new Text("Get title");
+            //description = new Text("Get message");
+            popup = FXMLLoader.load(getClass().getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (!(popOver.isShowing())) {
+            popOver = new PopOver(popup);
+            popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_CENTER);
+            popOver.setDetachable(false);
+            popOver.show(button);
+        }
     }
 }

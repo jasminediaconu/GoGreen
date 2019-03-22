@@ -87,7 +87,7 @@ public class Achievement {
      * @return the title
      */
     public String getDescription() {
-        return title;
+        return description;
     }
 
     /**

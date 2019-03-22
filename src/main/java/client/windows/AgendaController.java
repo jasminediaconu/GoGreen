@@ -35,10 +35,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 
-import javax.security.auth.callback.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -60,8 +58,6 @@ public class AgendaController extends Controller implements Initializable {
 
     @FXML
     Pane agenda;
-    @FXML
-    FontAwesomeIcon delete;
     @FXML
     private ScrollPane scrollAgenda = new ScrollPane();
     @FXML

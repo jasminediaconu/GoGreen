@@ -1,35 +1,46 @@
 package client.windows;
 
+import client.Main;
+import client.ServerRequests;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
-import java.awt.image.BufferedImage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
 
-    List<JFXButton> badges;
+    List<JFXButton> badges = new ArrayList<>();
+    List<Achievement> achievementList = new ArrayList<>();
+
+    @FXML Pane overview;
 
     @FXML
-    Pane overview;
+    private Pane badgePopup;
 
-    @FXML private Pane popup;
+    @FXML private Text title = new Text();
+    @FXML private Text description = new Text();
 
     @FXML
-    private ScrollPane scrollBadges;
+    private ScrollPane scrollBadges = new ScrollPane();
     private VBox badgesBox;
     private HBox row;
     private HBox row2;
@@ -44,51 +55,26 @@ public class OverviewController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
+
+        loadAchievements();
 
         row = new HBox();
         row2 = new HBox();
         row3 = new HBox();
 
-        badges = new ArrayList<>();
-
         String path = "/client/windows/images/badges/";
-        button = new JFXButton("", new ImageView(path + "solar-panel.png"));
-        JFXButton button2 = new JFXButton("", new ImageView(path + "solar-panels.png"));
-        JFXButton button3 = new JFXButton("", new ImageView(path + "burger.png"));
-        JFXButton button4 = new JFXButton("", new ImageView(path + "vegetarian.png"));
-        JFXButton button5 = new JFXButton("", new ImageView(path + "stalker.png"));
-        JFXButton button6 = new JFXButton("", new ImageView(path + "top10.png"));
-        JFXButton button7 = new JFXButton("", new ImageView(path + "thermometer.png"));
-        JFXButton button8 = new JFXButton("", new ImageView(path + "travel.png"));
-        JFXButton button9 = new JFXButton("", new ImageView(path + "activity.png"));
-        JFXButton button10 = new JFXButton("", new ImageView(path + "one.png"));
-        JFXButton button11 = new JFXButton("", new ImageView(path + "progress.png"));
-        JFXButton button12 = new JFXButton("", new ImageView(path + "bronze-medal.png"));
-        JFXButton button13 = new JFXButton("", new ImageView(path + "silver-medal.png"));
-        JFXButton button14 = new JFXButton("", new ImageView(path + "gold-medal.png"));
-        JFXButton button15 = new JFXButton("", new ImageView(path + "nomad.png"));
+        for(int i = 0; i < achievementList.size(); i++) {
+            int ii = i;
+            button = new JFXButton("", new ImageView(path + achievementList.get(i).getPath() + ".png"));
+            title.setText(achievementList.get(i).getTitle());
+            description.setText(achievementList.get(i).getDescription());
+            button.setOnMouseEntered(e -> popupBadges());
+            badges.add(button);
+        }
 
-        badges.add(button);
-        badges.add(button2);
-        badges.add(button3);
-        badges.add(button4);
-        badges.add(button5);
-        badges.add(button6);
-        badges.add(button7);
-        badges.add(button8);
-        badges.add(button9);
-        badges.add(button10);
-        badges.add(button11);
-        badges.add(button12);
-        badges.add(button13);
-        badges.add(button14);
-        badges.add(button15);
-
-        button.setOnMouseEntered(this::popupBadges);
-        button.setStyle("-fx-opacity: 100%;");
+        //button.setStyle("-fx-opacity: 100%;");
 
         // This adds the badges to the different rows of the VBOX
         for(int i = 0; i < 5; i++){
@@ -105,22 +91,28 @@ public class OverviewController extends Controller implements Initializable {
     }
 
     @FXML
-    public void popupBadges(javafx.scene.input.MouseEvent event) {
+    public void popupBadges() {
         String path = "/client/windows/fxml/popup.fxml";
 
         try {
-            //title = new Text("Get title");
-            //description = new Text("Get message");
-            popup = FXMLLoader.load(getClass().getResource(path));
+            badgePopup = FXMLLoader.load(getClass().getResource(path));
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         if (!(popOver.isShowing())) {
-            popOver = new PopOver(popup);
+            popOver = new PopOver(badgePopup);
             popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_CENTER);
             popOver.setDetachable(false);
             popOver.show(button);
         }
+    }
+
+    /**
+     * Loads the achivements in the list.
+     */
+    private void loadAchievements() {
+        //Clears everything in the observable list
+        achievementList = Main.achievements.stream().collect(Collectors.toList());
     }
 }

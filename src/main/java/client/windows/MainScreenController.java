@@ -9,10 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -38,8 +35,6 @@ public class MainScreenController extends Pane implements Initializable {
 
     private final String path = "/client/windows/fxml/";
 
-    @FXML
-    MenuButton user;
     private boolean welcome = true;
     private int state = -1;
 
@@ -49,8 +44,9 @@ public class MainScreenController extends Pane implements Initializable {
     @FXML
     private Pane welcomePane;
     @FXML
-    private MenuItem logoutButton;
-
+    private MenuButton logoutButton;
+    @FXML
+    private MenuItem logout;
     @FXML
     private Button agendaButton;
     @FXML
@@ -161,7 +157,7 @@ public class MainScreenController extends Pane implements Initializable {
      */
     @FXML
     private void logout() throws IOException {
-        Stage stage = (Stage) user.getScene().getWindow();
+        Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.close();
         Stage login = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/client/loginScreen/login.fxml"));

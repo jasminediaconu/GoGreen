@@ -1,29 +1,26 @@
 package client.windows;
 
+import client.Main;
+import client.ServerRequests;
+import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.ScrollPane;
-
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
-
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
 
@@ -40,8 +37,18 @@ public class OverviewController extends Controller implements Initializable {
     private JFXButton button;
     private PopOver popOver = new PopOver();
 
+    private String path;
+    private BufferedImage image;
+    private int goal;
+
     @Override
     public void update() {
+    }
+
+    public void showAchievements(List<Achievement> achievements) {
+        for (Achievement badges : achievements){
+
+        }
     }
 
     @Override
@@ -54,7 +61,6 @@ public class OverviewController extends Controller implements Initializable {
         row2 = new HBox();
         row3 = new HBox();
 
-        badges = new ArrayList<>();
 
         String path = "/client/windows/images/badges/";
         button = new JFXButton("", new ImageView(path + "solar-panel.png"));
@@ -129,4 +135,20 @@ public class OverviewController extends Controller implements Initializable {
             popOver.show(button);
         }
     }
+
+    /**
+     * applyBadges event.
+     * Applies the badges to the Overview page, still needs a restart of the application.
+     */
+//    public void applyBadges(String badgeName) {
+//        ServerRequests sv = new ServerRequests();
+//        String path = Main.achievements.stream().filter(x -> x.getTitle().equals(badgeName)).collect(Collectors.toList()).get(0).getPath();
+//        String path = Main.achievements.stream().filter(x -> x.getTitle().equals(badgeName)).collect(Collectors.toList()).get(0).getPath();
+//        int badgeID = Main.achievements.stream().filter(x -> x.getTitle().equals(badgeName)).collect(Collectors.toList()).get(0).getId();
+//        Achievement achievement = new Achievement (badgeID, "", "", ", ", 3 );
+//
+//
+//                //refresh agenda
+//
+//        }
 }

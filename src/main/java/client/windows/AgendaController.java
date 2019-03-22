@@ -37,6 +37,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
+import server.helper.ActivityClass;
 
 import javax.security.auth.callback.Callback;
 import java.io.IOException;
@@ -131,6 +132,7 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
+     * This function is called when control reaches/loads the AgendaController
      * Initialize agenda with the user activities.
      *
      * @param url            URL
@@ -143,6 +145,9 @@ public class AgendaController extends Controller implements Initializable {
         loadEnergyItems();
     }
 
+    /**
+     * This function is called only once when control reaches the MainScreenController
+     */
     @Override
     public void init() {
         loadPlusButton();
@@ -204,10 +209,13 @@ public class AgendaController extends Controller implements Initializable {
      * @param rowIndex int type.
      */
     private void deleteActivity(int rowIndex) {
+        ServerRequests sv = new ServerRequests();
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
         agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
         dialog.close();
+        int activityID = Main.clientUser.getActivityList().get(rowIndex-1).getActivityID();
+        sv.removeActivity(activityID);
     }
 
     private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
@@ -221,8 +229,6 @@ public class AgendaController extends Controller implements Initializable {
     /**
      * This function shows the activity on the agenda.
      * Takes in a multimap(date from datepicker and activity object)
-     * Wout is still looking into how to show the activity instantly after adding
-     * without reloading the app
      *
      * @param activityMap Multimap type.
      */
@@ -246,6 +252,7 @@ public class AgendaController extends Controller implements Initializable {
                 Item item = Main.items.get(activity.getItemID() - 1);
                 String unit = "";
                 Double co2Saved = round((item.getCo2() * activity.getAmount()), 2);
+
 
                 if (item.getType().equals("food")) {
                     unit = "g";
@@ -459,7 +466,7 @@ public class AgendaController extends Controller implements Initializable {
 
     /**
      * applyButton event.
-     * Applies the activity to the agenda, still needs a restart of the application.
+     * Applies the activity to the agenda
      */
     @FXML
     private void applyButton(String itemName) {
@@ -478,8 +485,6 @@ public class AgendaController extends Controller implements Initializable {
             Activity activity = new Activity(itemID, parsedAmount, date);
             if (sv.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
-                //refresh agenda
-
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }

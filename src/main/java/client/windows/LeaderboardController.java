@@ -44,16 +44,17 @@ public class LeaderboardController extends Controller implements Initializable {
      * The observable list contains the top 10 global users
      * @return the list of global users
      */
-    public ObservableList<User> getGlobalUsers(){
+    private ObservableList<User> getGlobalUsers(){
         ObservableList<User> globalUsers = FXCollections.observableArrayList(serverRequests.getGlobalBestProfile());
         return globalUsers;
+
     }
 
     /**
      * The observable list contains the users the client is following
      * @return the list of following users
      */
-    public ObservableList<User> getFollowingUsers(){
+    private ObservableList<User> getFollowingUsers(){
         ObservableList<User> followingUsers = FXCollections.observableArrayList(serverRequests.getFollowingProfile());
         return followingUsers;
     }
@@ -61,7 +62,7 @@ public class LeaderboardController extends Controller implements Initializable {
     /**
      * The globalButton switches the contents of the table with the global list
      */
-    public void switchToGlobal(){
+    private void switchToGlobal(){
         globalButton.setOnAction((ActionEvent switchToGlobalEvent) -> {
             table.setItems(getGlobalUsers());
         });
@@ -70,13 +71,13 @@ public class LeaderboardController extends Controller implements Initializable {
     /**
      * The followingButton switches the contents of the table with the following list
      */
-    public void switchToFollowing(){
+    private void switchToFollowing(){
         followingButton.setOnAction((ActionEvent switchToFollowingEvent) -> {
             table.setItems(getFollowingUsers());
         });
     }
 
-    public void addFollowButtons(){
+    private void addFollowButtons(){
         TableColumn<User, Void> followButtonColumn = new TableColumn<>("Follow");
 
         Callback<TableColumn<User, Void>, TableCell<User, Void>> cellFactory = new Callback<>() {
@@ -84,21 +85,22 @@ public class LeaderboardController extends Controller implements Initializable {
             public TableCell<User, Void> call(final TableColumn<User, Void> param) {
                 final TableCell<User, Void> cell = new TableCell<>() {
 
-                    private JFXButton followButton = new JFXButton("follow");
+                    public JFXButton followButton = new JFXButton("follow");
 
                     {
                         followButton.setOnAction((ActionEvent followUserEvent) -> {
-                            //TODO follow user function
-                            //TODO update list with setFollowing
+                            //TODO unfollow button
 
                             String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
-                            System.out.println(data);
-                            serverRequests.followUser("admin");
-
+//                            if (getFollowingUsers().equals(data)){
+//                                followButton.setText("test");
+//                            }
                             if (followButton.getText().equals("unfollow")){
                                 followButton.setText("follow");
+                                serverRequests.unFollowUser(data);
                             } else {
                                 followButton.setText("unfollow");
+                                serverRequests.followUser(data);
                             }
                         });
                     }
@@ -108,8 +110,9 @@ public class LeaderboardController extends Controller implements Initializable {
                         super.updateItem(item, empty);
 
                         //TODO if clientuserid is userid of row then setGraphic(null)
-
-                        if (!empty) {
+                        if (empty) {
+                            setGraphic(null);
+                        }  else {
                             setGraphic(followButton);
                         }
                     }

@@ -89,7 +89,7 @@ public class LeaderboardController extends Controller implements Initializable {
 
                     {
                         followButton.setOnAction((ActionEvent followUserEvent) -> {
-                            //TODO unfollow button
+                            //TODO have appropriate (un)follow on starting app
 
                             String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
 //                            if (getFollowingUsers().equals(data)){

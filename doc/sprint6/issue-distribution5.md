@@ -66,8 +66,6 @@ FROM LAST WEEK:
 
 * Mockito Achievement, Item, Activity
 
-
-
 ## Backend and General (Wout):
 
 STILL TO BE DONE:

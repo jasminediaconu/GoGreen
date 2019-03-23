@@ -1,4 +1,4 @@
-# Greenly <br> ![Greenly_logo](/images/logo.jpg)
+# Greenly <br> ![Greenly_logo](/images/new logo.jpg)
 Greenly is a activity tracker showing you how much CO2 you save trough you daily actions.
 
 clone git repos via http: https://gitlab.ewi.tudelft.nl/cse1105/2018-2019/oopp-group-72/template.git
@@ -15,7 +15,16 @@ To install:
 - run as exec:java 
 
 ## Features
-//Insert screenshots and GIFs of application with context here//
+Login<br/>
+![Wout Haakman](/images/readmePictures/LoginEmpty.PNG)<br/><br/>
+![Wout Haakman](/images/readmePictures/LoginFilled.PNG)<br/>
+<br/>signup<br/>
+![Wout Haakman](/images/readmePictures/SignupEmpty.PNG)<br/><br/>
+![Wout Haakman](/images/readmePictures/SignupFilled.PNG)<br/>
+<br/> the agenda <br/>
+![Wout Haakman](/images/readmePictures/Agenda1.PNG)<br/><br/>
+![Wout Haakman](/images/readmePictures/Agenda2.PNG)<br/><br/>
+![Wout Haakman](/images/readmePictures/Agenda3.png)
 
 ## About us
 ### Name: Wout Haakman, whaakman

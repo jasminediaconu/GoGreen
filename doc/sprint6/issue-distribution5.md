@@ -53,8 +53,6 @@ FROM LAST WEEK:
 
 * Mockito Achievement, Item, Activity
 
-
-
 ## Backend and General (Wout):
 
 * Make a follow request

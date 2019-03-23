@@ -2,7 +2,10 @@ package client.profilescreen;
 
 import client.Main;
 import client.ServerRequests;
+import client.objects.Activity;
+import client.objects.Item;
 import client.user.ClientUser;
+import client.windows.AgendaController;
 import client.windows.Controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -20,7 +23,10 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.awt.image.BufferedImage;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 /**
  * The type Controller profile.
@@ -57,6 +63,8 @@ public class ProfileController extends Controller {
     private JFXButton saveButton;
 
     private ClientUser newSettings;
+
+    String itemName = null;
 
 
     /**
@@ -203,6 +211,38 @@ public class ProfileController extends Controller {
         setButtonsDisable(true);
         sv.updateClientUserProfile();
         update();
+
+        // if solarpanel amount changed call updateAgenda ("Solar panel", solarpanel.getamount)
+        // if led amount changed call updateAgenda("LEDs", led.getamount)
+        // if tempereate changed call updateAgenda("Lower temperature, tepmpratorfield.getamount")
+
+    }
+
+    private void updateAgenda (String itemName, int amount){
+        // Check the activities of today, if there is no solarpanel add the amount which is in the solarpanel
+        // amount textfield to the agenda of today when the user clicks save.
+        // Also do this when the user logs in for solarpanels, leds, temperature
+        ArrayList<Activity> filteredActivities = new ArrayList<>();
+
+        // Filter activities by today's date
+        for (Activity activity : Main.clientUser.getActivityList()) {
+            if (activity.getDate().equals(java.time.LocalDate.now()));
+                filteredActivities.add(activity);
+     }
+
+        // If from today's activities the name of the item is not on the agenda or the amount is different
+        for (Activity activity : filteredActivities) {
+            Item item = Main.items.get(activity.getItemID() - 1);
+            if ((!(item.getName().equals(itemName)))) {
+                // add the item to the agenda
+            }
+            // the amount is different
+            else if (activity.getAmount() != amount) {
+             // update the amount of the activity on the agenda
+            }
+        }
+
+     // if user adds solarpanel, led, temperature on agenda update it on the userprofile and save it.
     }
 
     private void checkNewSettings() {
@@ -257,4 +297,34 @@ public class ProfileController extends Controller {
             profileImage.setFill(new ImagePattern(image));
         }
     }
+
+//    /**
+//     * applyButton event.
+//     * Applies the activity to the agenda
+//     */
+//    @FXML
+//    private void applyActivity(String itemName) {
+
+
+//        ServerRequests sv = new ServerRequests();
+//        double parsedAmount = -1;
+//        if (amount.getText() != null && amount.getText().length() > 0) {
+//            parsedAmount = Double.parseDouble(amount.getText());
+//        }
+//
+//        LocalDate date = java.time.LocalDate.now();
+//
+//        if (itemName != null && parsedAmount > 0 && date != null) {
+//            System.out.println(date.toString());
+//            int itemID = Main.items.stream().filter(x ->
+//                    x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
+//            Activity activity = new Activity(itemID, parsedAmount, date);
+//            if (sv.addActivity(activity)) {
+//                Main.clientUser.addToActivityList(activity);
+//                showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
+//            }
+//        }
+//    }
+
+
 }

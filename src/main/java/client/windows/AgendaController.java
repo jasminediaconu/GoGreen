@@ -218,7 +218,7 @@ public class AgendaController extends Controller implements Initializable {
         sv.removeActivity(activityID);
     }
 
-    private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
+    public Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
         Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
         for (Activity a : activities) {
             multimap.put(a.getDate(), a);
@@ -350,6 +350,7 @@ public class AgendaController extends Controller implements Initializable {
             popOver1.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
             popOver1.setDetachable(false);
             popOver1.show(ssbutton2);
+
         }
     }
 
@@ -358,12 +359,19 @@ public class AgendaController extends Controller implements Initializable {
      */
     private void loadTransportItems() {
 
-        //Clears everything in the observable list
-        if (transportList.size() < 1) {
-            transportList.addAll(Main.items.stream().filter(item ->
-                    item.getType().equals("transport")).map(item ->
-                    item.getName()).collect(Collectors.toList()));
-        }
+       transportList.addAll("Walking",
+               "By bike",
+               "Public transport",
+               "By car");
+
+
+//        //Clears everything in the observable list
+//        if (transportList.size() < 1) {
+//            transportList.addAll(Main.items.stream().filter(item ->
+//                    item.getType().equals("transport")).map(item ->
+//                    item.getName()).collect(Collectors.toList()));
+//        }
+
         transportChoices.setItems(transportList);
         //mainScreen.getChildren().add(foodChoices);
     }
@@ -445,9 +453,9 @@ public class AgendaController extends Controller implements Initializable {
     @FXML
     void applyTransport(MouseEvent event) {
         itemName = transportChoices.getValue();
-//        if (itemName.equals("By Car")) {
-//            itemName = Main.clientUser.getCarEmissionType() + ", " + Main.clientUser.getCarEmissionType();
-//        }
+        if (itemName.equals("By car")) {
+            itemName = Main.clientUser.getCarEmissionType() + ", " + Main.clientUser.getCarType();
+        }
         applyButton(itemName);
     }
 

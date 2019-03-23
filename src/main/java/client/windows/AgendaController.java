@@ -113,24 +113,6 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This function rounds a double value to N decimal places.
-     *
-     * @param value  double type
-     * @param places int type
-     * @return a double rounded down to N decimal places
-     */
-    public static double round(double value, int places) {
-        if (places < 0) {
-            throw new IllegalArgumentException();
-        }
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
-    }
-
-    /**
      * Initialize agenda with the user activities.
      *
      * @param url            URL
@@ -206,6 +188,7 @@ public class AgendaController extends Controller implements Initializable {
      * @param rowIndex int type.
      */
     private void deleteActivity(int rowIndex) {
+
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
         agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
@@ -255,8 +238,8 @@ public class AgendaController extends Controller implements Initializable {
                 } else if (item.getType().equals("transport")) {
                     unit = "km";
                 }
-                Text text = new Text(item.getName() + ", amount: " + activity.getAmount() +
-                        unit + ", CO2 saved: " + round((item.getCo2() * activity.getAmount())
+                Text text = new Text(item.getName() + ", amount: " + activity.getAmount()
+                        + unit + ", CO2 saved: " + Main.round((item.getCo2() * activity.getAmount())
                         / 1000, 2) + "kg");
 
                 text.setWrappingWidth(310.00);
@@ -479,7 +462,14 @@ public class AgendaController extends Controller implements Initializable {
             Activity activity = new Activity(itemID, parsedAmount, date);
             if (sv.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
-                //refresh agenda
+
+                Item item = Main.items.get(activity.getItemID() - 1);
+                double addition = activity.getAmount() * item.getCo2();
+                if (!item.getType().equals("energy")) {
+                    addition /= 1000.0;
+                }
+                Main.clientUser.increaseTotalCo2(addition);
+                sv.updateClientUserProfile();
 
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }

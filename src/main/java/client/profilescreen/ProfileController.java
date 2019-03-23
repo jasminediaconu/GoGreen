@@ -80,7 +80,7 @@ public class ProfileController extends Controller {
     private void syncUI(ClientUser settings) {
         usernameField.setText("Username: " + settings.getUsername());
         emailField.setText(settings.getEmail());
-        pointsField.setText("CO2 saved: " + Main.clientUser.getTotalCo2());
+        pointsField.setText("CO2 saved: " + Main.round(Main.clientUser.getTotalCo2(), 2));
         streakField.setText("Streak: " + Main.clientUser.getStreakLength());
         solarPanels.setSelected(settings.hasSolarPower());
         leds.setSelected(settings.hasLeds());

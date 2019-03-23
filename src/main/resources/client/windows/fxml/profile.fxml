@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -14,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane layoutX="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.profilescreen.ProfileController">
+<AnchorPane layoutX="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.profilescreen.ProfileController">
     <children>
         <Pane fx:id="profile" layoutX="-1.0" layoutY="44.0" prefHeight="723.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 0 28 28;">
             <children>
@@ -147,27 +146,27 @@
                         </FXCollections>
                     </items>
                 </JFXComboBox>
-                <Text layoutX="524.0" layoutY="446.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solar Panels:" wrappingWidth="119.6000437438488">
+                <Text layoutX="524.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solar Panels:" wrappingWidth="119.6000437438488">
                     <font>
                         <Font name="Century Gothic" size="18.0" />
                     </font>
                 </Text>
-                <JFXToggleButton fx:id="solarPanels" layoutX="749.0" layoutY="409.0" onAction="#buttonPressed" prefHeight="58.0" prefWidth="0.0" text=" " />
                 <JFXTextField fx:id="tempratureField" layoutX="755.0" layoutY="550.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="191.0" />
                 <JFXButton fx:id="saveButton" layoutX="867.0" layoutY="616.0" onAction="#buttonPressed" prefHeight="44.0" prefWidth="90.0" text="Save" />
                 <JFXButton fx:id="discardButton" layoutX="761.0" layoutY="616.0" onAction="#buttonPressed" prefHeight="44.0" prefWidth="90.0" text="Discard" />
-                <Text layoutX="524.0" layoutY="487.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leds:" wrappingWidth="119.6000437438488">
+                <Text layoutX="524.0" layoutY="535.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leds:" wrappingWidth="119.6000437438488">
                     <font>
                         <Font name="Century Gothic" size="18.0" />
                     </font>
                 </Text>
-                <JFXToggleButton fx:id="leds" layoutX="749.0" layoutY="450.0" onAction="#buttonPressed" prefHeight="58.0" prefWidth="0.0" text=" " />
-                <Text layoutX="524.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" wrappingWidth="90.00000067055225">
-                    <font>
-                        <Font name="Century Gothic" size="18.0" />
-                    </font>
-                </Text>
-                <JFXTextField fx:id="countryField" layoutX="755.0" layoutY="514.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="191.0" />
+            <Text layoutX="524.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" wrappingWidth="90.00000067055225">
+               <font>
+                  <Font name="Century Gothic" size="18.0" />
+               </font>
+            </Text>
+            <JFXTextField fx:id="countryField" layoutX="755.0" layoutY="445.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="191.0" />
+            <JFXTextField fx:id="solarPanelsField" layoutX="755.0" layoutY="480.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="191.0" />
+            <JFXTextField fx:id="ledsField" layoutX="755.0" layoutY="515.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="191.0" />
             </children>
         </Pane>
     </children>

@@ -1,16 +1,21 @@
-.button:enabled{
-    font-weight: normal;
-    text-decoration: none;
-}
-.button:disabled{
-    font-weight: bold;
-    text-decoration: underline;
-    text-decoration-color: #95e743;
-}
-.jfxbutton{
+.jfx-button {
     -fx-background-color: #95e743;
+    -fx-text-fill: #ffffff;
 }
-#globalButton, #followingButton{
+#globalButton, #followingButton {
     -fx-background-color: rgba(0,0,0,0);
-    font-weight: bold;
+    -fx-font-size: 36px;
+}
+.button:enabled {
+    -fx-font-weight: normal;
+}
+.button:disabled {
+    -fx-font-weight: bold;
+    -fx-opacity: 1;
+    -fx-border-color: #95e743;
+    -fx-padding: 6 6 2 6;
+    -fx-border-width: 0 0 6 0;
+}
+.button:hover{
+    -fx-cursor: hand;
 }

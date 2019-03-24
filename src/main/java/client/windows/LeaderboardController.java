@@ -39,6 +39,7 @@ public class LeaderboardController extends Controller implements Initializable {
         switchToFollowing();
         addFollowButtons();
         table.setItems(getGlobalUsers());
+        globalButton.setDisable(true);
     }
 
     /**
@@ -67,6 +68,9 @@ public class LeaderboardController extends Controller implements Initializable {
         globalButton.setOnAction((ActionEvent switchToGlobalEvent) -> {
             table.getItems().clear();
             table.setItems(getGlobalUsers());
+
+            globalButton.setDisable(true);
+            followingButton.setDisable(false);
         });
     }
 
@@ -77,6 +81,9 @@ public class LeaderboardController extends Controller implements Initializable {
         followingButton.setOnAction((ActionEvent switchToFollowingEvent) -> {
             table.getItems().clear();
             table.setItems(getFollowingUsers());
+
+            globalButton.setDisable(false);
+            followingButton.setDisable(true);
         });
     }
 
@@ -92,8 +99,6 @@ public class LeaderboardController extends Controller implements Initializable {
 
                     {
                         followButton.setOnAction((ActionEvent followUserEvent) -> {
-                            //TODO have appropriate (un)follow on starting app
-
                             String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
 
                             if (followButton.getText().equals("unfollow")){
@@ -113,14 +118,22 @@ public class LeaderboardController extends Controller implements Initializable {
                     @Override
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);
+
                         if (empty) {
                             setGraphic(null);
                         }  else {
-                            String userString = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
                             //TODO change "admin" with clientUsername
-                            if(userString.equals("admin")){
+                            String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
+                            if(data.equals("admin")){
+
                                 setGraphic(null);
-                            } else {
+                            }
+                            //TODO if user is already followed set text to "unfollow"
+//                            if (getFollowingUsers().contains(data)){
+//                                setGraphic(followButton);
+//                                followButton.setText("unfollow");
+//                            }
+                            else {
                                 setGraphic(followButton);
                             }
                         }

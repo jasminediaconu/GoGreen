@@ -29,13 +29,12 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     private CategoryAxis x;
     List<JFXButton> badges;
-    private ActionEvent event;
     @FXML
-<<<<<<< HEAD
+
     Pane overview;
     @FXML private StackPane popup;
     @FXML private ScrollPane scrollBadges;
-=======
+
     private Pane badgePopup;
 
     @FXML public Text title = new Text();
@@ -44,7 +43,7 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     private ScrollPane scrollBadges = new ScrollPane();
 
->>>>>>> a259bce6e16022e61c9cdec736e9fe11d7d620e1
+
     private VBox badgesBox;
     private HBox row;
     private HBox row2;
@@ -93,28 +92,17 @@ public class OverviewController extends Controller implements Initializable {
         x.setCategories(FXCollections.observableArrayList("Monday","Friday","Saturday"));
 
 
-        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
-        series.getData().add(new XYChart.Data<String, Integer>("July",3));
-        series.getData().add(new XYChart.Data<String, Integer>("August",1232));
-        series.getData().add(new XYChart.Data<String, Integer>("July",233));
-        aabutton2.setOnMouseClicked(a -> lineChart.getData().add(series1));
-        series.setName("Month");
-
 
 
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> a259bce6e16022e61c9cdec736e9fe11d7d620e1
         row = new HBox();
         row2 = new HBox();
         row3 = new HBox();
 
-<<<<<<< HEAD
+
         badges = new ArrayList<>();
 
         String path = "/client/windows/images/badges/";
@@ -153,7 +141,7 @@ public class OverviewController extends Controller implements Initializable {
         button.setStyle("-fx-opacity: 100%;");
 
         button.setOnMouseClicked(e -> popupMessage());
-=======
+
         loadAchievements();
 
         String path = "/client/windows/images/badges/";
@@ -183,7 +171,7 @@ public class OverviewController extends Controller implements Initializable {
         Badges.badge13(badges.get(12));
         Badges.badge14(badges.get(13));
         Badges.badge15(badges.get(14));
->>>>>>> a259bce6e16022e61c9cdec736e9fe11d7d620e1
+
 
         // This adds the badges to the different rows of the VBOX
         for(int i = 0; i < 5; i++){
@@ -198,8 +186,6 @@ public class OverviewController extends Controller implements Initializable {
 
         scrollBadges.setContent(badgesBox);
     }
-<<<<<<< HEAD
-=======
 
     @FXML
     public void popupBadges(JFXButton btn, int index) {
@@ -226,5 +212,4 @@ public class OverviewController extends Controller implements Initializable {
         //Clears everything in the observable list
         achievementList = Main.achievements.stream().collect(Collectors.toList());
     }
->>>>>>> a259bce6e16022e61c9cdec736e9fe11d7d620e1
 }

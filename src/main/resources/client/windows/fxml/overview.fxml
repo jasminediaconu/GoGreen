@@ -29,8 +29,6 @@
                     </font>
                 </Text>
                 <ScrollPane fx:id="scrollBadges" layoutX="332.0" layoutY="500.0" prefHeight="200.0" prefWidth="514.0" style="-fx-background-radius: 5 0 0 5;" stylesheets="@../css/overview.css" />
-<<<<<<< HEAD
-            <StackPane fx:id="popup" layoutX="402.0" layoutY="511.0" prefHeight="75.0" prefWidth="150.0" />
             <JFXButton fx:id="aabutton1" layoutX="224.0" layoutY="211.0" prefHeight="32.0" prefWidth="59.0" text="Week" />
             <JFXButton fx:id="aabutton2" layoutX="224.0" layoutY="243.0" prefHeight="32.0" prefWidth="59.0" text="Month" />
             <JFXButton fx:id="aabutton11" layoutX="222.0" layoutY="278.0" prefHeight="32.0" prefWidth="59.0" text="Year" />
@@ -42,8 +40,6 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </LineChart>
-=======
->>>>>>> 6156386e9ecfc070c6ed14bee2ce26143ef5e014
             </children>
         </Pane>
     </children>

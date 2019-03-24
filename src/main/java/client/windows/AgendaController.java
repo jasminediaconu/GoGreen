@@ -14,7 +14,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXNodesList;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,10 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -139,7 +135,6 @@ public class AgendaController extends Controller implements Initializable {
         loadTransportItems();
         loadEnergyItems();
 
-
         agendaBox = new VBox();
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
 
@@ -157,8 +152,10 @@ public class AgendaController extends Controller implements Initializable {
 
         gridPane.setHgap(20);
         //        agendaBox.getChildren().add(gridPane);
+
         scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
+
 
         JFXButton ssbutton5 = new JFXButton("R1");
         ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
@@ -191,8 +188,13 @@ public class AgendaController extends Controller implements Initializable {
         dialogLayout.setBody(new Text(message), close, del);
         dialog = new JFXDialog(stack, dialogLayout, JFXDialog.DialogTransition.CENTER);
         dialogLayout.setActions(del, close);
-        dialog.show();
-        dialog.isOverlayClose();
+
+        boolean dialogOpen = false;
+        if(!dialog.isVisible()) {
+            dialog.show();
+            dialogOpen = true;
+        }
+
     }
 
     /**
@@ -201,6 +203,11 @@ public class AgendaController extends Controller implements Initializable {
      * @param rowIndex int type.
      */
     private void deleteActivity(int rowIndex) {
+        ServerRequests sv = new ServerRequests();
+        int activityID = Main.clientUser.getActivityList().get(rowIndex).getActivityID();
+
+        sv.removeActivity(activityID);
+
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
         agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);

@@ -58,9 +58,9 @@
                 <FontAwesomeIcon id="close" fx:id="close" fill="#888888" iconName="CLOSE" layoutX="994.0" layoutY="29.0" onMouseClicked="#close" size="1.5em" />
                 <FontAwesomeIcon fx:id="minimize" fill="#878787" iconName="MINUS" layoutX="968.0" layoutY="30.0" onMouseClicked="#minimize" size="1.5em" />
                 <Circle fx:id="profileImage" fill="DODGERBLUE" layoutX="44.0" layoutY="22.0" radius="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <MenuButton fx:id="logoutMenu" layoutX="22.0" layoutY="4.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="43.0" style="-fx-background-color: null;">
+            <MenuButton id="logoutMenu" fx:id="logoutMenu" layoutX="22.0" layoutY="4.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="43.0" style="-fx-background-color: null;">
               <items>
-                <MenuItem fx:id="logout" mnemonicParsing="false" text="Logout" onAction="#logout">
+                <MenuItem fx:id="logout" mnemonicParsing="false" onAction="#logout" text="Logout">
                      <graphic>
                         <FontAwesomeIcon iconName="SIGN_OUT" />
                      </graphic>

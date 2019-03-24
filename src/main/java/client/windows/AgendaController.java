@@ -188,7 +188,7 @@ public class AgendaController extends Controller implements Initializable {
      * @param rowIndex int type.
      */
     private void deleteActivity(int rowIndex) {
-
+        //TODO remove acitivty from ativity list by removeActivity request
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
         agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);

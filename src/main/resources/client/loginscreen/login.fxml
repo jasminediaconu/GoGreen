@@ -45,9 +45,9 @@
                                 </HBox>
                                 <HBox prefHeight="48.0" prefWidth="512.0">
                                     <children>
-                                        <VBox alignment="CENTER_LEFT" prefHeight="32.0" prefWidth="45.0">
+                                        <VBox alignment="CENTER_LEFT" prefHeight="49.0" prefWidth="140.0">
                                             <children>
-                                                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 3em;" text="We are" wrappingWidth="159.18177032470703">
+                                                <Text fill="#888888" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 3em;" text="We are" wrappingWidth="135.98181915283203">
                                                     <VBox.margin>
                                                         <Insets right="3.0" />
                                                     </VBox.margin>

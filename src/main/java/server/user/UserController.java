@@ -73,11 +73,11 @@ public class UserController {
             );
 
             followUser = ServerApp.dbConnection.prepareStatement(
-                    "INSERT INTO user_follows (\"userid\", \"followingid\") VALUES (?, (SELECT userid FROM user_login WHERE username = ?))"
+                    "INSERT INTO user_follows (\"userid\", \"followingid\") VALUES (?, (SELECT userid FROM user_login WHERE username = ?));"
             );
 
             unFollowUser = ServerApp.dbConnection.prepareStatement(
-                    "DELETE FROM user_follows WHERE userid = ? AND followingid = (SELECT userid FROM user_login WHERE username = ?)"
+                    "DELETE FROM user_follows WHERE userid = ? AND followingid = (SELECT userid FROM user_login WHERE username = ?);"
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -252,6 +252,7 @@ public class UserController {
         }
 
         try {
+            username = username.substring(1, username.length()-1);
             query.setInt(1, userID);
             query.setString(2, username);
             query.executeUpdate();

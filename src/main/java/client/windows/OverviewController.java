@@ -31,9 +31,20 @@ public class OverviewController extends Controller implements Initializable {
     List<JFXButton> badges;
     private ActionEvent event;
     @FXML
+<<<<<<< HEAD
     Pane overview;
     @FXML private StackPane popup;
     @FXML private ScrollPane scrollBadges;
+=======
+    private Pane badgePopup;
+
+    @FXML public Text title = new Text();
+    @FXML public Text description = new Text();
+
+    @FXML
+    private ScrollPane scrollBadges = new ScrollPane();
+
+>>>>>>> a259bce6e16022e61c9cdec736e9fe11d7d620e1
     private VBox badgesBox;
     private HBox row;
     private HBox row2;
@@ -45,6 +56,8 @@ public class OverviewController extends Controller implements Initializable {
     @FXML private JFXButton aabutton2;
     @Override
     public void update() {
+        //title.setText(achievementList.get(index).getTitle());
+        //description.setText(achievementList.get(index).getDescription());
     }
 
     // Parameter: badge id (to be implemented)
@@ -92,10 +105,16 @@ public class OverviewController extends Controller implements Initializable {
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> a259bce6e16022e61c9cdec736e9fe11d7d620e1
         row = new HBox();
         row2 = new HBox();
         row3 = new HBox();
 
+<<<<<<< HEAD
         badges = new ArrayList<>();
 
         String path = "/client/windows/images/badges/";
@@ -134,6 +153,37 @@ public class OverviewController extends Controller implements Initializable {
         button.setStyle("-fx-opacity: 100%;");
 
         button.setOnMouseClicked(e -> popupMessage());
+=======
+        loadAchievements();
+
+        String path = "/client/windows/images/badges/";
+        for(int i = 0; i < achievementList.size(); i++) {
+            int ii = i;
+            button = new JFXButton("", new ImageView(path + achievementList.get(i).getPath() + ".png"));
+            badges.add(button);
+            badges.get(i).setOnMouseClicked(e -> popupBadges(badges.get(ii), ii));
+        }
+
+        title.setText(achievementList.get(1).getTitle());
+        description.setText(achievementList.get(1).getDescription());
+        description.setText(achievementList.get(0).getDescription());
+        // This checks if the badges are unlocked or not
+        Badges.badge1(badges.get(0));
+        Badges.badge2(badges.get(1));
+        Badges.badge3(badges.get(2));
+        Badges.badge4(badges.get(3));
+        Badges.badge5(badges.get(4));
+        Badges.badge6(badges.get(5));
+        Badges.badge7(badges.get(6));
+        Badges.badge8(badges.get(7));
+        Badges.badge9(badges.get(8));
+        Badges.badge10(badges.get(9));
+        Badges.badge11(badges.get(10));
+        Badges.badge12(badges.get(11));
+        Badges.badge13(badges.get(12));
+        Badges.badge14(badges.get(13));
+        Badges.badge15(badges.get(14));
+>>>>>>> a259bce6e16022e61c9cdec736e9fe11d7d620e1
 
         // This adds the badges to the different rows of the VBOX
         for(int i = 0; i < 5; i++){
@@ -148,4 +198,33 @@ public class OverviewController extends Controller implements Initializable {
 
         scrollBadges.setContent(badgesBox);
     }
+<<<<<<< HEAD
+=======
+
+    @FXML
+    public void popupBadges(JFXButton btn, int index) {
+        String path = "/client/windows/fxml/popup.fxml";
+
+        try {
+            badgePopup = FXMLLoader.load(getClass().getResource(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (!(popOver.isShowing())) {
+            popOver = new PopOver(badgePopup);
+            popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_CENTER);
+            popOver.setDetachable(false);
+            popOver.show(btn);
+        }
+    }
+
+    /**
+     * Loads the achivements in the list.
+     */
+    private void loadAchievements() {
+        //Clears everything in the observable list
+        achievementList = Main.achievements.stream().collect(Collectors.toList());
+    }
+>>>>>>> a259bce6e16022e61c9cdec736e9fe11d7d620e1
 }

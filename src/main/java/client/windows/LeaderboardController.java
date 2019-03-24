@@ -113,20 +113,17 @@ public class LeaderboardController extends Controller implements Initializable {
                     @Override
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);
-
-//                        //TODO clientuser = user in global no button/disable
-//                        String userString = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
-//
-//                        if (userString.equals("admin")){
-//                            followButton.setText("This is you");
-//                            followButton.setDisable(true);
-//                        }
                         if (empty) {
                             setGraphic(null);
                         }  else {
-                            setGraphic(followButton);
+                            String userString = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
+                            //TODO change "admin" with clientUsername
+                            if(userString.equals("admin")){
+                                setGraphic(null);
+                            } else {
+                                setGraphic(followButton);
+                            }
                         }
-
                     }
 
 

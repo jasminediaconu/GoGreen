@@ -80,6 +80,15 @@ public class OverviewController extends Controller implements Initializable {
         x.setCategories(FXCollections.observableArrayList("Monday","Friday","Saturday"));
 
 
+        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
+        series.getData().add(new XYChart.Data<String, Integer>("July",3));
+        series.getData().add(new XYChart.Data<String, Integer>("August",1232));
+        series.getData().add(new XYChart.Data<String, Integer>("July",233));
+        aabutton2.setOnMouseClicked(a -> lineChart.getData().add(series1));
+        series.setName("Month");
+
+
+
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
 

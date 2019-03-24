@@ -1,4 +1,4 @@
-# Greenly <br> ![Greenly_logo](/images/logo.jpg)
+# Greenly <br> ![Greenly_logo](/images/new logo.jpg)
 Greenly is a activity tracker showing you how much CO2 you save trough you daily actions.
 
 clone git repos via http: https://gitlab.ewi.tudelft.nl/cse1105/2018-2019/oopp-group-72/template.git

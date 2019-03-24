@@ -28,6 +28,7 @@ public class LeaderboardController extends Controller implements Initializable {
 
     ServerRequests serverRequests = new ServerRequests();
     ClientUser clientUser = new ClientUser();
+    User user = new User();
 
     public void initialize(URL url, ResourceBundle rb) {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
@@ -64,6 +65,7 @@ public class LeaderboardController extends Controller implements Initializable {
      */
     private void switchToGlobal(){
         globalButton.setOnAction((ActionEvent switchToGlobalEvent) -> {
+            table.getItems().clear();
             table.setItems(getGlobalUsers());
         });
     }
@@ -73,11 +75,12 @@ public class LeaderboardController extends Controller implements Initializable {
      */
     private void switchToFollowing(){
         followingButton.setOnAction((ActionEvent switchToFollowingEvent) -> {
+            table.getItems().clear();
             table.setItems(getFollowingUsers());
         });
     }
 
-    private void addFollowButtons(){
+    public void addFollowButtons(){
         TableColumn<User, Void> followButtonColumn = new TableColumn<>("Follow");
 
         Callback<TableColumn<User, Void>, TableCell<User, Void>> cellFactory = new Callback<>() {
@@ -92,9 +95,7 @@ public class LeaderboardController extends Controller implements Initializable {
                             //TODO have appropriate (un)follow on starting app
 
                             String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
-//                            if (getFollowingUsers().equals(data)){
-//                                followButton.setText("test");
-//                            }
+
                             if (followButton.getText().equals("unfollow")){
                                 followButton.setText("follow");
                                 serverRequests.unFollowUser(data);
@@ -113,13 +114,22 @@ public class LeaderboardController extends Controller implements Initializable {
                     public void updateItem(Void item, boolean empty) {
                         super.updateItem(item, empty);
 
-                        //TODO if clientuserid is userid of row then setGraphic(null)
+//                        //TODO clientuser = user in global no button/disable
+//                        String userString = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
+//
+//                        if (userString.equals("admin")){
+//                            followButton.setText("This is you");
+//                            followButton.setDisable(true);
+//                        }
                         if (empty) {
                             setGraphic(null);
                         }  else {
                             setGraphic(followButton);
                         }
+
                     }
+
+
                 };
                 return cell;
             }

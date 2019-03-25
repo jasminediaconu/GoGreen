@@ -30,6 +30,11 @@ public class Achievement {
         this.goal = goal;
     }
 
+    public Achievement() {
+    }
+
+
+
     /**
      * Load image buffered image.
      *

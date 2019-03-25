@@ -15,7 +15,16 @@ To install:
 - run as exec:java 
 
 ## Features
-//Insert screenshots and GIFs of application with context here//
+Login<br/>
+![Wout Haakman](/images/readmePictures/LoginEmpty.PNG)<br/><br/>
+![Wout Haakman](/images/readmePictures/LoginFilled.PNG)<br/>
+<br/>signup<br/>
+![Wout Haakman](/images/readmePictures/SignupEmpty.PNG)<br/><br/>
+![Wout Haakman](/images/readmePictures/SignupFilled.PNG)<br/>
+<br/> the agenda <br/>
+![Wout Haakman](/images/readmePictures/Agenda1.PNG)<br/><br/>
+![Wout Haakman](/images/readmePictures/Agenda2.PNG)<br/><br/>
+![Wout Haakman](/images/readmePictures/Agenda3.png)
 
 ## About us
 ### Name: Wout Haakman, whaakman

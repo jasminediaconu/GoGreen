@@ -24,5 +24,4 @@ public class ActivityClass {
         this.amount = amount;
         this.date = date;
     }
-
 }

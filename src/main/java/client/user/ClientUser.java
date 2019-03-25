@@ -17,9 +17,18 @@ import java.util.Objects;
 public class ClientUser extends User {
 
     private int streakLength;
-    private boolean solarPower;
+
+
+    //todo remove booleans
     private boolean leds;
+    private boolean solarPower;
+
+    //new
+    private int numOfLeds;
+    private int numOfSolarPanels;
+
     private int roomTemp;
+
     private String email;
 
     private String imageUrl;
@@ -291,6 +300,22 @@ public class ClientUser extends User {
         following.add(user);
     }
 
+    public int getNumOfLeds() {
+        return numOfLeds;
+    }
+
+    public void setNumOfLeds(int numOfLeds) {
+        this.numOfLeds = numOfLeds;
+    }
+
+    public int getNumOfSolarPanels() {
+        return numOfSolarPanels;
+    }
+
+    public void setNumOfSolarPanels(int numOfSolarPanels) {
+        this.numOfSolarPanels = numOfSolarPanels;
+    }
+
 
     /**
      * This function compares this ClientUser with another ClientUser to check if they are equal.
@@ -310,13 +335,15 @@ public class ClientUser extends User {
                 && email.equals(that.email)
                 && solarPower == that.solarPower
                 && leds == that.leds
+                && Objects.equals(numOfLeds, that.numOfLeds)
+                && Objects.equals(numOfSolarPanels, that.numOfSolarPanels)
                 && roomTemp == that.roomTemp
                 && Objects.equals(following, that.following)
                 && totalCo2 == that.totalCo2
                 && username.equals(that.username)
                 && Objects.equals(that.country, country)
-                && carType.equals(that.carType)
-                && carEmissionType.equals(that.carEmissionType)) {
+                && Objects.equals(carType, that.carType)
+                && Objects.equals(carEmissionType, that.carEmissionType)) {
             return true;
         }
         return false;
@@ -336,6 +363,8 @@ public class ClientUser extends User {
         clientUser.setSolarPower(solarPower);
         clientUser.setRoomTemp(roomTemp);
         clientUser.setLeds(leds);
+        clientUser.setNumOfSolarPanels(numOfSolarPanels);
+        clientUser.setNumOfLeds(numOfLeds);
         clientUser.setStreakLength(streakLength);
         clientUser.setTotalCo2(totalCo2);
         clientUser.setCarType(carType);
@@ -348,7 +377,7 @@ public class ClientUser extends User {
     public String toString() {
         return "[username:" + username + ";email: " + email + ";country: " + country
                 + ";streak:" + streakLength + ";CO2: " + totalCo2
-                + "; led: " + leds + "; solar: " + solarPower + "; temp: " + roomTemp
+                + "; led: " + numOfLeds + "; solar: " + numOfSolarPanels + "; temp: " + roomTemp
                 + "; Car type: " + carType + "; Car emission type: " + carEmissionType + "]";
     }
 }

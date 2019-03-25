@@ -57,6 +57,8 @@ public class OverviewController extends Controller implements Initializable {
 
     private PopOver popOver = new PopOver();
     List<JFXButton> badges = new ArrayList<>();
+    List<String> titles = new ArrayList<>();
+    List<String> descriptions = new ArrayList<>();
     private List<Achievement> achievementList;
 
     @Override
@@ -112,14 +114,13 @@ public class OverviewController extends Controller implements Initializable {
         String path = "/client/windows/images/badges/";
         for (int i = 0; i < achievementList.size(); i++) {
             int ii = i;
+            titles.add(achievementList.get(i).getTitle());
+            descriptions.add(achievementList.get(i).getDescription());
             button = new JFXButton("", new ImageView(path + achievementList.get(i).getPath() + ".png"));
             badges.add(button);
-            badges.get(i).setOnMouseEntered(e -> popupBadges(badges.get(ii), ii));
+            badges.get(i).setOnMousePressed(e -> popupBadges(badges.get(ii), ii));
         }
 
-        title.setText(achievementList.get(1).getTitle());
-        description.setText(achievementList.get(1).getDescription());
-        description.setText(achievementList.get(0).getDescription());
         // This checks if the badges are unlocked or not
         Badges.badge1(badges.get(0));
         Badges.badge2(badges.get(1));

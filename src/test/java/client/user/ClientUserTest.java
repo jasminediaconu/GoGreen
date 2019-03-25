@@ -14,7 +14,7 @@ class ClientUserTest {
 
     @BeforeEach
     void setUp() {
-        user = new ClientUser("username", "country", 10.0, 3, true, false, 21, "email", "default", "SUV", "Gas");
+        user = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "default", "SUV", "Gas");
         User newuser = new User("admin", "Netherlands", 10);
         List<User> following = new ArrayList<>();
         user.addFollowing(newuser);
@@ -31,14 +31,14 @@ class ClientUserTest {
 
     @Test
     void hasSolarPower() {
-        user.setSolarPower(false);
-        Assert.assertEquals(false, user.hasSolarPower());
+        user.setSolarPower(10);
+        Assert.assertEquals(10, user.getSolarPower());
     }
 
     @Test
     void hasLEDs() {
-        user.setLeds(false);
-        Assert.assertEquals(false, user.hasLeds());
+        user.setLeds(10);
+        Assert.assertEquals(10, user.getLeds());
     }
 
     @Test
@@ -55,14 +55,14 @@ class ClientUserTest {
 
     @Test
     void setSolarPower() {
-        user.setSolarPower(true);
-        Assert.assertEquals(true, user.hasSolarPower());
+        user.setSolarPower(10);
+        Assert.assertEquals(10, user.getSolarPower());
     }
 
     @Test
     void setLEDs() {
-        user.setSolarPower(true);
-        Assert.assertEquals(true, user.hasSolarPower());
+        user.setLeds(10);
+        Assert.assertEquals(10, user.getLeds());
     }
 
     @Test
@@ -89,7 +89,7 @@ class ClientUserTest {
 
     @Test
     void equalsSimilar() {
-        ClientUser user3 = new ClientUser("username", "country", 10.0, 3, true, false, 21, "email", "default", "SUV", "Gas");
+        ClientUser user3 = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "default", "SUV", "Gas");
         user3.setUsername("usernaem");
         Assert.assertEquals(user.equals(user3), false);
         user3.setUsername("username");
@@ -102,12 +102,12 @@ class ClientUserTest {
         user3.setStreakLength(4);
         Assert.assertEquals(user.equals(user3), false);
         user3.setStreakLength(3);
-        user3.setSolarPower(false);
+        user3.setSolarPower(20);
         Assert.assertEquals(user.equals(user3), false);
-        user3.setSolarPower(true);
-        user3.setLeds(true);
+        user3.setSolarPower(0);
+        user3.setLeds(10);
         Assert.assertEquals(user.equals(user3), false);
-        user3.setLeds(false);
+        user3.setLeds(0);
         user3.setRoomTemp(20);
         Assert.assertEquals(user.equals(user3), false);
         user3.setRoomTemp(21);

@@ -193,6 +193,21 @@ public class MainScreenController extends Pane implements Initializable {
         styleFocused(overviewButton, 2);
         styleFocused(leaderboardButton, 3);
 
+        agendaButton.setOnMouseEntered(this::hideButtonAction);
+        profileButton.setOnMouseEntered(this::hideButtonAction);
+        overviewButton.setOnMouseEntered(this::hideButtonAction);
+        leaderboardButton.setOnMouseEntered(this::hideButtonAction);
+
+    }
+
+
+
+    public void hideButtonAction(javafx.scene.input.MouseEvent event) {
+        AgendaController agendaController = (AgendaController)controllers.get(0);
+
+        agendaController.getPopOver1().hide();
+        agendaController.getPopOver2().hide();
+        agendaController.getPopOver3().hide();
     }
 
     /**

@@ -96,6 +96,18 @@ public class AgendaController extends Controller implements Initializable {
     private PopOver popOver2 = new PopOver();
     private PopOver popOver3 = new PopOver();
 
+    public PopOver getPopOver1() {
+        return popOver1;
+    }
+
+    public PopOver getPopOver2() {
+        return popOver2;
+    }
+
+    public PopOver getPopOver3() {
+        return popOver3;
+    }
+
     private String itemName;
     private Text dateText;
     private JFXNodesList nodesList;
@@ -103,12 +115,6 @@ public class AgendaController extends Controller implements Initializable {
 
     private static GridPane gridPane;
     private static VBox agendaBox;
-
-    private List<Activity> filteredActivities = new ArrayList<>();
-
-    public List<Activity> getFilteredActivities() {
-        return filteredActivities;
-    }
 
     /**
      * Constructor to be used in the MainScreenController.
@@ -152,12 +158,6 @@ public class AgendaController extends Controller implements Initializable {
             Multimap<LocalDate, Activity> activityMap =
                     activityMap(Main.clientUser.getActivityList());
             showAgendaActivities(activityMap);
-
-            for (Activity activity : Main.clientUser.getActivityList()) {
-                if (activity.getDate().equals(LocalDate.now())) {
-                    filteredActivities.add(activity);
-                }
-            }
         }
 
         gridPane.setHgap(20);
@@ -291,6 +291,7 @@ public class AgendaController extends Controller implements Initializable {
         ssbutton2.getStyleClass().addAll("animated-option-button", "animated-option-sub-button2");
         ssbutton2.setOnMouseClicked(this::transportButtonAction);
 
+
         ssbutton3 = new JFXButton();
         ssbutton3.setId("foodbutton");
         ssbutton3.setButtonType(JFXButton.ButtonType.RAISED);
@@ -314,6 +315,7 @@ public class AgendaController extends Controller implements Initializable {
         nodesList.setLayoutX(940);
         nodesList.setLayoutY(690);
     }
+
 
     /**
      * Clears the plus button of the previously added 3 subbuttons.
@@ -355,17 +357,7 @@ public class AgendaController extends Controller implements Initializable {
                "By bike",
                "Public transport",
                "By car");
-
-
-//        //Clears everything in the observable list
-//        if (transportList.size() < 1) {
-//            transportList.addAll(Main.items.stream().filter(item ->
-//                    item.getType().equals("transport")).map(item ->
-//                    item.getName()).collect(Collectors.toList()));
-//        }
-//
-//        transportChoices.setItems(transportList);
-//        //mainScreen.getChildren().add(foodChoices);
+        transportChoices.setItems(transportList);
     }
 
 

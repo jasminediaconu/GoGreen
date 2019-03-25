@@ -160,7 +160,7 @@ public class ProfileController extends Controller {
                     && solarPanelsField.getText().length() > 0) {
                 newSettings.setEmail(emailField.getText());
                 newSettings.setCountry(countryField.getText());
-                newSettings.setRoomTemp(Integer.parseInt(tempratureField.getText()));
+                newSettings.setRoomTemp(Integer.parseInt(temperatureField.getText()));
                 newSettings.setLeds(Integer.parseInt(ledsField.getText()));
                 newSettings.setSolarPower(Integer.parseInt(solarPanelsField.getText()));
 

@@ -1,6 +1,7 @@
 package client.loginscreen;
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -38,11 +40,14 @@ public class SignUpController implements Initializable {
     @FXML
     private PasswordField pf_password;
     @FXML
+    private Text txt_usernametaken;
+    @FXML
     private Button signUpButton;
     @FXML
     private Text loginButton;
     @FXML
     private AnchorPane signUpScene;
+
 
     /**
      * This function handles the closing of the window, with the cross button.
@@ -111,19 +116,27 @@ public class SignUpController implements Initializable {
      * and password when the sign up button is pressed.
      * It will also handle the responses returned by the ServerRequests class given it's query.
      *
+     * @param event Event type.
      * @throws Exception Exception.
      */
     @FXML
-    private void signUp() {
-        setDisableScreen(true);
+    private void signUp(Event event) {
+        String keycode = "";
+        if (event instanceof KeyEvent){
+            KeyEvent keyevent = (KeyEvent)event;
+            keycode = keyevent.getCode().toString();
+        }
+        if (event instanceof MouseEvent||keycode.equals("ENTER")) {
+            setDisableScreen(true);
 
-        String username = tf_username.getText();
-        String email = tf_email.getText();
-        String password = pf_password.getText();
+            String username = tf_username.getText();
+            String email = tf_email.getText();
+            String password = pf_password.getText();
 
-        SignUpRequest signUpRequest = new SignUpRequest(username, password, email, this);
-        signUpRequest.setDaemon(false);
-        signUpRequest.execute();
+            SignUpRequest signUpRequest = new SignUpRequest(username, password, email, this);
+            signUpRequest.setDaemon(false);
+            signUpRequest.execute();
+        }
     }
 
 
@@ -150,11 +163,19 @@ public class SignUpController implements Initializable {
      */
     public void signUpFail(int response) {
         //sign up failed
+        try {
+            txt_usernametaken.setVisible(true);
+            if(response == 0){txt_usernametaken.setText("Please enter a valid email address.");}
+            else if(response == 1){txt_usernametaken.setText("Something went wrong, please try again later.");}
+            else if(response == 3){txt_usernametaken.setText("Username already taken.");}
+            else if(response == 4){txt_usernametaken.setText("Email address already taken.");}
+        }catch (NullPointerException e){e.printStackTrace();}
         if (tf_username != null) {
             setDisableScreen(false);
             System.out.println("FAIL CODE:  " + response);
         }
     }
+
 
     /**
      * This function will fill the screen with a new event stage evoked by the root.
@@ -171,6 +192,42 @@ public class SignUpController implements Initializable {
 
         scene.setFill(Color.TRANSPARENT);
 
+    }
+
+    /**
+     * This function takes the termsOfService fxml file as file to load in a new popup window
+     * @param event MouseEvent type
+     * @throws IOException
+     */
+    @FXML
+    private void termsofservice(MouseEvent event) throws IOException {
+        // will open a new window and display the terms of service in that
+        String source = "termsOfService.fxml";
+        privacyandterms(event, source);
+    }
+
+    /**
+     * This function takes the privacyPolicy fxml file to load in a new popup window
+     * @param event MouseEvent type
+     * @throws IOException
+     */
+    @FXML
+    private void privacypolicy (MouseEvent event) throws IOException {
+        String source = "privacyPolicy.fxml";
+        privacyandterms(event,source);
+    }
+
+    /**
+     * This function opens a new popup window containing the source
+     * @param event MouseEvent type
+     * @param source String type
+     * @throws IOException
+     */
+    @FXML
+    private void privacyandterms (MouseEvent event, String source) throws IOException {
+        // will open a new window and display the terms of service in that
+        Parent root = FXMLLoader.load(getClass().getResource(source));
+        fillScene(root);
     }
 
     /**

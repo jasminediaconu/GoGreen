@@ -139,11 +139,12 @@ public class LeaderboardController extends Controller implements Initializable {
 //                                followButton.setText("unfollow");
 //                            }
                             if(arrayList(stringArrayList).contains(data)){
-                                this.setGraphic(followButton);
+                                setGraphic(followButton);
                                 followButton.setText("unfollow");
                             }
                             else {
                                 this.setGraphic(followButton);
+
                             }
                         }
                     }
@@ -162,7 +163,7 @@ public class LeaderboardController extends Controller implements Initializable {
     public ArrayList<String> arrayList(ArrayList<String> stringArrayList) {
         stringArrayList.add("GDWDfaJkCT");
         stringArrayList.add("pYucfKgVRG");
-        stringArrayList.add("NyXnjpqHza");
+        stringArrayList.add("TestAccount6652");
         return stringArrayList;
     }
 

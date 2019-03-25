@@ -16,6 +16,7 @@ public class LoginRequest extends AsyncTask {
     private LoginController loginController;
     private String username;
     private String password;
+    private boolean ishashed;
     private boolean success = false;
 
     /**
@@ -25,10 +26,12 @@ public class LoginRequest extends AsyncTask {
      * @param password        the password
      * @param loginController the login controller
      */
-    LoginRequest(String username, String password, LoginController loginController) {
+    LoginRequest(String username, String password, boolean ishashed, LoginController loginController) {
         this.loginController = loginController;
         this.username = username;
         this.password = password;
+        this.ishashed = ishashed;
+
     }
 
     @Override
@@ -65,7 +68,7 @@ public class LoginRequest extends AsyncTask {
      */
     public boolean login() {
         ServerRequests sv = new ServerRequests();
-        String response = sv.login(username, password);
+        String response = sv.login(username, password, ishashed);
 
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING

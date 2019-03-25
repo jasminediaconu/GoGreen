@@ -27,7 +27,7 @@ public class LoginRequestTest {
 
     @Test
     public void loginSucces() {
-        loginRequest = new LoginRequest("admin", "admin", new LoginController());
+        loginRequest = new LoginRequest("admin", "admin", false, new LoginController());
         boolean res = loginRequest.doInBackground(null);
         Assert.assertTrue(res);
         loginRequest.onPostExecute(null);
@@ -35,19 +35,19 @@ public class LoginRequestTest {
 
     @Test
     public void loginFail() {
-        loginRequest = new LoginRequest("adsf", "admin", null);
+        loginRequest = new LoginRequest("adsf", "admin", false, null);
         boolean res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
-        loginRequest = new LoginRequest("admin", "adfsdfghfd", null);
+        loginRequest = new LoginRequest("admin", "adfsdfghfd", false, null);
         res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
-        loginRequest = new LoginRequest(null, null, null);
+        loginRequest = new LoginRequest(null, null, false, null);
         res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
-        loginRequest = new LoginRequest("", "", new LoginController());
+        loginRequest = new LoginRequest("", "", false, new LoginController());
         res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
@@ -58,7 +58,7 @@ public class LoginRequestTest {
     @Test
     public void loadImage() {
 
-        loginRequest = new LoginRequest(null, null, null);
+        loginRequest = new LoginRequest(null, null, false, null);
         loginRequest.login();
         loginRequest.getUserProfile();
         loginRequest.clientUser.setImageURL(null);

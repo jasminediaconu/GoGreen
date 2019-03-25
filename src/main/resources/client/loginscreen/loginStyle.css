@@ -33,3 +33,19 @@ Button {
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
+
+#privacy {
+    -fx-cursor: hand;
+}
+
+#terms {
+    -fx-cursor: hand;
+}
+
+#forgot {
+    -fx-cursor: hand;
+}
+
+#back {
+    -fx-cursor: hand;
+}

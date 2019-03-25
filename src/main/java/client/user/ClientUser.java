@@ -1,11 +1,13 @@
 package client.user;
 
+import client.Main;
 import com.google.gson.annotations.Expose;
 
 import client.objects.Activity;
 
 import javafx.scene.image.Image;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -342,6 +344,7 @@ public class ClientUser extends User {
         clientUser.setStreakLength(streakLength);
         clientUser.setTotalCo2(totalCo2);
         clientUser.setCarType(carType);
+        clientUser.setActivityList(activityList);
         clientUser.setCarEmissionType(carEmissionType);
 
         return clientUser;
@@ -353,5 +356,15 @@ public class ClientUser extends User {
                 + ";streak:" + streakLength + ";CO2: " + totalCo2
                 + "; led: " + leds + "; solar: " + solarPower + "; temp: " + roomTemp
                 + "; Car type: " + carType + "; Car emission type: " + carEmissionType + "]";
+    }
+
+    public List<Activity> getFilteredList() {
+        List<Activity> filteredActivities = new ArrayList<>();
+        for (Activity activity : Main.clientUser.getActivityList()) {
+            if (activity.getDate().equals(LocalDate.now())) {
+                filteredActivities.add(activity);
+            }
+        }
+        return filteredActivities;
     }
 }

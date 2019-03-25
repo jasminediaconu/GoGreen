@@ -1,5 +1,6 @@
 package client.windows;
 
+import client.Main;
 import client.ServerRequests;
 import client.user.ClientUser;
 import client.user.User;
@@ -133,7 +134,6 @@ public class LeaderboardController extends Controller implements Initializable {
                         }  else {
                             //TODO change "admin" with clientUsername
                             String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
-
                             if(data.equals("admin")){
                                 setGraphic(null);
                             }
@@ -142,18 +142,18 @@ public class LeaderboardController extends Controller implements Initializable {
 //                                setGraphic(followButton);
 //                                followButton.setText("unfollow");
 //                            }
-                            if(stringArrayList.contains(data)){
-                                setGraphic(followButton);
-                                followButton.setText("unfollow");
-                            }
                             else {
-                                this.setGraphic(followButton);
-                                followButton.setText("follow");
+                                if(stringArrayList.contains(data)){
+                                    setGraphic(followButton);
+                                    followButton.setText("unfollow");
+                                }
+                                else {
+                                    setGraphic(followButton);
+                                    followButton.setText("follow");
+                                }
                             }
                         }
                     }
-
-
                 };
                 return cell;
             }
@@ -166,8 +166,9 @@ public class LeaderboardController extends Controller implements Initializable {
 
     public ArrayList<String> arrayList(ArrayList<String> stringArrayList) {
         stringArrayList.add("GDWDfaJkCT");
-        stringArrayList.add("pYucfKgVRG");
+        stringArrayList.add("root");
         stringArrayList.add("TestAccount6652");
+
         return stringArrayList;
     }
 

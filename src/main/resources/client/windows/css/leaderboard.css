@@ -19,6 +19,9 @@
 .button:hover{
     -fx-cursor: hand;
 }
-#table{
+.table-view {
     -fx-background-color: transparent;
+}
+.table-view .column {
+    -fx-background-color: red;
 }

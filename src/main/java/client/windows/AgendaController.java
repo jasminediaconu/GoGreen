@@ -6,9 +6,7 @@ import client.helper.RowCount;
 import client.objects.Activity;
 import client.objects.Item;
 import client.user.ClientUser;
-//CHECKSTYLE:OFF
 import com.google.common.collect.ArrayListMultimap;
-//CHECKSTYLE:ON
 import com.google.common.collect.Multimap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -32,7 +30,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
-import server.helper.ActivityClass;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,10 +40,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+//CHECKSTYLE:OFF
+//CHECKSTYLE:ON
+
 /**
  * This class provides functionality for:
  * - the agenda.fxml and all inner sub-screens.
- * - creates the plus button
+ * - creates the plSus button
  * - loads items into the activity popup dropdown menus
  *
  * @author gforghieri
@@ -91,7 +91,8 @@ public class AgendaController extends Controller implements Initializable {
     private String itemName;
     private Text dateText;
     private JFXNodesList nodesList;
-    private JFXDialog dialog;
+    private static JFXDialog dialog;
+    private static StackPane stackPane;
 
     private static GridPane gridPane;
     private static VBox agendaBox;
@@ -153,6 +154,8 @@ public class AgendaController extends Controller implements Initializable {
         JFXButton ssbutton5 = new JFXButton("R1");
         ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
 
+        stackPane = stack;
+
     }
 
     /**
@@ -173,7 +176,7 @@ public class AgendaController extends Controller implements Initializable {
         close.setOnMouseClicked(e -> dialog.close());
         String message = "You are about to delete the activity. Do you want to proceed?";
         dialogLayout.setBody(new Text(message), close, del);
-        dialog = new JFXDialog(stack, dialogLayout, JFXDialog.DialogTransition.CENTER);
+        dialog = new JFXDialog(stackPane, dialogLayout, JFXDialog.DialogTransition.CENTER);
         dialogLayout.setActions(del, close);
 
         dialog.show();

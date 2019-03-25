@@ -1,5 +1,6 @@
 package client.windows;
 
+import client.Main;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
@@ -41,12 +42,18 @@ public class MainScreenController extends Pane implements Initializable {
     private ArrayList<Controller> controllers = new ArrayList<>();
     @FXML
     private AnchorPane mainPane;
+
     @FXML
     private Pane welcomePane;
     @FXML
     private MenuButton logoutButton;
     @FXML
     private MenuItem logout;
+    @FXML
+    private Text dayField;
+    @FXML
+    private Text userNameField;
+
     @FXML
     private Button agendaButton;
     @FXML
@@ -275,6 +282,8 @@ public class MainScreenController extends Pane implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userNameField.setText(Main.clientUser.getUsername());
+        dayField.setText("" + Main.clientUser.getStreakLength());
         for (Controller controller : controllers) {
             controller.init();
         }

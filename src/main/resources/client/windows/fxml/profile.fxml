@@ -13,160 +13,109 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane layoutX="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.profilescreen.ProfileController">
+<AnchorPane layoutX="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.profilescreen.ProfileController">
     <children>
-        <Pane fx:id="profile" layoutX="-1.0" layoutY="44.0" prefHeight="723.0" prefWidth="1025.0" style="-fx-background-color: white; -fx-background-radius: 0 0 28 28;">
+        <Pane fx:id="profile" layoutX="-1.0" layoutY="44.0" prefHeight="723.0" prefWidth="1025.0"
+              style="-fx-background-color: white; -fx-background-radius: 0 0 28 28;">
             <children>
                 <ImageView layoutX="407.0" layoutY="40.0">
                     <image>
-                        <Image url="@../images/resume.png" />
+                        <Image url="@../images/resume.png"/>
                     </image>
                 </ImageView>
-                <Text fill="#95e743" layoutX="509.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profile" wrappingWidth="293.9101963043213">
+                <Text fill="#95e743" layoutX="509.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Profile" wrappingWidth="293.9101963043213">
                     <font>
-                        <Font name="Century Gothic" size="61.0" />
+                        <Font name="Century Gothic" size="61.0"/>
                     </font>
                 </Text>
-                <Text fx:id="usernameField" layoutX="523.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username:" wrappingWidth="450.0">
+                <Text fx:id="usernameField" layoutX="523.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Username:" wrappingWidth="450.0">
                     <font>
-                        <Font name="Century Gothic" size="30.0" />
+                        <Font name="Century Gothic" size="30.0"/>
                     </font>
                 </Text>
-                <Text layoutX="523.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" wrappingWidth="450.0">
+                <Text layoutX="523.0" layoutY="220.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:"
+                      wrappingWidth="450.0">
                     <font>
-                        <Font name="Century Gothic" size="30.0" />
+                        <Font name="Century Gothic" size="30.0"/>
                     </font>
                 </Text>
-                <Text fx:id="pointsField" layoutX="523.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saved CO2:" wrappingWidth="450.0">
+                <Text fx:id="pointsField" layoutX="523.0" layoutY="274.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Saved CO2:" wrappingWidth="450.0">
                     <font>
-                        <Font name="Century Gothic" size="30.0" />
+                        <Font name="Century Gothic" size="30.0"/>
                     </font>
                 </Text>
-                <Text fx:id="streakField" layoutX="523.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Streak:" wrappingWidth="450.0">
+                <Text fx:id="streakField" layoutX="523.0" layoutY="326.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Streak:" wrappingWidth="450.0">
                     <font>
-                        <Font name="Century Gothic" size="30.0" />
+                        <Font name="Century Gothic" size="30.0"/>
                     </font>
                 </Text>
-                <Circle fx:id="profileImage" fill="#c4c4c4" layoutX="392.0" layoutY="241.0" radius="100.0" stroke="#c4c4c4" strokeType="INSIDE" />
-                <JFXButton id="changePicture" fx:id="imageButton" layoutX="313.0" layoutY="361.0" onAction="#buttonPressed" prefHeight="50.0" prefWidth="168.0" text="Change picture" textAlignment="CENTER" textFill="#95e743">
+                <Circle fx:id="profileImage" fill="#c4c4c4" layoutX="392.0" layoutY="241.0" radius="100.0"
+                        stroke="#c4c4c4" strokeType="INSIDE"/>
+                <JFXButton id="changePicture" fx:id="imageButton" layoutX="313.0" layoutY="361.0"
+                           onAction="#buttonPressed" prefHeight="50.0" prefWidth="168.0" text="Change picture"
+                           textAlignment="CENTER" textFill="#95e743">
                     <font>
-                        <Font name="Century Gothic" size="18.0" />
+                        <Font name="Century Gothic" size="18.0"/>
                     </font>
                 </JFXButton>
-                <JFXTextField fx:id="emailField" layoutX="639.0" layoutY="190.0" onKeyPressed="#keyPressed" prefHeight="37.0" prefWidth="307.0">
+                <JFXTextField fx:id="emailField" layoutX="639.0" layoutY="190.0" onKeyPressed="#keyPressed"
+                              prefHeight="37.0" prefWidth="307.0">
                     <font>
-                        <Font size="16.0" />
+                        <Font size="16.0"/>
                     </font>
                 </JFXTextField>
-                <Text fx:id="carField" layoutX="524.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Car:" wrappingWidth="46.000102392554254">
+                <Text fx:id="carField" layoutX="523.0" layoutY="393.0" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="Car Type: " wrappingWidth="143.00010239255425">
                     <font>
-                        <Font name="Century Gothic" size="18.0" />
+                        <Font name="Century Gothic" size="18.0"/>
                     </font>
                 </Text>
-                <Text layoutX="523.0" layoutY="569.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Temprature:" wrappingWidth="180.40002508461475">
+                <Text layoutX="523.0" layoutY="569.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room Temprature:"
+                      wrappingWidth="180.40002508461475">
                     <font>
-                        <Font name="Century Gothic" size="18.0" />
+                        <Font name="Century Gothic" size="18.0"/>
                     </font>
                 </Text>
-                <JFXComboBox fx:id="carTypeField" focusColor="#95e743" layoutX="572.0" layoutY="371.0" onAction="#comboBoxSelected" prefHeight="30.0" prefWidth="153.0" promptText="Car Type" style="-fx-font-size: 14;" visibleRowCount="6">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <Label fx:id="compactCar">
-                                Compact Car
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                            <Label fx:id="averageCar">
-                                Average Car
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                            <Label fx:id="heavyCar">
-                                Heavy Car
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                            <Label fx:id="sportsCar">
-                                Sports Car
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                            <Label fx:id="suv">
-                                SUV
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                            <Label fx:id="pickupTruck">
-                                Pickup truck
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                            <Label fx:id="truck">
-                                Truck
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                        </FXCollections>
-                    </items>
+                <JFXComboBox fx:id="transportField" focusColor="#95e743" layoutX="755.0" layoutY="371.0"
+                             onAction="#comboBoxSelected" prefHeight="30.0" prefWidth="191.0" promptText="Car Type"
+                             style="-fx-font-size: 14;" visibleRowCount="4">
                 </JFXComboBox>
-                <JFXComboBox fx:id="emissionTypeField" focusColor="#95e743" layoutX="755.0" layoutY="371.0" onAction="#comboBoxSelected" prefHeight="30.0" prefWidth="191.0" promptText="Emmision Type" style="-fx-font-size: 14;" visibleRowCount="4">
-                    <items>
-                        <FXCollections fx:factory="observableArrayList">
-                            <Label fx:id="gasoline">
-                                Gasoline
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                            <Label fx:id="diesel">
-                                Diesel
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                            <Label fx:id="gas">
-                                Gas
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                            <Label fx:id="electric">
-                                Electric
-                                <font>
-                                    <Font name="Century Gothic" size="13.0" />
-                                </font>
-                            </Label>
-                        </FXCollections>
-                    </items>
-                </JFXComboBox>
-                <Text layoutX="524.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solar Panels:" wrappingWidth="119.6000437438488">
+                <Text layoutX="524.0" layoutY="500.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Solar Panels:"
+                      wrappingWidth="119.6000437438488">
                     <font>
-                        <Font name="Century Gothic" size="18.0" />
+                        <Font name="Century Gothic" size="18.0"/>
                     </font>
                 </Text>
-                <JFXTextField fx:id="tempratureField" layoutX="755.0" layoutY="550.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="191.0" />
-                <JFXButton fx:id="saveButton" layoutX="867.0" layoutY="616.0" onAction="#buttonPressed" prefHeight="44.0" prefWidth="90.0" text="Save" />
-                <JFXButton fx:id="discardButton" layoutX="761.0" layoutY="616.0" onAction="#buttonPressed" prefHeight="44.0" prefWidth="90.0" text="Discard" />
-                <Text layoutX="524.0" layoutY="535.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leds:" wrappingWidth="119.6000437438488">
+                <JFXTextField fx:id="temperatureField" layoutX="755.0" layoutY="550.0" onKeyPressed="#keyPressed"
+                              prefHeight="25.0" prefWidth="191.0"/>
+                <JFXButton fx:id="saveButton" layoutX="867.0" layoutY="616.0" onAction="#buttonPressed"
+                           prefHeight="44.0" prefWidth="90.0" text="Save"/>
+                <JFXButton fx:id="discardButton" layoutX="761.0" layoutY="616.0" onAction="#buttonPressed"
+                           prefHeight="44.0" prefWidth="90.0" text="Discard"/>
+                <Text layoutX="524.0" layoutY="535.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Leds:"
+                      wrappingWidth="119.6000437438488">
                     <font>
-                        <Font name="Century Gothic" size="18.0" />
+                        <Font name="Century Gothic" size="18.0"/>
                     </font>
                 </Text>
-            <Text layoutX="524.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:" wrappingWidth="90.00000067055225">
-               <font>
-                  <Font name="Century Gothic" size="18.0" />
-               </font>
-            </Text>
-            <JFXTextField fx:id="countryField" layoutX="755.0" layoutY="445.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="191.0" />
-            <JFXTextField fx:id="solarPanelsField" layoutX="755.0" layoutY="480.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="191.0" />
-            <JFXTextField fx:id="ledsField" layoutX="755.0" layoutY="515.0" onKeyPressed="#keyPressed" prefHeight="25.0" prefWidth="191.0" />
+                <Text layoutX="524.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country:"
+                      wrappingWidth="90.00000067055225">
+                    <font>
+                        <Font name="Century Gothic" size="18.0"/>
+                    </font>
+                </Text>
+                <JFXTextField fx:id="countryField" layoutX="755.0" layoutY="445.0" onKeyPressed="#keyPressed"
+                              prefHeight="25.0" prefWidth="191.0"/>
+                <JFXTextField fx:id="solarPanelsField" layoutX="755.0" layoutY="480.0" onKeyPressed="#keyPressed"
+                              prefHeight="25.0" prefWidth="191.0"/>
+                <JFXTextField fx:id="ledsField" layoutX="755.0" layoutY="515.0" onKeyPressed="#keyPressed"
+                              prefHeight="25.0" prefWidth="191.0"/>
             </children>
         </Pane>
     </children>

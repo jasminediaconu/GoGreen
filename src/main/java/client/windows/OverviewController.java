@@ -61,6 +61,10 @@ public class OverviewController extends Controller implements Initializable {
     List<String> descriptions = new ArrayList<>();
     private List<Achievement> achievementList;
 
+    public PopOver getPopOver() {
+        return popOver;
+    }
+
     @Override
     public void update() {
         //title.setText(achievementList.get(index).getTitle());
@@ -118,7 +122,7 @@ public class OverviewController extends Controller implements Initializable {
             descriptions.add(achievementList.get(i).getDescription());
             button = new JFXButton("", new ImageView(path + achievementList.get(i).getPath() + ".png"));
             badges.add(button);
-            badges.get(i).setOnMousePressed(e -> popupBadges(badges.get(ii), ii));
+            badges.get(i).setOnMouseEntered(e -> popupBadges(badges.get(ii), ii));
         }
 
         // This checks if the badges are unlocked or not

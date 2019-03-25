@@ -207,7 +207,9 @@ public class MainScreenController extends Pane implements Initializable {
 
     public void hideButtonAction(javafx.scene.input.MouseEvent event) {
         AgendaController agendaController = (AgendaController)controllers.get(0);
+        OverviewController overviewController = (OverviewController)controllers.get(0);
 
+        overviewController.getPopOver().hide();
         agendaController.getPopOver1().hide();
         agendaController.getPopOver2().hide();
         agendaController.getPopOver3().hide();

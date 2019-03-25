@@ -104,6 +104,11 @@ public class AgendaController extends Controller implements Initializable {
     private static GridPane gridPane;
     private static VBox agendaBox;
 
+    private List<Activity> filteredActivities = new ArrayList<>();
+
+    public List<Activity> getFilteredActivities() {
+        return filteredActivities;
+    }
 
     /**
      * Constructor to be used in the MainScreenController.
@@ -166,6 +171,12 @@ public class AgendaController extends Controller implements Initializable {
             Multimap<LocalDate, Activity> activityMap =
                     activityMap(Main.clientUser.getActivityList());
             showAgendaActivities(activityMap);
+
+            for (Activity activity : Main.clientUser.getActivityList()) {
+                if (activity.getDate().equals(LocalDate.now())) {
+                    filteredActivities.add(activity);
+                }
+            }
         }
 
         gridPane.setHgap(20);
@@ -208,7 +219,7 @@ public class AgendaController extends Controller implements Initializable {
      *
      * @param rowIndex int type.
      */
-    private void deleteActivity(int rowIndex) {
+    public void deleteActivity(int rowIndex) {
         ServerRequests sv = new ServerRequests();
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
@@ -232,7 +243,7 @@ public class AgendaController extends Controller implements Initializable {
      *
      * @param activityMap Multimap type.
      */
-    private void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
+    public void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
         gridPane.getChildren().clear();
 
         String path = "/client/windows/images/delete.png";
@@ -371,9 +382,9 @@ public class AgendaController extends Controller implements Initializable {
 //                    item.getType().equals("transport")).map(item ->
 //                    item.getName()).collect(Collectors.toList()));
 //        }
-
-        transportChoices.setItems(transportList);
-        //mainScreen.getChildren().add(foodChoices);
+//
+//        transportChoices.setItems(transportList);
+//        //mainScreen.getChildren().add(foodChoices);
     }
 
 

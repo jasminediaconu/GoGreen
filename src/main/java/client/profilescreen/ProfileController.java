@@ -7,6 +7,7 @@ import client.objects.Item;
 import client.user.ClientUser;
 import client.windows.AgendaController;
 import client.windows.Controller;
+import com.google.common.collect.Multimap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -25,6 +26,7 @@ import javafx.scene.text.Text;
 import java.awt.image.BufferedImage;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
@@ -63,8 +65,6 @@ public class ProfileController extends Controller {
     private JFXButton saveButton;
 
     private ClientUser newSettings;
-
-    String itemName = null;
 
 
     /**
@@ -212,38 +212,45 @@ public class ProfileController extends Controller {
         sv.updateClientUserProfile();
         update();
 
-        // if solarpanel amount changed call updateAgenda ("Solar panel", solarpanel.getamount)
+        updateAgenda("Solar panel", Double.parseDouble(solarPanelsField.getText()));
         // if led amount changed call updateAgenda("LEDs", led.getamount)
         // if tempereate changed call updateAgenda("Lower temperature, tepmpratorfield.getamount")
 
     }
 
-    private void updateAgenda (String itemName, int amount){
-        // Check the activities of today, if there is no solarpanel add the amount which is in the solarpanel
-        // amount textfield to the agenda of today when the user clicks save.
-        // Also do this when the user logs in for solarpanels, leds, temperature
-        ArrayList<Activity> filteredActivities = new ArrayList<>();
+    private void updateAgenda (String itemName, double amount){
 
-        // Filter activities by today's date
-        for (Activity activity : Main.clientUser.getActivityList()) {
-            if (activity.getDate().equals(java.time.LocalDate.now()));
-                filteredActivities.add(activity);
-     }
+//        // get filteredactivities from agendacontroller use it in profile
+//        if (Main.clientUser.getActivityList() != null) {
+//            // Filter activities by today's date
+//            for (Activity activity : Main.clientUser.getActivityList()) {
+//                if (activity.getDate().equals(LocalDate.now())) {
+//                    filteredActivities.add(activity);
+//                }
+//            }
+//        }
 
-        // If from today's activities the name of the item is not on the agenda or the amount is different
-        for (Activity activity : filteredActivities) {
+        Boolean isPresent = false;
+        AgendaController agendaController = new AgendaController();
+
+            // If itemName(solar panel, leds, lower temp) matches then dont apply on agenda
+        for (Activity activity : agendaController.getFilteredActivities()) {
             Item item = Main.items.get(activity.getItemID() - 1);
-            if ((!(item.getName().equals(itemName)))) {
-                // add the item to the agenda
-            }
-            // the amount is different
-            else if (activity.getAmount() != amount) {
-             // update the amount of the activity on the agenda
+            if ((item.getName().equals(itemName))) {
+                isPresent = true;
+
+                // if activity present check if amount is the same if not update it
+                if (activity.getAmount() != amount) {
+                    activity.setAmount(amount);
+                    // Send request to the server to update the amount of the activity
+                }
             }
         }
-
-     // if user adds solarpanel, led, temperature on agenda update it on the userprofile and save it.
+        if (!isPresent) {
+            applyActivity(itemName, amount);
+        }
     }
+     // if user adds solarpanel, led, temperature on agenda update it on the userprofile and save it.
 
     private void checkNewSettings() {
         setButtonsDisable(newSettings.equals(Main.clientUser));
@@ -298,33 +305,28 @@ public class ProfileController extends Controller {
         }
     }
 
-//    /**
-//     * applyButton event.
-//     * Applies the activity to the agenda
-//     */
-//    @FXML
-//    private void applyActivity(String itemName) {
+    /**
+     * applyButton event.
+     * Applies the activity to the agenda
+     */
+    @FXML
+    private void applyActivity(String itemName, double amount) {
 
+        AgendaController agendaController = new AgendaController();
 
-//        ServerRequests sv = new ServerRequests();
-//        double parsedAmount = -1;
-//        if (amount.getText() != null && amount.getText().length() > 0) {
-//            parsedAmount = Double.parseDouble(amount.getText());
-//        }
-//
-//        LocalDate date = java.time.LocalDate.now();
-//
-//        if (itemName != null && parsedAmount > 0 && date != null) {
-//            System.out.println(date.toString());
-//            int itemID = Main.items.stream().filter(x ->
-//                    x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
-//            Activity activity = new Activity(itemID, parsedAmount, date);
-//            if (sv.addActivity(activity)) {
-//                Main.clientUser.addToActivityList(activity);
-//                showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
-//            }
-//        }
-//    }
+        ServerRequests sv = new ServerRequests();
+        double parsedAmount = amount;
+        LocalDate date = LocalDate.now();
 
-
+        if (itemName != null && parsedAmount > 0) {
+            System.out.println(date.toString());
+            int itemID = Main.items.stream().filter(x ->
+                    x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
+            Activity activity = new Activity(itemID, parsedAmount, date);
+            if (sv.addActivity(activity)) {
+                Main.clientUser.addToActivityList(activity);
+                agendaController.showAgendaActivities(agendaController.activityMap(Main.clientUser.getActivityList()));
+            }
+        }
+    }
 }

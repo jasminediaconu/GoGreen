@@ -6,15 +6,12 @@ import client.helper.RowCount;
 import client.objects.Activity;
 import client.objects.Item;
 import client.user.ClientUser;
-//CHECKSTYLE:OFF
 import com.google.common.collect.ArrayListMultimap;
-//CHECKSTYLE:ON
 import com.google.common.collect.Multimap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXNodesList;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -24,10 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -35,11 +29,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
-import server.helper.ActivityClass;
 
-import javax.security.auth.callback.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -49,10 +40,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+//CHECKSTYLE:OFF
+//CHECKSTYLE:ON
+
 /**
  * This class provides functionality for:
  * - the agenda.fxml and all inner sub-screens.
- * - creates the plus button
+ * - creates the plSus button
  * - loads items into the activity popup dropdown menus
  *
  * @author gforghieri
@@ -61,8 +55,6 @@ public class AgendaController extends Controller implements Initializable {
 
     @FXML
     Pane agenda;
-    @FXML
-    FontAwesomeIcon delete;
     @FXML
     private ScrollPane scrollAgenda = new ScrollPane();
     @FXML
@@ -111,7 +103,8 @@ public class AgendaController extends Controller implements Initializable {
     private String itemName;
     private Text dateText;
     private JFXNodesList nodesList;
-    private JFXDialog dialog;
+    private static JFXDialog dialog;
+    private static StackPane stackPane;
 
     private static GridPane gridPane;
     private static VBox agendaBox;
@@ -162,12 +155,17 @@ public class AgendaController extends Controller implements Initializable {
 
         gridPane.setHgap(20);
         //        agendaBox.getChildren().add(gridPane);
+
         agendaBox.getChildren().add(gridPane);
+
         scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
 
+
         JFXButton ssbutton5 = new JFXButton("R1");
         ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
+
+        stackPane = stack;
 
     }
 
@@ -189,10 +187,10 @@ public class AgendaController extends Controller implements Initializable {
         close.setOnMouseClicked(e -> dialog.close());
         String message = "You are about to delete the activity. Do you want to proceed?";
         dialogLayout.setBody(new Text(message), close, del);
-        dialog = new JFXDialog(stack, dialogLayout, JFXDialog.DialogTransition.CENTER);
+        dialog = new JFXDialog(stackPane, dialogLayout, JFXDialog.DialogTransition.CENTER);
         dialogLayout.setActions(del, close);
+
         dialog.show();
-        dialog.isOverlayClose();
     }
 
     /**
@@ -202,12 +200,14 @@ public class AgendaController extends Controller implements Initializable {
      */
     public void deleteActivity(int rowIndex) {
         ServerRequests sv = new ServerRequests();
+        int activityID = Main.clientUser.getActivityList().get(rowIndex).getActivityID();
+
+        sv.removeActivity(activityID);
+
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
         agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
         dialog.close();
-        int activityID = Main.clientUser.getActivityList().get(rowIndex-1).getActivityID();
-        sv.removeActivity(activityID);
     }
 
     public Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
@@ -500,4 +500,3 @@ public class AgendaController extends Controller implements Initializable {
 
     }
 }
-

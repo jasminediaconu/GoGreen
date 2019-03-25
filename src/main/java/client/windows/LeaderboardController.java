@@ -32,8 +32,7 @@ public class LeaderboardController extends Controller implements Initializable {
     ClientUser clientUser = new ClientUser();
     User user = new User();
 
-    ArrayList<String> stringArrayList = new ArrayList<>();
-
+    ArrayList<String> followingUsernames = new ArrayList<>();
 
     public void initialize(URL url, ResourceBundle rb) {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
@@ -43,9 +42,13 @@ public class LeaderboardController extends Controller implements Initializable {
         switchToGlobal();
         switchToFollowing();
         addFollowButtons();
-        table.setItems(getGlobalUsers());
+
         globalButton.setDisable(true);
-        arrayList(stringArrayList);
+
+        table.setItems(getFollowingUsers());
+        arrayList(followingUsernames);
+
+        table.setItems(getGlobalUsers());
     }
 
     /**
@@ -54,11 +57,6 @@ public class LeaderboardController extends Controller implements Initializable {
      */
     private ObservableList<User> getGlobalUsers(){
         ObservableList<User> globalUsers = FXCollections.observableArrayList(serverRequests.getGlobalBestProfile());
-
-        for (int i = 0; i < stringArrayList.size(); i++) {
-            System.out.println(stringArrayList.get(i));
-        }
-
         return globalUsers;
     }
 
@@ -77,6 +75,7 @@ public class LeaderboardController extends Controller implements Initializable {
     private void switchToGlobal(){
         globalButton.setOnAction((ActionEvent switchToGlobalEvent) -> {
             table.getItems().clear();
+            arrayList(followingUsernames);
             table.setItems(getGlobalUsers());
 
             globalButton.setDisable(true);
@@ -90,6 +89,7 @@ public class LeaderboardController extends Controller implements Initializable {
     private void switchToFollowing(){
         followingButton.setOnAction((ActionEvent switchToFollowingEvent) -> {
             table.getItems().clear();
+            arrayList(followingUsernames);
             table.setItems(getFollowingUsers());
 
             globalButton.setDisable(false);
@@ -97,6 +97,10 @@ public class LeaderboardController extends Controller implements Initializable {
         });
     }
 
+    /**
+     * Add a follow button in each row
+     * Set the appropriate graphics and text per button
+     */
     public void addFollowButtons(){
         TableColumn<User, Void> followButtonColumn = new TableColumn<>("Follow");
 
@@ -114,7 +118,7 @@ public class LeaderboardController extends Controller implements Initializable {
                             if (followButton.getText().equals("unfollow")){
                                 followButton.setText("follow");
                                 serverRequests.unFollowUser(data);
-                                followButton.setStyle("-fx-background-color : green");
+                                followButton.setStyle("-fx-background-color : #95e743;");
 
                                 if (table.getItems().equals(getFollowingUsers())){
                                     table.getItems().remove(this.getTableRow());
@@ -122,7 +126,7 @@ public class LeaderboardController extends Controller implements Initializable {
                             } else {
                                 followButton.setText("unfollow");
                                 serverRequests.followUser(data);
-                                followButton.setStyle("-fx-background-color : red");
+                                followButton.setStyle("-fx-background-color : #8c8686");
                             }
                         });
                     }
@@ -145,15 +149,15 @@ public class LeaderboardController extends Controller implements Initializable {
 //                                followButton.setText("unfollow");
 //                            }
                             else {
-                                if(stringArrayList.contains(data)){
+                                if(followingUsernames.contains(data)){
                                     setGraphic(followButton);
                                     followButton.setText("unfollow");
-                                    followButton.setStyle("-fx-background-color: red");
+                                    followButton.setStyle("-fx-background-color: #8c8686");
                                 }
                                 else {
                                     setGraphic(followButton);
                                     followButton.setText("follow");
-                                    followButton.setStyle("-fx-background-color : green");
+                                    followButton.setStyle("-fx-background-color : #95e743;");
                                 }
                             }
                         }
@@ -168,12 +172,18 @@ public class LeaderboardController extends Controller implements Initializable {
         table.getColumns().add(followButtonColumn);
     }
 
-    public ArrayList<String> arrayList(ArrayList<String> stringArrayList) {
-        stringArrayList.add("GDWDfaJkCT");
-        stringArrayList.add("root");
-        stringArrayList.add("TestAccount6652");
+    /**
+     * Add only the usernames the clientUser is following to arrayList
+     * @param followingUsernames usernames the client follows
+     * @return the arrayList containing the following usernames
+     */
+    public ArrayList<String> arrayList(ArrayList<String> followingUsernames) {
+        table.setItems(getFollowingUsers());
+        for (User user : table.getItems()){
 
-        return stringArrayList;
+            followingUsernames.add(usernameColumn.getCellObservableValue(user).getValue());
+        }
+        return followingUsernames;
     }
 
     @Override

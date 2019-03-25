@@ -23,10 +23,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.security.Key;
 import java.util.ResourceBundle;
@@ -130,7 +127,7 @@ public class LoginController extends Controller implements Initializable {
         if (event instanceof MouseEvent||keycode.equals("ENTER")) {
             try {
                 if (remembered) {
-                    FileReader freader = new FileReader("remeberme.txt");
+                    FileReader freader = new FileReader("rememberme.txt");
                     BufferedReader reader = new BufferedReader(freader);
                     userpass = reader.readLine();
                     reader.close();
@@ -271,7 +268,7 @@ public class LoginController extends Controller implements Initializable {
             hashedpassword = password;
         }
         try {
-            FileWriter writer = new FileWriter("remeberme.txt");
+            FileWriter writer = new FileWriter("rememberme.txt");
             writer.write("");
             if (rememberBox.isSelected()) {
                 writer.write(username + ";" + hashedpassword + ";" + passwordlength);
@@ -290,7 +287,7 @@ public class LoginController extends Controller implements Initializable {
     public void remembermecheck () throws IOException{
         //open the file and read its contents
         if(!remembered) {
-            FileReader fread = new FileReader("remeberme.txt");
+            FileReader fread = new FileReader("rememberme.txt");
             BufferedReader reader = new BufferedReader(fread);
             String userpass = null;
             userpass = reader.readLine();
@@ -321,8 +318,13 @@ public class LoginController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try{remembermecheck();}
-        catch (IOException e){ e.printStackTrace();}
+        try {
+            File file = new File("rememberme.txt");
+            file.createNewFile();
+            remembermecheck();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

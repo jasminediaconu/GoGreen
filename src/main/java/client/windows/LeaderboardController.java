@@ -1,6 +1,5 @@
 package client.windows;
 
-import client.Main;
 import client.ServerRequests;
 import client.user.ClientUser;
 import client.user.User;
@@ -17,7 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
-import org.controlsfx.control.PropertySheet;
 
 public class LeaderboardController extends Controller implements Initializable {
 
@@ -29,8 +27,6 @@ public class LeaderboardController extends Controller implements Initializable {
     @FXML public Button followingButton;
 
     ServerRequests serverRequests = new ServerRequests();
-    ClientUser clientUser = new ClientUser();
-    User user = new User();
 
     ArrayList<String> followingUsernames = new ArrayList<>();
 
@@ -52,7 +48,7 @@ public class LeaderboardController extends Controller implements Initializable {
     }
 
     /**
-     * The observable list contains the top 10 global users
+     * The observable list contains the top 10 global users.
      * @return the list of global users
      */
     private ObservableList<User> getGlobalUsers(){
@@ -61,7 +57,7 @@ public class LeaderboardController extends Controller implements Initializable {
     }
 
     /**
-     * The observable list contains the users the client is following
+     * The observable list contains the users the client is following.
      * @return the list of following users
      */
     private ObservableList<User> getFollowingUsers(){
@@ -70,7 +66,7 @@ public class LeaderboardController extends Controller implements Initializable {
     }
 
     /**
-     * The globalButton switches the contents of the table with the global list
+     * The globalButton switches the contents of the table with the global list.
      */
     private void switchToGlobal(){
         globalButton.setOnAction((ActionEvent switchToGlobalEvent) -> {
@@ -84,7 +80,7 @@ public class LeaderboardController extends Controller implements Initializable {
     }
 
     /**
-     * The followingButton switches the contents of the table with the following list
+     * The followingButton switches the contents of the table with the following list.
      */
     private void switchToFollowing(){
         followingButton.setOnAction((ActionEvent switchToFollowingEvent) -> {
@@ -98,8 +94,9 @@ public class LeaderboardController extends Controller implements Initializable {
     }
 
     /**
-     * Add a follow button in each row
-     * Set the appropriate graphics and text per button
+     * Add a follow button in each row.
+     * What the follow button should do.
+     * Set the appropriate graphics and text per button.
      */
     public void addFollowButtons(){
         TableColumn<User, Void> followButtonColumn = new TableColumn<>("Follow");
@@ -138,16 +135,10 @@ public class LeaderboardController extends Controller implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         }  else {
-                            //TODO change "admin" with clientUsername
                             String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
                             if(data.equals("admin")){
                                 setGraphic(null);
                             }
-                            //TODO if user is already followed set text to "unfollow"
-//                            if (getFollowingUsers().contains(data)){
-//                                setGraphic(followButton);
-//                                followButton.setText("unfollow");
-//                            }
                             else {
                                 if(followingUsernames.contains(data)){
                                     setGraphic(followButton);
@@ -173,9 +164,9 @@ public class LeaderboardController extends Controller implements Initializable {
     }
 
     /**
-     * Add only the usernames the clientUser is following to arrayList
-     * @param followingUsernames usernames the client follows
-     * @return the arrayList containing the following usernames
+     * Add only the usernames the clientUser is following to arrayList.
+     * @param followingUsernames usernames the client follows.
+     * @return the arrayList containing the following usernames.
      */
     public ArrayList<String> arrayList(ArrayList<String> followingUsernames) {
         table.setItems(getFollowingUsers());

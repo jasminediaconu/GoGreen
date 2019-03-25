@@ -20,8 +20,30 @@
     -fx-cursor: hand;
 }
 .table-view {
-    -fx-background-color: transparent;
+    -fx-background-color: #F8F8F8;
 }
-.table-view .column {
-    -fx-background-color: transparent;
+.table-view .column-header {
+    -fx-background-color: #95e743;
+}
+
+.table-view .cell {
+    -fx-alignment: center-left;
+}
+.table .column{
+    -fx-border-width: 0 0 0 0;
+}
+.table-row-cell {
+    -fx-cell-size: 80px;
+    -fx-border-width: 0 0 0.5 0;
+    -fx-border-color: #8c8686;
+    -fx-background-color: rgb(235,235,235);;
+}
+#usernameColumn{
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+.table-view .column-header .text {
+    -fx-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
 }

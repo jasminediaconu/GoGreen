@@ -39,10 +39,10 @@
                   </Button>
                         <TableView fx:id="table" layoutX="30.0" layoutY="141.0" prefHeight="280.0" prefWidth="512.0">
                             <columns>
-                                <TableColumn editable="false" prefWidth="40" resizable="false" sortable="false" style="-fx-background-color: transparent;" text="rank" />
-                                <TableColumn editable="false" prefWidth="92" sortable="false" text="pic" />
-                                <TableColumn fx:id="usernameColumn" editable="false" prefWidth="138" sortable="false" text="Username" />
-                                <TableColumn fx:id="countryColumn" editable="false" prefWidth="75" sortable="false" text="country" />
+                                <TableColumn editable="false" prefWidth="40" resizable="false" sortable="false" text="rank" />
+                                <TableColumn editable="false" prefWidth="81" sortable="false" text="pic" />
+                                <TableColumn fx:id="usernameColumn" editable="false" prefWidth="129" sortable="false" text="Username" />
+                                <TableColumn fx:id="countryColumn" editable="false" prefWidth="95" sortable="false" text="country" />
                                 <TableColumn fx:id="totalCo2Column" editable="false" prefWidth="84" sortable="false" text="CO2 reduced" />
                             </columns>
                         </TableView>

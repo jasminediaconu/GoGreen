@@ -90,8 +90,8 @@ public class ProfileController extends Controller {
         emailField.setText(settings.getEmail());
         pointsField.setText("CO2 saved: " + Main.round(Main.clientUser.getTotalCo2(), 2));
         streakField.setText("Streak: " + Main.clientUser.getStreakLength());
-        solarPanelsField.setText("" + Main.clientUser.getNumOfSolarPanels());
-        ledsField.setText("" + Main.clientUser.getNumOfLeds());
+        solarPanelsField.setText("" + Main.clientUser.getSolarPower());
+        ledsField.setText("" + Main.clientUser.getLeds());
         countryField.setText(settings.getCountry());
         tempratureField.setText("" + settings.getRoomTemp());
         setButtonsDisable(true);
@@ -180,8 +180,8 @@ public class ProfileController extends Controller {
                 newSettings.setEmail(emailField.getText());
                 newSettings.setCountry(countryField.getText());
                 newSettings.setRoomTemp(Integer.parseInt(tempratureField.getText()));
-                newSettings.setNumOfLeds(Integer.parseInt(ledsField.getText()));
-                newSettings.setNumOfSolarPanels(Integer.parseInt(solarPanelsField.getText()));
+                newSettings.setLeds(Integer.parseInt(ledsField.getText()));
+                newSettings.setSolarPower(Integer.parseInt(solarPanelsField.getText()));
 
                 checkNewSettings();
                 profileImage.requestFocus();

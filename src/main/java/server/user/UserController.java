@@ -128,7 +128,7 @@ public class UserController {
                         result.getString("countryname"), result.getString("email"),
                         result.getString("imageurl"), result.getDouble("totalco2"),
                         result.getString("cartype"), result.getString("caremissiontype"),
-                        streakLength, result.getBoolean("solarpower"), result.getBoolean("leds"),
+                        streakLength, result.getInt("solarpower"), result.getInt("leds"),
                         result.getInt("roomtemp")
                 );
 
@@ -162,8 +162,8 @@ public class UserController {
             updateClientUserProfile.setDouble(3, client.totalCo2);
             updateClientUserProfile.setString(4, client.carType);
             updateClientUserProfile.setString(5, client.carEmissionType);
-            updateClientUserProfile.setBoolean(6, client.solarPower);
-            updateClientUserProfile.setBoolean(7, client.leds);
+            updateClientUserProfile.setInt(6, client.solarPower);
+            updateClientUserProfile.setInt(7, client.leds);
             updateClientUserProfile.setInt(8, client.roomTemp);
             updateClientUserProfile.setInt(9, userID);
             updateClientUserProfile.executeUpdate();

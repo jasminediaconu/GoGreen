@@ -30,6 +30,11 @@ public class Achievement {
         this.goal = goal;
     }
 
+    public Achievement() {
+    }
+
+
+
     /**
      * Load image buffered image.
      *
@@ -87,7 +92,7 @@ public class Achievement {
      * @return the title
      */
     public String getDescription() {
-        return title;
+        return description;
     }
 
     /**

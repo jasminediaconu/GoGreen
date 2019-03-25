@@ -47,7 +47,6 @@ This also became apparent in the additional meeting, where it was not clear for 
 - The demo went well
 - We seem to be very up-to-date with demo's
 - I had a few problems with contents in the table of the leaderboard, it was fixed
-<<<<<<< HEAD
 
 ### Gino (gtramontina)
 - We were well prepared for the demo

@@ -305,7 +305,6 @@ public class LoginController extends Controller implements Initializable {
                 String passwordfiller = StringUtils.repeat("a", passlength);
                 pf_password.setText(passwordfiller);
                 remembered = true;
-                //testing blins
             } else if (userpass == null) {
                 rememberBox.setSelected(false);
             }

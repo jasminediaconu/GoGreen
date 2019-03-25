@@ -1,104 +1,85 @@
 package client.objects;
 
-import client.user.Achievement;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.powermock.api.mockito.PowerMockito;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.net.URL;
+import java.time.LocalDate;
 
-import static org.mockito.Mockito.mock;
+public class ActivityMockitoTest{
 
-public class ActivityMockitoTest {
+    Activity activity1;
+    Activity activity2;
 
     @Mock
-    BufferedImage mockImage1;
+    LocalDate now1;
     @Mock
-    BufferedImage mockImage2;
-
-    Achievement achievement1;
-    Achievement achievement2;
-
+    LocalDate now2;
 
     @BeforeEach
-    public void setup()  throws Exception{
+    void setUp() {
         MockitoAnnotations.initMocks(this);
-        PowerMockito.mockStatic(ImageIO.class);
-
-        achievement1 = new Achievement();
-
-        achievement2 = new Achievement();
+        activity1 = new Activity(1, 2, now1);
+        activity2 = new Activity(2, 5, now2);
     }
 
     @Test
-    public void imageTestEqual(){
-        achievement1.setImage(mockImage1);
-        Assert.assertEquals(mockImage1, achievement1.getImage());
-
+    void getActivityID() {
+        Assert.assertEquals(activity1.getActivityID(), -1);
+        Assert.assertEquals(activity2.getActivityID(), -1);
     }
 
     @Test
-    public void imageTestUnEqual(){
-        achievement1.setImage(mockImage1);
-        Assert.assertNotEquals(mockImage2, achievement1.getImage());
+    void setActivityID() {
+        activity1.setActivityID(2);
+        Assert.assertNotEquals(activity1.getActivityID(), activity2.getActivityID());
+        activity2.setActivityID(2);
+        Assert.assertEquals(activity1.getActivityID(), activity2.getActivityID());
+        Assert.assertEquals(activity1.getActivityID(), 2);
     }
 
     @Test
-    public void discriptionTestEqual(){
-        achievement1.setDescription("new desc");
-        Assert.assertEquals("new desc", achievement1.getDescription());
+    void getItemID() {
+        Assert.assertEquals(activity1.getItemID(), 1);
+        Assert.assertEquals(activity2.getItemID(), 2);
+        Assert.assertNotEquals(activity1.getItemID(), activity2.getItemID());
     }
 
     @Test
-    public void discriptionTestUnEqual(){
-        achievement1.setDescription("new desc");
-        Assert.assertNotEquals("new desc2", achievement1.getDescription());
+    void getAmount() {
+        Assert.assertEquals(activity1.getAmount(), 2, 0);
+        Assert.assertEquals(activity2.getAmount(), 5, 0);
+        Assert.assertNotEquals(activity1.getAmount(), activity2.getAmount());
     }
 
     @Test
-    public void goalTestEqual(){
-        achievement1.setGoal(666);
-        Assert.assertEquals(666, achievement1.getGoal());
+    void getDate() {
+        Assert.assertEquals(activity1.getDate(),now1);
+        Assert.assertEquals(activity2.getDate(), now2);
+        Assert.assertNotEquals(activity1.getDate(), now2);
     }
 
     @Test
-    public void goalTestUnEqual(){
-        achievement1.setGoal(666);
-        Assert.assertNotEquals(766, achievement1.getGoal());
+    void equals() {
+        Assert.assertEquals(activity1, activity1);
+        Assert.assertNotEquals(activity1, activity2);
+        Activity activity = new Activity(1, 2, now1);
+        Assert.assertEquals(activity1, activity);
+        Assert.assertNotEquals(activity, null);
+        int number = 1;
+        Assert.assertNotEquals(activity, number);
+        activity.setItemID(2);
+        Assert.assertNotEquals(activity1, activity);
+        activity.setItemID(1);
+        activity.setAmount(5);
+        Assert.assertNotEquals(activity1, activity);
+        activity.setAmount(2);
+        activity.setDate(now2);
+        Assert.assertNotEquals(activity1, activity);
+        activity.setDate(now1);
+        activity.setActivityID(1);
+        Assert.assertNotEquals(activity1, activity);
     }
-
-    @Test
-    public void idTestEqual(){
-        achievement1.setId(6667);
-        Assert.assertEquals(6667, achievement1.getId());
-    }
-
-    @Test
-    public void idTestUnEqual(){
-        achievement1.setId(6667);
-        Assert.assertNotEquals(7667, achievement1.getId());
-    }
-
-    @Test
-    public void titleTestEqual(){
-        achievement1.setTitle("tile2");
-        Assert.assertEquals("tile2", achievement1.getTitle());
-    }
-
-    @Test
-    public void titleTestUnEqual(){
-        achievement1.setTitle("tile1");
-        Assert.assertNotEquals("tile2", achievement1.getTitle());
-    }
-
-
-
-
-
-
 }

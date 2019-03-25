@@ -318,8 +318,8 @@ public class ClientUser extends User {
                 && totalCo2 == that.totalCo2
                 && username.equals(that.username)
                 && Objects.equals(that.country, country)
-                && carType.equals(that.carType)
-                && carEmissionType.equals(that.carEmissionType)) {
+                && Objects.equals(carType, that.carType)
+                && Objects.equals(carEmissionType, that.carEmissionType)) {
             return true;
         }
         return false;

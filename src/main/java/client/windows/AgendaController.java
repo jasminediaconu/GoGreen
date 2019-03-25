@@ -232,7 +232,7 @@ public class AgendaController extends Controller implements Initializable {
 
                 Item item = Main.items.get(activity.getItemID() - 1);
                 String unit = "";
-                Double co2Saved = round((item.getCo2() * activity.getAmount()), 2);
+                Double co2Saved = Main.round((item.getCo2() * activity.getAmount()), 2);
 
 
                 if (item.getType().equals("food")) {
@@ -242,8 +242,7 @@ public class AgendaController extends Controller implements Initializable {
                     unit = "km";
                 }
                 Text text = new Text(item.getName() + ", amount: " + activity.getAmount()
-                        + unit + ", CO2 saved: " + Main.round((item.getCo2() * activity.getAmount())
-                        / 1000, 2) + "kg");
+                        + unit + ", CO2 saved: " + co2Saved + "kg");
 
                 text.setWrappingWidth(310.00);
                 gridPane.add(text, 1, counter);

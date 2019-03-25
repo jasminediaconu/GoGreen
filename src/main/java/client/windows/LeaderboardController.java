@@ -114,6 +114,7 @@ public class LeaderboardController extends Controller implements Initializable {
                             if (followButton.getText().equals("unfollow")){
                                 followButton.setText("follow");
                                 serverRequests.unFollowUser(data);
+                                followButton.setStyle("-fx-background-color : green");
 
                                 if (table.getItems().equals(getFollowingUsers())){
                                     table.getItems().remove(this.getTableRow());
@@ -121,6 +122,7 @@ public class LeaderboardController extends Controller implements Initializable {
                             } else {
                                 followButton.setText("unfollow");
                                 serverRequests.followUser(data);
+                                followButton.setStyle("-fx-background-color : red");
                             }
                         });
                     }
@@ -146,10 +148,12 @@ public class LeaderboardController extends Controller implements Initializable {
                                 if(stringArrayList.contains(data)){
                                     setGraphic(followButton);
                                     followButton.setText("unfollow");
+                                    followButton.setStyle("-fx-background-color: red");
                                 }
                                 else {
                                     setGraphic(followButton);
                                     followButton.setText("follow");
+                                    followButton.setStyle("-fx-background-color : green");
                                 }
                             }
                         }

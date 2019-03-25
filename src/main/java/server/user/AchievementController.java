@@ -26,7 +26,7 @@ public class AchievementController {
     }
 
     /**
-     * This function will get all the achievements from the database;
+     * This function will get all the achievements from the database.
      *
      * @return a list of achievements
      */

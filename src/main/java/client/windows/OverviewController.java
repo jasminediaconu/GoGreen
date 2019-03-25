@@ -100,11 +100,8 @@ public class OverviewController extends Controller implements Initializable {
 
         //x.setCategories(FXCollections.observableArrayList());
 
-
-
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
-
 
         row = new HBox();
         row2 = new HBox();
@@ -117,7 +114,7 @@ public class OverviewController extends Controller implements Initializable {
             int ii = i;
             button = new JFXButton("", new ImageView(path + achievementList.get(i).getPath() + ".png"));
             badges.add(button);
-            badges.get(i).setOnMouseClicked(e -> popupBadges(badges.get(ii), ii));
+            badges.get(i).setOnMouseEntered(e -> popupBadges(badges.get(ii), ii));
         }
 
         title.setText(achievementList.get(1).getTitle());

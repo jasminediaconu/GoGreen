@@ -1,8 +1,8 @@
-.menu-button > .arrow-button {
+#logoutMenu > .arrow-button {
     -fx-padding: 0;
 }
 
-.menu-button > .arrow-button > .arrow {
+#logoutMenu > .arrow-button > .arrow {
     -fx-padding: 0;
 }
 

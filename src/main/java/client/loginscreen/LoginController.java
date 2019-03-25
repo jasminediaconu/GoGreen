@@ -21,6 +21,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.apache.commons.lang.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -301,11 +302,7 @@ public class LoginController extends Controller implements Initializable {
                 String[] userpassparts = userpass.split(";");
                 tf_username.setText(userpassparts[0]);
                 int passlength = Integer.parseInt(userpassparts[2]);
-                char[] randpass = new char[passlength];
-                for (int i = 0; i < passlength; i++) {
-                    randpass[i] = 'a';
-                }
-                String passwordfiller = randpass.toString();
+                String passwordfiller = StringUtils.repeat("a", passlength);
                 pf_password.setText(passwordfiller);
                 remembered = true;
             } else if (userpass == null) {

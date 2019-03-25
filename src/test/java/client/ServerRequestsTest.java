@@ -53,7 +53,7 @@ class ServerRequestsTest {
 
     @Test
     void loginSuccess() {
-        Assert.assertEquals("success", sv.login("admin", "admin", true));
+        Assert.assertEquals("success", sv.login("admin", "admin", false));
     }
 
     @Test

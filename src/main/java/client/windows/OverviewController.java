@@ -28,7 +28,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
-    
+
     @FXML  private BarChart<String, Integer> barChart;
     @FXML private JFXButton aabutton1;
     @FXML private  JFXButton aabutton2;
@@ -42,12 +42,10 @@ public class OverviewController extends Controller implements Initializable {
 
     @FXML
     private Pane badgePopup;
-
     @FXML
     public Text title = new Text();
     @FXML
     public Text description = new Text();
-
     @FXML
     private ScrollPane scrollBadges = new ScrollPane();
 
@@ -69,45 +67,36 @@ public class OverviewController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        lineChart.getData().clear();
+
+//        barChart.getData().clear();
 //        XYChart.Series<String, Integer> series = new XYChart.Series<String, Integer>();
-//        series.getData().add(new XYChart.Data<String, Integer>("Monday",200));
+//        series.getData().add(new XYChart.Data<String, Integer>("Monday",50));
+//        series.getData().add(new XYChart.Data<String, Integer>("Tuesday",100));
+//        series.getData().add(new XYChart.Data<String, Integer>("Wednesday",300));
+//        series.getData().add(new XYChart.Data<String, Integer>("Thursday",123));
 //        series.getData().add(new XYChart.Data<String, Integer>("Friday",123));
-//        series.getData().add(new XYChart.Data<String, Integer>("Saturday",23));
-//        aabutton1.setOnMouseClicked(e -> lineChart.getData().add(series));
+//        series.getData().add(new XYChart.Data<String, Integer>("Saturday",400));
+//        series.getData().add(new XYChart.Data<String, Integer>("Sunday",321));
+//        aabutton1.setOnMouseClicked(e ->barChart.getData().addAll(series));
 //        series.setName("Week");
-
-        barChart.getData().clear();
-        XYChart.Series<String, Integer> series = new XYChart.Series<String, Integer>();
-        series.getData().add(new XYChart.Data<String, Integer>("Monday",50));
-        series.getData().add(new XYChart.Data<String, Integer>("Tuesday",100));
-        series.getData().add(new XYChart.Data<String, Integer>("Wednesday",300));
-        series.getData().add(new XYChart.Data<String, Integer>("Thursday",123));
-        series.getData().add(new XYChart.Data<String, Integer>("Friday",123));
-        series.getData().add(new XYChart.Data<String, Integer>("Saturday",400));
-        series.getData().add(new XYChart.Data<String, Integer>("Sunday",321));
-        aabutton1.setOnMouseClicked(e ->barChart.getData().addAll(series));
-        series.setName("Week");
-
-
-        clearGraph.setOnMouseClicked(d ->barChart.getData().clear());
-
-
-        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
-        series1.getData().add(new XYChart.Data<String, Integer>("January", 430));
-        series1.getData().add(new XYChart.Data<String, Integer>("February", 121));
-        series1.getData().add(new XYChart.Data<String, Integer>("March", 322));
-        series1.getData().add(new XYChart.Data<String, Integer>("April", 350));
-        series1.getData().add(new XYChart.Data<String, Integer>("May", 113));
-        series1.getData().add(new XYChart.Data<String, Integer>("June", 13));
-        series1.getData().add(new XYChart.Data<String, Integer>("July", 663));
-        series1.getData().add(new XYChart.Data<String, Integer>("August", 64));
-        series1.getData().add(new XYChart.Data<String, Integer>("September", 100));
-        series1.getData().add(new XYChart.Data<String, Integer>("October", 0));
-        series1.getData().add(new XYChart.Data<String, Integer>("November", 999));
-        series1.getData().add(new XYChart.Data<String, Integer>("December", 1));
-        aabutton2.setOnMouseClicked(q -> barChart.getData().addAll(series1));
-        series1.setName("Month");
+//
+//        clearGraph.setOnMouseClicked(d ->barChart.getData().clear());
+//
+//        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
+//        series1.getData().add(new XYChart.Data<String, Integer>("January", 430));
+//        series1.getData().add(new XYChart.Data<String, Integer>("February", 121));
+//        series1.getData().add(new XYChart.Data<String, Integer>("March", 322));
+//        series1.getData().add(new XYChart.Data<String, Integer>("April", 350));
+//        series1.getData().add(new XYChart.Data<String, Integer>("May", 113));
+//        series1.getData().add(new XYChart.Data<String, Integer>("June", 13));
+//        series1.getData().add(new XYChart.Data<String, Integer>("July", 663));
+//        series1.getData().add(new XYChart.Data<String, Integer>("August", 64));
+//        series1.getData().add(new XYChart.Data<String, Integer>("September", 100));
+//        series1.getData().add(new XYChart.Data<String, Integer>("October", 0));
+//        series1.getData().add(new XYChart.Data<String, Integer>("November", 999));
+//        series1.getData().add(new XYChart.Data<String, Integer>("December", 1));
+//        aabutton2.setOnMouseClicked(q -> barChart.getData().addAll(series1));
+//        series1.setName("Month");
 
         //x.setCategories(FXCollections.observableArrayList());
 

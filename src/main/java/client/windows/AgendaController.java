@@ -118,8 +118,6 @@ public class AgendaController extends Controller implements Initializable {
         loadEnergyItems();
     }
 
-<<<<<<< HEAD
-=======
     /**
      * This function is called only once when control reaches the MainScreenController
      */
@@ -128,7 +126,6 @@ public class AgendaController extends Controller implements Initializable {
         loadPlusButton();
         pane.getChildren().add(nodesList);
 
->>>>>>> 862a2f49f4b781ba0665bc3d747ff1f1bad3ee64
         agendaBox = new VBox();
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
 
@@ -146,11 +143,9 @@ public class AgendaController extends Controller implements Initializable {
 
         gridPane.setHgap(20);
         //        agendaBox.getChildren().add(gridPane);
-<<<<<<< HEAD
 
-=======
         agendaBox.getChildren().add(gridPane);
->>>>>>> 862a2f49f4b781ba0665bc3d747ff1f1bad3ee64
+
         scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
 
@@ -181,12 +176,7 @@ public class AgendaController extends Controller implements Initializable {
         dialog = new JFXDialog(stack, dialogLayout, JFXDialog.DialogTransition.CENTER);
         dialogLayout.setActions(del, close);
 
-        boolean dialogOpen = false;
-        if(!dialog.isVisible()) {
-            dialog.show();
-            dialogOpen = true;
-        }
-
+        dialog.show();
     }
 
     /**
@@ -196,19 +186,14 @@ public class AgendaController extends Controller implements Initializable {
      */
     private void deleteActivity(int rowIndex) {
         ServerRequests sv = new ServerRequests();
-<<<<<<< HEAD
         int activityID = Main.clientUser.getActivityList().get(rowIndex).getActivityID();
 
         sv.removeActivity(activityID);
 
-=======
->>>>>>> 862a2f49f4b781ba0665bc3d747ff1f1bad3ee64
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
         agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
         dialog.close();
-        int activityID = Main.clientUser.getActivityList().get(rowIndex-1).getActivityID();
-        sv.removeActivity(activityID);
     }
 
     public Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {

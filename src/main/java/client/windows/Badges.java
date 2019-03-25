@@ -64,7 +64,7 @@ public class Badges {
 
         for(int i = 0; i < activities.size(); i++) {
             if(activities.get(i).getActivityID() == 1
-                    && activities.get(i).getDate().equals(activities.get(i+1).getDate().minusDays(1))) {
+                    && activities.get(i).getDate().minusDays(1).equals(activities.get(i+1).getDate())) {
                     count++;
                     if(count >= Main.achievements.get(2).getGoal()) {
                         btn.setStyle("-fx-opacity: 100%;");

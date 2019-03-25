@@ -37,6 +37,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
+import server.helper.ActivityClass;
 
 import javax.security.auth.callback.Callback;
 import java.io.IOException;
@@ -96,12 +97,12 @@ public class AgendaController extends Controller implements Initializable {
     private PopOver popOver3 = new PopOver();
 
     private String itemName;
-
-    private JFXNodesList nodesList;
-    private GridPane gridPane;
     private Text dateText;
-    private VBox agendaBox;
+    private JFXNodesList nodesList;
     private JFXDialog dialog;
+
+    private static GridPane gridPane;
+    private static VBox agendaBox;
 
 
     /**
@@ -120,12 +121,18 @@ public class AgendaController extends Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         loadFoodItems();
         loadTransportItems();
         loadEnergyItems();
+    }
 
-
+    /**
+     * This function is called only once when control reaches the MainScreenController
+     */
+    @Override
+    public void init() {
+        loadPlusButton();
+        pane.getChildren().add(nodesList);
 
         agendaBox = new VBox();
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
@@ -144,17 +151,12 @@ public class AgendaController extends Controller implements Initializable {
 
         gridPane.setHgap(20);
         //        agendaBox.getChildren().add(gridPane);
+        agendaBox.getChildren().add(gridPane);
         scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
 
         JFXButton ssbutton5 = new JFXButton("R1");
         ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
-    }
-
-    @Override
-    public void init() {
-        loadPlusButton();
-        pane.getChildren().add(nodesList);
 
     }
 
@@ -188,14 +190,16 @@ public class AgendaController extends Controller implements Initializable {
      * @param rowIndex int type.
      */
     private void deleteActivity(int rowIndex) {
-        //TODO remove acitivty from ativity list by removeActivity request
+        ServerRequests sv = new ServerRequests();
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
         // If there are no activities for that day, delete the date
         agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
         dialog.close();
+        int activityID = Main.clientUser.getActivityList().get(rowIndex-1).getActivityID();
+        sv.removeActivity(activityID);
     }
 
-    private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
+    public Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
         Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
         for (Activity a : activities) {
             multimap.put(a.getDate(), a);
@@ -206,16 +210,11 @@ public class AgendaController extends Controller implements Initializable {
     /**
      * This function shows the activity on the agenda.
      * Takes in a multimap(date from datepicker and activity object)
-     * Wout is still looking into how to show the activity instantly after adding
-     * without reloading the app
      *
      * @param activityMap Multimap type.
      */
     private void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
-        agendaBox.getChildren().removeAll();
-
-        gridPane = new GridPane();
-        gridPane.setLayoutX(420);
+        gridPane.getChildren().clear();
 
         String path = "/client/windows/images/delete.png";
 
@@ -233,8 +232,12 @@ public class AgendaController extends Controller implements Initializable {
 
                 Item item = Main.items.get(activity.getItemID() - 1);
                 String unit = "";
+                Double co2Saved = round((item.getCo2() * activity.getAmount()), 2);
+
+
                 if (item.getType().equals("food")) {
                     unit = "g";
+                    co2Saved = co2Saved / 1000;
                 } else if (item.getType().equals("transport")) {
                     unit = "km";
                 }
@@ -251,9 +254,6 @@ public class AgendaController extends Controller implements Initializable {
                 counter++;
             }
         }
-
-        gridPane.setHgap(20);
-        agendaBox.getChildren().add(gridPane);
     }
 
     /**
@@ -332,6 +332,7 @@ public class AgendaController extends Controller implements Initializable {
             popOver1.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
             popOver1.setDetachable(false);
             popOver1.show(ssbutton2);
+
         }
     }
 
@@ -340,15 +341,21 @@ public class AgendaController extends Controller implements Initializable {
      */
     private void loadTransportItems() {
 
-        //Clears everything in the observable list
-        if (transportList.size() < 1) {
-            transportList.addAll(Main.items.stream().filter(item ->
-                    item.getType().equals("transport")).map(item ->
-                    item.getName()).collect(Collectors.toList()));
-        }
+       transportList.addAll("Walking",
+               "By bike",
+               "Public transport",
+               "By car");
+
+
+//        //Clears everything in the observable list
+//        if (transportList.size() < 1) {
+//            transportList.addAll(Main.items.stream().filter(item ->
+//                    item.getType().equals("transport")).map(item ->
+//                    item.getName()).collect(Collectors.toList()));
+//        }
+
         transportChoices.setItems(transportList);
         //mainScreen.getChildren().add(foodChoices);
-
     }
 
 
@@ -390,7 +397,6 @@ public class AgendaController extends Controller implements Initializable {
     }
 
 
-
     /**
      * Creates an empty white popup box for energy button popup.
      * To be finished.
@@ -429,6 +435,9 @@ public class AgendaController extends Controller implements Initializable {
     @FXML
     void applyTransport(MouseEvent event) {
         itemName = transportChoices.getValue();
+        if (itemName.equals("By car")) {
+            itemName = Main.clientUser.getCarEmissionType() + ", " + Main.clientUser.getCarType();
+        }
         applyButton(itemName);
     }
 
@@ -447,12 +456,16 @@ public class AgendaController extends Controller implements Initializable {
 
     /**
      * applyButton event.
-     * Applies the activity to the agenda, still needs a restart of the application.
+     * Applies the activity to the agenda
      */
     @FXML
     private void applyButton(String itemName) {
         ServerRequests sv = new ServerRequests();
-        double parsedAmount = Double.parseDouble(amount.getText());
+        double parsedAmount = -1;
+        if (amount.getText() != null && amount.getText().length() > 0) {
+            parsedAmount = Double.parseDouble(amount.getText());
+        }
+
         LocalDate date = datepicker.getValue();
 
         if (itemName != null && parsedAmount > 0 && date != null) {

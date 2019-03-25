@@ -53,8 +53,12 @@ public class LeaderboardController extends Controller implements Initializable {
      */
     private ObservableList<User> getGlobalUsers(){
         ObservableList<User> globalUsers = FXCollections.observableArrayList(serverRequests.getGlobalBestProfile());
-        return globalUsers;
 
+        for (int i = 0; i < stringArrayList.size(); i++) {
+            System.out.println(stringArrayList.get(i));
+        }
+
+        return globalUsers;
     }
 
     /**
@@ -138,13 +142,13 @@ public class LeaderboardController extends Controller implements Initializable {
 //                                setGraphic(followButton);
 //                                followButton.setText("unfollow");
 //                            }
-                            if(arrayList(stringArrayList).contains(data)){
+                            if(stringArrayList.contains(data)){
                                 setGraphic(followButton);
                                 followButton.setText("unfollow");
                             }
                             else {
                                 this.setGraphic(followButton);
-
+                                followButton.setText("follow");
                             }
                         }
                     }

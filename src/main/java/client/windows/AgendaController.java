@@ -200,7 +200,7 @@ public class AgendaController extends Controller implements Initializable {
      */
     public void deleteActivity(int rowIndex) {
         ServerRequests sv = new ServerRequests();
-        int activityID = Main.clientUser.getActivityList().get(rowIndex).getActivityID();
+        int activityID = Main.clientUser.getActivityList().get(rowIndex-1).getActivityID();
 
         sv.removeActivity(activityID);
 

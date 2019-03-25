@@ -119,25 +119,6 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This function rounds a double value to N decimal places.
-     *
-     * @param value  double type
-     * @param places int type
-     * @return a double rounded down to N decimal places
-     */
-    public static double round(double value, int places) {
-        if (places < 0) {
-            throw new IllegalArgumentException();
-        }
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
-    }
-
-    /**
-     * This function is called when control reaches/loads the AgendaController
      * Initialize agenda with the user activities.
      *
      * @param url            URL
@@ -262,7 +243,7 @@ public class AgendaController extends Controller implements Initializable {
 
                 Item item = Main.items.get(activity.getItemID() - 1);
                 String unit = "";
-                Double co2Saved = round((item.getCo2() * activity.getAmount()), 2);
+                Double co2Saved = Main.round((item.getCo2() * activity.getAmount()), 2);
 
 
                 if (item.getType().equals("food")) {
@@ -504,6 +485,15 @@ public class AgendaController extends Controller implements Initializable {
             Activity activity = new Activity(itemID, parsedAmount, date);
             if (sv.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
+
+                Item item = Main.items.get(activity.getItemID() - 1);
+                double addition = activity.getAmount() * item.getCo2();
+                if (!item.getType().equals("energy")) {
+                    addition /= 1000.0;
+                }
+                Main.clientUser.increaseTotalCo2(addition);
+                sv.updateClientUserProfile();
+
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }

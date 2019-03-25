@@ -4,6 +4,7 @@ import client.ServerRequests;
 import client.user.ClientUser;
 import client.user.User;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -30,6 +31,9 @@ public class LeaderboardController extends Controller implements Initializable {
     ClientUser clientUser = new ClientUser();
     User user = new User();
 
+    ArrayList<String> stringArrayList = new ArrayList<>();
+
+
     public void initialize(URL url, ResourceBundle rb) {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
         countryColumn.setCellValueFactory(new PropertyValueFactory<User, String>("country"));
@@ -40,6 +44,7 @@ public class LeaderboardController extends Controller implements Initializable {
         addFollowButtons();
         table.setItems(getGlobalUsers());
         globalButton.setDisable(true);
+        arrayList(stringArrayList);
     }
 
     /**
@@ -124,8 +129,8 @@ public class LeaderboardController extends Controller implements Initializable {
                         }  else {
                             //TODO change "admin" with clientUsername
                             String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
-                            if(data.equals("admin")){
 
+                            if(data.equals("admin")){
                                 setGraphic(null);
                             }
                             //TODO if user is already followed set text to "unfollow"
@@ -133,8 +138,12 @@ public class LeaderboardController extends Controller implements Initializable {
 //                                setGraphic(followButton);
 //                                followButton.setText("unfollow");
 //                            }
+                            if(arrayList(stringArrayList).contains(data)){
+                                this.setGraphic(followButton);
+                                followButton.setText("unfollow");
+                            }
                             else {
-                                setGraphic(followButton);
+                                this.setGraphic(followButton);
                             }
                         }
                     }
@@ -148,6 +157,13 @@ public class LeaderboardController extends Controller implements Initializable {
         followButtonColumn.setCellFactory(cellFactory);
 
         table.getColumns().add(followButtonColumn);
+    }
+
+    public ArrayList<String> arrayList(ArrayList<String> stringArrayList) {
+        stringArrayList.add("GDWDfaJkCT");
+        stringArrayList.add("pYucfKgVRG");
+        stringArrayList.add("NyXnjpqHza");
+        return stringArrayList;
     }
 
     @Override

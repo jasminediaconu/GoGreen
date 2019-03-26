@@ -21,7 +21,6 @@
 * Communicate with Wout if needed
 * Try to show the hover instantly instead of loading it from the server, better user experience
 * Check if the badge is achieved or not (boolean saved in the database)
-* Fix Mockito for User and UserController after Wout's changes
 
 ## Popup windows for plus button and functionality (Giuliano):
 

@@ -39,7 +39,8 @@ public class ActivityController {
             removeActivity = ServerApp.dbConnection.prepareStatement("DELETE FROM user_activities "
                     + "WHERE  userid = ? AND activityid = ?");
             retrieveActivities = ServerApp.dbConnection.prepareStatement("SELECT * "
-                    + "FROM user_activities WHERE userid = ? AND date < now() AND date > ? ORDER BY date ASC");
+                    + "FROM user_activities WHERE userid = ? "
+                    + "AND date < now() AND date > ? ORDER BY date ASC");
         } catch (SQLException e) {
             e.printStackTrace();
         }

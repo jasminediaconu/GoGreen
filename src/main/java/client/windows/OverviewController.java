@@ -147,7 +147,9 @@ public class OverviewController extends Controller implements Initializable {
 
     private PopOver popOver = new PopOver();
     List<JFXButton> badges = new ArrayList<>();
-    private List<Achievement> achievementList;
+    private List<Achievement> achievementList = Main.achievements.stream().collect(Collectors.toList());
+    private List<String> titleList = new ArrayList<>();
+    private List<String> descriptionList = new ArrayList<>();
 
     public PopOver getPopOver() {
         return popOver;
@@ -155,6 +157,29 @@ public class OverviewController extends Controller implements Initializable {
 
     @Override
     public void update() {
+        // This checks if the badges are unlocked or not
+        Badges.badge1(badges.get(0));
+        Badges.badge2(badges.get(1));
+        Badges.badge3(badges.get(2));
+        Badges.badge4(badges.get(3));
+        Badges.badge5(badges.get(4));
+        Badges.badge6(badges.get(5));
+        Badges.badge7(badges.get(6));
+        Badges.badge8(badges.get(7));
+        Badges.badge9(badges.get(8));
+        Badges.badge10(badges.get(9));
+        Badges.badge11(badges.get(10));
+        Badges.badge12(badges.get(11));
+        Badges.badge13(badges.get(12));
+        Badges.badge14(badges.get(13));
+        Badges.badge15(badges.get(14));
+    }
+
+    public void retrieveAchievementsInfo() {
+        for (int i = 0; i < achievementList.size(); i++) {
+            titleList.add(achievementList.get(i).getTitle());
+            descriptionList.add(achievementList.get(i).getDescription());
+        }
     }
 
     @Override
@@ -190,15 +215,13 @@ public class OverviewController extends Controller implements Initializable {
 //        series1.setName("Month");
 
         //x.setCategories(FXCollections.observableArrayList());
-
+retrieveAchievementsInfo();
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
 
         row = new HBox();
         row2 = new HBox();
         row3 = new HBox();
-
-        loadAchievements();
 
         String path = "/client/windows/images/badges/";
         for (int i = 0; i < achievementList.size(); i++) {
@@ -209,53 +232,38 @@ public class OverviewController extends Controller implements Initializable {
             badges.get(i).setOnMouseExited(e -> hidePopup());
         }
 
-        title.setText(achievementList.get(0).getTitle());
-        description.setText(achievementList.get(0).getDescription());
-        title1.setText(achievementList.get(1).getTitle());
-        description1.setText(achievementList.get(1).getDescription());
-        title2.setText(achievementList.get(2).getTitle());
-        description2.setText(achievementList.get(2).getDescription());
-        title3.setText(achievementList.get(3).getTitle());
-        description3.setText(achievementList.get(3).getDescription());
-        title4.setText(achievementList.get(4).getTitle());
-        description4.setText(achievementList.get(4).getDescription());
-        title5.setText(achievementList.get(5).getTitle());
-        description5.setText(achievementList.get(5).getDescription());
-        title6.setText(achievementList.get(6).getTitle());
-        description6.setText(achievementList.get(6).getDescription());
-        title7.setText(achievementList.get(7).getTitle());
-        description7.setText(achievementList.get(7).getDescription());
-        title8.setText(achievementList.get(8).getTitle());
-        description8.setText(achievementList.get(8).getDescription());
-        title9.setText(achievementList.get(9).getTitle());
-        description9.setText(achievementList.get(9).getDescription());
-        title10.setText(achievementList.get(10).getTitle());
-        description10.setText(achievementList.get(10).getDescription());
-        title11.setText(achievementList.get(11).getTitle());
-        description11.setText(achievementList.get(11).getDescription());
-        title12.setText(achievementList.get(12).getTitle());
-        description12.setText(achievementList.get(12).getDescription());
-        title13.setText(achievementList.get(13).getTitle());
-        description13.setText(achievementList.get(13).getDescription());
-        title14.setText(achievementList.get(14).getTitle());
-        description14.setText(achievementList.get(14).getDescription());
+        title.setText(titleList.get(0));
+        description.setText(descriptionList.get(0));
+        title1.setText(titleList.get(1));
+        description1.setText(descriptionList.get(1));
+        title2.setText(titleList.get(2));
+        description2.setText(descriptionList.get(2));
+        title3.setText(titleList.get(3));
+        description3.setText(descriptionList.get(3));
+        title4.setText(titleList.get(4));
+        description4.setText(descriptionList.get(4));
+        title5.setText(titleList.get(5));
+        description5.setText(descriptionList.get(5));
+        title6.setText(titleList.get(6));
+        description6.setText(descriptionList.get(6));
+        title7.setText(titleList.get(7));
+        description7.setText(descriptionList.get(7));
+        title8.setText(titleList.get(8));
+        description8.setText(descriptionList.get(8));
+        title9.setText(titleList.get(9));
+        description9.setText(descriptionList.get(9));
+        title10.setText(titleList.get(10));
+        description10.setText(descriptionList.get(10));
+        title11.setText(titleList.get(11));
+        description11.setText(descriptionList.get(11));
+        title12.setText(titleList.get(12));
+        description12.setText(descriptionList.get(12));
+        title13.setText(titleList.get(13));
+        description13.setText(descriptionList.get(13));
+        title14.setText(titleList.get(14));
+        description14.setText(descriptionList.get(14));
 
-        // This checks if the badges are unlocked or not
-        Badges.badge1(badges.get(0));
-        Badges.badge2(badges.get(1));
-        Badges.badge3(badges.get(2));
-        Badges.badge4(badges.get(3));
-        Badges.badge5(badges.get(4));
-        Badges.badge6(badges.get(5));
-        Badges.badge7(badges.get(6));
-        Badges.badge8(badges.get(7));
-        Badges.badge9(badges.get(8));
-        Badges.badge10(badges.get(9));
-        Badges.badge11(badges.get(10));
-        Badges.badge12(badges.get(11));
-        Badges.badge13(badges.get(12));
-        Badges.badge14(badges.get(13));
-        Badges.badge15(badges.get(14));
+
 
 
         // This adds the badges to the different rows of the VBOX
@@ -274,12 +282,13 @@ public class OverviewController extends Controller implements Initializable {
 
     /**
      * This function loads the popup for each button.
-     * @param btn JFXButton
+     *
+     * @param btn   JFXButton
      * @param index int type
      */
     @FXML
     public void popupBadges(JFXButton btn, int index) {
-        String path = "/client/windows/fxml/popup" + index +  ".fxml";
+        String path = "/client/windows/fxml/popup" + index + ".fxml";
         switch (index) {
             case 0:
                 try {
@@ -415,12 +424,5 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     public void hidePopup() {
         popOver.hide();
-    }
-    /**
-     * Loads the achievements in the list.
-     */
-    private void loadAchievements() {
-        //Clears everything in the observable list
-        achievementList = Main.achievements.stream().collect(Collectors.toList());
     }
 }

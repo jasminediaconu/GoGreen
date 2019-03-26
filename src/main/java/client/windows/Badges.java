@@ -54,7 +54,6 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge2(JFXButton btn) {
-        ServerRequests sv = new ServerRequests();
         double sum = 0;
 
         for (Activity a : activities) {
@@ -74,7 +73,6 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge3(JFXButton btn) {
-        ServerRequests sv = new ServerRequests();
         int count = 0;
         List<Activity> filteredList = new ArrayList<>();
 
@@ -83,18 +81,19 @@ public class Badges {
                 filteredList.add(a);
             }
         }
+        if(!filteredList.isEmpty()) {
+            filteredList.sort(Comparator.comparing(Activity::getDate));
+            filteredList.sort((x, y) -> x.getItemID());
 
-        filteredList.sort(Comparator.comparing(Activity::getDate));
-        filteredList.sort((x, y) -> x.getItemID());
+            LocalDate date = filteredList.get(0).getDate();
+            System.out.println(filteredList);
 
-        LocalDate date = filteredList.get(0).getDate();
-        System.out.println(filteredList);
-
-        for (int i = 0; i < filteredList.size(); i++) {
-            if (filteredList.get(i).getDate().equals(date.plusDays(i))) {
-                count++;
-                if (count >= achievementList.get(2).getGoal()) {
-                    btn.setStyle("-fx-opacity: 100%;");
+            for (int i = 0; i < filteredList.size(); i++) {
+                if (filteredList.get(i).getDate().equals(date.plusDays(i))) {
+                    count++;
+                    if (count >= achievementList.get(2).getGoal()) {
+                        btn.setStyle("-fx-opacity: 100%;");
+                    }
                 }
             }
         }
@@ -107,7 +106,6 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge4(JFXButton btn) {
-        ServerRequests sv = new ServerRequests();
         for (Activity a : activities) {
             if (a.getAmount() >= achievementList.get(3).getGoal() && a.getItemID() == 2) {
                 btn.setStyle("-fx-opacity: 100%;");

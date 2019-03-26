@@ -204,12 +204,12 @@ public class MainScreenController extends Pane implements Initializable {
     }
 
 
-
+    /**
+     * This function will hide the popus in the Agenda when the user hovers on the menu buttons.
+     * @param event type
+     */
     public void hideButtonAction(javafx.scene.input.MouseEvent event) {
         AgendaController agendaController = (AgendaController)controllers.get(0);
-        OverviewController overviewController = (OverviewController)controllers.get(0);
-
-        overviewController.getPopOver().hide();
         agendaController.getPopOver1().hide();
         agendaController.getPopOver2().hide();
         agendaController.getPopOver3().hide();

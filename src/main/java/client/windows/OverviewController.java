@@ -45,11 +45,11 @@ public class OverviewController extends Controller implements Initializable {
     Pane overview;
 
     @FXML
-    private Pane badgePopup = new Pane();
+    private Pane badgePopup;
     @FXML
-    private Pane badgePopup2 = new Pane();
+    private Pane badgePopup2;
     @FXML
-    private Pane badgePopup3 = new Pane();
+    private Pane badgePopup3;
     @FXML
     private Pane badgePopup4;
     @FXML

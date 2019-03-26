@@ -3,6 +3,8 @@ package client.windows;
 import client.Main;
 import client.ServerRequests;
 import client.objects.Activity;
+import client.user.Achievement;
+import client.user.ClientUser;
 import client.user.User;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
@@ -12,8 +14,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Badges {
+
+    private static List<Achievement> achievementList = Main.achievements.stream().collect(Collectors.toList());
+    private static ClientUser user = new ClientUser(Main.clientUser.getUsername(),
+            Main.clientUser.getCountry(), Main.clientUser.getTotalCo2(), Main.clientUser.getStreakLength(),
+            Main.clientUser.getSolarPower(), Main.clientUser.getLeds(), Main.clientUser.getRoomTemp(),
+            Main.clientUser.getEmail(), Main.clientUser.getImageURL(), Main.clientUser.getCarType(),
+            Main.clientUser.getCarEmissionType());
+    private static ServerRequests sv = new ServerRequests();
+    private static List<Activity> activities = sv.retrieveActivities("y");
+    private static ObservableList<User> globalUsers =
+            FXCollections.observableArrayList(sv.getGlobalBestProfile());
 
     /**
      * This function unlocks the "Nomad" badge.
@@ -22,13 +36,11 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge1(JFXButton btn) {
-        ServerRequests sv = new ServerRequests();
         double sum = 0;
-        List<Activity> activities = sv.retrieveActivities("y");
         for (Activity a : activities) {
             if (a.getItemID() >= 8) {
                 sum += a.getAmount();
-                if (sum >= Main.achievements.get(0).getGoal()) {
+                if (sum >= achievementList.get(0).getGoal()) {
                     btn.setStyle("-fx-opacity: 100%;");
                 }
             }
@@ -44,11 +56,11 @@ public class Badges {
     public static void badge2(JFXButton btn) {
         ServerRequests sv = new ServerRequests();
         double sum = 0;
-        List<Activity> activities = sv.retrieveActivities("y");
+
         for (Activity a : activities) {
             if (a.getItemID() >= 8) {
                 sum += a.getAmount();
-                if (sum >= Main.achievements.get(1).getGoal()) {
+                if (sum >= achievementList.get(1).getGoal()) {
                     btn.setStyle("-fx-opacity: 100%;");
                 }
             }
@@ -64,7 +76,6 @@ public class Badges {
     public static void badge3(JFXButton btn) {
         ServerRequests sv = new ServerRequests();
         int count = 0;
-        List<Activity> activities = sv.retrieveActivities("y");
         List<Activity> filteredList = new ArrayList<>();
 
         for (Activity a : activities) {
@@ -82,7 +93,7 @@ public class Badges {
         for (int i = 0; i < filteredList.size(); i++) {
             if (filteredList.get(i).getDate().equals(date.plusDays(i))) {
                 count++;
-                if (count >= Main.achievements.get(2).getGoal()) {
+                if (count >= achievementList.get(2).getGoal()) {
                     btn.setStyle("-fx-opacity: 100%;");
                 }
             }
@@ -97,9 +108,8 @@ public class Badges {
      */
     public static void badge4(JFXButton btn) {
         ServerRequests sv = new ServerRequests();
-        List<Activity> activities = sv.retrieveActivities("y");
         for (Activity a : activities) {
-            if (a.getAmount() >= Main.achievements.get(3).getGoal() && a.getItemID() == 2) {
+            if (a.getAmount() >= achievementList.get(3).getGoal() && a.getItemID() == 2) {
                 btn.setStyle("-fx-opacity: 100%;");
             }
         }
@@ -112,13 +122,11 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge5(JFXButton btn) {
-        ServerRequests sv = new ServerRequests();
         double sum = 0;
-        List<Activity> activities = sv.retrieveActivities("y");
         for (Activity a : activities) {
             if (a.getItemID() == 6) {
                 sum += a.getAmount();
-                if (sum >= Main.achievements.get(4).getGoal()) {
+                if (sum >= achievementList.get(4).getGoal()) {
                     btn.setStyle("-fx-opacity: 100%;");
                 }
             }
@@ -132,13 +140,11 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge6(JFXButton btn) {
-        ServerRequests sv = new ServerRequests();
         double sum = 0;
-        List<Activity> activities = sv.retrieveActivities("y");
         for (Activity a : activities) {
             if (a.getItemID() == 6) {
                 sum += a.getAmount();
-                if (sum >= Main.achievements.get(5).getGoal()) {
+                if (sum >= achievementList.get(5).getGoal()) {
                     btn.setStyle("-fx-opacity: 100%;");
                 }
             }
@@ -152,8 +158,8 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge7(JFXButton btn) {
-        int temperature = Main.clientUser.getRoomTemp();
-        if (temperature == Main.achievements.get(6).getGoal()) {
+        int temperature = user.getRoomTemp();
+        if (temperature == achievementList.get(6).getGoal()) {
             btn.setStyle("-fx-opacity: 100%;");
         }
     }
@@ -165,10 +171,8 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge8(JFXButton btn) {
-        ServerRequests sv = new ServerRequests();
-        List<Activity> activities = sv.retrieveActivities("y");
         int activityNumber = activities.size();
-        if (activityNumber >= Main.achievements.get(7).getGoal()) {
+        if (activityNumber >= achievementList.get(7).getGoal()) {
             btn.setStyle("-fx-opacity: 100%;");
         }
     }
@@ -180,8 +184,8 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge9(JFXButton btn) {
-        int streak = Main.clientUser.getStreakLength();
-        if (streak >= Main.achievements.get(8).getGoal()) {
+        int streak = user.getStreakLength();
+        if (streak >= achievementList.get(8).getGoal()) {
             btn.setStyle("-fx-opacity: 100%;");
         }
     }
@@ -193,8 +197,8 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge10(JFXButton btn) {
-        int following = Main.clientUser.getFollowing().size();
-        if (following >= Main.achievements.get(9).getGoal()) {
+        int following = user.getFollowing().size();
+        if (following >= achievementList.get(9).getGoal()) {
             btn.setStyle("-fx-opacity: 100%;");
         }
     }
@@ -206,10 +210,7 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge11(JFXButton btn) {
-        ServerRequests sv = new ServerRequests();
-        ObservableList<User> globalUsers =
-                FXCollections.observableArrayList(sv.getGlobalBestProfile());
-        if (globalUsers.get(0).getUsername().equals(Main.clientUser.getUsername())) {
+        if (globalUsers.get(0).getUsername().equals(user.getUsername())) {
             btn.setStyle("-fx-opacity: 100%;");
         }
     }
@@ -221,11 +222,8 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge12(JFXButton btn) {
-        ServerRequests sv = new ServerRequests();
-        ObservableList<User> globalUsers =
-                FXCollections.observableArrayList(sv.getGlobalBestProfile());
         for (User u : globalUsers) {
-            if (u.getUsername().equals(Main.clientUser.getUsername())) {
+            if (u.getUsername().equals(user.getUsername())) {
                 btn.setStyle("-fx-opacity: 100%;");
             }
         }
@@ -238,8 +236,8 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge13(JFXButton btn) {
-        int co2 = (int) Math.round(Main.clientUser.getTotalCo2());
-        if (co2 >= Main.achievements.get(12).getGoal()) {
+        int co2 = (int) Math.round(user.getTotalCo2());
+        if (co2 >= achievementList.get(12).getGoal()) {
             btn.setStyle("-fx-opacity: 100%;");
         }
     }
@@ -251,8 +249,8 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge14(JFXButton btn) {
-        int co2 = (int) Math.round(Main.clientUser.getTotalCo2());
-        if (co2 >= Main.achievements.get(13).getGoal()) {
+        int co2 = (int) Math.round(user.getTotalCo2());
+        if (co2 >= achievementList.get(13).getGoal()) {
             btn.setStyle("-fx-opacity: 100%;");
         }
     }
@@ -264,8 +262,8 @@ public class Badges {
      * @param btn badge button.
      */
     public static void badge15(JFXButton btn) {
-        int co2 = (int) Math.round(Main.clientUser.getTotalCo2());
-        if (co2 >= Main.achievements.get(14).getGoal()) {
+        int co2 = (int) Math.round(user.getTotalCo2());
+        if (co2 >= achievementList.get(14).getGoal()) {
             btn.setStyle("-fx-opacity: 100%;");
         }
     }

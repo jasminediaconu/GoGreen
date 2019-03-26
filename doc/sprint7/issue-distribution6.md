@@ -53,6 +53,7 @@
 * CSS for the table
 * Profile picture in leaderboard rowsize
 * ranknumber
+* Checkstyle warnings less then 5 warnings
 
 ## Mixed Tasks (Gino): 
 

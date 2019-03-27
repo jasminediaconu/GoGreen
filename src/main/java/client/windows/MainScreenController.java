@@ -88,6 +88,11 @@ public class MainScreenController extends Pane implements Initializable {
         addController("leaderboard.fxml");
     }
 
+
+    public ArrayList<Controller> getControllers() {
+        return controllers;
+    }
+
     /**
      * Loads the .fxml file and adds its controller to the arrayList
      *

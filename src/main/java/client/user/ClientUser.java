@@ -269,6 +269,10 @@ public class ClientUser extends User {
         activityList.add(activity);
     }
 
+    public void removeFromActivityList(Activity activity) {
+        activityList.remove(activity);
+    }
+
     /**
      * This function will return the User List following.
      *

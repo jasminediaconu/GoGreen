@@ -5,6 +5,7 @@ import client.ServerRequests;
 import client.helper.RowCount;
 import client.objects.Activity;
 import client.objects.Item;
+import client.profilescreen.ProfileController;
 import client.user.ClientUser;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
@@ -109,6 +110,14 @@ public class AgendaController extends Controller implements Initializable {
     private static GridPane gridPane;
     private static VBox agendaBox;
 
+    public static GridPane getGridPane() {
+        return gridPane;
+    }
+
+    public static VBox getAgendaBox() {
+        return agendaBox;
+    }
+
     /**
      * Constructor to be used in the MainScreenController.
      * To be able to use the variables, methods of this class.
@@ -174,7 +183,7 @@ public class AgendaController extends Controller implements Initializable {
      * The dialog button contains a message and two buttons:
      * a close button and a delete one connected to the deleteActivity function.
      */
-    private void deleteActivityDialog(int index) {
+    private void deleteActivityDialog(int activityIndex, int rowCounter) {
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
         Text heading = new Text("Are you sure?");
         dialogLayout.setHeading(heading);
@@ -183,7 +192,7 @@ public class AgendaController extends Controller implements Initializable {
         JFXButton close = new JFXButton("Close");
         String css = "-fx-border-color:#95e743;-fx-border-radius:2;-fx-background-color:#ecffe6";
         close.setStyle(css);
-        del.setOnMouseClicked(e -> deleteActivity(index));
+        del.setOnMouseClicked(e -> deleteActivity(activityIndex, rowCounter));
         close.setOnMouseClicked(e -> dialog.close());
         String message = "You are about to delete the activity. Do you want to proceed?";
         dialogLayout.setBody(new Text(message), close, del);
@@ -194,21 +203,22 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This function will delete the activities from the agenda.
      *
-     * @param rowIndex int type.
+     * @param activityIndex
+     * @param rowCounter
      */
-    public void deleteActivity(int rowIndex) {
+    public void deleteActivity(int activityIndex, int rowCounter) {
         ServerRequests sv = new ServerRequests();
-        int activityID = Main.clientUser.getActivityList().get(rowIndex-1).getActivityID();
+        int activityID = Main.clientUser.getActivityList().get(activityIndex).getActivityID();
 
         sv.removeActivity(activityID);
 
-        gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
+        gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowCounter);
         // If there are no activities for that day, delete the date
         agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
         dialog.close();
     }
+
 
     public Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
         Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
@@ -229,18 +239,20 @@ public class AgendaController extends Controller implements Initializable {
 
         String path = "/client/windows/images/delete.png";
 
-        int counter = 0;
+        int rowCounter = 0;
+        int activityCounter = 0;
         for (LocalDate date : activityMap.keySet()) {
+            if (rowCounter > 0) {
+                rowCounter++;
+            }
             String css = "-fx-background-position: 20; -fx-font-size: 28;";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM, yyy");
             dateText = new Text(formatter.format(date));
 
             dateText.setStyle(css);
-            gridPane.add(dateText, 1, counter);
-            counter++;
-
+            gridPane.add(dateText, 1, rowCounter);
             for (Activity activity : activityMap.get(date)) {
-
+                rowCounter++;
                 Item item = Main.items.get(activity.getItemID() - 1);
                 String unit = "";
                 Double co2Saved = Main.round((item.getCo2() * activity.getAmount()), 2);
@@ -256,12 +268,12 @@ public class AgendaController extends Controller implements Initializable {
                         + unit + ", CO2 saved: " + co2Saved + "kg");
 
                 text.setWrappingWidth(310.00);
-                gridPane.add(text, 1, counter);
+                gridPane.add(text, 1, rowCounter);
                 JFXButton button = new JFXButton("", new ImageView(path));
-                gridPane.add(button, 2, counter);
-                int ii = counter;
-                button.setOnMouseClicked(e -> deleteActivityDialog(ii));
-                counter++;
+                gridPane.add(button, 2, rowCounter);
+                int ii = activityCounter++;
+                int iii = rowCounter;
+                button.setOnMouseClicked(e -> deleteActivityDialog(ii, iii));
             }
         }
     }
@@ -462,6 +474,9 @@ public class AgendaController extends Controller implements Initializable {
      */
     @FXML
     private void applyButton(String itemName) {
+
+        ProfileController profileController = new ProfileController();
+
         ServerRequests sv = new ServerRequests();
         double parsedAmount = -1;
         if (amount.getText() != null && amount.getText().length() > 0) {
@@ -469,6 +484,30 @@ public class AgendaController extends Controller implements Initializable {
         }
 
         LocalDate date = datepicker.getValue();
+
+        if (itemName.equals("Solar panel")) {
+            profileController.updateAgenda(itemName, parsedAmount);
+            Main.clientUser.setSolarPower((int) parsedAmount);
+            sv.updateClientUserProfile();
+            showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
+            return;
+        }
+
+        else if (itemName.equals("Lower Temperature")) {
+            profileController.updateAgenda(itemName, parsedAmount);
+            Main.clientUser.setRoomTemp(21 -(int) parsedAmount);
+            sv.updateClientUserProfile();
+            showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
+            return;
+        }
+
+        else if (itemName.equals("LEDs")) {
+            profileController.updateAgenda(itemName, parsedAmount);
+            Main.clientUser.setLeds((int) parsedAmount);
+            sv.updateClientUserProfile();
+            showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
+            return;
+        }
 
         if (itemName != null && parsedAmount > 0 && date != null) {
             System.out.println(date.toString());

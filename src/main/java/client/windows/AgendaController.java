@@ -30,6 +30,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import org.controlsfx.control.PopOver;
+import server.ServerApp;
 
 import java.io.IOException;
 import java.net.URL;
@@ -475,17 +476,33 @@ public class AgendaController extends Controller implements Initializable {
             if (sv.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
 
-                Item item = Main.items.get(activity.getItemID() - 1);
-                double addition = activity.getAmount() * item.getCo2();
-                if (!item.getType().equals("energy")) {
-                    addition /= 1000.0;
-                }
-                Main.clientUser.increaseTotalCo2(addition);
-                sv.updateClientUserProfile();
+                increaseTotalCO2(activity);
 
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }
+    }
+
+    private void increaseTotalCO2(Activity activity) {
+        ServerRequests sv = new ServerRequests();
+        Main.clientUser.increaseTotalCo2(findValueFromActivity(activity));
+        sv.updateClientUserProfile();
+    }
+
+    private void decreaseTotalCO2(Activity activity) {
+        ServerRequests sv = new ServerRequests();
+        Main.clientUser.increaseTotalCo2(-findValueFromActivity(activity));
+        sv.updateClientUserProfile();
+    }
+
+    private double findValueFromActivity(Activity activity) {
+        Item item = Main.items.get(activity.getItemID() - 1);
+        double value = Main.round(activity.getAmount() * item.getCo2(), 2);
+        if (item.getType().equals("food")) {
+            value /= 1000.0;
+        }
+        System.out.println("\n\n\n\n\n\n\n " + value + "\n\n\n\n\n\n\n\n");
+        return value;
     }
 
     public JFXNodesList getNodesList() {

@@ -67,18 +67,20 @@ public class Badges {
         List<Activity> activities = sv.retrieveActivities("y");
         List<Activity> filteredList = new ArrayList<>();
 
-        for(Activity a : activities) {
-            if(a.getItemID() == 1) {
+        for (Activity a : activities) {
+            if (a.getItemID() == 1) {
                 filteredList.add(a);
             }
+        }
+
+        if (filteredList.size() < 1) {
+            return;
         }
 
         filteredList.sort(Comparator.comparing(Activity::getDate));
         filteredList.sort((x, y) -> x.getItemID());
 
         LocalDate date = filteredList.get(0).getDate();
-        System.out.println(filteredList);
-
         for (int i = 0; i < filteredList.size(); i++) {
             if (filteredList.get(i).getDate().equals(date.plusDays(i))) {
                 count++;

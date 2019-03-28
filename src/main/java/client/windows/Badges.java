@@ -101,7 +101,7 @@ public class Badges {
 
     /**
      * This function unlocks the "The lie" badge.
-     * To unlock it the user needs to eat 5 vegetarian meals in a day.
+     * To unlock it the user needs to eat 1kg of vegetarian meal in a day.
      *
      * @param btn badge button.
      */

@@ -57,7 +57,7 @@ public class OverviewController extends Controller implements Initializable {
 
     private PopOver popOver = new PopOver();
     List<JFXButton> badges = new ArrayList<>();
-    private List<Achievement> achievementList;
+    private List<Achievement> achievementList = new ArrayList<>();
 
     @Override
     public void update() {

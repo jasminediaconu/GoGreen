@@ -51,6 +51,7 @@ NEW:
 * Design decisions (Product) of the REPORT
 * Mailserver Wout & Gino
 * Overview, is the achievement achieved?
+* Remove total CO2 once the activity has been removed, both on profilepage or by using popup windows
 
 OLD:
 

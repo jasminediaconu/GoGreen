@@ -190,7 +190,7 @@ public class OverviewController extends Controller implements Initializable {
         HashMap<String, Double> result = new HashMap<String, Double>();
         for (Activity activity:activityList) {
             String key = activity.getDate().toString();
-            double value = Main.items.get(activity.getItemID()-1).getCo2();
+            double value = Main.items.get(activity.getItemID()-1).getCo2() * activity.getAmount();
             if (period.equals("m")) {
                 key = "Week " + activity.getDate().get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
             } else if (period.equals("y") || period.equals("h")) {

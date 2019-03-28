@@ -63,7 +63,8 @@ public class UserController {
                     "SELECT username, countryname, totalco2 FROM user_profile AS up "
                             + "JOIN (SELECT followingid FROM user_follows WHERE userid = ?) "
                             + "AS uf ON up.userid = uf.followingid "
-                            + "JOIN user_login AS ul ON up.userid = ul.userid;"
+                            + "JOIN user_login AS ul ON up.userid = ul.userid"
+                            + "ORDER BY totalco2 DESC;"
             );
 
             selectGlobalBest = ServerApp.dbConnection.prepareStatement(

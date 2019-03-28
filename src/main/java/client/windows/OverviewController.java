@@ -2,6 +2,7 @@
 package client.windows;
 
 import client.Main;
+import client.objects.Activity;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXML;
@@ -22,9 +23,9 @@ import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
@@ -175,5 +176,33 @@ public class OverviewController extends Controller implements Initializable {
     private void loadAchievements() {
         //Clears everything in the observable list
         achievementList = Main.achievements.stream().collect(Collectors.toList());
+    }
+
+    /**
+     * This function will make a hashmap sorted by LocalDate or week or month.
+     *
+     * @param activityList List<Activity> type
+     * @param period String type
+     *
+     * @return a HashMap<String, Double> with the correct values for the graph
+     */
+    private HashMap<String, Double> mapActivitiesToGraph(List<Activity> activityList, String period) {
+        HashMap<String, Double> result = new HashMap<String, Double>();
+        for (Activity activity:activityList) {
+            String key = activity.getDate().toString();
+            double value = Main.items.get(activity.getItemID()-1).getCo2();
+            if (period.equals("m")) {
+                key = "Week " + activity.getDate().get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+            } else if (period.equals("y") || period.equals("h")) {
+                key = activity.getDate().getMonth().name();
+            }
+
+            if (!result.containsKey(key)) {
+                result.put(key, value);
+            } else {
+                result.put(key, result.get(key) + value);
+            }
+        }
+        return result;
     }
 }

@@ -501,7 +501,6 @@ public class AgendaController extends Controller implements Initializable {
         if (item.getType().equals("food")) {
             value /= 1000.0;
         }
-        System.out.println("\n\n\n\n\n\n\n " + value + "\n\n\n\n\n\n\n\n");
         return value;
     }
 

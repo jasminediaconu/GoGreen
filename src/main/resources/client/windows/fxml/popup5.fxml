@@ -5,7 +5,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="142.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.OverviewController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="142.0" style="-fx-background-radius: 20; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.windows.OverviewController">
     <children>
         <Line endX="100.0" layoutX="9.0" layoutY="37.0" startX="23.499969482421875" startY="7.62939453125E-6" stroke="#95e743" strokeWidth="2.0" />
         <Text fx:id="title5" fill="#95e743" layoutY="24.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="142.0000000000001">
@@ -13,5 +13,15 @@
                 <Font name="System Bold" size="14.0" />
             </font></Text>
         <Text fx:id="description5" layoutX="4.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="135.07395601272594" />
+      <Text fill="#95e743" layoutX="9.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Progress:" wrappingWidth="67.0012025833131">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Text>
+      <Text fx:id="progress5" layoutX="78.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="53.037518024444694">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Text>
     </children>
 </Pane>

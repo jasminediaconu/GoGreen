@@ -78,6 +78,37 @@ public class OverviewController extends Controller implements Initializable {
     private Pane badgePopup15;
 
     @FXML
+    private Text progress;
+    @FXML
+    private Text progress1;
+    @FXML
+    private Text progress2;
+    @FXML
+    private Text progress3;
+    @FXML
+    private Text progress4;
+    @FXML
+    private Text progress5;
+    @FXML
+    private Text progress6;
+    @FXML
+    private Text progress7;
+    @FXML
+    private Text progress8;
+    @FXML
+    private Text progress9;
+    @FXML
+    private Text progress10;
+    @FXML
+    private Text progress11;
+    @FXML
+    private Text progress12;
+    @FXML
+    private Text progress13;
+    @FXML
+    private Text progress14;
+
+    @FXML
     private FontAwesomeIcon refresh;
 
     @FXML
@@ -163,7 +194,7 @@ public class OverviewController extends Controller implements Initializable {
     @Override
     public void update() {
         // This checks if the badges are unlocked or not
-        refresh.setOnMouseClicked(e ->rotate());
+        refresh.setOnMouseClicked(e -> rotate());
         Badges.badge1(badges.get(0));
         Badges.badge2(badges.get(1));
         Badges.badge3(badges.get(2));
@@ -230,7 +261,7 @@ public class OverviewController extends Controller implements Initializable {
 //        series1.setName("Month");
 
         //x.setCategories(FXCollections.observableArrayList());
-retrieveAchievementsInfo();
+        retrieveAchievementsInfo();
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
 

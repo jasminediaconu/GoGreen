@@ -39,7 +39,7 @@
                   </Button>
                         <TableView fx:id="table" layoutX="30.0" layoutY="141.0" prefHeight="280.0" prefWidth="512.0">
                             <columns>
-                                <TableColumn editable="false" prefWidth="40" resizable="false" sortable="false" text="rank" />
+                                <TableColumn fx:id="rankColumn" editable="false" prefWidth="40" resizable="false" sortable="false" text="rank" />
                                 <TableColumn editable="false" prefWidth="81" sortable="false" text="pic" />
                                 <TableColumn fx:id="usernameColumn" editable="false" prefWidth="129" sortable="false" text="Username" />
                                 <TableColumn fx:id="countryColumn" editable="false" prefWidth="95" sortable="false" text="country" />

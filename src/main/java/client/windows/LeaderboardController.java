@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,9 +22,12 @@ import javafx.util.Callback;
 public class LeaderboardController extends Controller implements Initializable {
 
     @FXML public TableView<User> table;
+    @FXML public TableColumn<User, Integer> rankColumn;
     @FXML public TableColumn<User, String> usernameColumn;
     @FXML public TableColumn<User, String> countryColumn;
     @FXML public TableColumn<User, Double> totalCo2Column;
+
+
     @FXML public Button globalButton;
     @FXML public Button followingButton;
 
@@ -45,6 +50,7 @@ public class LeaderboardController extends Controller implements Initializable {
         arrayList(followingUsernames);
 
         table.setItems(getGlobalUsers());
+        addRanking();
     }
 
     /**
@@ -161,6 +167,14 @@ public class LeaderboardController extends Controller implements Initializable {
         followButtonColumn.setCellFactory(cellFactory);
 
         table.getColumns().add(followButtonColumn);
+    }
+    public void addRanking(){
+        rankColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, Integer>, ObservableValue<Integer>>() {
+            @Override
+            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<User, Integer> userIntegerCellDataFeatures) {
+                return new ReadOnlyObjectWrapper<>(table.getItems().indexOf(userIntegerCellDataFeatures.getValue())+1);
+            }
+        });
     }
 
     /**

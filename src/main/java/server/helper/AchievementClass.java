@@ -6,7 +6,9 @@ public class AchievementClass {
     public String title;
     public String description;
     public String path;
+    public int progress;
     public int goal;
+    public boolean achieved;
 
     /**
      * This is the AchievementClass, all achievements will be populated here.
@@ -16,11 +18,13 @@ public class AchievementClass {
      * @param description String type
      * @param path        double type
      */
-    public AchievementClass(int id, String title, String description, String path, int goal) {
+    public AchievementClass(int id, String title, String description, String path, int progress, int goal, boolean achieved) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.path = path;
+        this.progress = progress;
         this.goal = goal;
+        this.achieved = achieved;
     }
 }

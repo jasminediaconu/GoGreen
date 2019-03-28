@@ -43,7 +43,9 @@ public class Achievement {
      */
     private static BufferedImage loadImage(String path) {
         try {
-            return ImageIO.read(Achievement.class.getResourceAsStream("/client/windows/images/badges/" + path + ".png"));
+            return ImageIO.read(Achievement.class.getResourceAsStream(
+                    "/client/windows/images/badges/"
+                    + path + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
             return null;

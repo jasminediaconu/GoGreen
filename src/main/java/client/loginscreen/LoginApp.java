@@ -33,5 +33,4 @@ public class LoginApp extends Application {
 
         stage.getIcons().add(new Image("/client/windows/images/icon.png"));
     }
-
 }

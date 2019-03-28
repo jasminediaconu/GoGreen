@@ -29,11 +29,16 @@ import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
 
-    @FXML  private BarChart<String, Integer> barChart;
-    @FXML private JFXButton aabutton1;
-    @FXML private  JFXButton aabutton2;
-    @FXML private JFXButton clearGraph;
-    @FXML private CategoryAxis x;
+    @FXML
+    private BarChart<String, Integer> barChart;
+    @FXML
+    private JFXButton aabutton1;
+    @FXML
+    private JFXButton aabutton2;
+    @FXML
+    private JFXButton clearGraph;
+    @FXML
+    private CategoryAxis x;
 
     @FXML
     LineChart<String, Integer> lineChart;

@@ -29,8 +29,10 @@ public class LoginRequestTest {
     public void loginSucces() {
         loginRequest = new LoginRequest("admin", "admin", false, new LoginController());
         boolean res = loginRequest.doInBackground(null);
-        Assert.assertTrue(res);
         loginRequest.onPostExecute(null);
+        loginRequest.progressCallback(null);
+        Assert.assertTrue(res);
+
     }
 
     @Test

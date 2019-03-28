@@ -340,10 +340,10 @@ public class AgendaController extends Controller implements Initializable {
      */
     private void loadTransportItems() {
 
-       transportList.addAll("Walking",
-               "By bike",
-               "Public transport",
-               "By car");
+        transportList.addAll("Walking",
+                "By bike",
+                "Public transport",
+                "By car");
 
 
 //        //Clears everything in the observable list

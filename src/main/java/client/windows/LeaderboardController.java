@@ -21,7 +21,7 @@ import javafx.util.Callback;
 
 public class LeaderboardController extends Controller implements Initializable {
 
-    @FXML public TableView<User> table;
+    @FXML public TableView<User> table = new TableView<>();
     @FXML public TableColumn<User, Integer> rankColumn;
     @FXML public TableColumn<User, String> usernameColumn;
     @FXML public TableColumn<User, String> countryColumn;

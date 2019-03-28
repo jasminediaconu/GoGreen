@@ -1,5 +1,6 @@
 package client.windows;
 
+import client.Main;
 import client.ServerRequests;
 import client.user.ClientUser;
 import client.user.User;
@@ -142,7 +143,7 @@ public class LeaderboardController extends Controller implements Initializable {
                             setGraphic(null);
                         }  else {
                             String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
-                            if(data.equals("admin")){
+                            if(data.equals(Main.clientUser.getUsername())){
                                 setGraphic(null);
                             }
                             else {

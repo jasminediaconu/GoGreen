@@ -20,7 +20,7 @@
     -fx-cursor: hand;
 }
 .table-view {
-    -fx-background-color: #F8F8F8;
+    -fx-background-color: transparent;
 }
 .table-view .column-header {
     -fx-background-color: #95e743;

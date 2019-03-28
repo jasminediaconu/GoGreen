@@ -19,7 +19,7 @@ public class AchievementController {
     private static PreparedStatement kgVegetarianMeal;
     private static PreparedStatement solarPanels;
     private static PreparedStatement temperature;
-    private static PreparedStatement activityAmount;
+    private static PreparedStatement activityExists;
     private static PreparedStatement streakLength;
     private static PreparedStatement followTenPeople;
     private static PreparedStatement globalSpot;
@@ -33,32 +33,42 @@ public class AchievementController {
         try {
             kmsTraveled = ServerApp.dbConnection.prepareStatement(
                     "SELECT sum(amount) FROM user_activities AS ua JOIN (SELECT itemid FROM items"
-                    + " WHERE type = 'transport') AS it ON ua.itemid = it.itemid WHERE userid = ?;"
+                            + " WHERE type = 'transport') AS it ON ua.itemid = it.itemid"
+                            + " WHERE userid = ?;"
             );
 
             uniqueRegularMeals = ServerApp.dbConnection.prepareStatement(
-                    ""
+                    "SELECT max(numdays) maxseq FROM (SELECT grp, min(date) as date_start,"
+                            + " max(date) AS mr_end, count(distinct date) AS numdays FROM"
+                            + " (SELECT date, (date - cast(dense_rank() OVER (ORDER BY date)"
+                            + " AS int)) AS grp FROM (SELECT date FROM user_activities AS ua"
+                            + " JOIN (SELECT itemid FROM items WHERE name = 'Regular meal') AS it"
+                            + " on ua.itemid = it.itemid WHERE userid = ? ORDER BY date ASC)"
+                            + " AS t) AS t GROUP BY grp) AS t;"
             );
 
             kgVegetarianMeal = ServerApp.dbConnection.prepareStatement(
-                    ""
+                    "SELECT sum(amount) FROM user_activities AS ua join (SELECT itemid FROM items"
+                            + " WHERE name = 'Vegetarian meal') AS it on ua.itemid = it.itemid"
+                            + " WHERE userid = ?;"
             );
 
             solarPanels = ServerApp.dbConnection.prepareStatement(
                     "SELECT sum(amount) FROM user_activities AS ua JOIN (SELECT itemid FROM items"
-                            + " WHERE name = 'Solar panel') AS it ON ua.itemid = it.itemid WHERE userid = ?;"
+                            + " WHERE name = 'Solar panel') AS it ON ua.itemid = it.itemid"
+                            + " WHERE userid = ?;"
             );
 
-            activityAmount = ServerApp.dbConnection.prepareStatement(
-                    ""
+            activityExists = ServerApp.dbConnection.prepareStatement(
+                    "SELECT 1 FROM user_activities WHERE userid = ?;"
             );
 
             streakLength = ServerApp.dbConnection.prepareStatement(
-                    ""
+                    "SELECT streaklength FROM user_profile WHERE userid = ?;"
             );
 
             followTenPeople = ServerApp.dbConnection.prepareStatement(
-                    ""
+                    "SELECT count(*) FROM user_follows WHERE userid = ?;"
             );
 
             globalSpot = ServerApp.dbConnection.prepareStatement(

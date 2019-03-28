@@ -33,14 +33,21 @@
     -fx-border-width: 0 0 0 0;
 }
 .table-row-cell {
-    -fx-cell-size: 80px;
+    -fx-cell-size: 60px;
     -fx-border-width: 0 0 0.5 0;
     -fx-border-color: #8c8686;
     -fx-background-color: rgb(235,235,235);;
 }
+.table-row-cell:selected {
+    -fx-background-color: #BCB8B7;
+}
 #usernameColumn{
     -fx-font-weight: bold;
     -fx-font-size: 14px;
+}
+#rankColumn {
+    -fx-font-size: 14px;
+    -fx-alignment: center;
 }
 .table-view .column-header .text {
     -fx-fill: white;

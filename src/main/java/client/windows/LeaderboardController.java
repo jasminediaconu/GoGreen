@@ -2,7 +2,6 @@ package client.windows;
 
 import client.Main;
 import client.ServerRequests;
-import client.user.ClientUser;
 import client.user.User;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,7 +35,13 @@ public class LeaderboardController extends Controller implements Initializable {
 
     ArrayList<String> followingUsernames = new ArrayList<>();
 
-    public void initialize(URL url, ResourceBundle rb) {
+    /**
+     * Initialize the Leaderboard with global top 10.
+     *
+     * @param url            URL
+     * @param resourceBundle ResourceBundle
+     */
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
         countryColumn.setCellValueFactory(new PropertyValueFactory<User, String>("country"));
         totalCo2Column.setCellValueFactory(new PropertyValueFactory<User, Double>("totalCo2"));
@@ -56,6 +61,7 @@ public class LeaderboardController extends Controller implements Initializable {
 
     /**
      * The observable list contains the top 10 global users.
+     *
      * @return the list of global users
      */
     private ObservableList<User> getGlobalUsers(){
@@ -65,6 +71,7 @@ public class LeaderboardController extends Controller implements Initializable {
 
     /**
      * The observable list contains the users the client is following.
+     *
      * @return the list of following users
      */
     private ObservableList<User> getFollowingUsers(){
@@ -169,19 +176,24 @@ public class LeaderboardController extends Controller implements Initializable {
 
         table.getColumns().add(followButtonColumn);
     }
+
+    /**
+     * Add the row numbers to the rank column.
+     */
     public void addRanking(){
         rankColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, Integer>, ObservableValue<Integer>>() {
             @Override
             public ObservableValue<Integer> call(TableColumn.CellDataFeatures<User, Integer> userIntegerCellDataFeatures) {
-                return new ReadOnlyObjectWrapper<>(table.getItems().indexOf(userIntegerCellDataFeatures.getValue())+1);
+                return new ReadOnlyObjectWrapper<>(table.getItems().indexOf(userIntegerCellDataFeatures.getValue()) + 1);
             }
         });
     }
 
     /**
      * Add only the usernames the clientUser is following to arrayList.
+     *
      * @param followingUsernames usernames the client follows.
-     * @return the arrayList containing the following usernames.
+     * @return the arrayList containing the usernames the clientUser is following.
      */
     public ArrayList<String> arrayList(ArrayList<String> followingUsernames) {
         table.setItems(getFollowingUsers());

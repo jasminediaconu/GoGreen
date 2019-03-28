@@ -40,9 +40,9 @@
                         <TableView fx:id="table" layoutX="30.0" layoutY="141.0" prefHeight="280.0" prefWidth="512.0">
                             <columns>
                                 <TableColumn fx:id="rankColumn" editable="false" prefWidth="50" resizable="false" sortable="false" text="rank" />
-                                <TableColumn fx:id="usernameColumn" editable="false" prefWidth="170" sortable="false" text="Username" />
-                                <TableColumn fx:id="countryColumn" editable="false" prefWidth="125" sortable="false" text="country" />
-                                <TableColumn fx:id="totalCo2Column" editable="false" prefWidth="84" sortable="false" text="CO2 reduced" />
+                                <TableColumn fx:id="usernameColumn" editable="false" prefWidth="170" resizable="false" sortable="false" text="Username" />
+                                <TableColumn fx:id="countryColumn" editable="false" prefWidth="125" resizable="false" sortable="false" text="country" />
+                                <TableColumn fx:id="totalCo2Column" editable="false" prefWidth="84" resizable="false" sortable="false" text="CO2 reduced" />
                             </columns>
                         </TableView>
                     </children>

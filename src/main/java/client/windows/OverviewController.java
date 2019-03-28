@@ -1,9 +1,10 @@
-
 package client.windows;
 
 import client.Main;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -74,6 +76,9 @@ public class OverviewController extends Controller implements Initializable {
     private Pane badgePopup14;
     @FXML
     private Pane badgePopup15;
+
+    @FXML
+    private FontAwesomeIcon refresh;
 
     @FXML
     private Text title = new Text();
@@ -158,6 +163,7 @@ public class OverviewController extends Controller implements Initializable {
     @Override
     public void update() {
         // This checks if the badges are unlocked or not
+        refresh.setOnMouseClicked(e ->rotate());
         Badges.badge1(badges.get(0));
         Badges.badge2(badges.get(1));
         Badges.badge3(badges.get(2));
@@ -182,9 +188,18 @@ public class OverviewController extends Controller implements Initializable {
         }
     }
 
+    public void rotate() {
+        RotateTransition rt = new RotateTransition(Duration.millis(600), refresh);
+        rt.setFromAngle(0);
+        rt.setToAngle(360);
+        rt.setCycleCount(1);
+        rt.setAutoReverse(true);
+        rt.play();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        barChart.getData().clear();
+        //        barChart.getData().clear();
 //        XYChart.Series<String, Integer> series = new XYChart.Series<String, Integer>();
 //        series.getData().add(new XYChart.Data<String, Integer>("Monday",50));
 //        series.getData().add(new XYChart.Data<String, Integer>("Tuesday",100));
@@ -262,9 +277,6 @@ retrieveAchievementsInfo();
         description13.setText(descriptionList.get(13));
         title14.setText(titleList.get(14));
         description14.setText(descriptionList.get(14));
-
-
-
 
         // This adds the badges to the different rows of the VBOX
         for (int i = 0; i < 5; i++) {

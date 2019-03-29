@@ -216,7 +216,7 @@ public class ServerRequests {
     }
 
     /**
-     * This funtion retrieves the clients user profile from the database.
+     * This function retrieves the clients user profile from the database
      *
      * @return a ClientUser class
      */
@@ -258,7 +258,7 @@ public class ServerRequests {
     }
 
     /**
-     * This funtion gets the global best users.
+     * This function gets the global best users.
      *
      * @return a list of Users
      */

@@ -123,7 +123,7 @@ public class OverviewController extends Controller implements Initializable {
         // This checks if the badges are unlocked or not
         Badges.badge1(badges.get(0));
         Badges.badge2(badges.get(1));
-        Badges.badge3(badges.get(2));
+//        Badges.badge3(badges.get(2));
         Badges.badge4(badges.get(3));
         Badges.badge5(badges.get(4));
         Badges.badge6(badges.get(5));

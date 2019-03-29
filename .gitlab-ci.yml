@@ -8,10 +8,8 @@ build:
   stage: build
   script:
     - mvn install
-#   - mvn checkstyle:checkstyle
 
 test:
   stage: test
   script:
     - mvn test
-

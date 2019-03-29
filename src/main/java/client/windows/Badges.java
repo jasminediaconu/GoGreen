@@ -67,8 +67,8 @@ public class Badges {
         List<Activity> activities = sv.retrieveActivities("y");
         List<Activity> filteredList = new ArrayList<>();
 
-        for(Activity a : activities) {
-            if(a.getItemID() == 1) {
+        for (Activity a : activities) {
+            if (a.getItemID() == 1) {
                 filteredList.add(a);
             }
         }

@@ -3,6 +3,7 @@ package client.windows;
 import client.Main;
 import client.ServerRequests;
 import client.user.User;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -21,15 +22,22 @@ import javafx.util.Callback;
 
 public class LeaderboardController extends Controller implements Initializable {
 
-    @FXML public TableView<User> table = new TableView<>();
-    @FXML public TableColumn<User, Integer> rankColumn;
-    @FXML public TableColumn<User, String> usernameColumn;
-    @FXML public TableColumn<User, String> countryColumn;
-    @FXML public TableColumn<User, Double> totalCo2Column;
+    @FXML
+    public TableView<User> table = new TableView<>();
+    @FXML
+    public TableColumn<User, Integer> rankColumn;
+    @FXML
+    public TableColumn<User, String> usernameColumn;
+    @FXML
+    public TableColumn<User, String> countryColumn;
+    @FXML
+    public TableColumn<User, Double> totalCo2Column;
 
 
-    @FXML public Button globalButton;
-    @FXML public Button followingButton;
+    @FXML
+    public Button globalButton;
+    @FXML
+    public Button followingButton;
 
     ServerRequests serverRequests = new ServerRequests();
 
@@ -64,7 +72,7 @@ public class LeaderboardController extends Controller implements Initializable {
      *
      * @return the list of global users
      */
-    private ObservableList<User> getGlobalUsers(){
+    private ObservableList<User> getGlobalUsers() {
         ObservableList<User> globalUsers = FXCollections.observableArrayList(serverRequests.getGlobalBestProfile());
         return globalUsers;
     }
@@ -74,7 +82,7 @@ public class LeaderboardController extends Controller implements Initializable {
      *
      * @return the list of following users
      */
-    private ObservableList<User> getFollowingUsers(){
+    private ObservableList<User> getFollowingUsers() {
         ObservableList<User> followingUsers = FXCollections.observableArrayList(serverRequests.getFollowingProfile());
         return followingUsers;
     }
@@ -82,7 +90,7 @@ public class LeaderboardController extends Controller implements Initializable {
     /**
      * The globalButton switches the contents of the table with the global list.
      */
-    private void switchToGlobal(){
+    private void switchToGlobal() {
         globalButton.setOnAction((ActionEvent switchToGlobalEvent) -> {
             table.getItems().clear();
             arrayList(followingUsernames);
@@ -96,7 +104,7 @@ public class LeaderboardController extends Controller implements Initializable {
     /**
      * The followingButton switches the contents of the table with the following list.
      */
-    private void switchToFollowing(){
+    private void switchToFollowing() {
         followingButton.setOnAction((ActionEvent switchToFollowingEvent) -> {
             table.getItems().clear();
             arrayList(followingUsernames);
@@ -112,7 +120,7 @@ public class LeaderboardController extends Controller implements Initializable {
      * What the follow button should do.
      * Set the appropriate graphics and text per button.
      */
-    public void addFollowButtons(){
+    public void addFollowButtons() {
         TableColumn<User, Void> followButtonColumn = new TableColumn<>("Follow");
 
         Callback<TableColumn<User, Void>, TableCell<User, Void>> cellFactory = new Callback<>() {
@@ -126,12 +134,12 @@ public class LeaderboardController extends Controller implements Initializable {
                         followButton.setOnAction((ActionEvent followUserEvent) -> {
                             String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
 
-                            if (followButton.getText().equals("unfollow")){
+                            if (followButton.getText().equals("unfollow")) {
                                 followButton.setText("follow");
                                 serverRequests.unFollowUser(data);
                                 followButton.setStyle("-fx-background-color : #95e743;");
 
-                                if (table.getItems().equals(getFollowingUsers())){
+                                if (table.getItems().equals(getFollowingUsers())) {
                                     table.getItems().remove(this.getTableRow());
                                 }
                             } else {
@@ -148,18 +156,16 @@ public class LeaderboardController extends Controller implements Initializable {
 
                         if (empty) {
                             setGraphic(null);
-                        }  else {
+                        } else {
                             String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
-                            if(data.equals(Main.clientUser.getUsername())){
+                            if (data.equals(Main.clientUser.getUsername())) {
                                 setGraphic(null);
-                            }
-                            else {
-                                if(followingUsernames.contains(data)){
+                            } else {
+                                if (followingUsernames.contains(data)) {
                                     setGraphic(followButton);
                                     followButton.setText("unfollow");
                                     followButton.setStyle("-fx-background-color: #8c8686");
-                                }
-                                else {
+                                } else {
                                     setGraphic(followButton);
                                     followButton.setText("follow");
                                     followButton.setStyle("-fx-background-color : #95e743;");
@@ -180,7 +186,7 @@ public class LeaderboardController extends Controller implements Initializable {
     /**
      * Add the row numbers to the rank column.
      */
-    public void addRanking(){
+    public void addRanking() {
         rankColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, Integer>, ObservableValue<Integer>>() {
             @Override
             public ObservableValue<Integer> call(TableColumn.CellDataFeatures<User, Integer> userIntegerCellDataFeatures) {
@@ -197,7 +203,7 @@ public class LeaderboardController extends Controller implements Initializable {
      */
     public ArrayList<String> arrayList(ArrayList<String> followingUsernames) {
         table.setItems(getFollowingUsers());
-        for (User user : table.getItems()){
+        for (User user : table.getItems()) {
 
             followingUsernames.add(usernameColumn.getCellObservableValue(user).getValue());
         }

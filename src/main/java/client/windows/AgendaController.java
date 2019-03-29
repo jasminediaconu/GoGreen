@@ -203,7 +203,6 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     *
      * @param activityIndex
      * @param rowCounter
      */
@@ -365,10 +364,10 @@ public class AgendaController extends Controller implements Initializable {
      */
     private void loadTransportItems() {
 
-       transportList.addAll("Walking",
-               "By bike",
-               "Public transport",
-               "By car");
+        transportList.addAll("Walking",
+                "By bike",
+                "Public transport",
+                "By car");
         transportChoices.setItems(transportList);
     }
 
@@ -491,17 +490,13 @@ public class AgendaController extends Controller implements Initializable {
             sv.updateClientUserProfile();
             showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             return;
-        }
-
-        else if (itemName.equals("Lower Temperature")) {
+        } else if (itemName.equals("Lower Temperature")) {
             profileController.updateAgenda(itemName, parsedAmount);
-            Main.clientUser.setRoomTemp(21 -(int) parsedAmount);
+            Main.clientUser.setRoomTemp(21 - (int) parsedAmount);
             sv.updateClientUserProfile();
             showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             return;
-        }
-
-        else if (itemName.equals("LEDs")) {
+        } else if (itemName.equals("LEDs")) {
             profileController.updateAgenda(itemName, parsedAmount);
             Main.clientUser.setLeds((int) parsedAmount);
             sv.updateClientUserProfile();

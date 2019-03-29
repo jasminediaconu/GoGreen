@@ -13,6 +13,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +34,11 @@ public class ServerRequests {
      */
     public String login(String username, String password, boolean ishashed) {
         String hashedPassword = null;
-        if(!ishashed) {hashedPassword = Main.hashString(password);}
-        else if(ishashed){hashedPassword = password;}
+        if (!ishashed) {
+            hashedPassword = Main.hashString(password);
+        } else if (ishashed) {
+            hashedPassword = password;
+        }
         if (username == null || hashedPassword == null) {
             return null;
         }
@@ -274,6 +278,7 @@ public class ServerRequests {
 
     /**
      * Get the UserID.
+     *
      * @return response int type
      */
     public int getUserID() {
@@ -287,7 +292,7 @@ public class ServerRequests {
     public boolean followUser(String username) {
         String response = sendRequestToServer(
                 "followUser?sessionID=" + Main.sessionID, Main.gson.toJson(username));
-        if("success".equals(response)) {
+        if ("success".equals(response)) {
             System.out.println("[INFO] You successfully followed the following person: " + username);
             return true;
         } else {
@@ -299,7 +304,7 @@ public class ServerRequests {
     public boolean unFollowUser(String username) {
         String response = sendRequestToServer(
                 "unFollowUser?sessionID=" + Main.sessionID, Main.gson.toJson(username));
-        if("success".equals(response)) {
+        if ("success".equals(response)) {
             System.out.println("[INFO] You successfully unfollowed the following person: " + username);
             return true;
         } else {

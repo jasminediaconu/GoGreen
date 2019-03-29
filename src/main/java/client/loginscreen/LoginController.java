@@ -108,6 +108,7 @@ public class LoginController extends Controller implements Initializable {
      * This function will handle the input of username and
      * password when the login button is pressed.
      * It will also handle the responses returned by the ServerRequests class given it's query.
+     *
      * @param event Event type.
      */
 
@@ -120,11 +121,11 @@ public class LoginController extends Controller implements Initializable {
         String userpass = null;
         String keycode = "";
         int passwordlength = password.length();
-        if (event instanceof KeyEvent){
-            KeyEvent keyevent = (KeyEvent)event;
+        if (event instanceof KeyEvent) {
+            KeyEvent keyevent = (KeyEvent) event;
             keycode = keyevent.getCode().toString();
         }
-        if (event instanceof MouseEvent||keycode.equals("ENTER")) {
+        if (event instanceof MouseEvent || keycode.equals("ENTER")) {
             try {
                 if (remembered) {
                     FileReader freader = new FileReader("rememberme.txt");
@@ -140,7 +141,7 @@ public class LoginController extends Controller implements Initializable {
                 password = userpass.split(";")[1];
                 ishashed = true;
             }
-            rememberme(username,password,ishashed,passwordlength);
+            rememberme(username, password, ishashed, passwordlength);
 
             LoginRequest loginRequest = new LoginRequest(username, password, ishashed, this);
             loginRequest.setDaemon(false);
@@ -171,12 +172,13 @@ public class LoginController extends Controller implements Initializable {
     public void loginFail() {
         try {
             txt_incorrectPassword.setVisible(true);
-        }catch (NullPointerException e) {e.printStackTrace();}
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         if (tf_username != null) {
             setDisableScreen(false);
         }
     }
-
 
 
     /**
@@ -209,6 +211,7 @@ public class LoginController extends Controller implements Initializable {
 
     /**
      * This function takes the termsOfService fxml file as file to load in a new popup window
+     *
      * @throws IOException
      */
     @FXML
@@ -220,30 +223,32 @@ public class LoginController extends Controller implements Initializable {
 
     /**
      * This function takes the privacyPolicy fxml file to load in a new popup window
+     *
      * @throws IOException
      */
     @FXML
-    private void privacypolicy () throws IOException {
+    private void privacypolicy() throws IOException {
         String source = "privacyPolicy.fxml";
         privacyandterms(source);
     }
 
     /**
      * This function opens a new popup window containing the source
+     *
      * @param source String type
      * @throws IOException
      */
     @FXML
-    private void privacyandterms (String source) throws IOException {
+    private void privacyandterms(String source) throws IOException {
         // will open a new window and display the terms of service in that
         Parent root = FXMLLoader.load(getClass().getResource(source));
         fillScene(root);
     }
 
 
-
     /**
      * This function will switch to the password recovery screen
+     *
      * @param event MouseEvent type
      * @throws IOException
      */
@@ -256,15 +261,16 @@ public class LoginController extends Controller implements Initializable {
 
     /**
      * This function will write the username and hashed password to a file
+     *
      * @param username String type
      * @param password String type
      * @throws IOException
      */
-    private void rememberme (String username, String password, boolean ishashed, int passwordlength){
+    private void rememberme(String username, String password, boolean ishashed, int passwordlength) {
         String hashedpassword = "";
-        if(!ishashed){
+        if (!ishashed) {
             hashedpassword = Main.hashString(password);
-        } else if(ishashed){
+        } else if (ishashed) {
             hashedpassword = password;
         }
         try {
@@ -274,19 +280,20 @@ public class LoginController extends Controller implements Initializable {
                 writer.write(username + ";" + hashedpassword + ";" + passwordlength);
             }
             writer.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
      * This method will check whether a username and password are saved and set variables accordingly
+     *
      * @throws IOException
      */
     @FXML
-    public void remembermecheck () throws IOException{
+    public void remembermecheck() throws IOException {
         //open the file and read its contents
-        if(!remembered) {
+        if (!remembered) {
             FileReader fread = new FileReader("rememberme.txt");
             BufferedReader reader = new BufferedReader(fread);
             String userpass = null;
@@ -307,7 +314,6 @@ public class LoginController extends Controller implements Initializable {
             }
         }
     }
-
 
 
     /**

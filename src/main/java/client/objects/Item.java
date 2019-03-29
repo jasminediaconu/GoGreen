@@ -62,6 +62,7 @@ public class Item {
 
     /**
      * Equals method.
+     *
      * @param o Object type.
      * @return a boolean, whether they are equal or not.
      */

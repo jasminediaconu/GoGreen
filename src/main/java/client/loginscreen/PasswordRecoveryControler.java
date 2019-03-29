@@ -20,15 +20,17 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-public class PasswordRecoveryControler implements Initializable{
+public class PasswordRecoveryControler implements Initializable {
 
     private double x = 0;
     private double y = 0;
 
     @FXML
     private TextField tf_email;
+
     /**
      * This function handles the closing of the window, with the cross button.
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -43,6 +45,7 @@ public class PasswordRecoveryControler implements Initializable{
 
     /**
      * This function will update x and y when the mouse is pressed
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -53,6 +56,7 @@ public class PasswordRecoveryControler implements Initializable{
 
     /**
      * This function will change the drag of the scene when the mouse is dragged
+     *
      * @param event MouseEvent type
      */
     @FXML
@@ -70,7 +74,7 @@ public class PasswordRecoveryControler implements Initializable{
      *
      */
     @FXML
-    private void recover (MouseEvent event){
+    private void recover(MouseEvent event) {
         String mailto = tf_email.getText();
         //setting the properties for the mail
         Properties prop = new Properties();
@@ -94,15 +98,16 @@ public class PasswordRecoveryControler implements Initializable{
 
             //sending the message
             Transport.send(message);
-        } catch(AddressException e){
+        } catch (AddressException e) {
             e.printStackTrace();
-        } catch (MessagingException e){
+        } catch (MessagingException e) {
             e.printStackTrace();
         }
     }
 
     /**
      * This function will switch to the login screen
+     *
      * @param event MouseEvent type
      * @throws IOException
      */
@@ -115,7 +120,8 @@ public class PasswordRecoveryControler implements Initializable{
 
     /**
      * This function will fill the screen with a new event stage evoked by the root
-     * @param root Parent type
+     *
+     * @param root  Parent type
      * @param event MouseEvent event
      */
     private void fillScene(Parent root, MouseEvent event) {
@@ -132,6 +138,7 @@ public class PasswordRecoveryControler implements Initializable{
 
     /**
      * This function remains unused, but required to stay since this class implements Initializable
+     *
      * @param url
      * @param resourceBundle
      */

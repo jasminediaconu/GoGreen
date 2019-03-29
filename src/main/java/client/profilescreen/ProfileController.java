@@ -211,13 +211,13 @@ public class ProfileController extends Controller {
      * @param itemName
      * @param amount
      */
-    public void updateAgenda (String itemName, double amount) {
+    public void updateAgenda(String itemName, double amount) {
 
         AgendaController agendaController = new AgendaController();
 
         Boolean isPresent = false;
-        
-            // If itemName(solar panel, leds, lower temp) matches then dont apply on agenda
+
+        // If itemName(solar panel, leds, lower temp) matches then dont apply on agenda
         for (Activity activity : Main.clientUser.getFilteredList()) {
             Item item = Main.items.get(activity.getItemID() - 1);
             if ((item.getName().equals(itemName)) && !isPresent) {
@@ -228,9 +228,9 @@ public class ProfileController extends Controller {
                     int activityIndex = Main.clientUser.getFilteredList().indexOf(activity);
 
                     ServerRequests sv = new ServerRequests();
-                    int activityID = Main.clientUser.getActivityList().get(activityIndex+1).getActivityID();
+                    int activityID = Main.clientUser.getActivityList().get(activityIndex + 1).getActivityID();
                     sv.removeActivity(activityID);
-                    AgendaController.getGridPane().getChildren().removeIf(node -> GridPane.getRowIndex(node) == activityIndex+2);
+                    AgendaController.getGridPane().getChildren().removeIf(node -> GridPane.getRowIndex(node) == activityIndex + 2);
                     // If there are no activities for that day, delete the date
                     AgendaController.getAgendaBox().getChildren().removeIf(dateText -> RowCount.getRowCount(AgendaController.getGridPane()) == 0);
                     Main.clientUser.removeFromActivityList(activity);
@@ -242,17 +242,17 @@ public class ProfileController extends Controller {
         if (!isPresent) {
             applyActivity(itemName, amount);
         }
-            // if user adds solarpanel, led, temperature on agenda update it on the userprofile and save it.
+        // if user adds solarpanel, led, temperature on agenda update it on the userprofile and save it.
     }
 
     public void updateAgendaCaller() {
-        if(solarPanelsField.getText() != null && solarPanelsField.getText().length() > 0) {
+        if (solarPanelsField.getText() != null && solarPanelsField.getText().length() > 0) {
             updateAgenda("Solar panel", Double.parseDouble(solarPanelsField.getText()));
         }
-        if(temperatureField.getText() != null && temperatureField.getText().length() > 0) {
+        if (temperatureField.getText() != null && temperatureField.getText().length() > 0) {
             updateAgenda("Lower temperature", 21 - Double.parseDouble(temperatureField.getText()));
         }
-        if(ledsField.getText() != null && ledsField.getText().length() > 0) {
+        if (ledsField.getText() != null && ledsField.getText().length() > 0) {
             updateAgenda("LEDs", Double.parseDouble(ledsField.getText()));
         }
     }

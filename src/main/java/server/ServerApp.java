@@ -91,15 +91,13 @@ public class ServerApp {
     }
 
 
-
-
     /**
      CREATE TABLE IF NOT EXISTS user_login (
-        username text NOT NULL,
-        email text NOT NULL,
-        password text NOT NULL,
-        user_id SERIAL NOT NULL,
-        PRIMARY KEY (username)
+     username text NOT NULL,
+     email text NOT NULL,
+     password text NOT NULL,
+     user_id SERIAL NOT NULL,
+     PRIMARY KEY (username)
      );
 
      CREATE TABLE IF NOT EXISTS user_profile (

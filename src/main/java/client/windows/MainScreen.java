@@ -28,6 +28,7 @@ public class MainScreen extends Application {
 
     /**
      * This function will start the Application wrapper for the MainScreen, sets the size and title.
+     *
      * @param primaryStage The primary stage
      * @throws Exception
      */

@@ -146,7 +146,7 @@ public class UserController {
      * This function updates the users profile.
      *
      * @param sessionID String type
-     * @param client ClientUserClass type
+     * @param client    ClientUserClass type
      * @return a String that is says either success or fail
      */
     @RequestMapping(value = "/updateUserProfile", method = RequestMethod.POST)
@@ -247,18 +247,18 @@ public class UserController {
 
     private String unfollowOrFollowUser(String sessionID, String username, PreparedStatement query) {
         int userID = ServerApp.getUserIDfromSession(sessionID);
-        if(userID == -1) {
+        if (userID == -1) {
             return null;
         }
 
         try {
-            username = username.substring(1, username.length()-1);
+            username = username.substring(1, username.length() - 1);
             query.setInt(1, userID);
             query.setString(2, username);
             query.executeUpdate();
 
             return "success";
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return "fail";
         }

@@ -306,7 +306,8 @@ public class ServerRequests {
             return true;
         } else {
             System.out.println(
-                    "[ERROR] A failure occurred trying to follow the following person: " + username);
+                    "[ERROR] A failure occurred trying to follow the following person: "
+                            + username);
             return false;
         }
     }
@@ -326,7 +327,8 @@ public class ServerRequests {
             return true;
         } else {
             System.out.println(
-                    "[ERROR] A failure occurred trying to unfollow the following person: " + username);
+                    "[ERROR] A failure occurred trying to unfollow the following person: "
+                            + username);
             return false;
         }
     }

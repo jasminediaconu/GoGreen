@@ -209,6 +209,10 @@ public class MainScreenController extends Pane implements Initializable {
     }
 
 
+    /**
+     * Function to hide the popovers.
+     * @param event
+     */
     public void hideButtonAction(javafx.scene.input.MouseEvent event) {
         AgendaController agendaController = (AgendaController) controllers.get(0);
 

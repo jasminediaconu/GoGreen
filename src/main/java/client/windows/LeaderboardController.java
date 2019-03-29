@@ -73,7 +73,8 @@ public class LeaderboardController extends Controller implements Initializable {
      * @return the list of global users
      */
     private ObservableList<User> getGlobalUsers() {
-        ObservableList<User> globalUsers = FXCollections.observableArrayList(serverRequests.getGlobalBestProfile());
+        ObservableList<User> globalUsers = FXCollections.observableArrayList(
+                serverRequests.getGlobalBestProfile());
         return globalUsers;
     }
 
@@ -83,7 +84,8 @@ public class LeaderboardController extends Controller implements Initializable {
      * @return the list of following users
      */
     private ObservableList<User> getFollowingUsers() {
-        ObservableList<User> followingUsers = FXCollections.observableArrayList(serverRequests.getFollowingProfile());
+        ObservableList<User> followingUsers = FXCollections.observableArrayList(
+                serverRequests.getFollowingProfile());
         return followingUsers;
     }
 
@@ -132,7 +134,8 @@ public class LeaderboardController extends Controller implements Initializable {
 
                     {
                         followButton.setOnAction((ActionEvent followUserEvent) -> {
-                            String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
+                            String data = usernameColumn.getCellObservableValue(
+                                    this.getTableRow().getIndex()).getValue();
 
                             if (followButton.getText().equals("unfollow")) {
                                 followButton.setText("follow");
@@ -157,7 +160,8 @@ public class LeaderboardController extends Controller implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            String data = usernameColumn.getCellObservableValue(this.getTableRow().getIndex()).getValue();
+                            String data = usernameColumn.getCellObservableValue(
+                                    this.getTableRow().getIndex()).getValue();
                             if (data.equals(Main.clientUser.getUsername())) {
                                 setGraphic(null);
                             } else {
@@ -187,10 +191,13 @@ public class LeaderboardController extends Controller implements Initializable {
      * Add the row numbers to the rank column.
      */
     public void addRanking() {
-        rankColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, Integer>, ObservableValue<Integer>>() {
+        rankColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<User, Integer>,
+                ObservableValue<Integer>>() {
             @Override
-            public ObservableValue<Integer> call(TableColumn.CellDataFeatures<User, Integer> userIntegerCellDataFeatures) {
-                return new ReadOnlyObjectWrapper<>(table.getItems().indexOf(userIntegerCellDataFeatures.getValue()) + 1);
+            public ObservableValue<Integer> call(
+                    TableColumn.CellDataFeatures<User, Integer> userIntegerCellDataFeatures) {
+                return new ReadOnlyObjectWrapper<>(
+                        table.getItems().indexOf(userIntegerCellDataFeatures.getValue()) + 1);
             }
         });
     }

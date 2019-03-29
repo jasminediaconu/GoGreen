@@ -63,18 +63,18 @@ public class Item {
     /**
      * Equals method.
      *
-     * @param o Object type.
+     * @param object Object type.
      * @return a boolean, whether they are equal or not.
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Item item = (Item) o;
+        Item item = (Item) object;
         return itemID == item.itemID
                 && Double.compare(item.co2, co2) == 0
                 && Objects.equals(name, item.name)

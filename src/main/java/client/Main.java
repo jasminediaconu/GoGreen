@@ -21,7 +21,7 @@ import java.util.List;
  * This application is made by:
  *
  * @author wouthaakman, ginotramontina, giulianoforghieri,
- * janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
+ *     janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
  */
 public class Main {
 

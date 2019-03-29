@@ -199,7 +199,7 @@ public class ClientUser extends User {
      * @return the image url
      */
     @SuppressWarnings("abbriviationaswordinnamecheck")
-    public String getImageURL() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
@@ -209,7 +209,7 @@ public class ClientUser extends User {
      *
      * @param imageUrl the image url
      */
-    public void setImageURL(String imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -342,7 +342,7 @@ public class ClientUser extends User {
         clientUser.setEmail(email);
         clientUser.setUsername(username);
         clientUser.setCountry(country);
-        clientUser.setImageURL(imageUrl);
+        clientUser.setImageUrl(imageUrl);
         clientUser.setSolarPower(solarPower);
         clientUser.setRoomTemp(roomTemp);
         clientUser.setLeds(leds);
@@ -363,6 +363,11 @@ public class ClientUser extends User {
                 + "; Car type: " + carType + "; Car emission type: " + carEmissionType + "]";
     }
 
+    /**
+     * Make a new list containing the filtered activities.
+     *
+     * @return the filtered list
+     */
     public List<Activity> getFilteredList() {
         List<Activity> filteredActivities = new ArrayList<>();
         for (Activity activity : Main.clientUser.getActivityList()) {

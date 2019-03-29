@@ -1,7 +1,8 @@
 package client.user;
 
-import client.Main;
 import com.google.gson.annotations.Expose;
+
+import client.Main;
 
 import client.objects.Activity;
 

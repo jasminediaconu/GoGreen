@@ -1,7 +1,6 @@
 package client.loginscreen;
 
 import client.Main;
-//import com.sun.security.ntlm.Server;
 import client.windows.Controller;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -22,9 +21,15 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+//import com.sun.security.ntlm.Server;
 
 /**
  * The type Login controller.

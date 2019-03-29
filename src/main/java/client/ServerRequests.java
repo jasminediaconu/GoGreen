@@ -1,12 +1,14 @@
 package client;
 
+import com.google.gson.reflect.TypeToken;
 
 import client.objects.Activity;
+
 import client.objects.Item;
 import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
-import com.google.gson.reflect.TypeToken;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;

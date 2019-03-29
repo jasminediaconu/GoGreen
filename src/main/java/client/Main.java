@@ -1,14 +1,15 @@
 package client;
 
+import com.google.common.hash.Hashing;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import client.objects.Item;
 
 import client.serializer.LocalDateDeserializer;
 import client.serializer.LocalDateSerializer;
 import client.user.Achievement;
 import client.user.ClientUser;
-import com.google.common.hash.Hashing;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javafx.application.Application;
 
 import java.nio.charset.StandardCharsets;

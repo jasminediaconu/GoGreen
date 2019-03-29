@@ -34,6 +34,10 @@ import java.util.stream.Collectors;
  */
 public class ProfileController extends Controller {
 
+    ObservableList transportList = FXCollections.observableArrayList();
+
+    String itemName = null;
+
     @FXML
     private javafx.scene.control.Button imageButton;
     @FXML
@@ -62,10 +66,6 @@ public class ProfileController extends Controller {
     private JFXButton saveButton;
 
     private ClientUser newSettings;
-
-    ObservableList transportList = FXCollections.observableArrayList();
-
-    String itemName = null;
 
     /**
      * Instantiates a new Controller profile.

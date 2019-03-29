@@ -13,7 +13,6 @@ import java.sql.DriverManager;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.UUID;
 
 /**

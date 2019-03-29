@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -87,6 +86,7 @@ public class Badges {
 //                }
 //            }
 //        }
+
     }
 
     /**

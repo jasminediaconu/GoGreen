@@ -73,11 +73,14 @@ public class UserController {
             );
 
             followUser = ServerApp.dbConnection.prepareStatement(
-                    "INSERT INTO user_follows (\"userid\", \"followingid\") VALUES (?, (SELECT userid FROM user_login WHERE username = ?));"
+                    "INSERT INTO user_follows (\"userid\", \"followingid\") "
+                            + "VALUES (?, (SELECT userid FROM user_login WHERE username = ?));"
             );
 
             unFollowUser = ServerApp.dbConnection.prepareStatement(
-                    "DELETE FROM user_follows WHERE userid = ? AND followingid = (SELECT userid FROM user_login WHERE username = ?);"
+                    "DELETE FROM user_follows WHERE userid = ? "
+                            + "AND followingid = (SELECT userid FROM user_login "
+                            + "WHERE username = ?);"
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -150,7 +153,8 @@ public class UserController {
      * @return a String that is says either success or fail
      */
     @RequestMapping(value = "/updateUserProfile", method = RequestMethod.POST)
-    public String updateUserProfile(@RequestParam String sessionID, @RequestBody ClientUserClass client) {
+    public String updateUserProfile(@RequestParam String sessionID,
+                                    @RequestBody ClientUserClass client) {
         int userID = ServerApp.getUserIDfromSession(sessionID);
         if (userID == -1) {
             return null;
@@ -245,7 +249,8 @@ public class UserController {
         }
     }
 
-    private String unfollowOrFollowUser(String sessionID, String username, PreparedStatement query) {
+    private String unfollowOrFollowUser(String sessionID, String username,
+                                        PreparedStatement query) {
         int userID = ServerApp.getUserIDfromSession(sessionID);
         if (userID == -1) {
             return null;

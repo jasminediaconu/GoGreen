@@ -108,7 +108,7 @@ public class LoginRequest extends AsyncTask {
      * @return the boolean
      */
     public boolean loadImage() {
-        String url = clientUser.getImageURL();
+        String url = clientUser.getImageUrl();
         if (url != null) {
 
             if (url.equals("default")) {

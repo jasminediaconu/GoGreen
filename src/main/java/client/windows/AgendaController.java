@@ -140,7 +140,7 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This function is called only once when control reaches the MainScreenController
+     * This function is called only once when control reaches the MainScreenController.
      */
     @Override
     public void init() {
@@ -203,8 +203,10 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * @param activityIndex
-     * @param rowCounter
+     * Function to delete an activity.
+     *
+     * @param activityIndex index of the activity
+     * @param rowCounter    amount of rows
      */
     public void deleteActivity(int activityIndex, int rowCounter) {
         ServerRequests sv = new ServerRequests();
@@ -218,7 +220,12 @@ public class AgendaController extends Controller implements Initializable {
         dialog.close();
     }
 
-
+    /**
+     * Create a multimap with activities and dates.
+     *
+     * @param activities list of activities
+     * @return multimap
+     */
     public Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
         Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
         for (Activity a : activities) {
@@ -254,7 +261,7 @@ public class AgendaController extends Controller implements Initializable {
                 rowCounter++;
                 Item item = Main.items.get(activity.getItemID() - 1);
                 String unit = "";
-                Double co2Saved = Main.round((item.getCo2() * activity.getAmount()), 2);
+                Double co2Saved = Main.round(item.getCo2() * activity.getAmount(), 2);
 
 
                 if (item.getType().equals("food")) {
@@ -289,11 +296,12 @@ public class AgendaController extends Controller implements Initializable {
         ssbutton1.getStyleClass().addAll("animated-option-button", "animated-option-sub-button");
 
         nodesList.addAnimatedNode(ssbutton1, (expanded, duration) -> {
-                    List<KeyFrame> frames = new ArrayList<>();
-                    frames.add(new KeyFrame(duration,
-                            new KeyValue(ssbutton1.rotateProperty(), expanded ? 180 : 0, Interpolator.EASE_BOTH)));
-                    return frames;
-                }
+            List<KeyFrame> frames = new ArrayList<>();
+            frames.add(new KeyFrame(duration,
+                    new KeyValue(ssbutton1.rotateProperty(),
+                            expanded ? 180 : 0, Interpolator.EASE_BOTH)));
+            return frames;
+        }
         );
 
         ssbutton2 = new JFXButton();

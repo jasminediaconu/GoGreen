@@ -1,7 +1,6 @@
 package client.loginscreen;
 
 import client.Main;
-import client.ServerRequests;
 //import com.sun.security.ntlm.Server;
 import client.windows.Controller;
 import javafx.event.Event;

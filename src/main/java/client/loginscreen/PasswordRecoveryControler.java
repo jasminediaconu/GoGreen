@@ -1,7 +1,5 @@
 package client.loginscreen;
 
-import client.Main;
-import client.ServerRequests;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;

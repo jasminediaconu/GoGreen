@@ -30,7 +30,7 @@ Login<br/>
 ![Agenda](/images/readmePictures/Activity1.gif)<br/><br/>
 ![Agenda](/images/readmePictures/ActivityDeletion.gif)<br/>
 <br/>
-![overall](/images/readmePictures/GinoTramontina.jpg)<br/><br/>
+![overall](/images/readmePictures/ProfileOverviewAgenda.gif)<br/><br/>
 
 
 

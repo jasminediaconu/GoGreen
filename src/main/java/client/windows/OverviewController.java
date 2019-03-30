@@ -39,11 +39,9 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     private CategoryAxis x;
 
-    @FXML
-    LineChart<String, Integer> lineChart;
-    @FXML
+        @FXML
     Pane overview;
-
+    private ObservableList periodList = FXCollections.observableArrayList();
     @FXML
     private Pane badgePopup;
     @FXML
@@ -135,7 +133,7 @@ public class OverviewController extends Controller implements Initializable {
     private Text title14 = new Text();
     @FXML
     private Text description14 = new Text();
-
+    private String activities;
     @FXML
     private ScrollPane scrollBadges = new ScrollPane();
 
@@ -150,7 +148,8 @@ public class OverviewController extends Controller implements Initializable {
     private List<Achievement> achievementList = Main.achievements.stream().collect(Collectors.toList());
     private List<String> titleList = new ArrayList<>();
     private List<String> descriptionList = new ArrayList<>();
-
+    @FXML
+    private JFXComboBox<String> comboBox;
     public PopOver getPopOver() {
         return popOver;
     }
@@ -184,38 +183,16 @@ public class OverviewController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        barChart.getData().clear();
-//        XYChart.Series<String, Integer> series = new XYChart.Series<String, Integer>();
-//        series.getData().add(new XYChart.Data<String, Integer>("Monday",50));
-//        series.getData().add(new XYChart.Data<String, Integer>("Tuesday",100));
-//        series.getData().add(new XYChart.Data<String, Integer>("Wednesday",300));
-//        series.getData().add(new XYChart.Data<String, Integer>("Thursday",123));
-//        series.getData().add(new XYChart.Data<String, Integer>("Friday",123));
-//        series.getData().add(new XYChart.Data<String, Integer>("Saturday",400));
-//        series.getData().add(new XYChart.Data<String, Integer>("Sunday",321));
-//        aabutton1.setOnMouseClicked(e ->barChart.getData().addAll(series));
-//        series.setName("Week");
-//
-//        clearGraph.setOnMouseClicked(d ->barChart.getData().clear());
-//
-//        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
-//        series1.getData().add(new XYChart.Data<String, Integer>("January", 430));
-//        series1.getData().add(new XYChart.Data<String, Integer>("February", 121));
-//        series1.getData().add(new XYChart.Data<String, Integer>("March", 322));
-//        series1.getData().add(new XYChart.Data<String, Integer>("April", 350));
-//        series1.getData().add(new XYChart.Data<String, Integer>("May", 113));
-//        series1.getData().add(new XYChart.Data<String, Integer>("June", 13));
-//        series1.getData().add(new XYChart.Data<String, Integer>("July", 663));
-//        series1.getData().add(new XYChart.Data<String, Integer>("August", 64));
-//        series1.getData().add(new XYChart.Data<String, Integer>("September", 100));
-//        series1.getData().add(new XYChart.Data<String, Integer>("October", 0));
-//        series1.getData().add(new XYChart.Data<String, Integer>("November", 999));
-//        series1.getData().add(new XYChart.Data<String, Integer>("December", 1));
-//        aabutton2.setOnMouseClicked(q -> barChart.getData().addAll(series1));
-//        series1.setName("Month");
+        ObservableList<String> periodList = FXCollections.observableArrayList("Week","Month","Year");
 
-        //x.setCategories(FXCollections.observableArrayList());
-retrieveAchievementsInfo();
+    comboBox.setValue("Week");
+    comboBox.setItems(periodList);
+
+        ServerRequests sv = new ServerRequests();
+        List<Activity> activities = sv.RetrieveActivities("w","h","y","m");
+
+
+        retrieveAchievementsInfo();
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
 
@@ -424,5 +401,40 @@ retrieveAchievementsInfo();
     @FXML
     public void hidePopup() {
         popOver.hide();
+    }
+    /**
+     * This function will make a hashmap sorted by LocalDate or week or month.
+     *
+     * @param activityList List<Activity> type
+     * @param period String type
+     *
+     * @return a HashMap<String, Double> with the correct values for the graph
+     */
+    private HashMap<String, Double> mapActivitiesToGraph(List<Activity> activityList, String period) {
+        HashMap<String, Double> result = new HashMap<String, Double>();
+        for (Activity activity:activityList) {
+            String key = activity.getDate().toString();
+            double value = Main.items.get(activity.getItemID()-1).getCo2() * activity.getAmount();
+            if (period.equals("m")) {
+                key = "Week " + activity.getDate().get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+            } else if (period.equals("y") || period.equals("h")) {
+                key = activity.getDate().getMonth().name();
+            }
+
+            if (!result.containsKey(key)) {
+                result.put(key, value);
+            } else {
+                result.put(key, result.get(key) + value);
+            }
+        }
+        return result;
+    }
+    public static void printMap(Map mp) {
+        Iterator it = mp.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            System.out.println(pair.getKey() + " = " + pair.getValue());
+            it.remove(); // avoids a ConcurrentModificationException
+        }
     }
 }

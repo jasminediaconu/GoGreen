@@ -1,34 +1,36 @@
+
 package client.windows;
 
 import client.Main;
+import client.ServerRequests;
+import client.objects.Activity;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.animation.RotateTransition;
+import com.jfoenix.controls.JFXComboBox;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.time.temporal.WeekFields;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
+
 
     @FXML
     private BarChart<String, Integer> barChart;
@@ -74,40 +76,6 @@ public class OverviewController extends Controller implements Initializable {
     private Pane badgePopup14;
     @FXML
     private Pane badgePopup15;
-
-    @FXML
-    private Text progress;
-    @FXML
-    private Text progress1;
-    @FXML
-    private Text progress2;
-    @FXML
-    private Text progress3;
-    @FXML
-    private Text progress4;
-    @FXML
-    private Text progress5;
-    @FXML
-    private Text progress6;
-    @FXML
-    private Text progress7;
-    @FXML
-    private Text progress8;
-    @FXML
-    private Text progress9;
-    @FXML
-    private Text progress10;
-    @FXML
-    private Text progress11;
-    @FXML
-    private Text progress12;
-    @FXML
-    private Text progress13;
-    @FXML
-    private Text progress14;
-
-    @FXML
-    private FontAwesomeIcon refresh;
 
     @FXML
     private Text title = new Text();
@@ -193,7 +161,6 @@ public class OverviewController extends Controller implements Initializable {
     @Override
     public void update() {
         // This checks if the badges are unlocked or not
-        refresh.setOnMouseClicked(e -> rotate());
         Badges.badge1(badges.get(0));
         Badges.badge2(badges.get(1));
         Badges.badge3(badges.get(2));
@@ -218,18 +185,8 @@ public class OverviewController extends Controller implements Initializable {
         }
     }
 
-    public void rotate() {
-        RotateTransition rt = new RotateTransition(Duration.millis(600), refresh);
-        rt.setFromAngle(0);
-        rt.setToAngle(360);
-        rt.setCycleCount(1);
-        rt.setAutoReverse(true);
-        rt.play();
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-<<<<<<< HEAD
         ObservableList<String> periodList = FXCollections.observableArrayList("Week","Month","Year");
 
     comboBox.setValue("Week");
@@ -239,39 +196,6 @@ public class OverviewController extends Controller implements Initializable {
         List<Activity> activities = sv.RetrieveActivities("w","h","y","m");
 
 
-=======
-        //        barChart.getData().clear();
-//        XYChart.Series<String, Integer> series = new XYChart.Series<String, Integer>();
-//        series.getData().add(new XYChart.Data<String, Integer>("Monday",50));
-//        series.getData().add(new XYChart.Data<String, Integer>("Tuesday",100));
-//        series.getData().add(new XYChart.Data<String, Integer>("Wednesday",300));
-//        series.getData().add(new XYChart.Data<String, Integer>("Thursday",123));
-//        series.getData().add(new XYChart.Data<String, Integer>("Friday",123));
-//        series.getData().add(new XYChart.Data<String, Integer>("Saturday",400));
-//        series.getData().add(new XYChart.Data<String, Integer>("Sunday",321));
-//        aabutton1.setOnMouseClicked(e ->barChart.getData().addAll(series));
-//        series.setName("Week");
-//
-//        clearGraph.setOnMouseClicked(d ->barChart.getData().clear());
-//
-//        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
-//        series1.getData().add(new XYChart.Data<String, Integer>("January", 430));
-//        series1.getData().add(new XYChart.Data<String, Integer>("February", 121));
-//        series1.getData().add(new XYChart.Data<String, Integer>("March", 322));
-//        series1.getData().add(new XYChart.Data<String, Integer>("April", 350));
-//        series1.getData().add(new XYChart.Data<String, Integer>("May", 113));
-//        series1.getData().add(new XYChart.Data<String, Integer>("June", 13));
-//        series1.getData().add(new XYChart.Data<String, Integer>("July", 663));
-//        series1.getData().add(new XYChart.Data<String, Integer>("August", 64));
-//        series1.getData().add(new XYChart.Data<String, Integer>("September", 100));
-//        series1.getData().add(new XYChart.Data<String, Integer>("October", 0));
-//        series1.getData().add(new XYChart.Data<String, Integer>("November", 999));
-//        series1.getData().add(new XYChart.Data<String, Integer>("December", 1));
-//        aabutton2.setOnMouseClicked(q -> barChart.getData().addAll(series1));
-//        series1.setName("Month");
-
-        //x.setCategories(FXCollections.observableArrayList());
->>>>>>> fbd2264bfab4f1990d4a2ee8720e9fb7b7e9ba5a
         retrieveAchievementsInfo();
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
@@ -319,6 +243,9 @@ public class OverviewController extends Controller implements Initializable {
         description13.setText(descriptionList.get(13));
         title14.setText(titleList.get(14));
         description14.setText(descriptionList.get(14));
+
+
+
 
         // This adds the badges to the different rows of the VBOX
         for (int i = 0; i < 5; i++) {

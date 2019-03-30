@@ -3,28 +3,36 @@ Greenly is a activity tracker showing you how much CO2 you save trough you daily
 
 clone git repos via http: https://gitlab.ewi.tudelft.nl/cse1105/2018-2019/oopp-group-72/template.git
 
+If you want to contribute to the application: Follow the steps under Installation - For Developers.
+
 ## Installation
+### For Developers
 Requirements:
 - JDK 11
 - Maven
 
 To install:
-- download the project
+- clone the project from the git repos
 - import as maven project
 - Maven install
 - run as exec:java 
 
 ## Features
 Login<br/>
-![Wout Haakman](/images/readmePictures/LoginEmpty.PNG)<br/><br/>
-![Wout Haakman](/images/readmePictures/LoginFilled.PNG)<br/>
+![Login](/images/readmePictures/LoginEmpty.PNG)<br/><br/>
+![Login](/images/readmePictures/LoginFilled.PNG)<br/>
 <br/>signup<br/>
-![Wout Haakman](/images/readmePictures/SignupEmpty.PNG)<br/><br/>
-![Wout Haakman](/images/readmePictures/SignupFilled.PNG)<br/>
+![Signup](/images/readmePictures/SignupEmpty.PNG)<br/><br/>
+![Signup](/images/readmePictures/SignupFilled.PNG)<br/>
+<br/> on Login <br/>
+![OnLogin](/images/readmePictures/OnLogin.PNG)<br/>
 <br/> the agenda <br/>
-![Wout Haakman](/images/readmePictures/Agenda1.PNG)<br/><br/>
-![Wout Haakman](/images/readmePictures/Agenda2.PNG)<br/><br/>
-![Wout Haakman](/images/readmePictures/Agenda3.png)
+![Agenda](/images/readmePictures/Activity1.gif)<br/><br/>
+![Agenda](/images/readmePictures/ActivityDeletion.gif)<br/>
+<br/>
+![overall](/images/readmePictures/GinoTramontina.jpg)<br/><br/>
+
+
 
 ## About us
 ### Name: Wout Haakman, whaakman

@@ -382,9 +382,4 @@ public class ServerRequests {
         }
         return null;
     }
-
-
-    public List<Activity> RetrieveActivities(String w, String h, String y, String m) {
-        return null;
-    }
 }

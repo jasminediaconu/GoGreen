@@ -83,12 +83,12 @@ public class ClientUserMockitoTest {
     }
 
     @Test
-    public void getSolarPower() {
+    public void hasSolarPower() {
         assertEquals(mockedClientUser.getSolarPower(), 0);
     }
 
     @Test
-    public void getLeds() {
+    public void hasLEDs() {
         assertEquals(mockedClientUser.getLeds(), 0);
     }
 
@@ -134,7 +134,7 @@ public class ClientUserMockitoTest {
     }
 
     @Test
-    public void setLeds() {
+    public void setLEDs() {
         doCallRealMethod().when(mockedClientUser).setLeds(eq(10));
         mockedClientUser.setLeds(10);
         verify(mockedClientUser).setLeds(10);

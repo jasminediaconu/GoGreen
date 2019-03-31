@@ -22,7 +22,6 @@ public class ClientUser extends User {
     private int streakLength;
 
     private int leds;
-
     private int solarPower;
 
     private int roomTemp;

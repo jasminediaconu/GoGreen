@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXNodesList?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
@@ -29,6 +29,8 @@
                     </font>
                 </Text>
                 <ScrollPane fx:id="scrollBadges" layoutX="332.0" layoutY="500.0" prefHeight="200.0" prefWidth="514.0" style="-fx-background-radius: 5 0 0 5;" stylesheets="@../css/overview.css" />
+            <JFXButton fx:id="aabutton1" layoutX="224.0" layoutY="211.0" prefHeight="32.0" prefWidth="59.0" style="-fx-background-color: #95e743;" text="Week" />
+            <JFXButton fx:id="aabutton2" layoutX="224.0" layoutY="261.0" prefHeight="32.0" prefWidth="59.0" style="-fx-background-color: #95e743;" text="Year" />
             <BarChart fx:id="barChart" layoutX="350.0" layoutY="128.0" legendSide="LEFT" prefHeight="347.0" prefWidth="421.0" title="Co2">
               <xAxis>
                 <CategoryAxis side="BOTTOM" fx:id="x" />
@@ -37,7 +39,7 @@
                 <NumberAxis fx:id="y" side="LEFT" />
               </yAxis>
             </BarChart>
-            <JFXComboBox fx:id="comboBox" layoutX="237.0" layoutY="277.0" />
+            <JFXButton fx:id="clearGraph" layoutX="213.0" layoutY="302.0" prefHeight="32.0" prefWidth="81.0" style="-fx-background-color: #95e743;" text="Clear Graph" />
             </children>
         </Pane>
     </children>

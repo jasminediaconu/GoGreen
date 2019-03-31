@@ -4,9 +4,6 @@ package client.windows;
 import client.Main;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,10 +30,15 @@ public class OverviewController extends Controller implements Initializable {
 
     @FXML
     private BarChart<String, Integer> barChart;
-        @FXML
+    @FXML
+    private JFXButton aabutton1;
+    @FXML
+    private JFXButton aabutton2;
+    @FXML
+    private JFXButton clearGraph;
+    @FXML
     private CategoryAxis x;
-        @FXML
-      private  JFXComboBox comboBox;
+
     @FXML
     LineChart<String, Integer> lineChart;
     @FXML
@@ -70,10 +72,37 @@ public class OverviewController extends Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        ObservableList<String> periodList = FXCollections.observableArrayList("Week","Month","Year");
+//        barChart.getData().clear();
+//        XYChart.Series<String, Integer> series = new XYChart.Series<String, Integer>();
+//        series.getData().add(new XYChart.Data<String, Integer>("Monday",50));
+//        series.getData().add(new XYChart.Data<String, Integer>("Tuesday",100));
+//        series.getData().add(new XYChart.Data<String, Integer>("Wednesday",300));
+//        series.getData().add(new XYChart.Data<String, Integer>("Thursday",123));
+//        series.getData().add(new XYChart.Data<String, Integer>("Friday",123));
+//        series.getData().add(new XYChart.Data<String, Integer>("Saturday",400));
+//        series.getData().add(new XYChart.Data<String, Integer>("Sunday",321));
+//        aabutton1.setOnMouseClicked(e ->barChart.getData().addAll(series));
+//        series.setName("Week");
+//
+//        clearGraph.setOnMouseClicked(d ->barChart.getData().clear());
+//
+//        XYChart.Series<String, Integer> series1 = new XYChart.Series<String, Integer>();
+//        series1.getData().add(new XYChart.Data<String, Integer>("January", 430));
+//        series1.getData().add(new XYChart.Data<String, Integer>("February", 121));
+//        series1.getData().add(new XYChart.Data<String, Integer>("March", 322));
+//        series1.getData().add(new XYChart.Data<String, Integer>("April", 350));
+//        series1.getData().add(new XYChart.Data<String, Integer>("May", 113));
+//        series1.getData().add(new XYChart.Data<String, Integer>("June", 13));
+//        series1.getData().add(new XYChart.Data<String, Integer>("July", 663));
+//        series1.getData().add(new XYChart.Data<String, Integer>("August", 64));
+//        series1.getData().add(new XYChart.Data<String, Integer>("September", 100));
+//        series1.getData().add(new XYChart.Data<String, Integer>("October", 0));
+//        series1.getData().add(new XYChart.Data<String, Integer>("November", 999));
+//        series1.getData().add(new XYChart.Data<String, Integer>("December", 1));
+//        aabutton2.setOnMouseClicked(q -> barChart.getData().addAll(series1));
+//        series1.setName("Month");
 
-        comboBox.setValue("Week");
-        comboBox.setItems(periodList);
+        //x.setCategories(FXCollections.observableArrayList());
 
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));

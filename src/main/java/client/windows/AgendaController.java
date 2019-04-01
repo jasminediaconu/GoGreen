@@ -98,7 +98,6 @@ public class AgendaController extends Controller implements Initializable {
     private PopOver popOver1 = new PopOver();
     private PopOver popOver2 = new PopOver();
     private PopOver popOver3 = new PopOver();
-
     private String itemName;
     private Text dateText;
     private JFXNodesList nodesList;
@@ -283,8 +282,8 @@ public class AgendaController extends Controller implements Initializable {
         nodesList.addAnimatedNode(ssbutton1, (expanded, duration) -> {
             List<KeyFrame> frames = new ArrayList<>();
             frames.add(new KeyFrame(duration,
-                    new KeyValue(ssbutton1.rotateProperty(),
-                            expanded ? 180 : 0, Interpolator.EASE_BOTH)));
+                            new KeyValue(ssbutton1.rotateProperty(),
+                                    expanded ? 180 : 0, Interpolator.EASE_BOTH)));
             return frames;
         }
         );
@@ -497,6 +496,11 @@ public class AgendaController extends Controller implements Initializable {
             return;
         }
 
+        addActivity(itemName, parsedAmount, date);
+    }
+
+    private void addActivity(String itemName, double parsedAmount, LocalDate date) {
+        ServerRequests sv = new ServerRequests();
         if (itemName != null && parsedAmount > 0 && date != null) {
             System.out.println(date.toString());
             int itemID = Main.items.stream().filter(x ->
@@ -510,13 +514,14 @@ public class AgendaController extends Controller implements Initializable {
                 if (!item.getType().equals("energy")) {
                     addition /= 1000.0;
                 }
-                Main.clientUser.increaseTotalCo2(addition);
+                Main.clientUser.increaseTotalCo2(Main.round(addition, 2));
                 sv.updateClientUserProfile();
 
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }
     }
+
 
     public PopOver getPopOver1() {
         return popOver1;
@@ -538,7 +543,6 @@ public class AgendaController extends Controller implements Initializable {
         return agendaBox;
     }
 
-    @Override
     public void update() {
 
     }

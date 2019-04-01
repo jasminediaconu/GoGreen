@@ -3,7 +3,6 @@ package client;
 import com.google.gson.reflect.TypeToken;
 
 import client.objects.Activity;
-
 import client.objects.Item;
 import client.user.Achievement;
 import client.user.ClientUser;
@@ -171,7 +170,7 @@ public class ServerRequests {
 
         try {
             activityID = Integer.parseInt(response);
-        } catch (ParseException e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         }
 

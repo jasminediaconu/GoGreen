@@ -5,9 +5,10 @@
 ## Main problems  Encountered
 
 ### Problem 1:
-
+   Problems with the functionality of the  overview controller and leaderboard controller
 
 ### Problem 2:
+We also had the additional meeting,where we talked about the problems and future development.
 
 
 ## Adjustments from previous sprints

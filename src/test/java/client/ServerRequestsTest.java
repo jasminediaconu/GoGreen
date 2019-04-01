@@ -57,6 +57,11 @@ class ServerRequestsTest {
     }
 
     @Test
+    void loginHashedFail(){
+        Assert.assertEquals("password", sv.login("admin", "admin", true));
+    }
+
+    @Test
     void loginFail() {
         ServerRequests.requestUrl = "";
         Assert.assertEquals("fail", sv.login("username", "password", false));
@@ -205,6 +210,42 @@ class ServerRequestsTest {
     void updateClientUserProfileFail() {
         Assert.assertEquals(false, sv.updateClientUserProfile());
     }
+
+    @Test
+    void followUserSucces(){
+        sv.unFollowUser("admin");
+        Assert.assertEquals(true, sv.followUser("admin"));
+    }
+
+    @Test
+    void followUserAlreadyFollow(){
+        sv.followUser("admin");
+        Assert.assertEquals(false, sv.followUser("admin"));
+    }
+
+    @Test
+    void followUserNoUser(){
+        Assert.assertEquals(false, sv.followUser("ashdlfjas345dfasdjfasfhskdfjhasjdf"));
+    }
+
+    @Test
+    void unFollowUserSucces(){
+        sv.followUser("admin");
+        Assert.assertEquals(true, sv.unFollowUser("admin"));
+    }
+
+    @Test
+    void unFollowUserAlready(){
+        sv.unFollowUser("admin");
+        Assert.assertEquals(true, sv.unFollowUser("admin"));
+    }
+
+    @Test
+    void unFollowUserNoUser(){
+        Assert.assertEquals(true, sv.unFollowUser("ashdlfjas345dfasdjfasfhskdfjhasjdf"));
+    }
+
+
 
     @Test
     void getFollowingProfileOK() {

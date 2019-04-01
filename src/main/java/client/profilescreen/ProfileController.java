@@ -304,6 +304,7 @@ public class ProfileController extends Controller {
             transportList.addAll(Main.items.stream().filter(item ->
                     item.getType().equals("transport")).map(item ->
                     item.getName()).collect(Collectors.toList()));
+            transportList = transportList.filtered(e -> e.toString().split(", ").length > 1);
             transportField.setItems(transportList);
             transportField.getSelectionModel().clearSelection();
         }

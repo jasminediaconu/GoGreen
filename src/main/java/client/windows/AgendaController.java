@@ -93,18 +93,6 @@ public class AgendaController extends Controller implements Initializable {
     private PopOver popOver2 = new PopOver();
     private PopOver popOver3 = new PopOver();
 
-    public PopOver getPopOver1() {
-        return popOver1;
-    }
-
-    public PopOver getPopOver2() {
-        return popOver2;
-    }
-
-    public PopOver getPopOver3() {
-        return popOver3;
-    }
-
     private String itemName;
     private Text dateText;
     private JFXNodesList nodesList;
@@ -114,13 +102,7 @@ public class AgendaController extends Controller implements Initializable {
     private static GridPane gridPane;
     private static VBox agendaBox;
 
-    public static GridPane getGridPane() {
-        return gridPane;
-    }
 
-    public static VBox getAgendaBox() {
-        return agendaBox;
-    }
 
     /**
      * Constructor to be used in the MainScreenController.
@@ -537,8 +519,24 @@ public class AgendaController extends Controller implements Initializable {
         }
     }
 
-    public JFXNodesList getNodesList() {
-        return nodesList;
+    public PopOver getPopOver1() {
+        return popOver1;
+    }
+
+    public PopOver getPopOver2() {
+        return popOver2;
+    }
+
+    public PopOver getPopOver3() {
+        return popOver3;
+    }
+
+    public static GridPane getGridPane() {
+        return gridPane;
+    }
+
+    public static VBox getAgendaBox() {
+        return agendaBox;
     }
 
     @Override

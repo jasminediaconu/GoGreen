@@ -69,7 +69,7 @@ public class UserController {
             selectGlobalBest = ServerApp.dbConnection.prepareStatement(
                     "SELECT username, countryname, totalco2 FROM user_profile AS up "
                             + "JOIN user_login AS ul ON up.userid = ul.userid "
-                            + "ORDER BY totalco2 DESC LIMIT 10;"
+                            + "ORDER BY totalco2 DESC LIMIT 50;"
             );
 
             followUser = ServerApp.dbConnection.prepareStatement(

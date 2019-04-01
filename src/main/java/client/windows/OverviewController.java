@@ -24,7 +24,13 @@ import org.controlsfx.control.PopOver;
 import java.io.IOException;
 import java.net.URL;
 import java.time.temporal.WeekFields;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
@@ -161,7 +167,8 @@ public class OverviewController extends Controller implements Initializable {
     private JFXButton button;
     private PopOver popOver = new PopOver();
     private List<JFXButton> badges = new ArrayList<>();
-    private List<Achievement> achievementList = Main.achievements.stream().collect(Collectors.toList());
+    private List<Achievement> achievementList
+            = Main.achievements.stream().collect(Collectors.toList());
     private List<String> titleList = new ArrayList<>();
     private List<String> descriptionList = new ArrayList<>();
     @FXML
@@ -176,21 +183,36 @@ public class OverviewController extends Controller implements Initializable {
     }
 
     private void updateProgress() {
-        progress.setText(Main.achievements.get(0).getProgress() + "/" + Main.achievements.get(0).getGoal());
-        progress1.setText(Main.achievements.get(1).getProgress() + "/" + Main.achievements.get(1).getGoal());
-        progress2.setText(Main.achievements.get(2).getProgress() + "/" + Main.achievements.get(2).getGoal());
-        progress3.setText(Main.achievements.get(3).getProgress() + "/" + Main.achievements.get(3).getGoal());
-        progress4.setText(Main.achievements.get(4).getProgress() + "/" + Main.achievements.get(4).getGoal());
-        progress5.setText(Main.achievements.get(5).getProgress() + "/" + Main.achievements.get(5).getGoal());
-        progress6.setText(Main.achievements.get(6).getProgress() + "/" + Main.achievements.get(6).getGoal());
-        progress7.setText(Main.achievements.get(7).getProgress() + "/" + Main.achievements.get(7).getGoal());
-        progress8.setText(Main.achievements.get(8).getProgress() + "/" + Main.achievements.get(8).getGoal());
-        progress9.setText(Main.achievements.get(9).getProgress() + "/" + Main.achievements.get(9).getGoal());
-        progress10.setText(Main.achievements.get(10).getProgress() + "/" + Main.achievements.get(10).getGoal());
-        progress11.setText(Main.achievements.get(11).getProgress() + "/" + Main.achievements.get(11).getGoal());
-        progress12.setText(Main.achievements.get(12).getProgress() + "/" + Main.achievements.get(12).getGoal());
-        progress13.setText(Main.achievements.get(13).getProgress() + "/" + Main.achievements.get(13).getGoal());
-        progress14.setText(Main.achievements.get(14).getProgress() + "/" + Main.achievements.get(14).getGoal());
+        progress.setText(Main.achievements.get(0).getProgress()
+                + "/" + Main.achievements.get(0).getGoal());
+        progress1.setText(Main.achievements.get(1).getProgress()
+                + "/" + Main.achievements.get(1).getGoal());
+        progress2.setText(Main.achievements.get(2).getProgress()
+                + "/" + Main.achievements.get(2).getGoal());
+        progress3.setText(Main.achievements.get(3).getProgress()
+                + "/" + Main.achievements.get(3).getGoal());
+        progress4.setText(Main.achievements.get(4).getProgress()
+                + "/" + Main.achievements.get(4).getGoal());
+        progress5.setText(Main.achievements.get(5).getProgress()
+                + "/" + Main.achievements.get(5).getGoal());
+        progress6.setText(Main.achievements.get(6).getProgress()
+                + "/" + Main.achievements.get(6).getGoal());
+        progress7.setText(Main.achievements.get(7).getProgress()
+                + "/" + Main.achievements.get(7).getGoal());
+        progress8.setText(Main.achievements.get(8).getProgress()
+                + "/" + Main.achievements.get(8).getGoal());
+        progress9.setText(Main.achievements.get(9).getProgress()
+                + "/" + Main.achievements.get(9).getGoal());
+        progress10.setText(Main.achievements.get(10).getProgress()
+                + "/" + Main.achievements.get(10).getGoal());
+        progress11.setText(Main.achievements.get(11).getProgress()
+                + "/" + Main.achievements.get(11).getGoal());
+        progress12.setText(Main.achievements.get(12).getProgress()
+                + "/" + Main.achievements.get(12).getGoal());
+        progress13.setText(Main.achievements.get(13).getProgress()
+                + "/" + Main.achievements.get(13).getGoal());
+        progress14.setText(Main.achievements.get(14).getProgress()
+                + "/" + Main.achievements.get(14).getGoal());
 
         for (int i = 0; i < 15; i++) {
             if (Main.achievements.get(i).isAchieved()) {
@@ -200,6 +222,9 @@ public class OverviewController extends Controller implements Initializable {
 
     }
 
+    /**
+     * Add titles and descriptions to separate array lists.
+     */
     public void retrieveAchievementsInfo() {
         for (int i = 0; i < achievementList.size(); i++) {
             titleList.add(achievementList.get(i).getTitle());
@@ -209,7 +234,8 @@ public class OverviewController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<String> periodList = FXCollections.observableArrayList("Week", "Month", "Year");
+        ObservableList<String> periodList
+                = FXCollections.observableArrayList("Week", "Month", "Year");
 
         comboBox.setValue("Week");
         comboBox.setItems(periodList);
@@ -226,7 +252,8 @@ public class OverviewController extends Controller implements Initializable {
         String path = "/client/windows/images/badges/";
         for (int i = 0; i < achievementList.size(); i++) {
             int ii = i;
-            button = new JFXButton("", new ImageView(path + achievementList.get(i).getPath() + ".png"));
+            button = new JFXButton("",
+                    new ImageView(path + achievementList.get(i).getPath() + ".png"));
             badges.add(button);
             badges.get(i).setOnMouseEntered(e -> popupBadges(badges.get(ii), ii));
             badges.get(i).setOnMouseExited(e -> hidePopup());
@@ -428,17 +455,19 @@ public class OverviewController extends Controller implements Initializable {
     /**
      * This function will make a hashmap sorted by LocalDate or week or month.
      *
-     * @param activityList List<Activity> type
+     * @param activityList List type
      * @param period       String type
-     * @return a HashMap<String, Double> with the correct values for the graph
+     * @return a HashMap with the correct values for the graph
      */
-    private HashMap<String, Double> mapActivitiesToGraph(List<Activity> activityList, String period) {
+    private HashMap<String, Double>
+        mapActivitiesToGraph(List<Activity> activityList, String period) {
         HashMap<String, Double> result = new HashMap<String, Double>();
         for (Activity activity : activityList) {
             String key = activity.getDate().toString();
             double value = Main.items.get(activity.getItemID() - 1).getCo2() * activity.getAmount();
             if (period.equals("m")) {
-                key = "Week " + activity.getDate().get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+                key = "Week " + activity.getDate().get(WeekFields.of(
+                        Locale.getDefault()).weekOfWeekBasedYear());
             } else if (period.equals("y") || period.equals("h")) {
                 key = activity.getDate().getMonth().name();
             }
@@ -452,6 +481,11 @@ public class OverviewController extends Controller implements Initializable {
         return result;
     }
 
+    /**
+     * This function iterates the Co2.
+     *
+     * @param mp Map type
+     */
     public static void printMap(Map mp) {
         Iterator it = mp.entrySet().iterator();
         while (it.hasNext()) {

@@ -24,7 +24,8 @@ public class Achievement {
      * @param title the title
      * @param path  the path
      */
-    public Achievement(int id, String title, String description, String path, int progress, int goal, boolean achieved) {
+    public Achievement(int id, String title, String description, String path,
+                       int progress, int goal, boolean achieved) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -207,15 +208,6 @@ public class Achievement {
      */
     public boolean isAchieved() {
         return achieved;
-    }
-
-    /**
-     * This function will set the goal of the achievement.
-     *
-     * @param achieved boolean type
-     */
-    public void setGoal(boolean achieved) {
-        this.achieved = achieved;
     }
 }
 

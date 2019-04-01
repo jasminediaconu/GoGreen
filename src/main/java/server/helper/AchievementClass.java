@@ -20,7 +20,8 @@ public class AchievementClass {
      * @param progress    int type
      * @param achieved    boolean type
      */
-    public AchievementClass(int id, String title, String description, String path, int progress, int goal, boolean achieved) {
+    public AchievementClass(int id, String title, String description, String path,
+                            int progress, int goal, boolean achieved) {
         this.id = id;
         this.title = title;
         this.description = description;

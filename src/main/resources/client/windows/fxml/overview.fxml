@@ -39,7 +39,6 @@
               </yAxis>
             </BarChart>
             <JFXComboBox id="comboBox" fx:id="comboBox" layoutX="243.0" layoutY="296.0" />
-            <FontAwesomeIcon fx:id="refresh" fill="#95e743" iconName="REFRESH" layoutX="883.0" layoutY="619.0" onMouseClicked="#update" size="4em" text="" wrappingWidth="41.91428756713867" />
             </children>
         </Pane>
     </children>

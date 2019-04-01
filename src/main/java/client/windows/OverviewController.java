@@ -7,23 +7,18 @@ import client.objects.Activity;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import javafx.animation.RotateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -164,8 +159,6 @@ public class OverviewController extends Controller implements Initializable {
     private HBox row2;
     private HBox row3;
     private JFXButton button;
-    @FXML
-    private FontAwesomeIcon refresh;
     private PopOver popOver = new PopOver();
     private List<JFXButton> badges = new ArrayList<>();
     private List<Achievement> achievementList = Main.achievements.stream().collect(Collectors.toList());
@@ -177,7 +170,6 @@ public class OverviewController extends Controller implements Initializable {
     @Override
     public void update() {
         // This checks if the badges are unlocked or not
-        refresh.setOnMouseClicked(e -> rotate());
         ServerRequests sv = new ServerRequests();
         sv.getAchievements();
         updateProgress();
@@ -199,15 +191,13 @@ public class OverviewController extends Controller implements Initializable {
         progress12.setText(Main.achievements.get(12).getProgress() + "/" + Main.achievements.get(12).getGoal());
         progress13.setText(Main.achievements.get(13).getProgress() + "/" + Main.achievements.get(13).getGoal());
         progress14.setText(Main.achievements.get(14).getProgress() + "/" + Main.achievements.get(14).getGoal());
-    }
 
-    public void rotate() {
-        RotateTransition rt = new RotateTransition(Duration.millis(600), refresh);
-        rt.setFromAngle(0);
-        rt.setToAngle(360);
-        rt.setCycleCount(1);
-        rt.setAutoReverse(true);
-        rt.play();
+        for (int i = 0; i < 15; i++) {
+            if (Main.achievements.get(i).isAchieved()) {
+                badges.get(i).setStyle("-fx-opacity: 100%;");
+            }
+        }
+
     }
 
     public void retrieveAchievementsInfo() {
@@ -274,12 +264,6 @@ public class OverviewController extends Controller implements Initializable {
         description13.setText(descriptionList.get(13));
         title14.setText(titleList.get(14));
         description14.setText(descriptionList.get(14));
-
-        for (int i = 0; i < 15; i++) {
-            if (Main.achievements.get(i).isAchieved()) {
-                badges.get(i).setStyle("-fx-opacity: 100%;");
-            }
-        }
 
         // This adds the badges to the different rows of the VBOX
         for (int i = 0; i < 5; i++) {

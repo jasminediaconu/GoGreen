@@ -21,7 +21,7 @@ public class AchievementController {
     private static PreparedStatement kgVegetarianMeal;
     private static PreparedStatement solarPanels;
     private static PreparedStatement temperature;
-    private static PreparedStatement activityExists;
+    private static PreparedStatement activityAmount;
     private static PreparedStatement streakLength;
     private static PreparedStatement followTenPeople;
     private static PreparedStatement globalSpot;
@@ -68,8 +68,8 @@ public class AchievementController {
                     "SELECT roomtemp as INTEGER) FROM user_profile WHERE userid = ?;"
             );
 
-            activityExists = ServerApp.dbConnection.prepareStatement(
-                    "SELECT cast(userid as INTEGER) FROM user_activities WHERE userid = ? LIMIT 1;"
+            activityAmount = ServerApp.dbConnection.prepareStatement(
+                    "SELECT cast(count(*) as INTEGER) FROM user_activities WHERE userid = ? LIMIT 1;"
             );
 
             streakLength = ServerApp.dbConnection.prepareStatement(
@@ -98,7 +98,7 @@ public class AchievementController {
             achQueries[4] = solarPanels;
             achQueries[5] = solarPanels;
             achQueries[6] = temperature;
-            achQueries[7] = activityExists;
+            achQueries[7] = activityAmount;
             achQueries[8] = streakLength;
             achQueries[9] = followTenPeople;
             achQueries[10] = globalSpot;

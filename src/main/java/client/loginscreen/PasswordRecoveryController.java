@@ -27,7 +27,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 
-public class PasswordRecoveryControler implements Initializable {
+public class PasswordRecoveryController implements Initializable {
 
     private double doublex = 0;
     private double doubley = 0;

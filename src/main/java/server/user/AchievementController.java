@@ -3,6 +3,7 @@ package server.user;
 import client.ServerRequests;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import server.ServerApp;
 import server.helper.AchievementClass;
 
@@ -24,6 +25,8 @@ public class AchievementController {
     private static PreparedStatement followTenPeople;
     private static PreparedStatement globalSpot;
     private static PreparedStatement totalCo2;
+
+    private static PreparedStatement[] achQueries;
 
     private static PreparedStatement selectAchievements;
     private static PreparedStatement insertAndSelectUserAchievements;
@@ -59,8 +62,12 @@ public class AchievementController {
                             + " WHERE userid = ?;"
             );
 
+            temperature = ServerApp.dbConnection.prepareStatement(
+                    "SELECT roomtemp FROM user_profile WHERE userid = ?;"
+            );
+
             activityExists = ServerApp.dbConnection.prepareStatement(
-                    "SELECT 1 FROM user_activities WHERE userid = ?;"
+                    "SELECT * FROM user_activities WHERE userid = ? LIMIT 1;"
             );
 
             streakLength = ServerApp.dbConnection.prepareStatement(
@@ -72,13 +79,31 @@ public class AchievementController {
             );
 
             globalSpot = ServerApp.dbConnection.prepareStatement(
-                    "SELECT row_number FROM (SELECT userid, ROW_NUMBER() OVER (ORDER BY totalco2 DESC) FROM user_profile) AS up WHERE userid = 598;"
+                    "SELECT row_number FROM (SELECT userid, ROW_NUMBER() OVER"
+                            + " (ORDER BY totalco2 DESC) FROM user_profile) AS up"
+                            + " WHERE userid = ?;"
             );
 
             totalCo2 = ServerApp.dbConnection.prepareStatement(
                     "SELECT totalco2 FROM user_profile WHERE userid = ?;"
             );
 
+            achQueries = new PreparedStatement[15];
+            achQueries[0] = kmsTraveled;
+            achQueries[1] = kmsTraveled;
+            achQueries[2] = uniqueRegularMeals;
+            achQueries[3] = kgVegetarianMeal;
+            achQueries[4] = solarPanels;
+            achQueries[5] = solarPanels;
+            achQueries[6] = temperature;
+            achQueries[7] = activityExists;
+            achQueries[8] = streakLength;
+            achQueries[9] = followTenPeople;
+            achQueries[10] = globalSpot;
+            achQueries[11] = globalSpot;
+            achQueries[12] = totalCo2;
+            achQueries[13] = totalCo2;
+            achQueries[14] = totalCo2;
 
 
 
@@ -93,10 +118,10 @@ public class AchievementController {
             );
 
             updateUserAchievements = ServerApp.dbConnection.prepareStatement(
-                    "UPDATE user_achiements SET ach1 = ?, ach2 = ?, ach3 = ?,"
+                    "UPDATE user_achievements SET ach1 = ?, ach2 = ?, ach3 = ?,"
                     + "ach4 = ?, ach5 = ?, ach6 = ?, ach7 = ?, ach8 = ?, ach9 = ?,"
-                    + "ach10 = ?, ach11= ?, ach12 = ?, ach13 = ?, ach14 = ? "
-                    + "WHERE userid = ?";
+                    + "ach10 = ?, ach11= ?, ach12 = ?, ach13 = ?, ach14 = ?, ach15 = ? "
+                    + "WHERE userid = ?;"
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -109,8 +134,14 @@ public class AchievementController {
      * @return a list of achievements
      */
     @RequestMapping(value = "/getAchievements", method = RequestMethod.POST)
-    private String getAchievements() {
+    private String getAchievements(@RequestParam String sessionID) {
+        int userID = ServerApp.getUserIDfromSession(sessionID);
+        if (userID == -1) {
+            return null;
+        }
         try {
+            boolean[] achBooleans = getAchievementsArray(userID);
+
             List<AchievementClass> achievements = new ArrayList<AchievementClass>();
             ResultSet result = selectAchievements.executeQuery();
             while(result.next()) {
@@ -119,10 +150,74 @@ public class AchievementController {
                         result.getString("path"), 0, result.getInt("goal"), false));
             }
 
+            for (int i = 0; i < achBooleans.length; i++) {
+                AchievementClass achievement = achievements.get(i);
+
+                int progress = getProgress(userID, achQueries[i]);
+                achievement.progress = progress;
+
+                if (achBooleans[i]) {
+                    achievement.achieved = true;
+                    continue;
+                }
+
+                if ((i == 6 || i == 10 || i ==  11) && progress <= achievement.goal) {
+                    achBooleans[i] = true;
+                    achievement.achieved = true;
+                } else if (progress >= achievement.goal) {
+                    achBooleans[i] = true;
+                    achievement.achieved = true;
+                }
+            }
+
+            updateAchievementsArray(userID, achBooleans);
+
             return ServerApp.gson.toJson(achievements);
         }catch(SQLException e) {
             e.printStackTrace();
             return "fail";
+        }
+    }
+
+    private int getProgress(int userID, PreparedStatement query) {
+        try {
+            query.setInt(1, userID);
+            ResultSet result = query.executeQuery();
+            result.next();
+            return result.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+
+    }
+
+    private boolean[] getAchievementsArray(int userID) {
+        try {
+            insertAndSelectUserAchievements.setInt(1, userID);
+            insertAndSelectUserAchievements.setInt(2, userID);
+            ResultSet result = insertAndSelectUserAchievements.executeQuery();
+            result.next();
+            boolean[] achBooleans = new boolean[15];
+            for (int i = 0; i < achBooleans.length; i++) {
+                achBooleans[i] = result.getBoolean("ach" + (i+1));
+            }
+            return achBooleans;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new boolean[0];
+        }
+    }
+
+    private void updateAchievementsArray(int userID, boolean[] achBooleans) {
+        try {
+            for (int i = 0; i < achBooleans.length; i++) {
+                updateUserAchievements.setBoolean(i+1, achBooleans[i]);
+            }
+            updateUserAchievements.setInt(16, userID);
+            updateUserAchievements.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }

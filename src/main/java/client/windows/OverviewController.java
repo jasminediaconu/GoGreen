@@ -120,22 +120,13 @@ public class OverviewController extends Controller implements Initializable {
         title.setText(achievementList.get(1).getTitle());
         description.setText(achievementList.get(1).getDescription());
         description.setText(achievementList.get(0).getDescription());
-        // This checks if the badges are unlocked or not
-        Badges.badge1(badges.get(0));
-        Badges.badge2(badges.get(1));
-        Badges.badge3(badges.get(2));
-        Badges.badge4(badges.get(3));
-        Badges.badge5(badges.get(4));
-        Badges.badge6(badges.get(5));
-        Badges.badge7(badges.get(6));
-        Badges.badge8(badges.get(7));
-        Badges.badge9(badges.get(8));
-        Badges.badge10(badges.get(9));
-        Badges.badge11(badges.get(10));
-        Badges.badge12(badges.get(11));
-        Badges.badge13(badges.get(12));
-        Badges.badge14(badges.get(13));
-        Badges.badge15(badges.get(14));
+
+        for(int i = 0; i < 15; i++) {
+            System.out.println(Main.achievements.get(i).getTitle() + ": " + Main.achievements.get(i).isAchieved());
+            if (Main.achievements.get(i).isAchieved()) {
+                badges.get(i).setStyle("-fx-opacity: 100%;");
+            }
+        }
 
         // This adds the badges to the different rows of the VBOX
         for (int i = 0; i < 5; i++) {

@@ -315,129 +315,73 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     public void popupBadges(JFXButton btn, int index) {
         String path = "/client/windows/fxml/popup" + index + ".fxml";
-        switch (index) {
-            case 0:
-                try {
+        try {
+            switch (index) {
+                case 0:
                     badgePopup = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup);
-                break;
-            case 1:
-                try {
+                    popOver = new PopOver(badgePopup);
+                    break;
+                case 1:
                     badgePopup2 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup2);
-                break;
-            case 2:
-                try {
+                    popOver = new PopOver(badgePopup2);
+                    break;
+                case 2:
                     badgePopup3 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup3);
-                break;
-            case 3:
-                try {
+                    popOver = new PopOver(badgePopup3);
+                    break;
+                case 3:
                     badgePopup4 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup4);
-                break;
-            case 4:
-                try {
+                    popOver = new PopOver(badgePopup4);
+                    break;
+                case 4:
                     badgePopup5 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup5);
-                break;
-            case 5:
-                try {
+                    popOver = new PopOver(badgePopup5);
+                    break;
+                case 5:
                     badgePopup6 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup6);
-                break;
-            case 6:
-                try {
+                    popOver = new PopOver(badgePopup6);
+                    break;
+                case 6:
                     badgePopup7 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup7);
-                break;
-            case 7:
-                try {
+                    popOver = new PopOver(badgePopup7);
+                    break;
+                case 7:
                     badgePopup8 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup8);
-                break;
-            case 8:
-                try {
+                    popOver = new PopOver(badgePopup8);
+                    break;
+                case 8:
                     badgePopup9 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup9);
-                break;
-            case 9:
-                try {
+                    popOver = new PopOver(badgePopup9);
+                    break;
+                case 9:
                     badgePopup10 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup10);
-                break;
-            case 10:
-                try {
+                    popOver = new PopOver(badgePopup10);
+                    break;
+                case 10:
                     badgePopup11 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup11);
-                break;
-            case 11:
-                try {
+                    popOver = new PopOver(badgePopup11);
+                    break;
+                case 11:
                     badgePopup12 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup12);
-                break;
-            case 12:
-                try {
+                    popOver = new PopOver(badgePopup12);
+                    break;
+                case 12:
                     badgePopup13 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup13);
-                break;
-            case 13:
-                try {
+                    popOver = new PopOver(badgePopup13);
+                    break;
+                case 13:
                     badgePopup14 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup14);
-                break;
-            case 14:
-                try {
+                    popOver = new PopOver(badgePopup14);
+                    break;
+                case 14:
                     badgePopup15 = FXMLLoader.load(getClass().getResource(path));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                popOver = new PopOver(badgePopup15);
-                break;
-            default:
-                System.out.println("Error parsing the popup");
+                    popOver = new PopOver(badgePopup15);
+                    break;
+                default:
+                    System.out.println("Error parsing the popup");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         if (!(popOver.isShowing())) {
             popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_CENTER);
@@ -445,6 +389,7 @@ public class OverviewController extends Controller implements Initializable {
             popOver.show(btn);
         }
     }
+
 
     /**
      * This function hides the popup.

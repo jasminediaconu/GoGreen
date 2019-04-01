@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PrivacyTermControler implements Initializable {
+public class PrivacyTermController implements Initializable {
 
     private double doublex = 0;
     private double doubley = 0;

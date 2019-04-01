@@ -58,6 +58,11 @@ import java.util.stream.Collectors;
  */
 public class AgendaController extends Controller implements Initializable {
 
+    private static JFXDialog dialog;
+    private static StackPane stackPane;
+    private static GridPane gridPane;
+    private static VBox agendaBox;
+
     @FXML
     Pane agenda;
     @FXML
@@ -92,6 +97,17 @@ public class AgendaController extends Controller implements Initializable {
     private PopOver popOver1 = new PopOver();
     private PopOver popOver2 = new PopOver();
     private PopOver popOver3 = new PopOver();
+    private String itemName;
+    private Text dateText;
+    private JFXNodesList nodesList;
+
+    /**
+     * Constructor to be used in the MainScreenController.
+     * To be able to use the variables, methods of this class.
+     */
+    public AgendaController() {
+        nodesList = new JFXNodesList();
+    }
 
     public PopOver getPopOver1() {
         return popOver1;
@@ -105,14 +121,6 @@ public class AgendaController extends Controller implements Initializable {
         return popOver3;
     }
 
-    private String itemName;
-    private Text dateText;
-    private JFXNodesList nodesList;
-    private static JFXDialog dialog;
-    private static StackPane stackPane;
-
-    private static GridPane gridPane;
-    private static VBox agendaBox;
 
     public static GridPane getGridPane() {
         return gridPane;
@@ -122,13 +130,6 @@ public class AgendaController extends Controller implements Initializable {
         return agendaBox;
     }
 
-    /**
-     * Constructor to be used in the MainScreenController.
-     * To be able to use the variables, methods of this class.
-     */
-    public AgendaController() {
-        nodesList = new JFXNodesList();
-    }
 
     /**
      * Initialize agenda with the user activities.
@@ -516,6 +517,11 @@ public class AgendaController extends Controller implements Initializable {
             return;
         }
 
+        addActivity(itemName, parsedAmount, date);
+    }
+
+    private void addActivity(String itemName, double parsedAmount, LocalDate date) {
+        ServerRequests sv = new ServerRequests();
         if (itemName != null && parsedAmount > 0 && date != null) {
             System.out.println(date.toString());
             int itemID = Main.items.stream().filter(x ->
@@ -529,13 +535,14 @@ public class AgendaController extends Controller implements Initializable {
                 if (item.getType().equals("food")) {
                     addition /= 1000.0;
                 }
-                Main.clientUser.increaseTotalCo2(addition);
+                Main.clientUser.increaseTotalCo2(Main.round(addition, 2));
                 sv.updateClientUserProfile();
 
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }
     }
+
 
     public JFXNodesList getNodesList() {
         return nodesList;

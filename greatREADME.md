@@ -18,14 +18,8 @@ To install:
 - run as exec:java 
 
 ## Features
-Login<br/>
-![Login](/images/readmePictures/LoginEmpty.PNG)<br/><br/>
-![Login](/images/readmePictures/LoginFilled.PNG)<br/>
-<br/>signup<br/>
-![Signup](/images/readmePictures/SignupEmpty.PNG)<br/><br/>
-![Signup](/images/readmePictures/SignupFilled.PNG)<br/>
-<br/> on Login <br/>
-![OnLogin](/images/readmePictures/OnLogin.PNG)<br/>
+Login and SignUp<br/>
+![Login](/images/readmePictures/LoginSignup.gif)<br/><br/>
 <br/> the agenda <br/>
 ![Agenda](/images/readmePictures/Activity1.gif)<br/><br/>
 ![Agenda](/images/readmePictures/ActivityDeletion.gif)<br/>

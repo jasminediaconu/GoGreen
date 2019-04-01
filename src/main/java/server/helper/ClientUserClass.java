@@ -30,6 +30,7 @@ public class ClientUserClass {
      * @param leds            int type
      * @param roomTemp        int type
      */
+    //CHECKSTYLE:OFF
     @SuppressWarnings("sizes") //JSON needs 11 parameters to be passed through to the user
     public ClientUserClass(String username, String country, String email, String imageUrl,
                            double totalCo2, String carType, String carEmissionType,
@@ -46,6 +47,7 @@ public class ClientUserClass {
         this.leds = leds;
         this.roomTemp = roomTemp;
     }
+    //CHECKSTYLE:ON
 
     public ClientUserClass() {
     }

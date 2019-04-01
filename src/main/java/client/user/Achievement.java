@@ -50,7 +50,7 @@ public class Achievement {
         try {
             return ImageIO.read(Achievement.class.getResourceAsStream(
                     "/client/windows/images/badges/"
-                    + path + ".png"));
+                            + path + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
             return null;

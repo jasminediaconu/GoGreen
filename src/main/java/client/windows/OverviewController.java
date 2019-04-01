@@ -7,6 +7,8 @@ import client.objects.Activity;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.animation.RotateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -43,7 +46,7 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     private CategoryAxis x;
 
-        @FXML
+    @FXML
     Pane overview;
     private ObservableList periodList = FXCollections.observableArrayList();
     @FXML
@@ -137,7 +140,6 @@ public class OverviewController extends Controller implements Initializable {
     private Text title14 = new Text();
     @FXML
     private Text description14 = new Text();
-    private String activities;
     @FXML
     private ScrollPane scrollBadges = new ScrollPane();
 
@@ -146,21 +148,20 @@ public class OverviewController extends Controller implements Initializable {
     private HBox row2;
     private HBox row3;
     private JFXButton button;
-
+    @FXML
+    private FontAwesomeIcon refresh;
     private PopOver popOver = new PopOver();
-    List<JFXButton> badges = new ArrayList<>();
+    private List<JFXButton> badges = new ArrayList<>();
     private List<Achievement> achievementList = Main.achievements.stream().collect(Collectors.toList());
     private List<String> titleList = new ArrayList<>();
     private List<String> descriptionList = new ArrayList<>();
     @FXML
-    private JFXComboBox<String> comboBox;
-    public PopOver getPopOver() {
-        return popOver;
-    }
+    private JFXComboBox<String> comboBox = new JFXComboBox<>();
 
     @Override
     public void update() {
         // This checks if the badges are unlocked or not
+        refresh.setOnMouseClicked(e -> rotate());
         Badges.badge1(badges.get(0));
         Badges.badge2(badges.get(1));
         Badges.badge3(badges.get(2));
@@ -178,6 +179,15 @@ public class OverviewController extends Controller implements Initializable {
         Badges.badge15(badges.get(14));
     }
 
+    public void rotate() {
+        RotateTransition rt = new RotateTransition(Duration.millis(600), refresh);
+        rt.setFromAngle(0);
+        rt.setToAngle(360);
+        rt.setCycleCount(1);
+        rt.setAutoReverse(true);
+        rt.play();
+    }
+
     public void retrieveAchievementsInfo() {
         for (int i = 0; i < achievementList.size(); i++) {
             titleList.add(achievementList.get(i).getTitle());
@@ -187,13 +197,13 @@ public class OverviewController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<String> periodList = FXCollections.observableArrayList("Week","Month","Year");
+        ObservableList<String> periodList = FXCollections.observableArrayList("Week", "Month", "Year");
 
-    comboBox.setValue("Week");
-    comboBox.setItems(periodList);
+        comboBox.setValue("Week");
+        comboBox.setItems(periodList);
 
         ServerRequests sv = new ServerRequests();
-        List<Activity> activities = sv.RetrieveActivities("w","h","y","m");
+        List<Activity> activities = sv.RetrieveActivities("w", "h", "y", "m");
 
 
         retrieveAchievementsInfo();
@@ -243,8 +253,6 @@ public class OverviewController extends Controller implements Initializable {
         description13.setText(descriptionList.get(13));
         title14.setText(titleList.get(14));
         description14.setText(descriptionList.get(14));
-
-
 
 
         // This adds the badges to the different rows of the VBOX
@@ -406,19 +414,19 @@ public class OverviewController extends Controller implements Initializable {
     public void hidePopup() {
         popOver.hide();
     }
+
     /**
      * This function will make a hashmap sorted by LocalDate or week or month.
      *
      * @param activityList List<Activity> type
-     * @param period String type
-     *
+     * @param period       String type
      * @return a HashMap<String, Double> with the correct values for the graph
      */
     private HashMap<String, Double> mapActivitiesToGraph(List<Activity> activityList, String period) {
         HashMap<String, Double> result = new HashMap<String, Double>();
-        for (Activity activity:activityList) {
+        for (Activity activity : activityList) {
             String key = activity.getDate().toString();
-            double value = Main.items.get(activity.getItemID()-1).getCo2() * activity.getAmount();
+            double value = Main.items.get(activity.getItemID() - 1).getCo2() * activity.getAmount();
             if (period.equals("m")) {
                 key = "Week " + activity.getDate().get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
             } else if (period.equals("y") || period.equals("h")) {
@@ -433,10 +441,11 @@ public class OverviewController extends Controller implements Initializable {
         }
         return result;
     }
+
     public static void printMap(Map mp) {
         Iterator it = mp.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry)it.next();
+            Map.Entry pair = (Map.Entry) it.next();
             System.out.println(pair.getKey() + " = " + pair.getValue());
             it.remove(); // avoids a ConcurrentModificationException
         }

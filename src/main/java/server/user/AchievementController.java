@@ -38,7 +38,8 @@ public class AchievementController {
             while (result.next()) {
                 achievements.add(new AchievementClass(result.getInt("achievementid"),
                         result.getString("title"), result.getString("description"),
-                        result.getString("path"), result.getInt("goal")));
+                        result.getString("path"), result.getInt("goal"), result.getInt("progress"),
+                        result.getBoolean("achieved")));
             }
 
             return ServerApp.gson.toJson(achievements);

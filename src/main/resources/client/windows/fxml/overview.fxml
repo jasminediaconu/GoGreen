@@ -38,12 +38,8 @@
                 <NumberAxis fx:id="y" side="LEFT" />
               </yAxis>
             </BarChart>
-<<<<<<< HEAD
             <JFXComboBox id="comboBox" fx:id="comboBox" layoutX="243.0" layoutY="296.0" />
-=======
-            <JFXButton fx:id="clearGraph" layoutX="213.0" layoutY="302.0" prefHeight="32.0" prefWidth="81.0" style="-fx-background-color: #95e743;" text="Clear Graph" />
             <FontAwesomeIcon fx:id="refresh" fill="#95e743" iconName="REFRESH" layoutX="883.0" layoutY="619.0" onMouseClicked="#update" size="4em" text="" wrappingWidth="41.91428756713867" />
->>>>>>> fbd2264bfab4f1990d4a2ee8720e9fb7b7e9ba5a
             </children>
         </Pane>
     </children>

@@ -344,7 +344,7 @@ public class ServerRequests {
         System.out.println("[INFO] Retrieving achievements from database.");
         Type listType = new TypeToken<List<Achievement>>() {
         }.getType();
-        String response = sendRequestToServer("getAchievements", null);
+        String response = sendRequestToServer("getAchievements?sessionID=" + Main.sessionID, null);
         if (response != null) {
             Main.achievements = Main.gson.fromJson(response, listType);
         }

@@ -8,7 +8,6 @@ import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
 
-import org.apache.http.ParseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;

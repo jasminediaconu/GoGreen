@@ -46,6 +46,7 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 //CHECKSTYLE:OFF
+
 //CHECKSTYLE:ON
 
 /**
@@ -57,6 +58,12 @@ import java.util.stream.Collectors;
  * @author gforghieri
  */
 public class AgendaController extends Controller implements Initializable {
+
+    private static JFXDialog dialog;
+    private static StackPane stackPane;
+
+    private static GridPane gridPane;
+    private static VBox agendaBox;
 
     @FXML
     Pane agenda;
@@ -81,7 +88,6 @@ public class AgendaController extends Controller implements Initializable {
     @FXML
     private Pane energyWindow;
 
-    private MainScreenController mainScreenController;
     private JFXButton ssbutton1;
     private JFXButton ssbutton2;
     private JFXButton ssbutton3;
@@ -96,13 +102,6 @@ public class AgendaController extends Controller implements Initializable {
     private String itemName;
     private Text dateText;
     private JFXNodesList nodesList;
-    private static JFXDialog dialog;
-    private static StackPane stackPane;
-
-    private static GridPane gridPane;
-    private static VBox agendaBox;
-
-
 
     /**
      * Constructor to be used in the MainScreenController.

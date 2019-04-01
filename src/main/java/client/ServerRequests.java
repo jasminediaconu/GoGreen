@@ -39,6 +39,7 @@ public class ServerRequests {
         if (!ishashed) {
             hashedPassword = Main.hashString(password);
         }
+
         if (username == null || hashedPassword == null) {
             return null;
         }

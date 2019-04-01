@@ -16,8 +16,8 @@ import java.util.ResourceBundle;
 
 public class PrivacyTermControler implements Initializable {
 
-    private double x = 0;
-    private double y = 0;
+    private double doublex = 0;
+    private double doubley = 0;
 
 
     /**
@@ -36,18 +36,18 @@ public class PrivacyTermControler implements Initializable {
     }
 
     /**
-     * This function will update x and y when the mouse is pressed
+     * This function will update x and y when the mouse is pressed.
      *
      * @param event MouseEvent type
      */
     @FXML
     private void pressed(MouseEvent event) {
-        x = event.getSceneX();
-        y = event.getSceneY();
+        doublex = event.getSceneX();
+        doubley = event.getSceneY();
     }
 
     /**
-     * This function will change the drag of the scene when the mouse is dragged
+     * This function will change the drag of the scene when the mouse is dragged.
      *
      * @param event MouseEvent type
      */
@@ -58,16 +58,16 @@ public class PrivacyTermControler implements Initializable {
 
         Stage stage = (Stage) node.getScene().getWindow();
 
-        stage.setX(event.getScreenX() - x);
-        stage.setY(event.getScreenY() - y);
+        stage.setX(event.getScreenX() - doublex);
+        stage.setY(event.getScreenY() - doubley);
     }
 
 
     /**
-     * This function will switch to the login screen
+     * This function will switch to the login screen.
      *
      * @param event MouseEvent type
-     * @throws IOException
+     * @throws IOException if there is no input
      */
     @FXML
     private void login(MouseEvent event) throws IOException {
@@ -77,7 +77,7 @@ public class PrivacyTermControler implements Initializable {
     }
 
     /**
-     * This function will fill the screen with a new event stage evoked by the root
+     * This function will fill the screen with a new event stage evoked by the root.
      *
      * @param root  Parent type
      * @param event MouseEvent event
@@ -95,10 +95,10 @@ public class PrivacyTermControler implements Initializable {
     }
 
     /**
-     * This function remains unused, but required to stay since this class implements Initializable
+     * This function remains unused, but required to stay since this class implements Initializable.
      *
-     * @param url
-     * @param resourceBundle
+     * @param url            URL
+     * @param resourceBundle ResourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

@@ -63,7 +63,7 @@ public class LoginRequestTest {
         loginRequest = new LoginRequest(null, null, false, null);
         loginRequest.login();
         loginRequest.getUserProfile();
-        loginRequest.clientUser.setImageURL(null);
+        loginRequest.clientUser.setImageUrl(null);
         boolean res = loginRequest.loadImage();
         Assert.assertFalse(res);
         //unable to test because of JAVAFX

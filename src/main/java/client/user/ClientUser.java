@@ -2,10 +2,13 @@ package client.user;
 
 import com.google.gson.annotations.Expose;
 
+import client.Main;
+
 import client.objects.Activity;
 
 import javafx.scene.image.Image;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -48,7 +51,7 @@ public class ClientUser extends User {
      *
      * @param username        the username
      * @param country         the country
-     * @param totalco2        the totalco 2
+     * @param totalCo2        the totalCo2
      * @param streakLength    the streak length
      * @param solarPower      the solar power
      * @param leds            the leds
@@ -59,10 +62,11 @@ public class ClientUser extends User {
      * @param carEmissionType the car emission type
      */
     @SuppressWarnings("ParameterNumberCheck")//We need these parameters for Gson.
-    public ClientUser(String username, String country, double totalco2, int streakLength,
+
+    public ClientUser(String username, String country, double totalCo2, int streakLength,
                       int solarPower, int leds, int roomTemp, String email,
                       String imageUrl, String carType, String carEmissionType) {
-        super(username, country, totalco2);
+        super(username, country, totalCo2);
         this.streakLength = streakLength;
         this.solarPower = solarPower;
         this.leds = leds;
@@ -196,7 +200,7 @@ public class ClientUser extends User {
      * @return the image url
      */
     @SuppressWarnings("abbriviationaswordinnamecheck")
-    public String getImageURL() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
@@ -206,7 +210,7 @@ public class ClientUser extends User {
      *
      * @param imageUrl the image url
      */
-    public void setImageURL(String imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 
@@ -267,6 +271,10 @@ public class ClientUser extends User {
         activityList.add(activity);
     }
 
+    public void removeFromActivityList(Activity activity) {
+        activityList.remove(activity);
+    }
+
     /**
      * This function will return the User List following.
      *
@@ -286,7 +294,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will as a User to the User List following.
+     * This function will add a User to the User List following.
      *
      * @param user User type.
      */
@@ -335,13 +343,14 @@ public class ClientUser extends User {
         clientUser.setEmail(email);
         clientUser.setUsername(username);
         clientUser.setCountry(country);
-        clientUser.setImageURL(imageUrl);
+        clientUser.setImageUrl(imageUrl);
         clientUser.setSolarPower(solarPower);
         clientUser.setRoomTemp(roomTemp);
         clientUser.setLeds(leds);
         clientUser.setStreakLength(streakLength);
         clientUser.setTotalCo2(totalCo2);
         clientUser.setCarType(carType);
+        clientUser.setActivityList(activityList);
         clientUser.setCarEmissionType(carEmissionType);
 
         return clientUser;
@@ -353,5 +362,20 @@ public class ClientUser extends User {
                 + ";streak:" + streakLength + ";CO2: " + totalCo2
                 + "; led: " + leds + "; solar: " + solarPower + "; temp: " + roomTemp
                 + "; Car type: " + carType + "; Car emission type: " + carEmissionType + "]";
+    }
+
+    /**
+     * Make a new list containing the filtered activities.
+     *
+     * @return the filtered list
+     */
+    public List<Activity> getFilteredList() {
+        List<Activity> filteredActivities = new ArrayList<>();
+        for (Activity activity : Main.clientUser.getActivityList()) {
+            if (activity.getDate().equals(LocalDate.now())) {
+                filteredActivities.add(activity);
+            }
+        }
+        return filteredActivities;
     }
 }

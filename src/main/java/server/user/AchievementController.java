@@ -35,14 +35,14 @@ public class AchievementController {
         try {
             List<AchievementClass> achievements = new ArrayList<AchievementClass>();
             ResultSet result = select.executeQuery();
-            while(result.next()) {
+            while (result.next()) {
                 achievements.add(new AchievementClass(result.getInt("achievementid"),
                         result.getString("title"), result.getString("description"),
                         result.getString("path"), result.getInt("goal")));
             }
 
             return ServerApp.gson.toJson(achievements);
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return "fail";
         }

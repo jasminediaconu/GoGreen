@@ -2,9 +2,11 @@ package client.profilescreen;
 
 import client.Main;
 import client.ServerRequests;
+import client.helper.RowCount;
 import client.objects.Activity;
 import client.objects.Item;
 import client.user.ClientUser;
+import client.windows.AgendaController;
 import client.windows.Controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -17,12 +19,13 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
@@ -30,6 +33,10 @@ import java.util.stream.Collectors;
  * The type Controller profile.
  */
 public class ProfileController extends Controller {
+
+    ObservableList transportList = FXCollections.observableArrayList();
+
+    String itemName = null;
 
     @FXML
     private javafx.scene.control.Button imageButton;
@@ -59,11 +66,6 @@ public class ProfileController extends Controller {
     private JFXButton saveButton;
 
     private ClientUser newSettings;
-
-    String itemName = null;
-
-    ObservableList transportList = FXCollections.observableArrayList();
-
 
     /**
      * Instantiates a new Controller profile.
@@ -125,6 +127,8 @@ public class ProfileController extends Controller {
         solarPanelsField.setTextFormatter(textFormatter);
         initTransportField();
         update();
+        updateAgendaCaller();
+
     }
 
     /**
@@ -192,38 +196,69 @@ public class ProfileController extends Controller {
         setButtonsDisable(true);
         sv.updateClientUserProfile();
         update();
-
-        // if solarpanel amount changed call updateAgenda ("Solar panel", solarpanel.getamount)
-        // if led amount changed call updateAgenda("LEDs", led.getamount)
-        // if tempereate changed call updateAgenda("Lower temperature, tepmpratorfield.getamount")
-
+        updateAgendaCaller();
     }
 
-    private void updateAgenda(String itemName, int amount) {
-        // Check the activities of today, if there is no solarpanel add the amount which is in the solarpanel
-        // amount textfield to the agenda of today when the user clicks save.
-        // Also do this when the user logs in for solarpanels, leds, temperature
-        ArrayList<Activity> filteredActivities = new ArrayList<>();
 
-        // Filter activities by today's date
-        for (Activity activity : Main.clientUser.getActivityList()) {
-            if (activity.getDate().equals(java.time.LocalDate.now())) ;
-            filteredActivities.add(activity);
-        }
+    /**
+     * This method checks if the activity is present today if not apply it.
+     * The method also checks if the amount on the profilepage matches the agenda's activity,
+     * if not update it
+     *
+     * @param itemName name of the item
+     * @param amount   amount of the item
+     */
+    public void updateAgenda(String itemName, double amount) {
 
-        // If from today's activities the name of the item is not on the agenda or the amount is different
-        for (Activity activity : filteredActivities) {
+        AgendaController agendaController = new AgendaController();
+
+        Boolean isPresent = false;
+
+        // If itemName(solar panel, leds, lower temp) matches then dont apply on agenda
+        for (Activity activity : Main.clientUser.getFilteredList()) {
             Item item = Main.items.get(activity.getItemID() - 1);
-            if ((!(item.getName().equals(itemName)))) {
-                // add the item to the agenda
-            }
-            // the amount is different
-            else if (activity.getAmount() != amount) {
-                // update the amount of the activity on the agenda
+            if ((item.getName().equals(itemName)) && !isPresent) {
+                isPresent = true;
+
+                // if activity present check if amount is the same if not update it
+                if (activity.getAmount() != amount) {
+                    int activityIndex = Main.clientUser.getFilteredList().indexOf(activity);
+
+                    ServerRequests sv = new ServerRequests();
+                    int activityID = Main.clientUser.getActivityList().get(
+                            activityIndex + 1).getActivityID();
+                    sv.removeActivity(activityID);
+                    AgendaController.getGridPane().getChildren().removeIf(node ->
+                            GridPane.getRowIndex(node) == activityIndex + 2);
+                    // If there are no activities for that day, delete the date
+                    AgendaController.getAgendaBox().getChildren().removeIf(dateText ->
+                            RowCount.getRowCount(AgendaController.getGridPane()) == 0);
+                    Main.clientUser.removeFromActivityList(activity);
+                    applyActivity(itemName, amount);
+                }
             }
         }
 
-        // if user adds solarpanel, led, temperature on agenda update it on the userprofile and save it.
+        if (!isPresent) {
+            applyActivity(itemName, amount);
+        }
+        // if user adds solarpanel, led, temperature on agenda
+        // update it on the userprofile and save it.
+    }
+
+    /**
+     * Update the agenda with the text fields from Profile.
+     */
+    public void updateAgendaCaller() {
+        if (solarPanelsField.getText() != null && solarPanelsField.getText().length() > 0) {
+            updateAgenda("Solar panel", Double.parseDouble(solarPanelsField.getText()));
+        }
+        if (temperatureField.getText() != null && temperatureField.getText().length() > 0) {
+            updateAgenda("Lower temperature", 21 - Double.parseDouble(temperatureField.getText()));
+        }
+        if (ledsField.getText() != null && ledsField.getText().length() > 0) {
+            updateAgenda("LEDs", Double.parseDouble(ledsField.getText()));
+        }
     }
 
     private void checkNewSettings() {
@@ -257,7 +292,8 @@ public class ProfileController extends Controller {
      * @param emissionType the emission type
      */
     public void setTransportField(String carType, String emissionType) {
-        Object object = transportList.filtered(e -> e.toString().equals(emissionType + ", " + carType)).get(0);
+        Object object = transportList.filtered(e ->
+                e.toString().equals(emissionType + ", " + carType)).get(0);
         transportField.getSelectionModel().select(object);
 
     }
@@ -286,5 +322,37 @@ public class ProfileController extends Controller {
         }
     }
 
+    /**
+     * applyActivity event.
+     * Applies the activity to the agenda
+     */
+    @FXML
+    private void applyActivity(String itemName, double amount) {
 
+        AgendaController agendaController = new AgendaController();
+
+        ServerRequests sv = new ServerRequests();
+        double parsedAmount = amount;
+        LocalDate date = LocalDate.now();
+
+        if (itemName != null && parsedAmount > 0) {
+            System.out.println(date.toString());
+            int itemID = Main.items.stream().filter(x ->
+                    x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
+            Activity activity = new Activity(itemID, parsedAmount, date);
+            if (sv.addActivity(activity)) {
+                Main.clientUser.addToActivityList(activity);
+
+                Item item = Main.items.get(activity.getItemID() - 1);
+                double addition = activity.getAmount() * item.getCo2();
+                if (!item.getType().equals("energy")) {
+                    addition /= 1000.0;
+                }
+                Main.clientUser.increaseTotalCo2(addition);
+                sv.updateClientUserProfile();
+                agendaController.showAgendaActivities(agendaController.activityMap(
+                        Main.clientUser.getActivityList()));
+            }
+        }
+    }
 }

@@ -11,7 +11,6 @@ import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -62,7 +61,7 @@ public class OverviewController extends Controller implements Initializable {
 
     private PopOver popOver = new PopOver();
     List<JFXButton> badges = new ArrayList<>();
-    private List<Achievement> achievementList;
+    private List<Achievement> achievementList = new ArrayList<>();
 
     @Override
     public void update() {
@@ -128,7 +127,7 @@ public class OverviewController extends Controller implements Initializable {
         // This checks if the badges are unlocked or not
         Badges.badge1(badges.get(0));
         Badges.badge2(badges.get(1));
-        Badges.badge3(badges.get(2));
+//        Badges.badge3(badges.get(2));
         Badges.badge4(badges.get(3));
         Badges.badge5(badges.get(4));
         Badges.badge6(badges.get(5));

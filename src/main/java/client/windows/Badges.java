@@ -8,7 +8,6 @@ import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -76,17 +75,18 @@ public class Badges {
         filteredList.sort(Comparator.comparing(Activity::getDate));
         filteredList.sort((x, y) -> x.getItemID());
 
-        LocalDate date = filteredList.get(0).getDate();
-        System.out.println(filteredList);
+//        LocalDate date = filteredList.get(0).getDate();
+//        System.out.println(filteredList);
+//
+//        for (int i = 0; i < filteredList.size(); i++) {
+//            if (filteredList.get(i).getDate().equals(date.plusDays(i))) {
+//                count++;
+//                if (count >= Main.achievements.get(2).getGoal()) {
+//                    btn.setStyle("-fx-opacity: 100%;");
+//                }
+//            }
+//        }
 
-        for (int i = 0; i < filteredList.size(); i++) {
-            if (filteredList.get(i).getDate().equals(date.plusDays(i))) {
-                count++;
-                if (count >= Main.achievements.get(2).getGoal()) {
-                    btn.setStyle("-fx-opacity: 100%;");
-                }
-            }
-        }
     }
 
     /**

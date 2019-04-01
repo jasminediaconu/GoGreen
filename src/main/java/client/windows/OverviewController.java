@@ -333,6 +333,8 @@ public class OverviewController extends Controller implements Initializable {
         updateGraph(period);
     }
 
+    //CHECKSTYLE:OFF
+    // Supressing the warning [CyclomaticComplexityCheck] because there are more than 10 popups to load and the function cannot be splitted.
     /**
      * This function loads the popup for each button.
      *
@@ -417,6 +419,7 @@ public class OverviewController extends Controller implements Initializable {
         }
     }
 
+    //CHECKSTYLE:ON
 
     /**
      * This function hides the popup.

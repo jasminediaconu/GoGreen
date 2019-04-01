@@ -436,6 +436,8 @@ public class OverviewController extends Controller implements Initializable {
                 }
                 popOver = new PopOver(badgePopup15);
                 break;
+            default:
+                System.out.println("Error parsing the popup");
         }
         if (!(popOver.isShowing())) {
             popOver.setArrowLocation(PopOver.ArrowLocation.BOTTOM_CENTER);

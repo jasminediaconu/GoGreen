@@ -7,6 +7,8 @@ import client.objects.Activity;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -153,6 +157,9 @@ public class OverviewController extends Controller implements Initializable {
     private Text progress14 = new Text();
     @FXML
     private ScrollPane scrollBadges = new ScrollPane();
+    @FXML
+    private BarChart<String, Double> barChart;
+
 
     private VBox badgesBox;
     private HBox row;
@@ -217,11 +224,11 @@ public class OverviewController extends Controller implements Initializable {
 
     private void updateGraph(String period) {
         String sPeriod = "w";
-        if(period.equals("Month")) {
+        if (period.equals("Month")) {
             sPeriod = "m";
-        }else if (period.equals("Half a year")) {
+        } else if (period.equals("Half a year")) {
             sPeriod = "h";
-        }else if (period.equals("Year")) {
+        } else if (period.equals("Year")) {
             sPeriod = "y";
         }
 
@@ -237,7 +244,10 @@ public class OverviewController extends Controller implements Initializable {
         //    it.remove(); // avoids a ConcurrentModificationException
         //}
 
-        //barChart.getData().addAll(mapActivitiesToGraph(activities, period)));
+        if (barChart != null) {
+            barChart.getData().clear();
+            barChart.getData().addAll(activityMapToChart(activityListToMap(activities, period), period));
+        }
     }
 
     /**
@@ -257,7 +267,14 @@ public class OverviewController extends Controller implements Initializable {
 
         comboBox.setValue("Week");
         comboBox.setItems(periodList);
-        comboBox.setOnAction(this::updateGraph);
+        comboBox.valueProperty().addListener(new ChangeListener<>() {
+            @Override
+            public void changed(ObservableValue ov, String t, String t1) {
+                System.out.println(ov);
+                System.out.println(t);
+                System.out.println(t1);
+            }
+        });
 
         updateGraph("Week");
 
@@ -436,8 +453,8 @@ public class OverviewController extends Controller implements Initializable {
      * @param period       String type
      * @return a HashMap with the correct values for the graph
      */
-    private HashMap<String, Double> mapActivitiesToGraph(List<Activity> activityList, String period) {
-        HashMap<String, Double> result = new HashMap<String, Double>();
+    private HashMap<String, Double> activityListToMap(List<Activity> activityList, String period) {
+        HashMap<String, Double> map = new HashMap<String, Double>();
         for (Activity activity : activityList) {
             String key = activity.getDate().toString();
             double value = Main.items.get(activity.getItemID() - 1).getCo2() * activity.getAmount();
@@ -448,12 +465,21 @@ public class OverviewController extends Controller implements Initializable {
                 key = activity.getDate().getMonth().name();
             }
 
-            if (!result.containsKey(key)) {
-                result.put(key, value);
+            if (!map.containsKey(key)) {
+                map.put(key, value);
             } else {
-                result.put(key, result.get(key) + value);
+                map.put(key, map.get(key) + value);
             }
         }
-        return result;
+        return map;
+    }
+
+    private XYChart.Series activityMapToChart(HashMap<String, Double> map, String period) {
+        XYChart.Series<String, Double> chart = new XYChart.Series<>();
+        chart.setName(period);
+        for(Map.Entry<String, Double> entry : map.entrySet()) {
+            chart.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
+        }
+        return chart;
     }
 }

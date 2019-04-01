@@ -26,7 +26,8 @@ public class LoginRequest extends AsyncTask {
      * @param password        the password
      * @param loginController the login controller
      */
-    LoginRequest(String username, String password, boolean ishashed, LoginController loginController) {
+    LoginRequest(String username, String password, boolean ishashed,
+                 LoginController loginController) {
         this.loginController = loginController;
         this.username = username;
         this.password = password;
@@ -94,8 +95,6 @@ public class LoginRequest extends AsyncTask {
 
     /**
      * Gets user profile.
-     *
-     * @return the user profile
      */
     public void getUserProfile() {
         ServerRequests sv = new ServerRequests();
@@ -109,7 +108,7 @@ public class LoginRequest extends AsyncTask {
      * @return the boolean
      */
     public boolean loadImage() {
-        String url = clientUser.getImageURL();
+        String url = clientUser.getImageUrl();
         if (url != null) {
 
             if (url.equals("default")) {

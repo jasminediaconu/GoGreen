@@ -34,13 +34,13 @@ public class SignUpController implements Initializable {
     @FXML
     private FontAwesomeIcon close;
     @FXML
-    private TextField tf_username;
+    private TextField tfUsername;
     @FXML
-    private TextField tf_email;
+    private TextField tfEmail;
     @FXML
-    private PasswordField pf_password;
+    private PasswordField pfPassword;
     @FXML
-    private Text txt_usernametaken;
+    private Text txtUsernametaken;
     @FXML
     private Button signUpButton;
     @FXML
@@ -65,10 +65,10 @@ public class SignUpController implements Initializable {
     }
 
     private void setDisableScreen(boolean disableScreen) {
-        if (tf_username != null) {
-            tf_username.setDisable(disableScreen);
-            pf_password.setDisable(disableScreen);
-            tf_email.setDisable(disableScreen);
+        if (tfUsername != null) {
+            tfUsername.setDisable(disableScreen);
+            pfPassword.setDisable(disableScreen);
+            tfEmail.setDisable(disableScreen);
             signUpButton.setDisable(disableScreen);
             loginButton.setDisable(disableScreen);
         }
@@ -122,16 +122,16 @@ public class SignUpController implements Initializable {
     @FXML
     private void signUp(Event event) {
         String keycode = "";
-        if (event instanceof KeyEvent){
-            KeyEvent keyevent = (KeyEvent)event;
+        if (event instanceof KeyEvent) {
+            KeyEvent keyevent = (KeyEvent) event;
             keycode = keyevent.getCode().toString();
         }
-        if (event instanceof MouseEvent||keycode.equals("ENTER")) {
+        if (event instanceof MouseEvent || keycode.equals("ENTER")) {
             setDisableScreen(true);
 
-            String username = tf_username.getText();
-            String email = tf_email.getText();
-            String password = pf_password.getText();
+            String username = tfUsername.getText();
+            String email = tfEmail.getText();
+            String password = pfPassword.getText();
 
             SignUpRequest signUpRequest = new SignUpRequest(username, password, email, this);
             signUpRequest.setDaemon(false);
@@ -144,7 +144,7 @@ public class SignUpController implements Initializable {
      * This function will be called when the signUp was successful.
      */
     public void signUpSucces() {
-        if (tf_username != null) {
+        if (tfUsername != null) {
             //GOTO MAIN SCREEN
             try {
                 String path = "../windows/fxml/mainScreen.fxml";
@@ -164,13 +164,20 @@ public class SignUpController implements Initializable {
     public void signUpFail(int response) {
         //sign up failed
         try {
-            txt_usernametaken.setVisible(true);
-            if(response == 0){txt_usernametaken.setText("Please enter a valid email address.");}
-            else if(response == 1){txt_usernametaken.setText("Something went wrong, please try again later.");}
-            else if(response == 3){txt_usernametaken.setText("Username already taken.");}
-            else if(response == 4){txt_usernametaken.setText("Email address already taken.");}
-        }catch (NullPointerException e){e.printStackTrace();}
-        if (tf_username != null) {
+            txtUsernametaken.setVisible(true);
+            if (response == 0) {
+                txtUsernametaken.setText("Please enter a valid email address.");
+            } else if (response == 1) {
+                txtUsernametaken.setText("Something went wrong, please try again later.");
+            } else if (response == 3) {
+                txtUsernametaken.setText("Username already taken.");
+            } else if (response == 4) {
+                txtUsernametaken.setText("Email address already taken.");
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        if (tfUsername != null) {
             setDisableScreen(false);
             System.out.println("FAIL CODE:  " + response);
         }
@@ -195,9 +202,10 @@ public class SignUpController implements Initializable {
     }
 
     /**
-     * This function takes the termsOfService fxml file as file to load in a new popup window
+     * This function takes the termsOfService fxml file as file to load in a new popup window.
+     *
      * @param event MouseEvent type
-     * @throws IOException
+     * @throws IOException if there is no input
      */
     @FXML
     private void termsofservice(MouseEvent event) throws IOException {
@@ -207,24 +215,26 @@ public class SignUpController implements Initializable {
     }
 
     /**
-     * This function takes the privacyPolicy fxml file to load in a new popup window
+     * This function takes the privacyPolicy fxml file to load in a new popup window.
+     *
      * @param event MouseEvent type
-     * @throws IOException
+     * @throws IOException if there is no input
      */
     @FXML
-    private void privacypolicy (MouseEvent event) throws IOException {
+    private void privacypolicy(MouseEvent event) throws IOException {
         String source = "privacyPolicy.fxml";
-        privacyandterms(event,source);
+        privacyandterms(event, source);
     }
 
     /**
-     * This function opens a new popup window containing the source
-     * @param event MouseEvent type
+     * This function opens a new popup window containing the source.
+     *
+     * @param event  MouseEvent type
      * @param source String type
-     * @throws IOException
+     * @throws IOException if there is no input
      */
     @FXML
-    private void privacyandterms (MouseEvent event, String source) throws IOException {
+    private void privacyandterms(MouseEvent event, String source) throws IOException {
         // will open a new window and display the terms of service in that
         Parent root = FXMLLoader.load(getClass().getResource(source));
         fillScene(root);

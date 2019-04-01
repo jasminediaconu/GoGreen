@@ -1,8 +1,6 @@
 package client.loginscreen;
 
 import client.Main;
-import client.ServerRequests;
-//import com.sun.security.ntlm.Server;
 import client.windows.Controller;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -23,10 +21,15 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.commons.lang.StringUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
-import java.security.Key;
 import java.util.ResourceBundle;
+
+//import com.sun.security.ntlm.Server;
 
 /**
  * The type Login controller.
@@ -35,13 +38,13 @@ public class LoginController extends Controller implements Initializable {
 
     private double xcoord = 0;
     private double ycoord = 0;
-    public boolean remembered = false;
+    private boolean remembered = false;
 
 
     @FXML
-    private TextField tf_username;
+    private TextField tfUsername;
     @FXML
-    private PasswordField pf_password;
+    private PasswordField pfPassword;
     @FXML
     private CheckBox rememberBox;
     @FXML
@@ -49,7 +52,7 @@ public class LoginController extends Controller implements Initializable {
     @FXML
     private Button signUpButton;
     @FXML
-    private Text txt_incorrectPassword;
+    private Text txtIncorrectPassword;
     @FXML
     private AnchorPane loginScene = new AnchorPane();
 
@@ -81,8 +84,8 @@ public class LoginController extends Controller implements Initializable {
 
 
     private void setDisableScreen(boolean disableScreen) {
-        tf_username.setDisable(disableScreen);
-        pf_password.setDisable(disableScreen);
+        tfUsername.setDisable(disableScreen);
+        pfPassword.setDisable(disableScreen);
         loginButton.setDisable(disableScreen);
         signUpButton.setDisable(disableScreen);
         rememberBox.setDisable(disableScreen);
@@ -108,23 +111,24 @@ public class LoginController extends Controller implements Initializable {
      * This function will handle the input of username and
      * password when the login button is pressed.
      * It will also handle the responses returned by the ServerRequests class given it's query.
+     *
      * @param event Event type.
      */
 
     @FXML
     private void login(Event event) {
 
-        String username = tf_username.getText();
-        String password = pf_password.getText();
+        String username = tfUsername.getText();
+        String password = pfPassword.getText();
         boolean ishashed = false;
         String userpass = null;
         String keycode = "";
-        int passwordlength = password.length();
-        if (event instanceof KeyEvent){
-            KeyEvent keyevent = (KeyEvent)event;
+        int pwlength = password.length();
+        if (event instanceof KeyEvent) {
+            KeyEvent keyevent = (KeyEvent) event;
             keycode = keyevent.getCode().toString();
         }
-        if (event instanceof MouseEvent||keycode.equals("ENTER")) {
+        if (event instanceof MouseEvent || keycode.equals("ENTER")) {
             try {
                 if (remembered) {
                     FileReader freader = new FileReader("rememberme.txt");
@@ -140,7 +144,7 @@ public class LoginController extends Controller implements Initializable {
                 password = userpass.split(";")[1];
                 ishashed = true;
             }
-            rememberme(username,password,ishashed,passwordlength);
+            rememberme(username, password, ishashed, pwlength);
 
             LoginRequest loginRequest = new LoginRequest(username, password, ishashed, this);
             loginRequest.setDaemon(false);
@@ -153,7 +157,7 @@ public class LoginController extends Controller implements Initializable {
      * This function is called when the login was succesfull.
      */
     public void loginSuccess() {
-        if (tf_username != null) {
+        if (tfUsername != null) {
             try {
                 String path = "../windows/fxml/mainScreen.fxml";
                 //GOTO MAIN SCREEN
@@ -170,13 +174,14 @@ public class LoginController extends Controller implements Initializable {
      */
     public void loginFail() {
         try {
-            txt_incorrectPassword.setVisible(true);
-        }catch (NullPointerException e) {e.printStackTrace();}
-        if (tf_username != null) {
+            txtIncorrectPassword.setVisible(true);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        if (tfUsername != null) {
             setDisableScreen(false);
         }
     }
-
 
 
     /**
@@ -208,8 +213,9 @@ public class LoginController extends Controller implements Initializable {
     }
 
     /**
-     * This function takes the termsOfService fxml file as file to load in a new popup window
-     * @throws IOException
+     * This function takes the termsOfService fxml file as file to load in a new popup window.
+     *
+     * @throws IOException if there is no input
      */
     @FXML
     private void termsofservice() throws IOException {
@@ -219,33 +225,35 @@ public class LoginController extends Controller implements Initializable {
     }
 
     /**
-     * This function takes the privacyPolicy fxml file to load in a new popup window
-     * @throws IOException
+     * This function takes the privacyPolicy fxml file to load in a new popup window.
+     *
+     * @throws IOException if there is no input
      */
     @FXML
-    private void privacypolicy () throws IOException {
+    private void privacypolicy() throws IOException {
         String source = "privacyPolicy.fxml";
         privacyandterms(source);
     }
 
     /**
-     * This function opens a new popup window containing the source
+     * This function opens a new popup window containing the source.
+     *
      * @param source String type
-     * @throws IOException
+     * @throws IOException if there is no input
      */
     @FXML
-    private void privacyandterms (String source) throws IOException {
+    private void privacyandterms(String source) throws IOException {
         // will open a new window and display the terms of service in that
         Parent root = FXMLLoader.load(getClass().getResource(source));
         fillScene(root);
     }
 
 
-
     /**
-     * This function will switch to the password recovery screen
+     * This function will switch to the password recovery screen.
+     *
      * @param event MouseEvent type
-     * @throws IOException
+     * @throws IOException if there is no input
      */
     @FXML
     private void forgotpassword(MouseEvent event) throws IOException {
@@ -255,38 +263,41 @@ public class LoginController extends Controller implements Initializable {
     }
 
     /**
-     * This function will write the username and hashed password to a file
+     * This function will write the username and hashed password to a file.
+     *
      * @param username String type
      * @param password String type
-     * @throws IOException
+     * @throws IOException if there is no input
      */
-    private void rememberme (String username, String password, boolean ishashed, int passwordlength){
+    private void rememberme(String username, String password, boolean ishashed, int pwlength) {
         String hashedpassword = "";
-        if(!ishashed){
+        if (!ishashed) {
             hashedpassword = Main.hashString(password);
-        } else if(ishashed){
+        } else if (ishashed) {
             hashedpassword = password;
         }
         try {
             FileWriter writer = new FileWriter("rememberme.txt");
             writer.write("");
             if (rememberBox.isSelected()) {
-                writer.write(username + ";" + hashedpassword + ";" + passwordlength);
+                writer.write(username + ";" + hashedpassword + ";" + pwlength);
             }
             writer.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * This method will check whether a username and password are saved and set variables accordingly
-     * @throws IOException
+     * This method will check whether a username and password are saved.
+     * Set variables accordingly.
+     *
+     * @throws IOException if there is no input
      */
     @FXML
-    public void remembermecheck () throws IOException{
+    public void remembermecheck() throws IOException {
         //open the file and read its contents
-        if(!remembered) {
+        if (!remembered) {
             FileReader fread = new FileReader("rememberme.txt");
             BufferedReader reader = new BufferedReader(fread);
             String userpass = null;
@@ -297,17 +308,16 @@ public class LoginController extends Controller implements Initializable {
             if (userpass != null && userpass.contains(";")) {
                 rememberBox.setSelected(true);
                 String[] userpassparts = userpass.split(";");
-                tf_username.setText(userpassparts[0]);
+                tfUsername.setText(userpassparts[0]);
                 int passlength = Integer.parseInt(userpassparts[2]);
                 String passwordfiller = StringUtils.repeat("a", passlength);
-                pf_password.setText(passwordfiller);
+                pfPassword.setText(passwordfiller);
                 remembered = true;
             } else if (userpass == null) {
                 rememberBox.setSelected(false);
             }
         }
     }
-
 
 
     /**

@@ -27,7 +27,7 @@ public class LoginRequestTest {
 
     @Test
     public void loginSucces() {
-        loginRequest = new LoginRequest("admin", "admin", false, new LoginController());
+        loginRequest = new LoginRequest("root", "root", false, new LoginController());
         boolean res = loginRequest.doInBackground(null);
         Assert.assertTrue(res);
         loginRequest.onPostExecute(null);
@@ -61,7 +61,7 @@ public class LoginRequestTest {
         loginRequest = new LoginRequest(null, null, false, null);
         loginRequest.login();
         loginRequest.getUserProfile();
-        loginRequest.clientUser.setImageURL(null);
+        loginRequest.clientUser.setImageUrl(null);
         boolean res = loginRequest.loadImage();
         Assert.assertFalse(res);
         //unable to test because of JAVAFX

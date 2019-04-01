@@ -33,22 +33,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
-
-
-    @FXML
-    private BarChart<String, Integer> barChart;
-    @FXML
-    private JFXButton aabutton1;
-    @FXML
-    private JFXButton aabutton2;
-    @FXML
-    private JFXButton clearGraph;
-    @FXML
-    private CategoryAxis x;
-
     @FXML
     Pane overview;
-    private ObservableList periodList = FXCollections.observableArrayList();
     @FXML
     private Pane badgePopup;
     @FXML
@@ -141,6 +127,36 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     private Text description14 = new Text();
     @FXML
+    private Text progress = new Text();
+    @FXML
+    private Text progress1 = new Text();
+    @FXML
+    private Text progress2 = new Text();
+    @FXML
+    private Text progress3 = new Text();
+    @FXML
+    private Text progress4 = new Text();
+    @FXML
+    private Text progress5 = new Text();
+    @FXML
+    private Text progress6 = new Text();
+    @FXML
+    private Text progress7 = new Text();
+    @FXML
+    private Text progress8 = new Text();
+    @FXML
+    private Text progress9 = new Text();
+    @FXML
+    private Text progress10 = new Text();
+    @FXML
+    private Text progress11 = new Text();
+    @FXML
+    private Text progress12 = new Text();
+    @FXML
+    private Text progress13 = new Text();
+    @FXML
+    private Text progress14 = new Text();
+    @FXML
     private ScrollPane scrollBadges = new ScrollPane();
 
     private VBox badgesBox;
@@ -162,21 +178,27 @@ public class OverviewController extends Controller implements Initializable {
     public void update() {
         // This checks if the badges are unlocked or not
         refresh.setOnMouseClicked(e -> rotate());
-        Badges.badge1(badges.get(0));
-        Badges.badge2(badges.get(1));
-        Badges.badge3(badges.get(2));
-        Badges.badge4(badges.get(3));
-        Badges.badge5(badges.get(4));
-        Badges.badge6(badges.get(5));
-        Badges.badge7(badges.get(6));
-        Badges.badge8(badges.get(7));
-        Badges.badge9(badges.get(8));
-        Badges.badge10(badges.get(9));
-        Badges.badge11(badges.get(10));
-        Badges.badge12(badges.get(11));
-        Badges.badge13(badges.get(12));
-        Badges.badge14(badges.get(13));
-        Badges.badge15(badges.get(14));
+        ServerRequests sv = new ServerRequests();
+        sv.getAchievements();
+        updateProgress();
+    }
+
+    private void updateProgress() {
+        progress.setText(Main.achievements.get(0).getProgress() + "/" + Main.achievements.get(0).getGoal());
+        progress1.setText(Main.achievements.get(1).getProgress() + "/" + Main.achievements.get(1).getGoal());
+        progress2.setText(Main.achievements.get(2).getProgress() + "/" + Main.achievements.get(2).getGoal());
+        progress3.setText(Main.achievements.get(3).getProgress() + "/" + Main.achievements.get(3).getGoal());
+        progress4.setText(Main.achievements.get(4).getProgress() + "/" + Main.achievements.get(4).getGoal());
+        progress5.setText(Main.achievements.get(5).getProgress() + "/" + Main.achievements.get(5).getGoal());
+        progress6.setText(Main.achievements.get(6).getProgress() + "/" + Main.achievements.get(6).getGoal());
+        progress7.setText(Main.achievements.get(7).getProgress() + "/" + Main.achievements.get(7).getGoal());
+        progress8.setText(Main.achievements.get(8).getProgress() + "/" + Main.achievements.get(8).getGoal());
+        progress9.setText(Main.achievements.get(9).getProgress() + "/" + Main.achievements.get(9).getGoal());
+        progress10.setText(Main.achievements.get(10).getProgress() + "/" + Main.achievements.get(10).getGoal());
+        progress11.setText(Main.achievements.get(11).getProgress() + "/" + Main.achievements.get(11).getGoal());
+        progress12.setText(Main.achievements.get(12).getProgress() + "/" + Main.achievements.get(12).getGoal());
+        progress13.setText(Main.achievements.get(13).getProgress() + "/" + Main.achievements.get(13).getGoal());
+        progress14.setText(Main.achievements.get(14).getProgress() + "/" + Main.achievements.get(14).getGoal());
     }
 
     public void rotate() {
@@ -202,11 +224,8 @@ public class OverviewController extends Controller implements Initializable {
         comboBox.setValue("Week");
         comboBox.setItems(periodList);
 
-        ServerRequests sv = new ServerRequests();
-        List<Activity> activities = sv.RetrieveActivities("w", "h", "y", "m");
-
-
         retrieveAchievementsInfo();
+
         badgesBox = new VBox();
         badgesBox.setPadding(new Insets(10, 10, 10, 15));
 
@@ -222,6 +241,8 @@ public class OverviewController extends Controller implements Initializable {
             badges.get(i).setOnMouseEntered(e -> popupBadges(badges.get(ii), ii));
             badges.get(i).setOnMouseExited(e -> hidePopup());
         }
+
+        updateProgress();
 
         title.setText(titleList.get(0));
         description.setText(descriptionList.get(0));
@@ -254,6 +275,11 @@ public class OverviewController extends Controller implements Initializable {
         title14.setText(titleList.get(14));
         description14.setText(descriptionList.get(14));
 
+        for (int i = 0; i < 15; i++) {
+            if (Main.achievements.get(i).isAchieved()) {
+                badges.get(i).setStyle("-fx-opacity: 100%;");
+            }
+        }
 
         // This adds the badges to the different rows of the VBOX
         for (int i = 0; i < 5; i++) {

@@ -10,7 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -86,6 +89,11 @@ public class MainScreenController extends Pane implements Initializable {
         addController("profile.fxml");
         addController("overview.fxml");
         addController("leaderboard.fxml");
+    }
+
+
+    public ArrayList<Controller> getControllers() {
+        return controllers;
     }
 
     /**
@@ -205,11 +213,12 @@ public class MainScreenController extends Pane implements Initializable {
 
 
     /**
-     * This function will hide the popus in the Agenda when the user hovers on the menu buttons.
-     * @param event type
+     * Function to hide the popovers.
+     * @param event MouseEvent
      */
     public void hideButtonAction(javafx.scene.input.MouseEvent event) {
-        AgendaController agendaController = (AgendaController)controllers.get(0);
+        AgendaController agendaController = (AgendaController) controllers.get(0);
+
         agendaController.getPopOver1().hide();
         agendaController.getPopOver2().hide();
         agendaController.getPopOver3().hide();

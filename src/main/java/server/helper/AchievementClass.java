@@ -6,8 +6,8 @@ public class AchievementClass {
     public String title;
     public String description;
     public String path;
-    public int goal;
     public int progress;
+    public int goal;
     public boolean achieved;
 
     /**
@@ -20,13 +20,13 @@ public class AchievementClass {
      * @param progress    int type
      * @param achieved    boolean type
      */
-    public AchievementClass(int id, String title, String description, String path, int goal, int progress, boolean achieved) {
+    public AchievementClass(int id, String title, String description, String path, int progress, int goal, boolean achieved) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.path = path;
-        this.goal = goal;
         this.progress = progress;
+        this.goal = goal;
         this.achieved = achieved;
     }
 }

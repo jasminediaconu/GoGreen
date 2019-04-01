@@ -92,7 +92,7 @@
                                 </VBox>
                                 <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
                                     <children>
-                                        <TextField fx:id="tf_username" maxWidth="-Infinity" onKeyPressed="#login" prefHeight="30.0" prefWidth="345.0" promptText="Username" style="-fx-background-color: transparent; -fx-font-size: 1.5em;" HBox.hgrow="ALWAYS">
+                                        <TextField fx:id="tfUsername" maxWidth="-Infinity" onKeyPressed="#login" prefHeight="30.0" prefWidth="345.0" promptText="Username" style="-fx-background-color: transparent; -fx-font-size: 1.5em;" HBox.hgrow="ALWAYS">
                                             <HBox.margin>
                                                 <Insets left="15.0" />
                                             </HBox.margin>
@@ -115,7 +115,7 @@
                                 </HBox>
                                 <HBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #ecffe6; -fx-background-radius: 30;">
                                     <children>
-                                        <PasswordField fx:id="pf_password" onKeyPressed="#login" prefHeight="30.0" prefWidth="345.0" promptText="Password" style="-fx-background-color: transparent; -fx-font-size: 1.5em;">
+                                        <PasswordField fx:id="pfPassword" onKeyPressed="#login" prefHeight="30.0" prefWidth="345.0" promptText="Password" style="-fx-background-color: transparent; -fx-font-size: 1.5em;">
                                             <HBox.margin>
                                                 <Insets left="15.0" />
                                             </HBox.margin>
@@ -174,7 +174,7 @@
                         <HBox prefHeight="19.0" prefWidth="512.0">
                            <children>
                               <VBox prefHeight="19.0" prefWidth="135.0" />
-                              <Text fx:id="txt_incorrectPassword" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Incorrect username or password." visible="false">
+                              <Text fx:id="txtIncorrectPassword" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Incorrect username or password." visible="false">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

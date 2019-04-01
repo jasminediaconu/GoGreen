@@ -14,9 +14,9 @@ public class Achievement {
     private String description;
     private String path;
     private BufferedImage image;
+    private int progress;
     private int goal;
-    public int progress;
-    public boolean achieved;
+    private boolean achieved;
 
     /**
      * Instantiates a new Achievement.
@@ -24,11 +24,13 @@ public class Achievement {
      * @param title the title
      * @param path  the path
      */
-    public Achievement(int id, String title, String description, String path, int goal, int progress, boolean achieved) {
+    public Achievement(int id, String title, String description, String path, int progress, int goal, boolean achieved) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.path = path;
         this.image = loadImage(path);
+        this.progress = progress;
         this.goal = goal;
         this.progress = progress;
         this.achieved = achieved;
@@ -36,8 +38,6 @@ public class Achievement {
 
     public Achievement() {
     }
-
-
 
     /**
      * Load image buffered image.
@@ -162,6 +162,15 @@ public class Achievement {
      */
     public void setGoal(int goal) {
         this.goal = goal;
+    }
+
+    /**
+     * This function will set whether the achievement has been achieved.
+     *
+     * @param achieved boolean type
+     */
+    public void setAchieved(boolean achieved) {
+        this.achieved = achieved;
     }
 
     /**

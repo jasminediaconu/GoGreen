@@ -72,13 +72,13 @@ public class SignUpRequest extends AsyncTask {
             System.out.println("CLIENT: " + clientUser);
             this.response = OK;
             return true;
-        } else if (signUp() == 0){
+        } else if (signUp() == 0) {
             this.response = SYNTAX;
-        } else if (signUp() == 1){
+        } else if (signUp() == 1) {
             this.response = FAIL;
-        } else if (signUp() == 3){
+        } else if (signUp() == 3) {
             this.response = NAME;
-        } else if (signUp() == 4){
+        } else if (signUp() == 4) {
             this.response = MAIL;
         }
 

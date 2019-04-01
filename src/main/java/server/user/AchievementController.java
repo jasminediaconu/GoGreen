@@ -1,9 +1,9 @@
 package server.user;
 
-import client.ServerRequests;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import server.ServerApp;
 import server.helper.AchievementClass;
 
@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@RestController
 public class AchievementController {
 
     private static PreparedStatement kmsTraveled;
@@ -29,19 +30,20 @@ public class AchievementController {
     private static PreparedStatement[] achQueries;
 
     private static PreparedStatement selectAchievements;
-    private static PreparedStatement insertAndSelectUserAchievements;
+    private static PreparedStatement insertUserAchievements;
+    private static PreparedStatement selectUserAchievements;
     private static PreparedStatement updateUserAchievements;
 
     static {
         try {
             kmsTraveled = ServerApp.dbConnection.prepareStatement(
-                    "SELECT sum(amount) FROM user_activities AS ua JOIN (SELECT itemid FROM items"
-                            + " WHERE type = 'transport') AS it ON ua.itemid = it.itemid"
-                            + " WHERE userid = ?;"
+                    "SELECT cast(sum(amount) as INTEGER) FROM user_activities AS ua JOIN"
+                            + " (SELECT itemid FROM items WHERE type = 'transport') AS it"
+                            + " ON ua.itemid = it.itemid WHERE userid = ?;"
             );
 
             uniqueRegularMeals = ServerApp.dbConnection.prepareStatement(
-                    "SELECT max(numdays) maxseq FROM (SELECT grp, min(date) as date_start,"
+                    "SELECT cast(max(numdays) as INTEGER) maxseq FROM (SELECT grp, min(date) as date_start,"
                             + " max(date) AS mr_end, count(distinct date) AS numdays FROM"
                             + " (SELECT date, (date - cast(dense_rank() OVER (ORDER BY date)"
                             + " AS int)) AS grp FROM (SELECT date FROM user_activities AS ua"
@@ -51,41 +53,41 @@ public class AchievementController {
             );
 
             kgVegetarianMeal = ServerApp.dbConnection.prepareStatement(
-                    "SELECT sum(amount) FROM user_activities AS ua join (SELECT itemid FROM items"
+                    "SELECT cast(sum(amount) as INTEGER) FROM user_activities AS ua join (SELECT itemid FROM items"
                             + " WHERE name = 'Vegetarian meal') AS it on ua.itemid = it.itemid"
                             + " WHERE userid = ?;"
             );
 
             solarPanels = ServerApp.dbConnection.prepareStatement(
-                    "SELECT sum(amount) FROM user_activities AS ua JOIN (SELECT itemid FROM items"
+                    "SELECT cast(sum(amount) as INTEGER) FROM user_activities AS ua JOIN (SELECT itemid FROM items"
                             + " WHERE name = 'Solar panel') AS it ON ua.itemid = it.itemid"
                             + " WHERE userid = ?;"
             );
 
             temperature = ServerApp.dbConnection.prepareStatement(
-                    "SELECT roomtemp FROM user_profile WHERE userid = ?;"
+                    "SELECT roomtemp as INTEGER) FROM user_profile WHERE userid = ?;"
             );
 
             activityExists = ServerApp.dbConnection.prepareStatement(
-                    "SELECT * FROM user_activities WHERE userid = ? LIMIT 1;"
+                    "SELECT cast(userid as INTEGER) FROM user_activities WHERE userid = ? LIMIT 1;"
             );
 
             streakLength = ServerApp.dbConnection.prepareStatement(
-                    "SELECT streaklength FROM user_profile WHERE userid = ?;"
+                    "SELECT cast(streaklength as INTEGER) FROM user_profile WHERE userid = ?;"
             );
 
             followTenPeople = ServerApp.dbConnection.prepareStatement(
-                    "SELECT count(*) FROM user_follows WHERE userid = ?;"
+                    "SELECT cast(count(*) as INTEGER) FROM user_follows WHERE userid = ?;"
             );
 
             globalSpot = ServerApp.dbConnection.prepareStatement(
-                    "SELECT row_number FROM (SELECT userid, ROW_NUMBER() OVER"
+                    "SELECT cast(row_number as INTEGER) FROM (SELECT userid, ROW_NUMBER() OVER"
                             + " (ORDER BY totalco2 DESC) FROM user_profile) AS up"
                             + " WHERE userid = ?;"
             );
 
             totalCo2 = ServerApp.dbConnection.prepareStatement(
-                    "SELECT totalco2 FROM user_profile WHERE userid = ?;"
+                    "SELECT cast(totalco2 as INTEGER) FROM user_profile WHERE userid = ?;"
             );
 
             achQueries = new PreparedStatement[15];
@@ -111,17 +113,19 @@ public class AchievementController {
                     "SELECT * FROM achievements;"
             );
 
-            insertAndSelectUserAchievements = ServerApp.dbConnection.prepareStatement(
-                    "INSERT INTO user_achievements (\"userid\")"
-                            + "SELECT ? WHERE NOT EXISTS ("
-                            + "SELECT 1 FROM user_achievements WHERE userid = ?);"
+            insertUserAchievements = ServerApp.dbConnection.prepareStatement(
+                    "INSERT INTO user_achievements (\"userid\") VALUES (?);"
+            );
+
+            selectUserAchievements = ServerApp.dbConnection.prepareStatement(
+                    "SELECT * FROM user_achievements WHERE userid = ?;"
             );
 
             updateUserAchievements = ServerApp.dbConnection.prepareStatement(
                     "UPDATE user_achievements SET ach1 = ?, ach2 = ?, ach3 = ?,"
-                    + "ach4 = ?, ach5 = ?, ach6 = ?, ach7 = ?, ach8 = ?, ach9 = ?,"
-                    + "ach10 = ?, ach11= ?, ach12 = ?, ach13 = ?, ach14 = ?, ach15 = ? "
-                    + "WHERE userid = ?;"
+                    + " ach4 = ?, ach5 = ?, ach6 = ?, ach7 = ?, ach8 = ?, ach9 = ?,"
+                    + " ach10 = ?, ach11= ?, ach12 = ?, ach13 = ?, ach14 = ?, ach15 = ? "
+                    + " WHERE userid = ?;"
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -139,6 +143,7 @@ public class AchievementController {
         if (userID == -1) {
             return null;
         }
+
         try {
             boolean[] achBooleans = getAchievementsArray(userID);
 
@@ -194,9 +199,15 @@ public class AchievementController {
 
     private boolean[] getAchievementsArray(int userID) {
         try {
-            insertAndSelectUserAchievements.setInt(1, userID);
-            insertAndSelectUserAchievements.setInt(2, userID);
-            ResultSet result = insertAndSelectUserAchievements.executeQuery();
+            insertUserAchievements.setInt(1, userID);
+            insertUserAchievements.executeUpdate();
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            selectUserAchievements.setInt(1, userID);
+            ResultSet result = selectUserAchievements.executeQuery();
             result.next();
             boolean[] achBooleans = new boolean[15];
             for (int i = 0; i < achBooleans.length; i++) {

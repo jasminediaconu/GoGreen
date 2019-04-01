@@ -61,8 +61,8 @@ public class ClientUser extends User {
      * @param carType         the car type
      * @param carEmissionType the car emission type
      */
+    //CHECKSTYLE:OFF
     @SuppressWarnings("ParameterNumberCheck")//We need these parameters for Gson.
-
     public ClientUser(String username, String country, double totalCo2, int streakLength,
                       int solarPower, int leds, int roomTemp, String email,
                       String imageUrl, String carType, String carEmissionType) {
@@ -76,6 +76,7 @@ public class ClientUser extends User {
         this.carType = carType;
         this.carEmissionType = carEmissionType;
     }
+    //CHECKSTYLE:ON
 
     /**
      * This function will get the users car type.
@@ -309,6 +310,9 @@ public class ClientUser extends User {
      * @param obj Object type
      * @return a boolean, whether they are equal or not
      */
+    //CHECKSTYLE:OFF
+    @SuppressWarnings("CyclomaticComplexityCheck") //all 11 parameters should be checked,
+    // therefore the cyclomatic complexity of 11 is justified
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -332,6 +336,7 @@ public class ClientUser extends User {
         }
         return false;
     }
+    //CHECKSTYLE:ON
 
     /**
      * Deep copy client user.

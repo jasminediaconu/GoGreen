@@ -516,6 +516,11 @@ public class AgendaController extends Controller implements Initializable {
             return;
         }
 
+        addActivity(itemName, parsedAmount, date);
+    }
+
+    private void addActivity(String itemName, double parsedAmount, LocalDate date) {
+        ServerRequests sv = new ServerRequests();
         if (itemName != null && parsedAmount > 0 && date != null) {
             System.out.println(date.toString());
             int itemID = Main.items.stream().filter(x ->
@@ -529,13 +534,14 @@ public class AgendaController extends Controller implements Initializable {
                 if (!item.getType().equals("energy")) {
                     addition /= 1000.0;
                 }
-                Main.clientUser.increaseTotalCo2(addition);
+                Main.clientUser.increaseTotalCo2(Main.round(addition, 2));
                 sv.updateClientUserProfile();
 
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }
     }
+
 
     public JFXNodesList getNodesList() {
         return nodesList;

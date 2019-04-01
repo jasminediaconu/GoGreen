@@ -9,6 +9,7 @@ import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
 
+import org.apache.http.ParseException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -16,6 +17,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,11 +37,9 @@ public class ServerRequests {
      * @param password type.
      */
     public String login(String username, String password, boolean ishashed) {
-        String hashedPassword = null;
+        String hashedPassword = password;
         if (!ishashed) {
             hashedPassword = Main.hashString(password);
-        } else if (ishashed) {
-            hashedPassword = password;
         }
         if (username == null || hashedPassword == null) {
             return null;
@@ -97,6 +97,10 @@ public class ServerRequests {
 
         String response = sendRequestToServer("signup",
                 Main.gson.toJson(new String[]{username, email, hashedPassword}));
+        return checkSignupResponse(response);
+    }
+
+    private String checkSignupResponse(String response) {
         if ("username".equals(response)) {
             System.out.println("[ERROR] This username has already been taken");
             return response;
@@ -167,7 +171,7 @@ public class ServerRequests {
 
         try {
             activityID = Integer.parseInt(response);
-        } catch (Exception e) {
+        } catch (ParseException e) {
             e.printStackTrace();
         }
 
@@ -377,7 +381,7 @@ public class ServerRequests {
             System.out.println("[INFO] The server responded with: " + msg);
             return msg;
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;

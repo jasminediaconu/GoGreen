@@ -526,7 +526,7 @@ public class AgendaController extends Controller implements Initializable {
 
                 Item item = Main.items.get(activity.getItemID() - 1);
                 double addition = activity.getAmount() * item.getCo2();
-                if (!item.getType().equals("energy")) {
+                if (item.getType().equals("food")) {
                     addition /= 1000.0;
                 }
                 Main.clientUser.increaseTotalCo2(addition);

@@ -3,12 +3,10 @@ package client;
 import com.google.gson.reflect.TypeToken;
 
 import client.objects.Activity;
-
 import client.objects.Item;
 import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
-
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -16,6 +14,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +37,7 @@ public class ServerRequests {
         String hashedPassword = null;
         if (!ishashed) {
             hashedPassword = Main.hashString(password);
-        } else if (ishashed) {
+        } else {
             hashedPassword = password;
         }
         if (username == null || hashedPassword == null) {
@@ -167,7 +166,7 @@ public class ServerRequests {
 
         try {
             activityID = Integer.parseInt(response);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -377,7 +376,7 @@ public class ServerRequests {
             System.out.println("[INFO] The server responded with: " + msg);
             return msg;
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;

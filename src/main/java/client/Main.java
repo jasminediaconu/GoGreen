@@ -10,12 +10,15 @@ import client.serializer.LocalDateDeserializer;
 import client.serializer.LocalDateSerializer;
 import client.user.Achievement;
 import client.user.ClientUser;
+
 import javafx.application.Application;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 /**
  * The Main class of the GoGreen application.

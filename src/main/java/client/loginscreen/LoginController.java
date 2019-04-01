@@ -123,7 +123,8 @@ public class LoginController extends Controller implements Initializable {
         boolean ishashed = false;
         String userpass = null;
         String keycode = "";
-        int pwlength = password.length();
+        int passwordlength = password.length();
+
         if (event instanceof KeyEvent) {
             KeyEvent keyevent = (KeyEvent) event;
             keycode = keyevent.getCode().toString();
@@ -144,7 +145,7 @@ public class LoginController extends Controller implements Initializable {
                 password = userpass.split(";")[1];
                 ishashed = true;
             }
-            rememberme(username, password, ishashed, pwlength);
+            rememberme(username, password, ishashed, passwordlength);
 
             LoginRequest loginRequest = new LoginRequest(username, password, ishashed, this);
             loginRequest.setDaemon(false);
@@ -269,18 +270,19 @@ public class LoginController extends Controller implements Initializable {
      * @param password String type
      * @throws IOException if there is no input
      */
-    private void rememberme(String username, String password, boolean ishashed, int pwlength) {
+    private void rememberme(String username, String password, boolean ishashed,
+                            int passwordlength) {
         String hashedpassword = "";
         if (!ishashed) {
             hashedpassword = Main.hashString(password);
-        } else if (ishashed) {
+        } else {
             hashedpassword = password;
         }
         try {
             FileWriter writer = new FileWriter("rememberme.txt");
             writer.write("");
             if (rememberBox.isSelected()) {
-                writer.write(username + ";" + hashedpassword + ";" + pwlength);
+                writer.write(username + ";" + hashedpassword + ";" + passwordlength);
             }
             writer.close();
         } catch (IOException e) {
@@ -291,7 +293,6 @@ public class LoginController extends Controller implements Initializable {
     /**
      * This method will check whether a username and password are saved.
      * Set variables accordingly.
-     *
      * @throws IOException if there is no input
      */
     @FXML

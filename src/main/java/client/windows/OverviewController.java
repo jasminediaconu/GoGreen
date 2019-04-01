@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,13 +25,7 @@ import org.controlsfx.control.PopOver;
 import java.io.IOException;
 import java.net.URL;
 import java.time.temporal.WeekFields;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
@@ -66,7 +61,6 @@ public class OverviewController extends Controller implements Initializable {
     private Pane badgePopup14;
     @FXML
     private Pane badgePopup15;
-
     @FXML
     private Text title = new Text();
     @FXML
@@ -219,7 +213,31 @@ public class OverviewController extends Controller implements Initializable {
                 badges.get(i).setStyle("-fx-opacity: 100%;");
             }
         }
+    }
 
+    private void updateGraph(String period) {
+        String sPeriod = "w";
+        if(period.equals("Month")) {
+            sPeriod = "m";
+        }else if (period.equals("Half a year")) {
+            sPeriod = "h";
+        }else if (period.equals("Year")) {
+            sPeriod = "y";
+        }
+
+        ServerRequests sv = new ServerRequests();
+        List<Activity> activities = sv.retrieveActivities(sPeriod);
+
+        //System.out.println("\n\n\n\n\n\n\nShowing graph data");
+        //Iterator it = mapActivitiesToGraph(activities, period).entrySet().iterator();
+        //while (it.hasNext()) {
+        //  Map.Entry pair = (Map.Entry) it.next();
+        //    System.out.println(pair.getKey() + " = " + pair.getValue());
+
+        //    it.remove(); // avoids a ConcurrentModificationException
+        //}
+
+        //barChart.getData().addAll(mapActivitiesToGraph(activities, period)));
     }
 
     /**
@@ -235,10 +253,13 @@ public class OverviewController extends Controller implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<String> periodList
-                = FXCollections.observableArrayList("Week", "Month", "Year");
+                = FXCollections.observableArrayList("Week", "Month", "Half a year", "Year");
 
         comboBox.setValue("Week");
         comboBox.setItems(periodList);
+        comboBox.setOnAction(this::updateGraph);
+
+        updateGraph("Week");
 
         retrieveAchievementsInfo();
 
@@ -304,6 +325,12 @@ public class OverviewController extends Controller implements Initializable {
         badgesBox.getChildren().add(row3);
 
         scrollBadges.setContent(badgesBox);
+    }
+
+    private void updateGraph(ActionEvent event) {
+        String period = comboBox.getValue();
+        System.out.println(period);
+        updateGraph(period);
     }
 
     /**
@@ -406,16 +433,15 @@ public class OverviewController extends Controller implements Initializable {
      * @param period       String type
      * @return a HashMap with the correct values for the graph
      */
-    private HashMap<String, Double>
-        mapActivitiesToGraph(List<Activity> activityList, String period) {
+    private HashMap<String, Double> mapActivitiesToGraph(List<Activity> activityList, String period) {
         HashMap<String, Double> result = new HashMap<String, Double>();
         for (Activity activity : activityList) {
             String key = activity.getDate().toString();
             double value = Main.items.get(activity.getItemID() - 1).getCo2() * activity.getAmount();
-            if (period.equals("m")) {
+            if (period.equals("Month")) {
                 key = "Week " + activity.getDate().get(WeekFields.of(
                         Locale.getDefault()).weekOfWeekBasedYear());
-            } else if (period.equals("y") || period.equals("h")) {
+            } else if (period.equals("Year") || period.equals("Half a year")) {
                 key = activity.getDate().getMonth().name();
             }
 
@@ -426,19 +452,5 @@ public class OverviewController extends Controller implements Initializable {
             }
         }
         return result;
-    }
-
-    /**
-     * This function iterates the Co2.
-     *
-     * @param mp Map type
-     */
-    public static void printMap(Map mp) {
-        Iterator it = mp.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry pair = (Map.Entry) it.next();
-            System.out.println(pair.getKey() + " = " + pair.getValue());
-            it.remove(); // avoids a ConcurrentModificationException
-        }
     }
 }

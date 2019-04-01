@@ -178,7 +178,7 @@ public class AchievementController {
             updateAchievementsArray(userID, achBooleans);
 
             return ServerApp.gson.toJson(achievements);
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return "fail";
         }

@@ -11,7 +11,6 @@ import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -29,11 +28,16 @@ import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
 
-    @FXML  private BarChart<String, Integer> barChart;
-    @FXML private JFXButton aabutton1;
-    @FXML private  JFXButton aabutton2;
-    @FXML private JFXButton clearGraph;
-    @FXML private CategoryAxis x;
+    @FXML
+    private BarChart<String, Integer> barChart;
+    @FXML
+    private JFXButton aabutton1;
+    @FXML
+    private JFXButton aabutton2;
+    @FXML
+    private JFXButton clearGraph;
+    @FXML
+    private CategoryAxis x;
 
     @FXML
     LineChart<String, Integer> lineChart;

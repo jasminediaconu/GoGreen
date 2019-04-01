@@ -1,5 +1,8 @@
 package client.windows;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
 import client.Main;
 import client.ServerRequests;
 import client.helper.RowCount;
@@ -7,8 +10,6 @@ import client.objects.Activity;
 import client.objects.Item;
 import client.profilescreen.ProfileController;
 import client.user.ClientUser;
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
@@ -22,7 +23,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -140,7 +144,7 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This function is called only once when control reaches the MainScreenController
+     * This function is called only once when control reaches the MainScreenController.
      */
     @Override
     public void init() {
@@ -203,9 +207,10 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
+     * Function to delete an activity.
      *
-     * @param activityIndex
-     * @param rowCounter
+     * @param activityIndex index of the activity
+     * @param rowCounter    amount of rows
      */
     public void deleteActivity(int activityIndex, int rowCounter) {
         ServerRequests sv = new ServerRequests();
@@ -219,7 +224,12 @@ public class AgendaController extends Controller implements Initializable {
         dialog.close();
     }
 
-
+    /**
+     * Create a multimap with activities and dates.
+     *
+     * @param activities list of activities
+     * @return multimap
+     */
     public Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
         Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
         for (Activity a : activities) {
@@ -255,7 +265,7 @@ public class AgendaController extends Controller implements Initializable {
                 rowCounter++;
                 Item item = Main.items.get(activity.getItemID() - 1);
                 String unit = "";
-                Double co2Saved = Main.round((item.getCo2() * activity.getAmount()), 2);
+                Double co2Saved = Main.round(item.getCo2() * activity.getAmount(), 2);
 
 
                 if (item.getType().equals("food")) {
@@ -290,11 +300,12 @@ public class AgendaController extends Controller implements Initializable {
         ssbutton1.getStyleClass().addAll("animated-option-button", "animated-option-sub-button");
 
         nodesList.addAnimatedNode(ssbutton1, (expanded, duration) -> {
-                    List<KeyFrame> frames = new ArrayList<>();
-                    frames.add(new KeyFrame(duration,
-                            new KeyValue(ssbutton1.rotateProperty(), expanded ? 180 : 0, Interpolator.EASE_BOTH)));
-                    return frames;
-                }
+            List<KeyFrame> frames = new ArrayList<>();
+            frames.add(new KeyFrame(duration,
+                    new KeyValue(ssbutton1.rotateProperty(),
+                            expanded ? 180 : 0, Interpolator.EASE_BOTH)));
+            return frames;
+        }
         );
 
         ssbutton2 = new JFXButton();
@@ -365,10 +376,10 @@ public class AgendaController extends Controller implements Initializable {
      */
     private void loadTransportItems() {
 
-       transportList.addAll("Walking",
-               "By bike",
-               "Public transport",
-               "By car");
+        transportList.addAll("Walking",
+                "By bike",
+                "Public transport",
+                "By car");
         transportChoices.setItems(transportList);
     }
 
@@ -491,17 +502,13 @@ public class AgendaController extends Controller implements Initializable {
             sv.updateClientUserProfile();
             showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             return;
-        }
-
-        else if (itemName.equals("Lower Temperature")) {
+        } else if (itemName.equals("Lower Temperature")) {
             profileController.updateAgenda(itemName, parsedAmount);
-            Main.clientUser.setRoomTemp(21 -(int) parsedAmount);
+            Main.clientUser.setRoomTemp(21 - (int) parsedAmount);
             sv.updateClientUserProfile();
             showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             return;
-        }
-
-        else if (itemName.equals("LEDs")) {
+        } else if (itemName.equals("LEDs")) {
             profileController.updateAgenda(itemName, parsedAmount);
             Main.clientUser.setLeds((int) parsedAmount);
             sv.updateClientUserProfile();

@@ -1,18 +1,21 @@
 package client;
 
+import com.google.gson.reflect.TypeToken;
 
 import client.objects.Activity;
+
 import client.objects.Item;
 import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
-import com.google.gson.reflect.TypeToken;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +36,11 @@ public class ServerRequests {
      */
     public String login(String username, String password, boolean ishashed) {
         String hashedPassword = null;
-        if(!ishashed) {hashedPassword = Main.hashString(password);}
-        else if(ishashed){hashedPassword = password;}
+        if (!ishashed) {
+            hashedPassword = Main.hashString(password);
+        } else if (ishashed) {
+            hashedPassword = password;
+        }
         if (username == null || hashedPassword == null) {
             return null;
         }
@@ -216,7 +222,7 @@ public class ServerRequests {
     }
 
     /**
-     * This funtion retrieves the clients user profile from the database.
+     * This function retrieves the clients user profile from the database.
      *
      * @return a ClientUser class
      */
@@ -250,7 +256,8 @@ public class ServerRequests {
     public List<User> getFollowingProfile() {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
-        String response = sendRequestToServer("getFollowingProfile?sessionID=" + Main.sessionID, null);
+        String response = sendRequestToServer("getFollowingProfile?sessionID="
+                + Main.sessionID, null);
         if (response == null) {
             return new ArrayList<>();
         }
@@ -258,14 +265,15 @@ public class ServerRequests {
     }
 
     /**
-     * This funtion gets the global best users.
+     * This function gets the global best users.
      *
      * @return a list of Users
      */
     public List<User> getGlobalBestProfile() {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
-        String response = sendRequestToServer("getGlobalBestProfile?sessionID=" + Main.sessionID, null);
+        String response = sendRequestToServer("getGlobalBestProfile?sessionID="
+                + Main.sessionID, null);
         if (response == null) {
             return new ArrayList<>();
         }
@@ -274,6 +282,7 @@ public class ServerRequests {
 
     /**
      * Get the UserID.
+     *
      * @return response int type
      */
     public int getUserID() {
@@ -284,30 +293,51 @@ public class ServerRequests {
         return Integer.parseInt(response);
     }
 
+    /**
+     * Functiom to follow user using their username.
+     *
+     * @param username of the user the client wants to follow
+     * @return true if not already following, false otherwise
+     */
     public boolean followUser(String username) {
         String response = sendRequestToServer(
                 "followUser?sessionID=" + Main.sessionID, Main.gson.toJson(username));
-        if("success".equals(response)) {
-            System.out.println("[INFO] You successfully followed the following person: " + username);
+        if ("success".equals(response)) {
+            System.out.println(
+                    "[INFO] You successfully followed the following person: " + username);
             return true;
         } else {
-            System.out.println("[ERROR] A failure occurred trying to follow the following person: " + username);
+            System.out.println(
+                    "[ERROR] A failure occurred trying to follow the following person: "
+                            + username);
             return false;
         }
     }
 
+    /**
+     * Function to unfollow a user using their username.
+     *
+     * @param username of the user the client wants to unfollow
+     * @return true if client was following, false otherwise
+     */
     public boolean unFollowUser(String username) {
         String response = sendRequestToServer(
                 "unFollowUser?sessionID=" + Main.sessionID, Main.gson.toJson(username));
-        if("success".equals(response)) {
-            System.out.println("[INFO] You successfully unfollowed the following person: " + username);
+        if ("success".equals(response)) {
+            System.out.println("[INFO] You successfully unfollowed the following person: "
+                    + username);
             return true;
         } else {
-            System.out.println("[ERROR] A failure occurred trying to unfollow the following person: " + username);
+            System.out.println(
+                    "[ERROR] A failure occurred trying to unfollow the following person: "
+                            + username);
             return false;
         }
     }
 
+    /**
+     * Gets achievements.
+     */
     public void getAchievements() {
         System.out.println("[INFO] Retrieving achievements from database.");
         Type listType = new TypeToken<List<Achievement>>() {

@@ -40,7 +40,7 @@ public class ClientUserMockitoTest {
         when(mockedClientUser.getSolarPower()).thenReturn(0);
         when(mockedClientUser.getLeds()).thenReturn(0);
         when(mockedClientUser.getRoomTemp()).thenReturn(21);
-        when(mockedClientUser.getImageURL()).thenReturn("img.png");
+        when(mockedClientUser.getImageUrl()).thenReturn("img.png");
         when(mockedClientUser.getEmail()).thenReturn("test@greenly.com");
         when(mockedClientUser.getActivityList()).thenReturn(activityList);
     }
@@ -123,14 +123,14 @@ public class ClientUserMockitoTest {
 
     @Test
     public void getImageURL() {
-        assertEquals(mockedClientUser.getImageURL(), "img.png");
+        assertEquals(mockedClientUser.getImageUrl(), "img.png");
     }
 
     @Test
     public void setImageURL() {
-        doCallRealMethod().when(mockedClientUser).setImageURL(eq("proPic.jpg"));
-        mockedClientUser.setImageURL("proPic.jpg");
-        verify(mockedClientUser).setImageURL("proPic.jpg");
+        doCallRealMethod().when(mockedClientUser).setImageUrl(eq("proPic.jpg"));
+        mockedClientUser.setImageUrl("proPic.jpg");
+        verify(mockedClientUser).setImageUrl("proPic.jpg");
     }
 
     @Test

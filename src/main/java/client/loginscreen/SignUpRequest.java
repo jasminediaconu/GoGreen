@@ -69,6 +69,7 @@ public class SignUpRequest extends AsyncTask {
         ServerRequests sv = new ServerRequests();
         if (signUp() == 2) {
             clientUser = sv.getClientUserProfile();
+            clientUser.setActivityList(sv.retrieveActivities("w"));
             System.out.println("CLIENT: " + clientUser);
             this.response = OK;
             return true;

@@ -212,15 +212,15 @@ class ServerRequestsTest {
     }
 
     @Test
-    void followUserSucces(){
-        sv.unFollowUser("admin");
-        Assert.assertEquals(true, sv.followUser("admin"));
+    void followUserSuccess(){
+        sv.unFollowUser("TestAccount2811");
+        Assert.assertEquals(true, sv.followUser("TestAccount2811"));
     }
 
     @Test
     void followUserAlreadyFollow(){
-        sv.followUser("admin");
-        Assert.assertEquals(false, sv.followUser("admin"));
+        sv.followUser("TestAccount2811");
+        Assert.assertEquals(false, sv.followUser("TestAccount2811"));
     }
 
     @Test
@@ -230,14 +230,14 @@ class ServerRequestsTest {
 
     @Test
     void unFollowUserSucces(){
-        sv.followUser("admin");
-        Assert.assertEquals(true, sv.unFollowUser("admin"));
+        sv.followUser("TestAccount2811");
+        Assert.assertEquals(true, sv.unFollowUser("TestAccount2811"));
     }
 
     @Test
     void unFollowUserAlready(){
-        sv.unFollowUser("admin");
-        Assert.assertEquals(true, sv.unFollowUser("admin"));
+        sv.unFollowUser("TestAccount2811");
+        Assert.assertEquals(true, sv.unFollowUser("TestAccount2811"));
     }
 
     @Test

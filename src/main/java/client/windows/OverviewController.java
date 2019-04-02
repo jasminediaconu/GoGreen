@@ -4,6 +4,7 @@ package client.windows;
 import client.Main;
 import client.ServerRequests;
 import client.objects.Activity;
+import client.objects.Item;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -24,6 +25,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.apache.commons.collections.OrderedMap;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -222,7 +224,7 @@ public class OverviewController extends Controller implements Initializable {
         }
     }
 
-    private void updateGraph(String period) {
+    private void updateGraphWithActivities(String period) {
         String sPeriod = "w";
         if (period.equals("Month")) {
             sPeriod = "m";
@@ -265,18 +267,14 @@ public class OverviewController extends Controller implements Initializable {
         ObservableList<String> periodList
                 = FXCollections.observableArrayList("Week", "Month", "Half a year", "Year");
 
-        comboBox.setValue("Week");
+        comboBox.setValue("Choose a period");
         comboBox.setItems(periodList);
         comboBox.valueProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue ov, String t, String t1) {
-                System.out.println(ov);
-                System.out.println(t);
-                System.out.println(t1);
+                updateGraphWithActivities(t1);
             }
         });
-
-        updateGraph("Week");
 
         retrieveAchievementsInfo();
 
@@ -342,12 +340,6 @@ public class OverviewController extends Controller implements Initializable {
         badgesBox.getChildren().add(row3);
 
         scrollBadges.setContent(badgesBox);
-    }
-
-    private void updateGraph(ActionEvent event) {
-        String period = comboBox.getValue();
-        System.out.println(period);
-        updateGraph(period);
     }
 
     //CHECKSTYLE:OFF
@@ -453,11 +445,16 @@ public class OverviewController extends Controller implements Initializable {
      * @param period       String type
      * @return a HashMap with the correct values for the graph
      */
-    private HashMap<String, Double> activityListToMap(List<Activity> activityList, String period) {
-        HashMap<String, Double> map = new HashMap<String, Double>();
+    private TreeMap<String, Double> activityListToMap(List<Activity> activityList, String period) {
+        TreeMap<String, Double> map = new TreeMap<String, Double>();
         for (Activity activity : activityList) {
             String key = activity.getDate().toString();
-            double value = Main.items.get(activity.getItemID() - 1).getCo2() * activity.getAmount();
+            Item item = Main.items.get(activity.getItemID() - 1);
+            double value = item.getCo2() * activity.getAmount();
+            if (item.getType().equals("food")) {
+                value /= 1000;
+            }
+
             if (period.equals("Month")) {
                 key = "Week " + activity.getDate().get(WeekFields.of(
                         Locale.getDefault()).weekOfWeekBasedYear());
@@ -474,7 +471,7 @@ public class OverviewController extends Controller implements Initializable {
         return map;
     }
 
-    private XYChart.Series activityMapToChart(HashMap<String, Double> map, String period) {
+    private XYChart.Series activityMapToChart(TreeMap<String, Double> map, String period) {
         XYChart.Series<String, Double> chart = new XYChart.Series<>();
         chart.setName(period);
         for(Map.Entry<String, Double> entry : map.entrySet()) {

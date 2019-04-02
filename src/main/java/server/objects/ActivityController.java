@@ -39,7 +39,8 @@ public class ActivityController {
             removeActivity = ServerApp.dbConnection.prepareStatement("DELETE FROM user_activities "
                     + "WHERE  userid = ? AND activityid = ?");
             retrieveActivities = ServerApp.dbConnection.prepareStatement("SELECT * "
-                    + "FROM user_activities WHERE userid = ? AND date < now() AND date > ?");
+                    + "FROM user_activities WHERE userid = ? "
+                    + "AND date < now() AND date > ? ORDER BY date ASC");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -50,7 +51,7 @@ public class ActivityController {
      * that belongs to a given sessionid.
      *
      * @param sessionID String type sessionID
-     * @param activity ActivityClass type
+     * @param activity  ActivityClass type
      * @return int containing the id of the activity
      */
     @SuppressWarnings("naming") // Abstraction of parameter name for security reasons
@@ -76,7 +77,7 @@ public class ActivityController {
     /**
      * This function will remove an Activity with a given id and corresponding user.
      *
-     * @param sessionID String type sessionID.
+     * @param sessionID  String type sessionID.
      * @param activityID int type.
      * @return a String telling the client whether the transaction succeeded.
      */
@@ -101,8 +102,8 @@ public class ActivityController {
      * It will retrieve all activities that a given user has on their profile.
      *
      * @param sessionID String type sessionID
-     * @param period A String consisting of the sessionID and domain type,
-     *               split by a whitespace character
+     * @param period    A String consisting of the sessionID and domain type,
+     *                  split by a whitespace character
      * @return a JSON with a list of activities
      */
     @SuppressWarnings("naming") // Abstraction of parameter name for security reasons

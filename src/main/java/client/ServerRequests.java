@@ -1,11 +1,12 @@
 package client;
 
+import com.google.gson.reflect.TypeToken;
+
 import client.objects.Activity;
 import client.objects.Item;
 import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
-import com.google.gson.reflect.TypeToken;
 import org.apache.commons.io.FileUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -35,8 +36,12 @@ public class ServerRequests {
      * @param username type.
      * @param password type.
      */
-    public String login(String username, String password) {
-        String hashedPassword = Main.hashString(password);
+    public String login(String username, String password, boolean ishashed) {
+        String hashedPassword = password;
+        if (!ishashed) {
+            hashedPassword = Main.hashString(password);
+        }
+
         if (username == null || hashedPassword == null) {
             return null;
         }
@@ -93,6 +98,10 @@ public class ServerRequests {
 
         String response = sendRequestToServer("signup",
                 Main.gson.toJson(new String[]{username, email, hashedPassword}));
+        return checkSignupResponse(response);
+    }
+
+    private String checkSignupResponse(String response) {
         if ("username".equals(response)) {
             System.out.println("[ERROR] This username has already been taken");
             return response;
@@ -163,7 +172,7 @@ public class ServerRequests {
 
         try {
             activityID = Integer.parseInt(response);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -218,7 +227,7 @@ public class ServerRequests {
     }
 
     /**
-     * This funtion retrieves the clients user profile from the database.
+     * This function retrieves the clients user profile from the database.
      *
      * @return a ClientUser class
      */
@@ -252,7 +261,8 @@ public class ServerRequests {
     public List<User> getFollowingProfile() {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
-        String response = sendRequestToServer("getFollowingProfile?sessionID=" + Main.sessionID, null);
+        String response = sendRequestToServer("getFollowingProfile?sessionID="
+                + Main.sessionID, null);
         if (response == null) {
             return new ArrayList<>();
         }
@@ -260,14 +270,15 @@ public class ServerRequests {
     }
 
     /**
-     * This funtion gets the global best users.
+     * This function gets the global best users.
      *
      * @return a list of Users
      */
     public List<User> getGlobalBestProfile() {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
-        String response = sendRequestToServer("getGlobalBestProfile?sessionID=" + Main.sessionID, null);
+        String response = sendRequestToServer("getGlobalBestProfile?sessionID="
+                + Main.sessionID, null);
         if (response == null) {
             return new ArrayList<>();
         }
@@ -276,6 +287,7 @@ public class ServerRequests {
 
     /**
      * Get the UserID.
+     *
      * @return response int type
      */
     public int getUserID() {
@@ -286,35 +298,56 @@ public class ServerRequests {
         return Integer.parseInt(response);
     }
 
+    /**
+     * Functiom to follow user using their username.
+     *
+     * @param username of the user the client wants to follow
+     * @return true if not already following, false otherwise
+     */
     public boolean followUser(String username) {
         String response = sendRequestToServer(
                 "followUser?sessionID=" + Main.sessionID, Main.gson.toJson(username));
-        if("success".equals(response)) {
-            System.out.println("[INFO] You successfully followed the following person: " + username);
+        if ("success".equals(response)) {
+            System.out.println(
+                    "[INFO] You successfully followed the following person: " + username);
             return true;
         } else {
-            System.out.println("[ERROR] A failure occurred trying to follow the following person: " + username);
+            System.out.println(
+                    "[ERROR] A failure occurred trying to follow the following person: "
+                            + username);
             return false;
         }
     }
 
+    /**
+     * Function to unfollow a user using their username.
+     *
+     * @param username of the user the client wants to unfollow
+     * @return true if client was following, false otherwise
+     */
     public boolean unFollowUser(String username) {
         String response = sendRequestToServer(
                 "unFollowUser?sessionID=" + Main.sessionID, Main.gson.toJson(username));
-        if("success".equals(response)) {
-            System.out.println("[INFO] You successfully unfollowed the following person: " + username);
+        if ("success".equals(response)) {
+            System.out.println("[INFO] You successfully unfollowed the following person: "
+                    + username);
             return true;
         } else {
-            System.out.println("[ERROR] A failure occurred trying to unfollow the following person: " + username);
+            System.out.println(
+                    "[ERROR] A failure occurred trying to unfollow the following person: "
+                            + username);
             return false;
         }
     }
 
+    /**
+     * Gets achievements.
+     */
     public void getAchievements() {
         System.out.println("[INFO] Retrieving achievements from database.");
         Type listType = new TypeToken<List<Achievement>>() {
         }.getType();
-        String response = sendRequestToServer("getAchievements", null);
+        String response = sendRequestToServer("getAchievements?sessionID=" + Main.sessionID, null);
         if (response != null) {
             Main.achievements = Main.gson.fromJson(response, listType);
         }
@@ -360,7 +393,7 @@ public class ServerRequests {
             System.out.println("[INFO] The server responded with: " + msg);
             return msg;
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;

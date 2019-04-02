@@ -2,12 +2,12 @@ package client.profilescreen;
 
 import client.windows.MainScreen;
 
+import javafx.stage.FileChooser;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
-import javafx.stage.FileChooser;
 
 /**
  * The type Image chooser.

@@ -14,7 +14,9 @@ public class Achievement {
     private String description;
     private String path;
     private BufferedImage image;
+    private int progress;
     private int goal;
+    private boolean achieved;
 
     /**
      * Instantiates a new Achievement.
@@ -22,12 +24,20 @@ public class Achievement {
      * @param title the title
      * @param path  the path
      */
-    public Achievement(int id, String title, String description, String path, int goal) {
+    public Achievement(int id, String title, String description, String path,
+                       int progress, int goal, boolean achieved) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.path = path;
         this.image = loadImage(path);
+        this.progress = progress;
         this.goal = goal;
+        this.progress = progress;
+        this.achieved = achieved;
+    }
+
+    public Achievement() {
     }
 
     /**
@@ -38,7 +48,9 @@ public class Achievement {
      */
     private static BufferedImage loadImage(String path) {
         try {
-            return ImageIO.read(Achievement.class.getResourceAsStream("/client/windows/images/badges/" + path + ".png"));
+            return ImageIO.read(Achievement.class.getResourceAsStream(
+                    "/client/windows/images/badges/"
+                            + path + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -87,7 +99,7 @@ public class Achievement {
      * @return the title
      */
     public String getDescription() {
-        return title;
+        return description;
     }
 
     /**
@@ -154,12 +166,48 @@ public class Achievement {
     }
 
     /**
+     * This function will set whether the achievement has been achieved.
+     *
+     * @param achieved boolean type
+     */
+    public void setAchieved(boolean achieved) {
+        this.achieved = achieved;
+    }
+
+    /**
      * Sets image path.
      *
      * @param path the path
      */
     public void setImageWithPath(String path) {
         setImage(loadImage(path));
+    }
+
+    /**
+     * This function will get the progress of a user to achieve the achievement.
+     *
+     * @return the progress as an Integer
+     */
+    public int getProgress() {
+        return progress;
+    }
+
+    /**
+     * This function will set the progress of the achievement.
+     *
+     * @param progress int type
+     */
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    /**
+     * This function will check wether the achievement is achieved or not.
+     *
+     * @return the achieved as an Boolean
+     */
+    public boolean isAchieved() {
+        return achieved;
     }
 }
 

@@ -1,5 +1,7 @@
 package client.user;
 
+import client.Main;
+
 import java.util.Objects;
 
 /**
@@ -101,7 +103,7 @@ public class User {
      * @param co2 double that will be added to the totalCo2 amount
      */
     public void increaseTotalCo2(double co2) {
-        this.totalCo2 += co2;
+        this.totalCo2 += Main.round(co2, 2);
     }
 
     /**

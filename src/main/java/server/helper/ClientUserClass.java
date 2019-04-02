@@ -11,8 +11,8 @@ public class ClientUserClass {
     public String carType;
     public String carEmissionType;
     public int streakLength;
-    public boolean solarPower;
-    public boolean leds;
+    public int solarPower;
+    public int leds;
     public int roomTemp;
 
     /**
@@ -26,14 +26,15 @@ public class ClientUserClass {
      * @param carType         String type
      * @param carEmissionType String type
      * @param streakLength    int type
-     * @param solarPower      boolean type
-     * @param leds            boolean type
+     * @param solarPower      int type
+     * @param leds            int type
      * @param roomTemp        int type
      */
+    //CHECKSTYLE:OFF
     @SuppressWarnings("sizes") //JSON needs 11 parameters to be passed through to the user
     public ClientUserClass(String username, String country, String email, String imageUrl,
                            double totalCo2, String carType, String carEmissionType,
-                           int streakLength, boolean solarPower, boolean leds, int roomTemp) {
+                           int streakLength, int solarPower, int leds, int roomTemp) {
         this.username = username;
         this.country = country;
         this.email = email;
@@ -46,6 +47,7 @@ public class ClientUserClass {
         this.leds = leds;
         this.roomTemp = roomTemp;
     }
+    //CHECKSTYLE:ON
 
     public ClientUserClass() {
     }

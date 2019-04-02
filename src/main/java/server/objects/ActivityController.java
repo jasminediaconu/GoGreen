@@ -40,7 +40,7 @@ public class ActivityController {
                     + "WHERE  userid = ? AND activityid = ?");
             retrieveActivities = ServerApp.dbConnection.prepareStatement("SELECT * "
                     + "FROM user_activities WHERE userid = ? "
-                    + "AND date < now() AND date > ? ORDER BY date ASC");
+                    + "AND date < now() AND date > ? ORDER BY date DESC");
         } catch (SQLException e) {
             e.printStackTrace();
         }

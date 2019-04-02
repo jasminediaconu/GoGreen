@@ -1,6 +1,7 @@
 package client.windows;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 
 import client.Main;
@@ -230,7 +231,7 @@ public class AgendaController extends Controller implements Initializable {
      * @return multimap
      */
     public Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
-        Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
+        Multimap<LocalDate, Activity> multimap = LinkedListMultimap.create();
         for (Activity a : activities) {
             multimap.put(a.getDate(), a);
         }

@@ -84,8 +84,8 @@ public class LoginRequest extends AsyncTask {
             //WRONG PASSWORD
             return false;
         } else if (response.equals("success")) {
-            //sv.getItems();
-            //sv.getAchievements();
+            sv.getItems();
+            sv.getAchievements();
             sv.uploadImage();
             return true;
         } else {

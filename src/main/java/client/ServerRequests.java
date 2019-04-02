@@ -358,7 +358,7 @@ public class ServerRequests {
      */
     public void uploadImage() {
         try {
-            byte[] fileContent = FileUtils.readFileToByteArray(new File("test.png"));
+            byte[] fileContent = FileUtils.readFileToByteArray(new File("/test.png"));
             String encodedImage = Base64.getEncoder().encodeToString(fileContent);
             String response = sendRequestToServer("/upload?sessionID=" + Main.sessionID, Main.gson.toJson(encodedImage));
             System.out.println(response);

@@ -507,18 +507,33 @@ public class AgendaController extends Controller implements Initializable {
             Activity activity = new Activity(itemID, parsedAmount, date);
             if (sv.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
-
-                Item item = Main.items.get(activity.getItemID() - 1);
-                double addition = activity.getAmount() * item.getCo2();
-                if (item.getType().equals("food")) {
-                    addition /= 1000.0;
-                }
-                Main.clientUser.increaseTotalCo2(Main.round(addition, 2));
+                increaseTotalCO2(activity);
                 sv.updateClientUserProfile();
 
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }
+    }
+
+    private void increaseTotalCO2(Activity activity) {
+        ServerRequests sv = new ServerRequests();
+        Main.clientUser.increaseTotalCo2(findValueFromActivity(activity));
+        sv.updateClientUserProfile();
+    }
+
+    private void decreaseTotalCO2(Activity activity) {
+        ServerRequests sv = new ServerRequests();
+        Main.clientUser.increaseTotalCo2(-findValueFromActivity(activity));
+        sv.updateClientUserProfile();
+    }
+
+    private double findValueFromActivity(Activity activity) {
+        Item item = Main.items.get(activity.getItemID() - 1);
+        double value = Main.round(activity.getAmount() * item.getCo2(), 2);
+        if (item.getType().equals("food")) {
+            value /= 1000.0;
+        }
+        return value;
     }
 
 

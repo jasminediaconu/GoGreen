@@ -353,6 +353,9 @@ public class ServerRequests {
         }
     }
 
+    /**
+     * This function will upload an image to the server.
+     */
     public void uploadImage() {
         try {
             byte[] fileContent = FileUtils.readFileToByteArray(new File("test.png"));

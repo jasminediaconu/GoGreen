@@ -101,6 +101,7 @@ public class SignUpRequest extends AsyncTask {
     private int signUp() {
         ServerRequests sv = new ServerRequests();
         String response = sv.signUp(username, email, password);
+
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
             return 1;

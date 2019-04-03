@@ -8,7 +8,6 @@ import client.objects.Item;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -30,7 +29,13 @@ import org.controlsfx.control.PopOver;
 import java.io.IOException;
 import java.net.URL;
 import java.time.temporal.WeekFields;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
@@ -199,17 +204,17 @@ public class OverviewController extends Controller implements Initializable {
     }
 
     private void updateGraphWithActivities(String period) {
-        String sPeriod = "w";
+        String stringPeriod = "w";
         if (period.equals("Month")) {
-            sPeriod = "m";
+            stringPeriod = "m";
         } else if (period.equals("Half a year")) {
-            sPeriod = "h";
+            stringPeriod = "h";
         } else if (period.equals("Year")) {
-            sPeriod = "y";
+            stringPeriod = "y";
         }
 
         ServerRequests sv = new ServerRequests();
-        List<Activity> activities = sv.retrieveActivities(sPeriod);
+        List<Activity> activities = sv.retrieveActivities(stringPeriod);
 
         //System.out.println("\n\n\n\n\n\n\nShowing graph data");
         //Iterator it = mapActivitiesToGraph(activities, period).entrySet().iterator();
@@ -249,8 +254,8 @@ public class OverviewController extends Controller implements Initializable {
 
         comboBox.valueProperty().addListener(new ChangeListener<>() {
             @Override
-            public void changed(ObservableValue ov, String t, String t1) {
-                updateGraphWithActivities(t1);
+            public void changed(ObservableValue ov, String time, String time1) {
+                updateGraphWithActivities(time1);
             }
         });
 

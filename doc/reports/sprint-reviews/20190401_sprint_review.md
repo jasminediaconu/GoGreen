@@ -19,6 +19,8 @@ No extra meeting, so better communication via GitLab and Discord needed.
 ### Wout Haakman (whaakman)
 
 ### Jasmine (jdiaconu)
+- We completed most of the main tasks so we had more time to focus on small fixes, bonus features, the presentation and report
+- We didn't encounter many problems during this sprint and the ones we had are fixed
 
 ### Giuliano (gforghieri)
 
@@ -29,4 +31,5 @@ No extra meeting, so better communication via GitLab and Discord needed.
 ### Gino (gtramontina)
 - There was less pressure on everyone since most tasks were done.
 - Communication was not as good as always, since there was less pressure on the group.
+
 ### Svetoslav (sstanoev)

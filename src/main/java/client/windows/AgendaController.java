@@ -1,6 +1,7 @@
 package client.windows;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.LinkedListMultimap;
 import com.google.common.collect.Multimap;
 
 import client.Main;
@@ -40,9 +41,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 //CHECKSTYLE:OFF
@@ -211,7 +210,7 @@ public class AgendaController extends Controller implements Initializable {
      * @return multimap
      */
     public Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
-        Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
+        Multimap<LocalDate, Activity> multimap = LinkedListMultimap.create();
         for (Activity a : activities) {
             multimap.put(a.getDate(), a);
         }

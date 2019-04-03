@@ -8,11 +8,11 @@ import client.objects.Item;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,7 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import org.apache.commons.collections.OrderedMap;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -162,7 +161,6 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     private BarChart<String, Double> barChart;
 
-
     private VBox badgesBox;
     private HBox row;
     private HBox row2;
@@ -186,39 +184,15 @@ public class OverviewController extends Controller implements Initializable {
     }
 
     private void updateProgress() {
-        progress.setText(Main.achievements.get(0).getProgress()
-                + "/" + Main.achievements.get(0).getGoal());
-        progress1.setText(Main.achievements.get(1).getProgress()
-                + "/" + Main.achievements.get(1).getGoal());
-        progress2.setText(Main.achievements.get(2).getProgress()
-                + "/" + Main.achievements.get(2).getGoal());
-        progress3.setText(Main.achievements.get(3).getProgress()
-                + "/" + Main.achievements.get(3).getGoal());
-        progress4.setText(Main.achievements.get(4).getProgress()
-                + "/" + Main.achievements.get(4).getGoal());
-        progress5.setText(Main.achievements.get(5).getProgress()
-                + "/" + Main.achievements.get(5).getGoal());
-        progress6.setText(Main.achievements.get(6).getProgress()
-                + "/" + Main.achievements.get(6).getGoal());
-        progress7.setText(Main.achievements.get(7).getProgress()
-                + "/" + Main.achievements.get(7).getGoal());
-        progress8.setText(Main.achievements.get(8).getProgress()
-                + "/" + Main.achievements.get(8).getGoal());
-        progress9.setText(Main.achievements.get(9).getProgress()
-                + "/" + Main.achievements.get(9).getGoal());
-        progress10.setText(Main.achievements.get(10).getProgress()
-                + "/" + Main.achievements.get(10).getGoal());
-        progress11.setText(Main.achievements.get(11).getProgress()
-                + "/" + Main.achievements.get(11).getGoal());
-        progress12.setText(Main.achievements.get(12).getProgress()
-                + "/" + Main.achievements.get(12).getGoal());
-        progress13.setText(Main.achievements.get(13).getProgress()
-                + "/" + Main.achievements.get(13).getGoal());
-        progress14.setText(Main.achievements.get(14).getProgress()
-                + "/" + Main.achievements.get(14).getGoal());
-
+        ArrayList<Text> progressList = new ArrayList<Text>(Arrays.asList(progress, progress1,
+                progress2, progress3, progress4, progress5, progress6, progress7, progress8,
+                progress9, progress10, progress11, progress12, progress13, progress14));
         for (int i = 0; i < 15; i++) {
+            progressList.get(i).setText(Main.achievements.get(i).getProgress()
+                    + "/" + Main.achievements.get(i).getGoal());
             if (Main.achievements.get(i).isAchieved()) {
+                progressList.get(i).setText(Main.achievements.get(i).getGoal()
+                        + "/" + Main.achievements.get(i).getGoal());
                 badges.get(i).setStyle("-fx-opacity: 100%;");
             }
         }
@@ -248,7 +222,8 @@ public class OverviewController extends Controller implements Initializable {
 
         if (barChart != null) {
             barChart.getData().clear();
-            barChart.getData().addAll(activityMapToChart(activityListToMap(activities, period), period));
+            barChart.getData().addAll(activityMapToChart(activityListToMap(activities,
+                    period), period));
         }
     }
 
@@ -267,14 +242,18 @@ public class OverviewController extends Controller implements Initializable {
         ObservableList<String> periodList
                 = FXCollections.observableArrayList("Week", "Month", "Half a year", "Year");
 
-        comboBox.setValue("Choose a period");
+        comboBox.setValue("Week");
         comboBox.setItems(periodList);
+
+        updateGraphWithActivities("Week");
+
         comboBox.valueProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue ov, String t, String t1) {
                 updateGraphWithActivities(t1);
             }
         });
+
 
         retrieveAchievementsInfo();
 
@@ -285,48 +264,27 @@ public class OverviewController extends Controller implements Initializable {
         row2 = new HBox();
         row3 = new HBox();
 
+        ArrayList<Text> titles = new ArrayList<Text>(Arrays.asList(title, title1, title2, title3,
+                title4, title5, title6, title7, title8, title9, title10, title11, title12, title13,
+                title14));
+        ArrayList<Text> descriptions = new ArrayList<Text>(Arrays.asList(description, description1,
+                description2, description3, description4, description5, description6, description7,
+                description8, description9, description10, description11, description12,
+                description13, description14));
+
         String path = "/client/windows/images/badges/";
         for (int i = 0; i < achievementList.size(); i++) {
-            int ii = i;
             button = new JFXButton("",
                     new ImageView(path + achievementList.get(i).getPath() + ".png"));
             badges.add(button);
+            titles.get(i).setText(titleList.get(i));
+            descriptions.get(i).setText(descriptionList.get(i));
+            int ii = i;
             badges.get(i).setOnMouseEntered(e -> popupBadges(badges.get(ii), ii));
             badges.get(i).setOnMouseExited(e -> hidePopup());
         }
 
         updateProgress();
-
-        title.setText(titleList.get(0));
-        description.setText(descriptionList.get(0));
-        title1.setText(titleList.get(1));
-        description1.setText(descriptionList.get(1));
-        title2.setText(titleList.get(2));
-        description2.setText(descriptionList.get(2));
-        title3.setText(titleList.get(3));
-        description3.setText(descriptionList.get(3));
-        title4.setText(titleList.get(4));
-        description4.setText(descriptionList.get(4));
-        title5.setText(titleList.get(5));
-        description5.setText(descriptionList.get(5));
-        title6.setText(titleList.get(6));
-        description6.setText(descriptionList.get(6));
-        title7.setText(titleList.get(7));
-        description7.setText(descriptionList.get(7));
-        title8.setText(titleList.get(8));
-        description8.setText(descriptionList.get(8));
-        title9.setText(titleList.get(9));
-        description9.setText(descriptionList.get(9));
-        title10.setText(titleList.get(10));
-        description10.setText(descriptionList.get(10));
-        title11.setText(titleList.get(11));
-        description11.setText(descriptionList.get(11));
-        title12.setText(titleList.get(12));
-        description12.setText(descriptionList.get(12));
-        title13.setText(titleList.get(13));
-        description13.setText(descriptionList.get(13));
-        title14.setText(titleList.get(14));
-        description14.setText(descriptionList.get(14));
 
         // This adds the badges to the different rows of the VBOX
         for (int i = 0; i < 5; i++) {
@@ -344,6 +302,7 @@ public class OverviewController extends Controller implements Initializable {
 
     //CHECKSTYLE:OFF
     // Supressing the warning [CyclomaticComplexityCheck] because there are more than 10 popups to load and the function cannot be splitted.
+
     /**
      * This function loads the popup for each button.
      *
@@ -474,7 +433,7 @@ public class OverviewController extends Controller implements Initializable {
     private XYChart.Series activityMapToChart(TreeMap<String, Double> map, String period) {
         XYChart.Series<String, Double> chart = new XYChart.Series<>();
         chart.setName(period);
-        for(Map.Entry<String, Double> entry : map.entrySet()) {
+        for (Map.Entry<String, Double> entry : map.entrySet()) {
             chart.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
         }
         return chart;

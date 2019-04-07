@@ -18,13 +18,19 @@ To install:
 - run as exec:java 
 
 ## Features
-Login and SignUp<br/>
-![Login](/images/readmePictures/LoginSignup.gif)<br/><br/>
-<br/> the agenda <br/>
-![Agenda](/images/readmePictures/Activity1.gif)<br/><br/>
+#### Login and SignUp<br/>
+![Login](/images/readmePictures/LoginSignup.gif)<br/>
+Here you see the workflow of how to sign up as a new user if you don't have an acount already, where you automaticly log in on signup.<br/>
+Afterwards you see the workflow of how to login as an already existing user.<br/><br/> 
+#### Agenda <br/>
+![Agenda](/images/readmePictures/Activity1.gif)<br/>
+Here you see how to add an activity to your agenda.<br/><br/>
 ![Agenda](/images/readmePictures/ActivityDeletion.gif)<br/>
-<br/>
-![overall](/images/readmePictures/ProfileOverviewAgenda.gif)<br/><br/>
+Here you see how to delete an activity from you agenda, both from today and past and future dates. <br/><br/>
+#### Leaderboard and Profile <br/>
+![overall](/images/readmePictures/ProfileOverviewAgenda.gif)<br/>
+Here you see how to change some personal information in your profile screen.<br/>
+Afterwards you see how to follow and un-follow someone in the leaderboard.<br/>
 
 
 

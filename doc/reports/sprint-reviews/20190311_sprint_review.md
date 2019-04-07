@@ -26,8 +26,8 @@ To solve this we are going to follow and implement the checkstyle very strictly.
 ## Reflection on the previous sprint
 
 ### Mandy (mchang)
- - 1
- - 2
+ - The extra meeting was useful to help each other with technical problems
+ - This week went smoother than previous ones
 
 ### Jasmine (jdiaconu)
 - The workload was better spread as some people didn't have to many commits

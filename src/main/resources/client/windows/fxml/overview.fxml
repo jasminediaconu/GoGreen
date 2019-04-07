@@ -29,7 +29,7 @@
                     </font>
                 </Text>
                 <ScrollPane fx:id="scrollBadges" layoutX="332.0" layoutY="500.0" prefHeight="200.0" prefWidth="514.0" style="-fx-background-radius: 5 0 0 5;" stylesheets="@../css/overview.css" />
-            <BarChart fx:id="barChart" layoutX="350.0" layoutY="128.0" legendSide="LEFT" prefHeight="347.0" prefWidth="421.0" title="Co2">
+            <BarChart fx:id="barChart" alternativeColumnFillVisible="true" barGap="10.0" layoutX="350.0" layoutY="128.0" legendSide="LEFT" prefHeight="347.0" prefWidth="421.0" stylesheets="@../css/overview.css" title="Amount of CO2 reduced">
               <xAxis>
                 <CategoryAxis side="BOTTOM" fx:id="xaxis" />
               </xAxis>
@@ -37,7 +37,7 @@
                 <NumberAxis fx:id="yaxis" side="LEFT" />
               </yAxis>
             </BarChart>
-            <JFXComboBox id="comboBox" fx:id="comboBox" layoutX="243.0" layoutY="296.0" />
+            <JFXComboBox id="comboBox" fx:id="comboBox" layoutX="790.0" layoutY="288.0" />
             </children>
         </Pane>
     </children>

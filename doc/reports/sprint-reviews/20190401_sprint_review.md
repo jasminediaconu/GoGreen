@@ -25,6 +25,8 @@ No extra meeting, so better communication via GitLab and Discord needed.
 ### Giuliano (gforghieri)
 
 ### Mandy (mchang)
+- Not many changes were made.
+- Overall the sprint went fine.
 
 ### Gino (gtramontina)
 - There was less pressure on everyone since most tasks were done.

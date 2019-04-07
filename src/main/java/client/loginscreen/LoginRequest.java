@@ -4,6 +4,7 @@ import client.Main;
 import client.ServerRequests;
 import client.user.ClientUser;
 import com.victorlaerte.asynctask.AsyncTask;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 /**
@@ -44,7 +45,7 @@ public class LoginRequest extends AsyncTask {
     public Boolean doInBackground(Object[] params) {
         if (login()) {
             getUserProfile();
-            success = loadImage();
+            success = true;
         } else {
             success = false;
         }
@@ -86,7 +87,6 @@ public class LoginRequest extends AsyncTask {
         } else if (response.equals("success")) {
             sv.getItems();
             sv.getAchievements();
-            sv.uploadImage();
             return true;
         } else {
             //something went wrong
@@ -100,27 +100,8 @@ public class LoginRequest extends AsyncTask {
     public void getUserProfile() {
         ServerRequests sv = new ServerRequests();
         clientUser = sv.getClientUserProfile();
+        clientUser.setProfileImage(SwingFXUtils.toFXImage(sv.getProfileImage(), null));
         clientUser.setActivityList(sv.retrieveActivities("w"));
-    }
-
-    /**
-     * Load image boolean.
-     *
-     * @return the boolean
-     */
-    public boolean loadImage() {
-        String url = clientUser.getImageUrl();
-        if (url != null) {
-
-            if (url.equals("default")) {
-                return true;
-            }
-
-            Image image = new Image(url);
-            clientUser.setProfileImage(image);
-            return true;
-        }
-        return false;
     }
 
 

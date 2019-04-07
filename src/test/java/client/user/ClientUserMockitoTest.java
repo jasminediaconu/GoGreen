@@ -40,7 +40,6 @@ public class ClientUserMockitoTest {
         when(mockedClientUser.getSolarPower()).thenReturn(0);
         when(mockedClientUser.getLeds()).thenReturn(0);
         when(mockedClientUser.getRoomTemp()).thenReturn(21);
-        when(mockedClientUser.getImageUrl()).thenReturn("img.png");
         when(mockedClientUser.getEmail()).thenReturn("test@greenly.com");
         when(mockedClientUser.getActivityList()).thenReturn(activityList);
     }
@@ -122,18 +121,6 @@ public class ClientUserMockitoTest {
     }
 
     @Test
-    public void getImageURL() {
-        assertEquals(mockedClientUser.getImageUrl(), "img.png");
-    }
-
-    @Test
-    public void setImageURL() {
-        doCallRealMethod().when(mockedClientUser).setImageUrl(eq("proPic.jpg"));
-        mockedClientUser.setImageUrl("proPic.jpg");
-        verify(mockedClientUser).setImageUrl("proPic.jpg");
-    }
-
-    @Test
     public void setLEDs() {
         doCallRealMethod().when(mockedClientUser).setLeds(eq(10));
         mockedClientUser.setLeds(10);
@@ -205,13 +192,13 @@ public class ClientUserMockitoTest {
 
     @Test
     public void equalsSameType_DifferentValues() {
-        ClientUser user = new ClientUser("Admin", "Belgium", 30.00, 15, 0, 0, 23, "SUV", "Diesel", "aaa", "aaa");
+        ClientUser user = new ClientUser("Admin", "Belgium", 30.00, 15, 0, 0, 23, "aaaaa", "SUV", "Diesel");
         assertFalse(mockedClientUser.equals(user));
     }
 
     @Test
     public void deepCopy() {
-        ClientUser user1 = new ClientUser("Admin", "France", 123.94, 0, 0, 0, 17, "aaa@greenly.com", "img.url", "SUV", "Diesel");
+        ClientUser user1 = new ClientUser("Admin", "France", 123.94, 0, 0, 0, 17, "aaa@greenly.com", "SUV", "Diesel");
         assertEquals(user1.deepCopy(), user1);
     }
 

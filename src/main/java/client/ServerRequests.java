@@ -7,7 +7,6 @@ import client.objects.Item;
 import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
-import org.apache.commons.io.FileUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -15,7 +14,10 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -356,14 +358,30 @@ public class ServerRequests {
     /**
      * This function will upload an image to the server.
      */
-    public void uploadImage() {
+    public void uploadProfileImage(BufferedImage image) {
         try {
-            byte[] fileContent = FileUtils.readFileToByteArray(new File("/test.png"));
-            String encodedImage = Base64.getEncoder().encodeToString(fileContent);
-            String response = sendRequestToServer("/upload?sessionID=" + Main.sessionID, Main.gson.toJson(encodedImage));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", baos);
+            String encodedImage = Base64.getEncoder().encodeToString(baos.toByteArray());
+            String response = sendRequestToServer("/uploadProfileImage?sessionID=" + Main.sessionID, Main.gson.toJson(encodedImage));
             System.out.println(response);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * This function will get an image from the server.
+     */
+    public BufferedImage getProfileImage() {
+        try {
+            String response = sendRequestToServer("/getProfileImage?sessionID=" + Main.sessionID, null);
+            byte[] decodedBytes = Base64.getMimeDecoder().decode(response);
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(decodedBytes));
+            return image;
+        }catch (IOException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

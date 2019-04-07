@@ -195,7 +195,13 @@ public class AgendaController extends Controller implements Initializable {
         ServerRequests sv = new ServerRequests();
         int activityID = Main.clientUser.getActivityList().get(activityIndex).getActivityID();
 
-        sv.removeActivity(activityID);
+        if (sv.removeActivity(activityID)) {
+            for(Activity activity:Main.clientUser.getActivityList()) {
+                if(activity.getActivityID() == activityID) {
+                    decreaseTotalCO2(activity);
+                }
+            }
+        }
 
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowCounter);
         // If there are no activities for that day, delete the date
@@ -507,8 +513,8 @@ public class AgendaController extends Controller implements Initializable {
             Activity activity = new Activity(itemID, parsedAmount, date);
             if (sv.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
+
                 increaseTotalCO2(activity);
-                sv.updateClientUserProfile();
 
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }

@@ -1,5 +1,6 @@
 package client.loginscreen;
 
+import client.ServerRequests;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -83,34 +84,8 @@ public class PasswordRecoveryController implements Initializable {
      */
     @FXML
     private void recover(MouseEvent event) {
-        String mailto = tfEmail.getText();
-        //setting the properties for the mail
-        Properties prop = new Properties();
-        prop.put("mail.smtp.host", "localhost");
-
-        Session session = Session.getInstance(prop);
-
-        //creating the mail
-        try {
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("noreply@gogreen.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailto));
-            message.setSubject("Password recovery");
-
-            String msg = "test";
-            MimeBodyPart mimeBodyPart = new MimeBodyPart();
-            mimeBodyPart.setContent(msg, "text/html");
-            Multipart multipart = new MimeMultipart();
-            multipart.addBodyPart(mimeBodyPart);
-            message.setContent(multipart);
-
-            //sending the message
-            Transport.send(message);
-        } catch (AddressException e) {
-            e.printStackTrace();
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+        String mailAddress = tfEmail.getText();
+        new ServerRequests().recoverPassword(mailAddress);
     }
 
     /**

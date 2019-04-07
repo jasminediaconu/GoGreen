@@ -196,7 +196,13 @@ public class AgendaController extends Controller implements Initializable {
         ServerRequests sv = new ServerRequests();
         int activityID = Main.clientUser.getActivityList().get(activityIndex).getActivityID();
 
-        sv.removeActivity(activityID);
+        if (sv.removeActivity(activityID)) {
+            for(Activity activity:Main.clientUser.getActivityList()) {
+                if(activity.getActivityID() == activityID) {
+                    decreaseTotalCO2(activity);
+                }
+            }
+        }
 
         gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowCounter);
         // If there are no activities for that day, delete the date
@@ -509,17 +515,32 @@ public class AgendaController extends Controller implements Initializable {
             if (sv.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
 
-                Item item = Main.items.get(activity.getItemID() - 1);
-                double addition = activity.getAmount() * item.getCo2();
-                if (item.getType().equals("food")) {
-                    addition /= 1000.0;
-                }
-                Main.clientUser.increaseTotalCo2(Main.round(addition, 2));
-                sv.updateClientUserProfile();
+                increaseTotalCO2(activity);
 
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }
+    }
+
+    private void increaseTotalCO2(Activity activity) {
+        ServerRequests sv = new ServerRequests();
+        Main.clientUser.increaseTotalCo2(findValueFromActivity(activity));
+        sv.updateClientUserProfile();
+    }
+
+    private void decreaseTotalCO2(Activity activity) {
+        ServerRequests sv = new ServerRequests();
+        Main.clientUser.increaseTotalCo2(-findValueFromActivity(activity));
+        sv.updateClientUserProfile();
+    }
+
+    private double findValueFromActivity(Activity activity) {
+        Item item = Main.items.get(activity.getItemID() - 1);
+        double value = Main.round(activity.getAmount() * item.getCo2(), 2);
+        if (item.getType().equals("food")) {
+            value /= 1000.0;
+        }
+        return value;
     }
 
 

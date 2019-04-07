@@ -56,28 +56,4 @@ public class LoginRequestTest {
         loginRequest.onPostExecute(null);
 
     }
-
-    @Test
-    public void loadImage() {
-
-        loginRequest = new LoginRequest(null, null, false, null);
-        loginRequest.login();
-        loginRequest.getUserProfile();
-        loginRequest.clientUser.setImageUrl(null);
-        boolean res = loginRequest.loadImage();
-        Assert.assertFalse(res);
-        //unable to test because of JAVAFX
-//
-//
-
-//
-//        loginRequest.clientUser.setImageURL("default");
-//        res = loginRequest.loadImage();
-//        Assert.assertTrue(res);
-//
-//        loginRequest.clientUser.setImageURL("https://iculture.textopus.nl/wp-content/uploads/2014/06/The-Test-Fun-for-Friends-iPhone-iPad.png");
-//        res = loginRequest.loadImage();
-//        Assert.assertTrue(res);
-
-    }
 }

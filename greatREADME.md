@@ -47,14 +47,14 @@ Spring mail <br/>
 Apache httpcomponents <br/>
 Gson <br/>
 Jfx-AsyncTask <br/>
- <br/> <br/>
+ 
 
 #### Services
 Heroku <br/>
 Git/Gitlab <br/>
 flaticon.com <br/>
 fontawsome.io <br/>
- <br/> <br/>
+ 
 
 #### Tools/Software
 IntelliJ IDE <br/>
@@ -67,7 +67,7 @@ Mockito <br/>
 Checkstyle <br/>
 PostgreSQL <br/>
 Apache <br/>
- <br/> <br/>
+ <br/>
 
 ## About us
 ### Name: Wout Haakman, whaakman

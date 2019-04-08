@@ -111,6 +111,7 @@ public class RecoveryController {
         String email = recoveryEntries.get(id);
         if (email != null && email.length() >= 1) {
             try {
+                password = password.substring(1, password.length() - 1);
                 changePassword.setString(1, password);
                 changePassword.setString(2, email);
                 changePassword.executeUpdate();

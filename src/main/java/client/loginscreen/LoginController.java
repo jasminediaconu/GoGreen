@@ -141,10 +141,6 @@ public class LoginController extends Controller implements Initializable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (userpass != null && userpass.length() >= 5 && userpass.contains(";")) {
-                password = userpass.split(";")[1];
-                ishashed = true;
-            }
             rememberme(username, password, ishashed, passwordlength);
 
             LoginRequest loginRequest = new LoginRequest(username, password, ishashed, this);

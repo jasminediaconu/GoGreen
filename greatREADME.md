@@ -13,11 +13,11 @@ Requirements:
 - Maven
 
 To install:
-- clone the project from the git repos
-- open the project as a maven project
-- open the project folder in the command line or use the command line in your IDE
-- compile the program by using the command: "mvn clean install" without quotation marks in the command line
-- run the program by using the command: "mvn exec:java" without quotation marks  in the command line
+- Clone the project from the git repos.
+- Open the project as a maven project.
+- Open the project folder in the command line or use the command line in your IDE.
+- Compile the program by using the command: "mvn clean install" without quotation marks in the command line.
+- Run the program by using the command: "mvn exec:java" without quotation marks  in the command line.
 
 ## Features
 #### Login and SignUp<br/>
@@ -40,34 +40,34 @@ Here you see the overview page with a graph of how much CO2 you saved and all th
 
 ## Tools and software
 #### Libraries
-Jfoenix
-Control FX
-Spring Boot
-Spring mail
-Apache httpcomponents
-Gson
-Jfx-AsyncTask
-
+Jfoenix <br/>
+Control FX <br/>
+Spring Boot <br/>
+Spring mail <br/>
+Apache httpcomponents <br/>
+Gson <br/>
+Jfx-AsyncTask <br/>
+ <br/> <br/>
 
 #### Services
-Heroku
-Git/Gitlab
-flaticon.com
-fontawsome.io
-
+Heroku <br/>
+Git/Gitlab <br/>
+flaticon.com <br/>
+fontawsome.io <br/>
+ <br/> <br/>
 
 #### Tools/Software
-IntelliJ IDE
-SceneBuilder
-Java 11
-JavaFX
-JUnit 5 Jupiter
-Maven
-Mockito
-Checkstyle
-PostgreSQL
-Apache
-
+IntelliJ IDE <br/>
+SceneBuilder <br/>
+Java 11 <br/>
+JavaFX <br/>
+JUnit 5 Jupiter <br/>
+Maven <br/>
+Mockito <br/>
+Checkstyle <br/>
+PostgreSQL <br/>
+Apache <br/>
+ <br/> <br/>
 
 ## About us
 ### Name: Wout Haakman, whaakman

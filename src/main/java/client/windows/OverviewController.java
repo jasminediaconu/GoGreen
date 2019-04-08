@@ -24,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.apache.catalina.Server;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -183,8 +184,7 @@ public class OverviewController extends Controller implements Initializable {
     @Override
     public void update() {
         // This checks if the badges are unlocked or not
-        ServerRequests sv = new ServerRequests();
-        sv.getAchievements();
+        new ServerRequests().getAchievements();
         updateProgress();
     }
 

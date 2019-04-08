@@ -128,7 +128,6 @@ public class ProfileController extends Controller {
         initTransportField();
         update();
         updateAgendaCaller();
-
     }
 
     /**
@@ -177,6 +176,12 @@ public class ProfileController extends Controller {
     private void chooseImage() {
         ImageChooser imageChooser = new ImageChooser();
         BufferedImage image = imageChooser.getBufferedImage();
+        changeProfileImage(image);
+        ServerRequests sv = new ServerRequests();
+        sv.uploadProfileImage(image);
+    }
+
+    public void changeProfileImage(BufferedImage image) {
         if (image != null) {
             Main.clientUser.setProfileImage(SwingFXUtils.toFXImage(image, null));
             setProfileImage(Main.clientUser.getProfileImage());
@@ -184,6 +189,7 @@ public class ProfileController extends Controller {
             setButtonsDisable(false);
         }
     }
+
 
     private void discardChanges() {
         newSettings = Main.clientUser.deepCopy();

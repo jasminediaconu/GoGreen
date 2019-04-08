@@ -1,49 +1,39 @@
-# Task and Issue distribution SPRINT 8## TO DO By This Friday for next demo:
+# Task and Issue distribution SPRINT 9
 
-* `CheckStyle less then 5 errors, preferably 0 to be able to run mvn checkstyle in gitlab.yml`
-* `week 8 thursday draft of final report, week 9 monday Lab Trial run for presentation`* 
-* `TEST COVERAGE`Preferable 95%, min 80%## 
+## TO DO Final:
 
-### Overview page, badges & achievements (Jasmine):
+'Go through report making it formal'
 
-* Individual feedback part of the report
-* It an activity has been removed, make the badge black/white again
+## Giuliano
+* Presentation: Slides 1-4, 9-13, 18
+* Can we upload our project on GitHub
+* Report check spelling, sentence structure and add references
 
-## Popup windows for plus button and functionality (Giuliano):
+## Jan-Willem Eriks
+* Test coverage above 95%
+* MIT License
+* Report check spelling, sentence structure and add references
 
-* Editing presentation
-* Fixing checksytle in my own classes if Mandy could not fixed
+## Mandy
+* CheckStyle
+* Report check spelling, sentence structure and add references
 
-## Backend and General (Wout):
+## Gino
+* Front end: add two fields, the code and the new password and also a 'Change password' button. After which the client returns to the loginScreen on success and gets notified if it failed.
+* Report check spelling, sentence structure and add references
 
-* Popup to inform user that a process went well
-* Profile picture
-* Part 2 and individual feedback part of the Report
-* Mailserver Wout & Gino
-* Removing totalCO2
+## Wout
+* Presentation: Slides 5 - 8, 14 - 17 maybe demo split with Giuliano, buy Wout starts
+* Export as application
+* Fix bugs
+* Clear and prepare database for demo
+* Report check spelling, sentence structure and add references
+* Check why getting badge for temperature when temp is 21 instead of 18
 
-## Profile (Jan Willem):
+## Svetoslav
+* Report check spelling, sentence structure and add references
 
-* Responsible for keeping the test percentage above 95% and making sure correct class/package exclusion are there
-* exclude Terms and policy controller, Password recovery controller
-* Write Part 1, General of the report, write the individual feedback
-* Call the function to make the profile picture load from database
+## Jasmine
+* Report check spelling, sentence structure and add references
 
-## Overview (Svetoslav):
 
-* Write individual part of the report
-* Need help with the graph and how to show the information on it
-* Complete last weeks sprint review, the problems are missing
-
-## Leaderboard (Mandy):
-
-* Value Sensitive design report
-* Individual feedback report
-* Remaining checkstyle fixes, if stuck let us know
-
-## Mixed Tasks (Gino): 
-
-* Sprint review
-* Great readme hotfixes: give specific intructions, what we use, how can someone run our project, add comments to the gifs, make 1 gif for login/signup screen
-* MAILSERVER
-* Report feedback part

@@ -379,9 +379,12 @@ public class ServerRequests {
      * @return a String notifying whether the request went successfully.
      */
     public String changePassword(String id, String password) {
-        String hashedPassword = Main.hashString(password);
-
-        if (id == null || id.length() != 4 || hashedPassword == null) {
+        Pattern stdPattern = Pattern.compile("^([A-Za-z0-9_]{4,}$)");
+        if (!stdPattern.matcher(password).matches()) {
+            return "syntax";
+        }
+        password = Main.hashString(password);
+        if (id == null || id.length() != 4 || password == null) {
             return "fail";
         } else {
             String response = sendRequestToServer("changePassword?id="

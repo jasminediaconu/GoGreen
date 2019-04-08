@@ -253,7 +253,7 @@ public class LoginController extends Controller implements Initializable {
      * @throws IOException if there is no input
      */
     @FXML
-    private void forgotpassword(MouseEvent event) throws IOException {
+    private void forgotPassword(MouseEvent event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("forgotPassword.fxml"));
         fillScene(root);

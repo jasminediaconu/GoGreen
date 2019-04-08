@@ -6,12 +6,19 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Random;
 
 @Component
 @RestController
@@ -21,6 +28,9 @@ public class RecoveryController {
     private static PreparedStatement changePassword;
 
     private static Map<String, String> recoveryEntries = new HashMap<>();
+
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     static {
         try {
@@ -36,6 +46,10 @@ public class RecoveryController {
         }
     }
 
+    /**
+     * Function to send an e-mail.
+     * @return mailSender
+     */
     @Bean
     public JavaMailSender getJavaMailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -54,17 +68,19 @@ public class RecoveryController {
         return mailSender;
     }
 
-    @Autowired
-    private JavaMailSender javaMailSender;
-
+    /**
+     * Function to recover password.
+     * @param email of the client user
+     * @return whether successful or not
+     */
     @RequestMapping(value = "/recoverPassword", method = RequestMethod.POST)
     public String recoverPassword(@RequestBody String email) {
-        email = email.substring(1, email.length()-1);
+        email = email.substring(1, email.length() - 1);
         try {
             findUserInfo.setString(1, email);
             ResultSet result = findUserInfo.executeQuery();
             String rr = "fail";
-            if(result.next()) {
+            if (result.next()) {
                 rr = "success";
                 String id = String.format("%04d", new Random().nextInt(10000));
 
@@ -84,20 +100,25 @@ public class RecoveryController {
         return "fail";
     }
 
+    /**
+     * Function to change the password.
+     * @param id sent through e-mail
+     * @param password new password
+     * @return whether successful or not
+     */
     @RequestMapping(value = "/changePassword", method = RequestMethod.POST)
     public String changePassword(@RequestParam String id, @RequestBody String password) {
         String email = recoveryEntries.get(id);
-        if(email != null && email.length() >= 1) {
+        if (email != null && email.length() >= 1) {
             try {
                 changePassword.setString(1, password);
                 changePassword.setString(2, email);
                 changePassword.executeUpdate();
                 return "success";
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
         return "fail";
     }
-
 }

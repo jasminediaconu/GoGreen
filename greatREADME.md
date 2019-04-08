@@ -13,9 +13,10 @@ Requirements:
 
 To install:
 - clone the project from the git repos
-- import as maven project
-- Maven install
-- run as exec:java 
+- open the project as a maven project
+- open the project folder in the command line or use the command line in your IDE
+- compile the program by using the command: "mvn clean install" without quotation marks in the command line
+- run the program by using the command: "mvn exec:java" without quotation marks  in the command line
 
 ## Features
 Login and SignUp<br/>

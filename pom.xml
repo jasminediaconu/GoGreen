@@ -140,6 +140,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
@@ -295,10 +300,6 @@
                         <exclude>**/server/user/**</exclude>
                         <exclude>**/server/InfoController.*</exclude>
                         <exclude>**/server/SessionController.*</exclude>
-
-
-                        <exclude>**/client/loginscreen/*Request**</exclude>
-                        <exclude>**/client/ServerRequests.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -337,28 +338,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.plugin.version}</version>
-                <!-- Specifying configuration here will take effect on the execution of "mvn site",
-                     but will not take effect on the execution of "mvn checkstyle:checkstyle"  -->
                 <configuration>
                     <configLocation>CSE1105.checkstyle.xml</configLocation>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-            <!--<groupId>org.jacoco</groupId>-->
-            <!--<artifactId>jacoco-maven-plugin</artifactId>-->
-            <!--<version>${jacoco-maven-plugin.version}</version>-->
-            <!--<configuration>-->
-            <!--<excludes>-->
-            <!--<exclude>**/windows/**</exclude>-->
-            <!--<exclude>**/loginscreen/**</exclude>-->
-            <!--<exclude>**/helper/*Class.*</exclude>-->
-            <!--<exclude>**/login/**</exclude>-->
-            <!--<exclude>**/InfoController.*</exclude>-->
-            <!--<exclude>**/SessionController.*</exclude>-->
-            <!--<exclude>**/objects/**</exclude>-->
-            <!--</excludes>-->
-            <!--</configuration>-->
-            <!--</plugin>-->
         </plugins>
     </reporting>
 </project>

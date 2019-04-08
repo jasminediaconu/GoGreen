@@ -356,6 +356,40 @@ public class ServerRequests {
     }
 
     /**
+     * This function will recover the password of a user by sending an email to the client.
+     *
+     * @param email String type
+     */
+    public String recoverPassword(String email) {
+        Pattern emailPattern =
+                Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
+        if (!emailPattern.matcher(email).matches()) {
+            return "syntax";
+        }
+
+        String response = sendRequestToServer("recoverPassword", Main.gson.toJson(email));
+        return response;
+    }
+
+    /**
+     * This function will change the password of the user with a given id.
+     *
+     * @param id
+     * @param password
+     * @return a String notifying whether the request went successfully.
+     */
+    public String changePassword(String id, String password) {
+        String hashedPassword = Main.hashString(password);
+
+        if (id == null || id.length() != 4 || hashedPassword == null) {
+            return "fail";
+        } else {
+            String response = sendRequestToServer("changePassword?id=" + id, Main.gson.toJson(password));
+            return response;
+        }
+    }
+
+    /**
      * This function will upload an image to the server.
      */
     public void uploadProfileImage(BufferedImage image) {

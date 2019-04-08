@@ -2,12 +2,12 @@ package client.profilescreen;
 
 import client.windows.MainScreen;
 
+import javafx.stage.FileChooser;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-
-import javafx.stage.FileChooser;
 
 /**
  * The type Image chooser.
@@ -20,8 +20,7 @@ public class ImageChooser {
                 new File(System.getProperty("user.home"))
         );
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                new FileChooser.ExtensionFilter("PNG", "*.png")
+                new FileChooser.ExtensionFilter("JPG", "*.jpg")
         );
     }
 

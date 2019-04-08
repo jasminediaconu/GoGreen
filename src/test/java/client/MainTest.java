@@ -2,11 +2,29 @@ package client;
 
 import com.google.common.hash.Hashing;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.nio.charset.StandardCharsets;
 
 public class MainTest {
+
+
+    @Test
+    public void testConstructor(){
+//        Main.main(new String[0]);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testRoundSmaller(){
+
+       Main.round(100, -1);
+    }
+
+    @Test
+    public void testRoundGreater(){
+        Assert.assertEquals(0, Double.compare(0.97, Main.round(0.967, 2)));
+    }
 
     @Test
     public void testHashNull() {

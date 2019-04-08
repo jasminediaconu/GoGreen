@@ -31,5 +31,13 @@
 }
 
 JFXButton {
-    -fx-opacity: 50%;
+    -fx-opacity: 30%;
+}
+
+.default-color0.chart-legend-item-symbol, .default-color1.chart-legend-item-symbol {
+    -fx-background-color: #95e743;
+}
+
+.default-color0.chart-bar, .default-color1.chart-bar {
+    -fx-bar-fill: #95e743;
 }

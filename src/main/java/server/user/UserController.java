@@ -39,14 +39,14 @@ public class UserController {
             );
 
             selectClientUser = ServerApp.dbConnection.prepareStatement(
-                    "SELECT username, countryname, email, imageurl, totalco2, cartype, "
+                    "SELECT username, countryname, email, totalco2, cartype, "
                             + "caremissiontype, lastonline, streaklength, solarpower, leds, "
                             + "roomtemp FROM user_login AS ul JOIN user_profile "
                             + "AS up ON ul.userid = up.userid WHERE ul.userid = ?;"
             );
 
             updateClientUserProfile = ServerApp.dbConnection.prepareStatement(
-                    "UPDATE user_profile SET countryname = ?, imageurl = ?, totalco2 = ?, "
+                    "UPDATE user_profile SET countryname = ?, totalco2 = ?, "
                             + "cartype = ?, caremissiontype = ?, solarpower = ?, leds = ?, "
                             + "roomtemp = ? WHERE userid = ?;"
             );
@@ -69,15 +69,18 @@ public class UserController {
             selectGlobalBest = ServerApp.dbConnection.prepareStatement(
                     "SELECT username, countryname, totalco2 FROM user_profile AS up "
                             + "JOIN user_login AS ul ON up.userid = ul.userid "
-                            + "ORDER BY totalco2 DESC LIMIT 10;"
+                            + "ORDER BY totalco2 DESC LIMIT 50;"
             );
 
             followUser = ServerApp.dbConnection.prepareStatement(
-                    "INSERT INTO user_follows (\"userid\", \"followingid\") VALUES (?, (SELECT userid FROM user_login WHERE username = ?));"
+                    "INSERT INTO user_follows (\"userid\", \"followingid\") "
+                            + "VALUES (?, (SELECT userid FROM user_login WHERE username = ?));"
             );
 
             unFollowUser = ServerApp.dbConnection.prepareStatement(
-                    "DELETE FROM user_follows WHERE userid = ? AND followingid = (SELECT userid FROM user_login WHERE username = ?);"
+                    "DELETE FROM user_follows WHERE userid = ? "
+                            + "AND followingid = (SELECT userid FROM user_login "
+                            + "WHERE username = ?);"
             );
         } catch (SQLException e) {
             e.printStackTrace();
@@ -126,7 +129,7 @@ public class UserController {
 
                 ClientUserClass clientUser = new ClientUserClass(result.getString("username"),
                         result.getString("countryname"), result.getString("email"),
-                        result.getString("imageurl"), result.getDouble("totalco2"),
+                        result.getDouble("totalco2"),
                         result.getString("cartype"), result.getString("caremissiontype"),
                         streakLength, result.getInt("solarpower"), result.getInt("leds"),
                         result.getInt("roomtemp")
@@ -146,11 +149,12 @@ public class UserController {
      * This function updates the users profile.
      *
      * @param sessionID String type
-     * @param client ClientUserClass type
+     * @param client    ClientUserClass type
      * @return a String that is says either success or fail
      */
     @RequestMapping(value = "/updateUserProfile", method = RequestMethod.POST)
-    public String updateUserProfile(@RequestParam String sessionID, @RequestBody ClientUserClass client) {
+    public String updateUserProfile(@RequestParam String sessionID,
+                                    @RequestBody ClientUserClass client) {
         int userID = ServerApp.getUserIDfromSession(sessionID);
         if (userID == -1) {
             return null;
@@ -158,14 +162,13 @@ public class UserController {
 
         try {
             updateClientUserProfile.setString(1, client.country);
-            updateClientUserProfile.setString(2, client.imageUrl);
-            updateClientUserProfile.setDouble(3, client.totalCo2);
-            updateClientUserProfile.setString(4, client.carType);
-            updateClientUserProfile.setString(5, client.carEmissionType);
-            updateClientUserProfile.setInt(6, client.solarPower);
-            updateClientUserProfile.setInt(7, client.leds);
-            updateClientUserProfile.setInt(8, client.roomTemp);
-            updateClientUserProfile.setInt(9, userID);
+            updateClientUserProfile.setDouble(2, client.totalCo2);
+            updateClientUserProfile.setString(3, client.carType);
+            updateClientUserProfile.setString(4, client.carEmissionType);
+            updateClientUserProfile.setInt(5, client.solarPower);
+            updateClientUserProfile.setInt(6, client.leds);
+            updateClientUserProfile.setInt(7, client.roomTemp);
+            updateClientUserProfile.setInt(8, userID);
             updateClientUserProfile.executeUpdate();
 
             updateClientUserLogin.setString(1, client.email);
@@ -245,20 +248,21 @@ public class UserController {
         }
     }
 
-    private String unfollowOrFollowUser(String sessionID, String username, PreparedStatement query) {
+    private String unfollowOrFollowUser(String sessionID, String username,
+                                        PreparedStatement query) {
         int userID = ServerApp.getUserIDfromSession(sessionID);
-        if(userID == -1) {
+        if (userID == -1) {
             return null;
         }
 
         try {
-            username = username.substring(1, username.length()-1);
+            username = username.substring(1, username.length() - 1);
             query.setInt(1, userID);
             query.setString(2, username);
             query.executeUpdate();
 
             return "success";
-        }catch(SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
             return "fail";
         }

@@ -69,16 +69,17 @@ public class SignUpRequest extends AsyncTask {
         ServerRequests sv = new ServerRequests();
         if (signUp() == 2) {
             clientUser = sv.getClientUserProfile();
+            clientUser.setActivityList(sv.retrieveActivities("w"));
             System.out.println("CLIENT: " + clientUser);
             this.response = OK;
             return true;
-        } else if (signUp() == 0){
+        } else if (signUp() == 0) {
             this.response = SYNTAX;
-        } else if (signUp() == 1){
+        } else if (signUp() == 1) {
             this.response = FAIL;
-        } else if (signUp() == 3){
+        } else if (signUp() == 3) {
             this.response = NAME;
-        } else if (signUp() == 4){
+        } else if (signUp() == 4) {
             this.response = MAIL;
         }
 
@@ -100,6 +101,7 @@ public class SignUpRequest extends AsyncTask {
     private int signUp() {
         ServerRequests sv = new ServerRequests();
         String response = sv.signUp(username, email, password);
+
         if (response == null) {
             //USERNAME, EMAIL, OR PASSWORD MISSING
             return 1;

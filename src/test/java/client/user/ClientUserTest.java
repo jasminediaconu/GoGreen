@@ -1,10 +1,14 @@
 package client.user;
 
+import client.Main;
+import client.objects.Activity;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class ClientUserTest {
@@ -14,7 +18,7 @@ class ClientUserTest {
 
     @BeforeEach
     void setUp() {
-        user = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "default", "SUV", "Gas");
+        user = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "SUV", "Gas");
         User newuser = new User("admin", "Netherlands", 10);
         List<User> following = new ArrayList<>();
         user.addFollowing(newuser);
@@ -89,7 +93,7 @@ class ClientUserTest {
 
     @Test
     void equalsSimilar() {
-        ClientUser user3 = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "default", "SUV", "Gas");
+        ClientUser user3 = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "SUV", "Gas");
         user3.setUsername("usernaem");
         Assert.assertEquals(user.equals(user3), false);
         user3.setUsername("username");
@@ -127,6 +131,18 @@ class ClientUserTest {
         userlist.add(neweruser);
         user3.setFollowing(userlist);
         Assert.assertEquals(user.equals(user3), false);
+    }
+
+    @Test
+    void filteredListSucces(){
+        Main.clientUser = new ClientUser();
+        ArrayList<Activity> activities = new ArrayList<>();
+        activities.add(new Activity(39, 32d, LocalDate.now()));
+        activities.add(new Activity(34, 30d, LocalDate.of(2019, 1, 20)));
+        Main.clientUser.setActivityList(activities);
+        ArrayList<Activity> filteredActivities = new ArrayList<>();
+        filteredActivities.add(new Activity(39, 32d, LocalDate.now()));
+        Assert.assertArrayEquals(filteredActivities.toArray(), Main.clientUser.getFilteredList().toArray());
     }
 
     @Test

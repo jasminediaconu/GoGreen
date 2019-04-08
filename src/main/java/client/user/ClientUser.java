@@ -2,10 +2,13 @@ package client.user;
 
 import com.google.gson.annotations.Expose;
 
+import client.Main;
+
 import client.objects.Activity;
 
 import javafx.scene.image.Image;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +28,6 @@ public class ClientUser extends User {
 
     private String email;
 
-    private String imageUrl;
     private String carType;
     private String carEmissionType;
 
@@ -48,30 +50,30 @@ public class ClientUser extends User {
      *
      * @param username        the username
      * @param country         the country
-     * @param totalco2        the totalco 2
+     * @param totalCo2        the totalCo2
      * @param streakLength    the streak length
      * @param solarPower      the solar power
      * @param leds            the leds
      * @param roomTemp        the room temp
      * @param email           the email
-     * @param imageUrl        the image url
      * @param carType         the car type
      * @param carEmissionType the car emission type
      */
+    //CHECKSTYLE:OFF
     @SuppressWarnings("ParameterNumberCheck")//We need these parameters for Gson.
-    public ClientUser(String username, String country, double totalco2, int streakLength,
+    public ClientUser(String username, String country, double totalCo2, int streakLength,
                       int solarPower, int leds, int roomTemp, String email,
-                      String imageUrl, String carType, String carEmissionType) {
-        super(username, country, totalco2);
+                      String carType, String carEmissionType) {
+        super(username, country, totalCo2);
         this.streakLength = streakLength;
         this.solarPower = solarPower;
         this.leds = leds;
         this.roomTemp = roomTemp;
         this.email = email;
-        this.imageUrl = imageUrl;
         this.carType = carType;
         this.carEmissionType = carEmissionType;
     }
+    //CHECKSTYLE:ON
 
     /**
      * This function will get the users car type.
@@ -191,26 +193,6 @@ public class ClientUser extends User {
     }
 
     /**
-     * Gets image url.
-     *
-     * @return the image url
-     */
-    @SuppressWarnings("abbriviationaswordinnamecheck")
-    public String getImageURL() {
-        return imageUrl;
-    }
-
-
-    /**
-     * Sets image url.
-     *
-     * @param imageUrl the image url
-     */
-    public void setImageURL(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    /**
      * Sets the users leds usage boolean to the argument leds.
      *
      * @param leds boolean type
@@ -267,6 +249,10 @@ public class ClientUser extends User {
         activityList.add(activity);
     }
 
+    public void removeFromActivityList(Activity activity) {
+        activityList.remove(activity);
+    }
+
     /**
      * This function will return the User List following.
      *
@@ -286,7 +272,7 @@ public class ClientUser extends User {
     }
 
     /**
-     * This function will as a User to the User List following.
+     * This function will add a User to the User List following.
      *
      * @param user User type.
      */
@@ -301,6 +287,9 @@ public class ClientUser extends User {
      * @param obj Object type
      * @return a boolean, whether they are equal or not
      */
+    //CHECKSTYLE:OFF
+    @SuppressWarnings("CyclomaticComplexityCheck") //all 11 parameters should be checked,
+    // therefore the cyclomatic complexity of 11 is justified
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -324,6 +313,7 @@ public class ClientUser extends User {
         }
         return false;
     }
+    //CHECKSTYLE:ON
 
     /**
      * Deep copy client user.
@@ -335,13 +325,13 @@ public class ClientUser extends User {
         clientUser.setEmail(email);
         clientUser.setUsername(username);
         clientUser.setCountry(country);
-        clientUser.setImageURL(imageUrl);
         clientUser.setSolarPower(solarPower);
         clientUser.setRoomTemp(roomTemp);
         clientUser.setLeds(leds);
         clientUser.setStreakLength(streakLength);
         clientUser.setTotalCo2(totalCo2);
         clientUser.setCarType(carType);
+        clientUser.setActivityList(activityList);
         clientUser.setCarEmissionType(carEmissionType);
 
         return clientUser;
@@ -353,5 +343,20 @@ public class ClientUser extends User {
                 + ";streak:" + streakLength + ";CO2: " + totalCo2
                 + "; led: " + leds + "; solar: " + solarPower + "; temp: " + roomTemp
                 + "; Car type: " + carType + "; Car emission type: " + carEmissionType + "]";
+    }
+
+    /**
+     * Make a new list containing the filtered activities.
+     *
+     * @return the filtered list
+     */
+    public List<Activity> getFilteredList() {
+        List<Activity> filteredActivities = new ArrayList<>();
+        for (Activity activity : Main.clientUser.getActivityList()) {
+            if (activity.getDate().equals(LocalDate.now())) {
+                filteredActivities.add(activity);
+            }
+        }
+        return filteredActivities;
     }
 }

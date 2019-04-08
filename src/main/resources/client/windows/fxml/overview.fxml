@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXNodesList?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -28,16 +28,16 @@
                         <Font name="Century Gothic" size="61.0" />
                     </font>
                 </Text>
-                <LineChart horizontalGridLinesVisible="false" horizontalZeroLineVisible="false" layoutX="355.0" layoutY="135.0" prefHeight="318.0" prefWidth="401.0" title="CO2 Saved">
-                    <xAxis>
-                        <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                        <NumberAxis label="CO2" side="LEFT" />
-                    </yAxis>
-                </LineChart>
-                <ComboBox layoutX="497.0" layoutY="453.0" prefWidth="150.0" />
-                <ScrollPane fx:id="scrollBadges" layoutX="332.0" layoutY="500.0" prefHeight="200.0" prefWidth="514.0" style="-fx-background-radius: 10 0 0 10;" stylesheets="@../css/overview.css" />
+                <ScrollPane fx:id="scrollBadges" layoutX="332.0" layoutY="500.0" prefHeight="200.0" prefWidth="514.0" style="-fx-background-radius: 5 0 0 5;" stylesheets="@../css/overview.css" />
+            <BarChart fx:id="barChart" alternativeColumnFillVisible="true" barGap="10.0" layoutX="350.0" layoutY="128.0" legendSide="LEFT" prefHeight="347.0" prefWidth="421.0" stylesheets="@../css/overview.css" title="Amount of CO2 reduced">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" fx:id="xaxis" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis fx:id="yaxis" side="LEFT" />
+              </yAxis>
+            </BarChart>
+            <JFXComboBox id="comboBox" fx:id="comboBox" layoutX="790.0" layoutY="288.0" onAction="#updateGraphWithActivities" />
             </children>
         </Pane>
     </children>

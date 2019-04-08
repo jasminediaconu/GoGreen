@@ -1,5 +1,6 @@
 package client.windows;
 
+import client.Main;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.TranslateTransition;
@@ -38,18 +39,23 @@ public class MainScreenController extends Pane implements Initializable {
 
     private final String path = "/client/windows/fxml/";
 
-    @FXML
-    MenuButton user;
     private boolean welcome = true;
     private int state = -1;
 
     private ArrayList<Controller> controllers = new ArrayList<>();
     @FXML
     private AnchorPane mainPane;
+
     @FXML
     private Pane welcomePane;
     @FXML
-    private MenuItem logoutButton;
+    private MenuButton logoutButton;
+    @FXML
+    private MenuItem logout;
+    @FXML
+    private Text dayField;
+    @FXML
+    private Text userNameField;
 
     @FXML
     private Button agendaButton;
@@ -83,6 +89,11 @@ public class MainScreenController extends Pane implements Initializable {
         addController("profile.fxml");
         addController("overview.fxml");
         addController("leaderboard.fxml");
+    }
+
+
+    public ArrayList<Controller> getControllers() {
+        return controllers;
     }
 
     /**
@@ -161,7 +172,7 @@ public class MainScreenController extends Pane implements Initializable {
      */
     @FXML
     private void logout() throws IOException {
-        Stage stage = (Stage) user.getScene().getWindow();
+        Stage stage = (Stage) mainPane.getScene().getWindow();
         stage.close();
         Stage login = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("/client/loginScreen/login.fxml"));
@@ -193,6 +204,24 @@ public class MainScreenController extends Pane implements Initializable {
         styleFocused(overviewButton, 2);
         styleFocused(leaderboardButton, 3);
 
+        agendaButton.setOnMouseEntered(this::hideButtonAction);
+        profileButton.setOnMouseEntered(this::hideButtonAction);
+        overviewButton.setOnMouseEntered(this::hideButtonAction);
+        leaderboardButton.setOnMouseEntered(this::hideButtonAction);
+
+    }
+
+
+    /**
+     * Function to hide the popovers.
+     * @param event MouseEvent
+     */
+    public void hideButtonAction(javafx.scene.input.MouseEvent event) {
+        AgendaController agendaController = (AgendaController) controllers.get(0);
+
+        agendaController.getPopOver1().hide();
+        agendaController.getPopOver2().hide();
+        agendaController.getPopOver3().hide();
     }
 
     /**
@@ -279,6 +308,8 @@ public class MainScreenController extends Pane implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        userNameField.setText(Main.clientUser.getUsername());
+        dayField.setText("" + Main.clientUser.getStreakLength());
         for (Controller controller : controllers) {
             controller.init();
         }

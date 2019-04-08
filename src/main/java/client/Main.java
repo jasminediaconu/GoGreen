@@ -1,14 +1,16 @@
 package client;
 
+import com.google.common.hash.Hashing;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import client.objects.Item;
 
 import client.serializer.LocalDateDeserializer;
 import client.serializer.LocalDateSerializer;
 import client.user.Achievement;
 import client.user.ClientUser;
-import com.google.common.hash.Hashing;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
 import javafx.application.Application;
 
 import java.nio.charset.StandardCharsets;
@@ -16,12 +18,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 /**
  * The Main class of the GoGreen application.
  * This application is made by:
  *
  * @author wouthaakman, ginotramontina, giulianoforghieri,
- *         janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
+ *     janwillemeriks, jasminediaconu, mandychang, and svetoslavstanoev.
  */
 public class Main {
 

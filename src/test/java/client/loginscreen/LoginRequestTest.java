@@ -27,10 +27,12 @@ public class LoginRequestTest {
 
     @Test
     public void loginSucces() {
-        loginRequest = new LoginRequest("admin", "admin", false, new LoginController());
+        loginRequest = new LoginRequest("root", "root", false, new LoginController());
         boolean res = loginRequest.doInBackground(null);
-        Assert.assertTrue(res);
         loginRequest.onPostExecute(null);
+        loginRequest.progressCallback(null);
+        Assert.assertTrue(res);
+
     }
 
     @Test
@@ -52,30 +54,6 @@ public class LoginRequestTest {
         Assert.assertFalse(res);
 
         loginRequest.onPostExecute(null);
-
-    }
-
-    @Test
-    public void loadImage() {
-
-        loginRequest = new LoginRequest(null, null, false, null);
-        loginRequest.login();
-        loginRequest.getUserProfile();
-        loginRequest.clientUser.setImageURL(null);
-        boolean res = loginRequest.loadImage();
-        Assert.assertFalse(res);
-        //unable to test because of JAVAFX
-//
-//
-
-//
-//        loginRequest.clientUser.setImageURL("default");
-//        res = loginRequest.loadImage();
-//        Assert.assertTrue(res);
-//
-//        loginRequest.clientUser.setImageURL("https://iculture.textopus.nl/wp-content/uploads/2014/06/The-Test-Fun-for-Friends-iPhone-iPad.png");
-//        res = loginRequest.loadImage();
-//        Assert.assertTrue(res);
 
     }
 }

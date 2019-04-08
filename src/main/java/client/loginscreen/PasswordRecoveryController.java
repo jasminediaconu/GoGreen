@@ -79,12 +79,13 @@ public class PasswordRecoveryController implements Initializable {
     }
 
     /**
-     * This function will send a request to the server to send a code to recover the password of the account linked to the email to the email.
+     * This function will send a request to the server
+     * to send a code to recover the password of the account linked to the email to the email.
      *
      * @param event Event type.
      */
     @FXML
-    private void recoveryCode(Event event){
+    private void recoveryCode(Event event) {
         String keycode = "";
         if (event instanceof KeyEvent) {
             KeyEvent keyevent = (KeyEvent) event;
@@ -94,6 +95,7 @@ public class PasswordRecoveryController implements Initializable {
             String mail = tfEmail.getText();
             ServerRequests sv = new ServerRequests();
             String response = sv.recoverPassword(mail);
+            txterror1.setVisible(false);
             txterror2.setVisible(false);
             if (response.equals("syntax")) {
                 txterror1.setText("Please enter a valid Email address.");
@@ -108,7 +110,8 @@ public class PasswordRecoveryController implements Initializable {
     }
 
     /**
-     * This function will send a request to the server to change the password of the account linked to the recovery code.
+     * This function will send a request to the server
+     * to change the password of the account linked to the recovery code.
      *
      * @param event Event type.
      */
@@ -125,7 +128,11 @@ public class PasswordRecoveryController implements Initializable {
             ServerRequests sv = new ServerRequests();
             String response = sv.changePassword(code, password);
             txterror1.setVisible(false);
-            if (response.equals("fail")) {
+            txterror2.setVisible(false);
+            if (response.equals("syntax")) {
+                txterror2.setText("Please enter a valid password.");
+                txterror2.setVisible(true);
+            } else if (response.equals("fail")) {
                 txterror2.setText("Something went wrong, please try again later.");
                 txterror2.setVisible(true);
             }

@@ -374,8 +374,8 @@ public class ServerRequests {
     /**
      * This function will change the password of the user with a given id.
      *
-     * @param id
-     * @param password
+     * @param id given to the user through e-mail
+     * @param password the new password
      * @return a String notifying whether the request went successfully.
      */
     public String changePassword(String id, String password) {
@@ -384,7 +384,8 @@ public class ServerRequests {
         if (id == null || id.length() != 4 || password == null) {
             return "fail";
         } else {
-            String response = sendRequestToServer("changePassword?id=" + id, Main.gson.toJson(password));
+            String response = sendRequestToServer("changePassword?id="
+                    + id, Main.gson.toJson(password));
             return response;
         }
     }

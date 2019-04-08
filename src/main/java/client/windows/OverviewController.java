@@ -8,8 +8,6 @@ import client.objects.Item;
 import client.user.Achievement;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +22,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import org.apache.catalina.Server;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -40,6 +37,9 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 public class OverviewController extends Controller implements Initializable {
+
+    private static boolean firstInitialize = false;
+
     @FXML
     Pane overview;
     @FXML
@@ -181,8 +181,6 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     private JFXComboBox<String> comboBox = new JFXComboBox<>();
 
-    private static boolean firstInitialize = false;
-
     @Override
     public void update() {
         // This checks if the badges are unlocked or not
@@ -239,7 +237,7 @@ public class OverviewController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if(!firstInitialize) {
+        if (!firstInitialize) {
             ObservableList<String> periodList
                     = FXCollections.observableArrayList("Week", "Month", "Half a year", "Year");
 

@@ -5,6 +5,7 @@ clone git repos via http: https://gitlab.ewi.tudelft.nl/cse1105/2018-2019/oopp-g
 
 If you want to contribute to the application: Follow the steps under Installation - For Developers.
 
+
 ## Installation
 ### For Developers
 Requirements:
@@ -31,8 +32,41 @@ Here you see how to delete an activity from you agenda, both from today and past
 #### Leaderboard and Profile <br/>
 ![overall](/images/readmePictures/ProfileOverviewAgenda.gif)<br/>
 Here you see how to change some personal information in your profile screen.<br/>
-Afterwards you see how to follow and un-follow someone in the leaderboard.<br/>
+Afterwards you see how to follow and un-follow someone in the leaderboard.<br/><br/>
+#### Overview <br/>
+![Overview](/images/readmePictures/ProfileOverviewAgenda.gif)<br/>
+Here you see the overview page with a graph of how much CO2 you saved and all the badges you earned.<br/><br/>
 
+
+## Tools and software
+#### Libraries
+Jfoenix
+Control FX
+Spring Boot
+Spring mail
+Apache httpcomponents
+Gson
+Jfx-AsyncTask
+
+
+#### Services
+Heroku
+Git/Gitlab
+flaticon.com
+fontawsome.io
+
+
+#### Tools/Software
+IntelliJ IDE
+SceneBuilder
+Java 11
+JavaFX
+JUnit 5 Jupiter
+Maven
+Mockito
+Checkstyle
+PostgreSQL
+Apache
 
 
 ## About us

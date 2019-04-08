@@ -9,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-
 public class LoginApp extends Application {
 
     /**
@@ -34,5 +33,4 @@ public class LoginApp extends Application {
 
         stage.getIcons().add(new Image("/client/windows/images/icon.png"));
     }
-
 }

@@ -27,55 +27,33 @@ public class LoginRequestTest {
 
     @Test
     public void loginSucces() {
-        loginRequest = new LoginRequest("admin", "admin", new LoginController());
+        loginRequest = new LoginRequest("root", "root", false, new LoginController());
         boolean res = loginRequest.doInBackground(null);
-        Assert.assertTrue(res);
         loginRequest.onPostExecute(null);
+        loginRequest.progressCallback(null);
+        Assert.assertTrue(res);
+
     }
 
     @Test
     public void loginFail() {
-        loginRequest = new LoginRequest("adsf", "admin", null);
+        loginRequest = new LoginRequest("adsf", "admin", false, null);
         boolean res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
-        loginRequest = new LoginRequest("admin", "adfsdfghfd", null);
+        loginRequest = new LoginRequest("admin", "adfsdfghfd", false, null);
         res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
-        loginRequest = new LoginRequest(null, null, null);
+        loginRequest = new LoginRequest(null, null, false, null);
         res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
-        loginRequest = new LoginRequest("", "", new LoginController());
+        loginRequest = new LoginRequest("", "", false, new LoginController());
         res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
         loginRequest.onPostExecute(null);
-
-    }
-
-    @Test
-    public void loadImage() {
-
-        loginRequest = new LoginRequest(null, null, null);
-        loginRequest.login();
-        loginRequest.getUserProfile();
-        loginRequest.clientUser.setImageURL(null);
-        boolean res = loginRequest.loadImage();
-        Assert.assertFalse(res);
-        //unable to test because of JAVAFX
-//
-//
-
-//
-//        loginRequest.clientUser.setImageURL("default");
-//        res = loginRequest.loadImage();
-//        Assert.assertTrue(res);
-//
-//        loginRequest.clientUser.setImageURL("https://iculture.textopus.nl/wp-content/uploads/2014/06/The-Test-Fun-for-Friends-iPhone-iPad.png");
-//        res = loginRequest.loadImage();
-//        Assert.assertTrue(res);
 
     }
 }

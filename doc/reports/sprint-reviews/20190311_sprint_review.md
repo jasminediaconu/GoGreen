@@ -26,8 +26,8 @@ To solve this we are going to follow and implement the checkstyle very strictly.
 ## Reflection on the previous sprint
 
 ### Mandy (mchang)
- - 1
- - 2
+ - The extra meeting was useful to help each other with technical problems
+ - This week went smoother than previous ones
 
 ### Jasmine (jdiaconu)
 - The workload was better spread as some people didn't have to many commits
@@ -41,3 +41,7 @@ To solve this we are going to follow and implement the checkstyle very strictly.
 - We got better at dividing the workload and making it fair for everybody
 - Commits went better and more structured, we had a better oversight of the project progress
 - A lot of progress has been made and I was happy to see that everybody was putting an increasing amount of effort into the project
+
+### Gino (gtramontina)
+- Communication was better then it was before and it seems to still be improving.
+- We all got more structured in committing changes and working together.

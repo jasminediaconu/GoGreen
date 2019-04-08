@@ -1,10 +1,14 @@
 package client.user;
 
+import client.Main;
+import client.objects.Activity;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 class ClientUserTest {
@@ -14,7 +18,7 @@ class ClientUserTest {
 
     @BeforeEach
     void setUp() {
-        user = new ClientUser("username", "country", 10.0, 3, true, false, 21, "email", "default", "SUV", "Gas");
+        user = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "SUV", "Gas");
         User newuser = new User("admin", "Netherlands", 10);
         List<User> following = new ArrayList<>();
         user.addFollowing(newuser);
@@ -31,14 +35,14 @@ class ClientUserTest {
 
     @Test
     void hasSolarPower() {
-        user.setSolarPower(false);
-        Assert.assertEquals(false, user.hasSolarPower());
+        user.setSolarPower(10);
+        Assert.assertEquals(10, user.getSolarPower());
     }
 
     @Test
     void hasLEDs() {
-        user.setLeds(false);
-        Assert.assertEquals(false, user.hasLeds());
+        user.setLeds(10);
+        Assert.assertEquals(10, user.getLeds());
     }
 
     @Test
@@ -55,14 +59,14 @@ class ClientUserTest {
 
     @Test
     void setSolarPower() {
-        user.setSolarPower(true);
-        Assert.assertEquals(true, user.hasSolarPower());
+        user.setSolarPower(10);
+        Assert.assertEquals(10, user.getSolarPower());
     }
 
     @Test
     void setLEDs() {
-        user.setSolarPower(true);
-        Assert.assertEquals(true, user.hasSolarPower());
+        user.setLeds(10);
+        Assert.assertEquals(10, user.getLeds());
     }
 
     @Test
@@ -89,7 +93,7 @@ class ClientUserTest {
 
     @Test
     void equalsSimilar() {
-        ClientUser user3 = new ClientUser("username", "country", 10.0, 3, true, false, 21, "email", "default", "SUV", "Gas");
+        ClientUser user3 = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "SUV", "Gas");
         user3.setUsername("usernaem");
         Assert.assertEquals(user.equals(user3), false);
         user3.setUsername("username");
@@ -102,12 +106,12 @@ class ClientUserTest {
         user3.setStreakLength(4);
         Assert.assertEquals(user.equals(user3), false);
         user3.setStreakLength(3);
-        user3.setSolarPower(false);
+        user3.setSolarPower(20);
         Assert.assertEquals(user.equals(user3), false);
-        user3.setSolarPower(true);
-        user3.setLeds(true);
+        user3.setSolarPower(0);
+        user3.setLeds(10);
         Assert.assertEquals(user.equals(user3), false);
-        user3.setLeds(false);
+        user3.setLeds(0);
         user3.setRoomTemp(20);
         Assert.assertEquals(user.equals(user3), false);
         user3.setRoomTemp(21);
@@ -130,6 +134,18 @@ class ClientUserTest {
     }
 
     @Test
+    void filteredListSucces(){
+        Main.clientUser = new ClientUser();
+        ArrayList<Activity> activities = new ArrayList<>();
+        activities.add(new Activity(39, 32d, LocalDate.now()));
+        activities.add(new Activity(34, 30d, LocalDate.of(2019, 1, 20)));
+        Main.clientUser.setActivityList(activities);
+        ArrayList<Activity> filteredActivities = new ArrayList<>();
+        filteredActivities.add(new Activity(39, 32d, LocalDate.now()));
+        Assert.assertArrayEquals(filteredActivities.toArray(), Main.clientUser.getFilteredList().toArray());
+    }
+
+    @Test
     void equalsNotSame() {
         user2.setStreakLength(25);
         Assert.assertEquals(user.equals(user2), false);
@@ -140,5 +156,4 @@ class ClientUserTest {
         int number = 1;
         Assert.assertEquals(user.equals(number), false);
     }
-
 }

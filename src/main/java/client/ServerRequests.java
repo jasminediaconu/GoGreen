@@ -1,10 +1,12 @@
 package client;
 
+import com.google.gson.reflect.TypeToken;
+
 import client.objects.Activity;
 import client.objects.Item;
+import client.user.Achievement;
 import client.user.ClientUser;
 import client.user.User;
-import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -12,10 +14,16 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 
 public class ServerRequests {
 
@@ -30,8 +38,12 @@ public class ServerRequests {
      * @param username type.
      * @param password type.
      */
-    public String login(String username, String password) {
-        String hashedPassword = Main.hashString(password);
+    public String login(String username, String password, boolean ishashed) {
+        String hashedPassword = password;
+        if (!ishashed) {
+            hashedPassword = Main.hashString(password);
+        }
+
         if (username == null || hashedPassword == null) {
             return null;
         }
@@ -45,6 +57,7 @@ public class ServerRequests {
 
         String response = sendRequestToServer("login",
                 Main.gson.toJson(new String[]{username, hashedPassword}));
+
         if ("username".equals(response)) {
             System.out.println("[ERROR] User specified an invalid username");
             return response;
@@ -87,6 +100,10 @@ public class ServerRequests {
 
         String response = sendRequestToServer("signup",
                 Main.gson.toJson(new String[]{username, email, hashedPassword}));
+        return checkSignupResponse(response);
+    }
+
+    private String checkSignupResponse(String response) {
         if ("username".equals(response)) {
             System.out.println("[ERROR] This username has already been taken");
             return response;
@@ -133,14 +150,15 @@ public class ServerRequests {
         Type listType = new TypeToken<List<Item>>() {
         }.getType();
         String response = sendRequestToServer("getItems", null);
-        if (response != null)
+        if (response != null) {
             Main.items = Main.gson.fromJson(response, listType);
+        }
     }
 
     /**
-     * This function will add an activity to the database
+     * This function will add an activity to the database.
      *
-     * @param activity
+     * @param activity Activity type.
      * @return a boolean whether adding went successfully
      */
     public boolean addActivity(Activity activity) {
@@ -151,12 +169,12 @@ public class ServerRequests {
         System.out.println("[INFO] Adding activity to database. " + activity.getActivityID());
         String json = Main.gson.toJson(activity);
         System.out.println("\n\n " + json + " \n\n");
-        String response = sendRequestToServer("addActivity?s=" + Main.sessionID, json);
+        String response = sendRequestToServer("addActivity?sessionID=" + Main.sessionID, json);
         int activityID = -1;
 
         try {
             activityID = Integer.parseInt(response);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
         }
 
@@ -171,7 +189,7 @@ public class ServerRequests {
     /**
      * This function removes an activity with gien acitivtiID from the database.
      *
-     * @param activityID
+     * @param activityID int type
      * @return a boolean whether removing went successfully
      */
     public boolean removeActivity(int activityID) {
@@ -180,7 +198,7 @@ public class ServerRequests {
         }
 
         System.out.println("[INFO] Removing activity from database. " + activityID);
-        String response = sendRequestToServer("removeActivity?s="
+        String response = sendRequestToServer("removeActivity?sessionID="
                 + Main.sessionID, Main.gson.toJson(activityID));
         if ("ok".equals(response)) {
             System.out.println("[INFO] Removing activity from database was successful");
@@ -193,37 +211,41 @@ public class ServerRequests {
     }
 
     /**
-     * This function retrieves all activities within a given period for a specific user from the database
+     * This function retrieves all activities within a given period for a specific user from
+     * the database.
      *
-     * @param period
+     * @param period String type.
      * @return a list of activities
      */
     public List<Activity> retrieveActivities(String period) {
         Type listType = new TypeToken<List<Activity>>() {
         }.getType();
-        String response = sendRequestToServer("retrieveActivities?s=" + Main.sessionID, Main.gson.toJson(period));
-        if (response == null)
+        String response = sendRequestToServer("retrieveActivities?sessionID="
+                + Main.sessionID, Main.gson.toJson(period));
+        if (response == null) {
             return new ArrayList<>();
+        }
         return Main.gson.fromJson(response, listType);
     }
 
     /**
-     * This funtion retrieves the clients user profile from the database
+     * This function retrieves the clients user profile from the database.
      *
      * @return a ClientUser class
      */
     public ClientUser getClientUserProfile() {
-        String response = sendRequestToServer("getUserProfile?s=" + Main.sessionID, null);
+        String response = sendRequestToServer("getUserProfile?sessionID=" + Main.sessionID, null);
         return Main.gson.fromJson(response, ClientUser.class);
     }
 
     /**
-     * This function will update the user profile on the server
+     * This function will update the user profile on the server.
      *
      * @return a boolean on whether updating the users profile succeeded
      */
     public boolean updateClientUserProfile() {
-        String response = sendRequestToServer("updateUserProfile?s=" + Main.sessionID, Main.gson.toJson(Main.clientUser));
+        String response = sendRequestToServer("updateUserProfile?sessionID="
+                + Main.sessionID, Main.gson.toJson(Main.clientUser));
         if ("success".equals(response)) {
             System.out.println("[INFO] Updating the client users profile went successfully");
             return true;
@@ -234,38 +256,173 @@ public class ServerRequests {
     }
 
     /**
-     * This function retrieves all the users the clientuser is following from the database
+     * This function retrieves all the users the clientuser is following from the database.
      *
      * @return a list of Users
      */
     public List<User> getFollowingProfile() {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
-        String response = sendRequestToServer("getFollowingProfile?s=" + Main.sessionID, null);
-        if (response == null)
+        String response = sendRequestToServer("getFollowingProfile?sessionID="
+                + Main.sessionID, null);
+        if (response == null) {
             return new ArrayList<>();
+        }
         return Main.gson.fromJson(response, listType);
     }
 
     /**
-     * This funtion gets the global best users.
+     * This function gets the global best users.
      *
      * @return a list of Users
      */
     public List<User> getGlobalBestProfile() {
         Type listType = new TypeToken<List<User>>() {
         }.getType();
-        String response = sendRequestToServer("getGlobalBestProfile?s=" + Main.sessionID, null);
-        if (response == null)
+        String response = sendRequestToServer("getGlobalBestProfile?sessionID="
+                + Main.sessionID, null);
+        if (response == null) {
             return new ArrayList<>();
+        }
         return Main.gson.fromJson(response, listType);
     }
 
+    /**
+     * Get the UserID.
+     *
+     * @return response int type
+     */
     public int getUserID() {
-        String response = sendRequestToServer("userID?s=" + Main.sessionID, null);
-        if (response == null)
+        String response = sendRequestToServer("userID?sessionID=" + Main.sessionID, null);
+        if (response == null) {
             return -1;
+        }
         return Integer.parseInt(response);
+    }
+
+    /**
+     * Functiom to follow user using their username.
+     *
+     * @param username of the user the client wants to follow
+     * @return true if not already following, false otherwise
+     */
+    public boolean followUser(String username) {
+        String response = sendRequestToServer(
+                "followUser?sessionID=" + Main.sessionID, Main.gson.toJson(username));
+        if ("success".equals(response)) {
+            System.out.println(
+                    "[INFO] You successfully followed the following person: " + username);
+            return true;
+        } else {
+            System.out.println(
+                    "[ERROR] A failure occurred trying to follow the following person: "
+                            + username);
+            return false;
+        }
+    }
+
+    /**
+     * Function to unfollow a user using their username.
+     *
+     * @param username of the user the client wants to unfollow
+     * @return true if client was following, false otherwise
+     */
+    public boolean unFollowUser(String username) {
+        String response = sendRequestToServer(
+                "unFollowUser?sessionID=" + Main.sessionID, Main.gson.toJson(username));
+        if ("success".equals(response)) {
+            System.out.println("[INFO] You successfully unfollowed the following person: "
+                    + username);
+            return true;
+        } else {
+            System.out.println(
+                    "[ERROR] A failure occurred trying to unfollow the following person: "
+                            + username);
+            return false;
+        }
+    }
+
+    /**
+     * Gets achievements.
+     */
+    public void getAchievements() {
+        System.out.println("[INFO] Retrieving achievements from database.");
+        Type listType = new TypeToken<List<Achievement>>() {
+        }.getType();
+        String response = sendRequestToServer("getAchievements?sessionID=" + Main.sessionID, null);
+        if (response != null) {
+            Main.achievements = Main.gson.fromJson(response, listType);
+        }
+    }
+
+    /**
+     * This function will recover the password of a user by sending an email to the client.
+     *
+     * @param email String type
+     */
+    public String recoverPassword(String email) {
+        Pattern emailPattern =
+                Pattern.compile("^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$");
+        if (!emailPattern.matcher(email).matches()) {
+            return "syntax";
+        }
+
+        String response = sendRequestToServer("recoverPassword", Main.gson.toJson(email));
+        return response;
+    }
+
+    /**
+     * This function will change the password of the user with a given id.
+     *
+     * @param id given to the user through e-mail
+     * @param password the new password
+     * @return a String notifying whether the request went successfully.
+     */
+    public String changePassword(String id, String password) {
+        Pattern stdPattern = Pattern.compile("^([A-Za-z0-9_]{4,}$)");
+        if (!stdPattern.matcher(password).matches()) {
+            return "syntax";
+        }
+        password = Main.hashString(password);
+        if (id == null || id.length() != 4 || password == null) {
+            return "fail";
+        } else {
+            String response = sendRequestToServer("changePassword?id="
+                    + id, Main.gson.toJson(password));
+            return response;
+        }
+    }
+
+    /**
+     * This function will upload an image to the server.
+     */
+    public void uploadProfileImage(BufferedImage image) {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(image, "jpg", baos);
+            String encodedImage = Base64.getEncoder().encodeToString(baos.toByteArray());
+            String response = sendRequestToServer("/uploadProfileImage?sessionID="
+                    + Main.sessionID, Main.gson.toJson(encodedImage));
+            System.out.println(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * This function will get an image from the server.
+     */
+    public BufferedImage getProfileImage() {
+        try {
+            String response = sendRequestToServer("/getProfileImage?sessionID="
+                    + Main.sessionID, null);
+            byte[] decodedBytes = Base64.getMimeDecoder().decode(response);
+            BufferedImage image = ImageIO.read(new ByteArrayInputStream(decodedBytes));
+            return image;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -297,7 +454,7 @@ public class ServerRequests {
             System.out.println("[INFO] The server responded with: " + msg);
             return msg;
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return null;

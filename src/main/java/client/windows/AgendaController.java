@@ -1,20 +1,22 @@
 package client.windows;
 
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
+
 import client.Main;
 import client.ServerRequests;
 import client.helper.RowCount;
 import client.objects.Activity;
 import client.objects.Item;
+import client.profilescreen.ProfileController;
 import client.user.ClientUser;
-//CHECKSTYLE:OFF
-import com.google.common.collect.ArrayListMultimap;
-//CHECKSTYLE:ON
-import com.google.common.collect.Multimap;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXNodesList;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -38,24 +40,33 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+//CHECKSTYLE:OFF
+
+//CHECKSTYLE:ON
+
 /**
  * This class provides functionality for:
  * - the agenda.fxml and all inner sub-screens.
- * - creates the plus button
+ * - creates the plSus button
  * - loads items into the activity popup dropdown menus
  *
  * @author gforghieri
  */
 public class AgendaController extends Controller implements Initializable {
 
+    private static JFXDialog dialog;
+    private static StackPane stackPane;
+
+    private static GridPane gridPane;
+    private static VBox agendaBox;
+
     @FXML
     Pane agenda;
-    @FXML
-    FontAwesomeIcon delete;
     @FXML
     private ScrollPane scrollAgenda = new ScrollPane();
     @FXML
@@ -77,20 +88,19 @@ public class AgendaController extends Controller implements Initializable {
     @FXML
     private Pane energyWindow;
 
-    private MainScreenController mainScreenController;
+    private JFXButton ssbutton1;
     private JFXButton ssbutton2;
     private JFXButton ssbutton3;
     private JFXButton ssbutton4;
     private ObservableList foodList = FXCollections.observableArrayList();
     private ObservableList transportList = FXCollections.observableArrayList();
     private ObservableList energyList = FXCollections.observableArrayList();
-    private JFXNodesList nodesList;
-
-    private GridPane gridPane;
+    private PopOver popOver1 = new PopOver();
+    private PopOver popOver2 = new PopOver();
+    private PopOver popOver3 = new PopOver();
+    private String itemName;
     private Text dateText;
-    private VBox agendaBox;
-    private JFXDialog dialog;
-
+    private JFXNodesList nodesList;
 
     /**
      * Constructor to be used in the MainScreenController.
@@ -98,22 +108,6 @@ public class AgendaController extends Controller implements Initializable {
      */
     public AgendaController() {
         nodesList = new JFXNodesList();
-    }
-
-    /**
-     * This function rounds a double value to N decimal places.
-     *
-     * @param value  double type
-     * @param places int type
-     * @return a double rounded down to N decimal places
-     */
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
     }
 
     /**
@@ -127,7 +121,15 @@ public class AgendaController extends Controller implements Initializable {
         loadFoodItems();
         loadTransportItems();
         loadEnergyItems();
+    }
 
+    /**
+     * This function is called only once when control reaches the MainScreenController.
+     */
+    @Override
+    public void init() {
+        loadPlusButton();
+        pane.getChildren().add(nodesList);
 
         agendaBox = new VBox();
         agendaBox.setPadding(new Insets(20, 0, 0, 20));
@@ -139,23 +141,25 @@ public class AgendaController extends Controller implements Initializable {
             Main.clientUser = new ClientUser();
         }
         if (Main.clientUser.getActivityList() != null) {
-            Multimap<LocalDate, Activity> activityMap = activityMap(Main.clientUser.getActivityList());
+            Multimap<LocalDate, Activity> activityMap =
+                    activityMap(Main.clientUser.getActivityList());
             showAgendaActivities(activityMap);
         }
 
         gridPane.setHgap(20);
-//        agendaBox.getChildren().add(gridPane);
+        //        agendaBox.getChildren().add(gridPane);
+
+        agendaBox.getChildren().add(gridPane);
+
         scrollAgenda.setContent(agendaBox);
         agendaBox.setSpacing(15);
 
+
         JFXButton ssbutton5 = new JFXButton("R1");
         ssbutton5.setButtonType(JFXButton.ButtonType.RAISED);
-    }
 
-    @Override
-    public void init() {
-        loadPlusButton();
-        pane.getChildren().add(nodesList);
+        stackPane = stack;
+
     }
 
     /**
@@ -163,7 +167,7 @@ public class AgendaController extends Controller implements Initializable {
      * The dialog button contains a message and two buttons:
      * a close button and a delete one connected to the deleteActivity function.
      */
-    private void deleteActivityDialog(int index) {
+    private void deleteActivityDialog(int activityIndex, int rowCounter) {
         JFXDialogLayout dialogLayout = new JFXDialogLayout();
         Text heading = new Text("Are you sure?");
         dialogLayout.setHeading(heading);
@@ -172,30 +176,48 @@ public class AgendaController extends Controller implements Initializable {
         JFXButton close = new JFXButton("Close");
         String css = "-fx-border-color:#95e743;-fx-border-radius:2;-fx-background-color:#ecffe6";
         close.setStyle(css);
-        del.setOnMouseClicked(e -> deleteActivity(index));
+        del.setOnMouseClicked(e -> deleteActivity(activityIndex, rowCounter));
         close.setOnMouseClicked(e -> dialog.close());
         String message = "You are about to delete the activity. Do you want to proceed?";
         dialogLayout.setBody(new Text(message), close, del);
-        dialog = new JFXDialog(stack, dialogLayout, JFXDialog.DialogTransition.CENTER);
+        dialog = new JFXDialog(stackPane, dialogLayout, JFXDialog.DialogTransition.CENTER);
         dialogLayout.setActions(del, close);
+
         dialog.show();
-        dialog.isOverlayClose();
     }
 
     /**
-     * This function will delete the activities from the agenda.
+     * Function to delete an activity.
      *
-     * @param rowIndex int type.
+     * @param activityIndex index of the activity
+     * @param rowCounter    amount of rows
      */
-    private void deleteActivity(int rowIndex) {
-        gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
+    public void deleteActivity(int activityIndex, int rowCounter) {
+        ServerRequests sv = new ServerRequests();
+        int activityID = Main.clientUser.getActivityList().get(activityIndex).getActivityID();
+
+        if (sv.removeActivity(activityID)) {
+            for (Activity activity:Main.clientUser.getActivityList()) {
+                if (activity.getActivityID() == activityID) {
+                    decreaseTotalCO2(activity);
+                }
+            }
+        }
+
+        gridPane.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowCounter);
         // If there are no activities for that day, delete the date
         agendaBox.getChildren().removeIf(dateText -> RowCount.getRowCount(gridPane) == 0);
         dialog.close();
     }
 
-    private Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
-        Multimap<LocalDate, Activity> multimap = ArrayListMultimap.create();
+    /**
+     * Create a multimap with activities and dates.
+     *
+     * @param activities list of activities
+     * @return multimap
+     */
+    public Multimap<LocalDate, Activity> activityMap(List<Activity> activities) {
+        Multimap<LocalDate, Activity> multimap = LinkedListMultimap.create();
         for (Activity a : activities) {
             multimap.put(a.getDate(), a);
         }
@@ -203,56 +225,53 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * This function shows the activity on the agenda
+     * This function shows the activity on the agenda.
      * Takes in a multimap(date from datepicker and activity object)
-     * Wout is still looking into how to show the activity instantly after adding
-     * without reloading the app
      *
-     * @param activityMap
+     * @param activityMap Multimap type.
      */
-    private void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
-        agendaBox.getChildren().removeAll();
-
-
-        gridPane = new GridPane();
-        gridPane.setLayoutX(420);
+    public void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
+        gridPane.getChildren().clear();
 
         String path = "/client/windows/images/delete.png";
 
-        int counter = 0;
+        int rowCounter = 0;
+        int activityCounter = 0;
         for (LocalDate date : activityMap.keySet()) {
+            if (rowCounter > 0) {
+                rowCounter++;
+            }
             String css = "-fx-background-position: 20; -fx-font-size: 28;";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM, yyy");
             dateText = new Text(formatter.format(date));
 
             dateText.setStyle(css);
-            gridPane.add(dateText, 1, counter);
-            counter++;
-
+            gridPane.add(dateText, 1, rowCounter);
             for (Activity activity : activityMap.get(date)) {
+                rowCounter++;
                 Item item = Main.items.get(activity.getItemID() - 1);
-                String unit = null;
+                String unit = "";
+                Double co2Saved = Main.round(item.getCo2() * activity.getAmount(), 2);
+
+
                 if (item.getType().equals("food")) {
                     unit = "g";
-                }
-                else if (item.getType().equals("transport")) {
+                    co2Saved = co2Saved / 1000;
+                } else if (item.getType().equals("transport")) {
                     unit = "km";
                 }
-                    Text text = new Text(item.getName() + ", amount: " + activity.getAmount() + " " + unit +
-                        ", co2: " + round((item.getCo2() * activity.getAmount()) / 1000, 2));
+                Text text = new Text(item.getName() + ", amount: " + activity.getAmount()
+                        + unit + ", CO2 saved: " + co2Saved + "kg");
 
                 text.setWrappingWidth(310.00);
-                gridPane.add(text, 1, counter);
+                gridPane.add(text, 1, rowCounter);
                 JFXButton button = new JFXButton("", new ImageView(path));
-                gridPane.add(button, 2, counter);
-                int ii = counter;
-                button.setOnMouseClicked(e -> deleteActivityDialog(ii));
-                counter++;
+                gridPane.add(button, 2, rowCounter);
+                int ii = activityCounter++;
+                int iii = rowCounter;
+                button.setOnMouseClicked(e -> deleteActivityDialog(ii, iii));
             }
         }
-
-        gridPane.setHgap(20);
-        agendaBox.getChildren().add(gridPane);
     }
 
     /**
@@ -261,16 +280,26 @@ public class AgendaController extends Controller implements Initializable {
 
     public void loadPlusButton() {
         // This code creates the GREEN animated PLUS button when agenda is selected
-        JFXButton ssbutton1 = new JFXButton();
+        ssbutton1 = new JFXButton();
         ssbutton1.setId("plusbutton");
         ssbutton1.setButtonType(JFXButton.ButtonType.RAISED);
         ssbutton1.getStyleClass().addAll("animated-option-button", "animated-option-sub-button");
+
+        nodesList.addAnimatedNode(ssbutton1, (expanded, duration) -> {
+            List<KeyFrame> frames = new ArrayList<>();
+            frames.add(new KeyFrame(duration,
+                            new KeyValue(ssbutton1.rotateProperty(),
+                                    expanded ? 180 : 0, Interpolator.EASE_BOTH)));
+            return frames;
+        }
+        );
 
         ssbutton2 = new JFXButton();
         ssbutton2.setId("transportbutton");
         ssbutton2.setButtonType(JFXButton.ButtonType.RAISED);
         ssbutton2.getStyleClass().addAll("animated-option-button", "animated-option-sub-button2");
         ssbutton2.setOnMouseClicked(this::transportButtonAction);
+
 
         ssbutton3 = new JFXButton();
         ssbutton3.setId("foodbutton");
@@ -286,7 +315,7 @@ public class AgendaController extends Controller implements Initializable {
 
         nodesList.getStylesheets().add("client/windows/css/agenda.css");
 
-        nodesList.addAnimatedNode(ssbutton1);
+
         nodesList.addAnimatedNode(ssbutton2);
         nodesList.addAnimatedNode(ssbutton3);
         nodesList.addAnimatedNode(ssbutton4);
@@ -295,6 +324,7 @@ public class AgendaController extends Controller implements Initializable {
         nodesList.setLayoutX(940);
         nodesList.setLayoutY(690);
     }
+
 
     /**
      * Clears the plus button of the previously added 3 subbuttons.
@@ -306,77 +336,75 @@ public class AgendaController extends Controller implements Initializable {
     }
 
     /**
-     * Creates an empty white popup box for transportation button popup.
+     * Creates the transportation popup box.
      * To be finished.
      */
-
     public void transportButtonAction(javafx.scene.input.MouseEvent event) {
         loadTransportItems();
-
+        String path = "/client/windows/fxml/transportWindow.fxml";
         try {
-            transportWindow = FXMLLoader.load(getClass().getResource("/client/windows/fxml/transportWindow.fxml"));
+            transportWindow = FXMLLoader.load(getClass().getResource(path));
         } catch (IOException e) {
+            e.printStackTrace();
         }
 
+        if (!(popOver1.isShowing())) {
+            popOver1 = new PopOver(transportWindow);
+            popOver1.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+            popOver1.setDetachable(false);
+            popOver1.show(ssbutton2);
 
-        PopOver popOver = new PopOver(transportWindow);
-        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-        popOver.show(ssbutton2);
+        }
     }
 
-//        VBox vBox = new VBox();
-//        vBox.setPrefHeight(250.0);
-//        vBox.setPrefWidth(200.0);
-//
-//        vBox.setStyle("-fx-background-color: white");
-//
-//        PopOver popOver = new PopOver(vBox);
-//        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-//        popOver.show(ssbutton2);
+    /**
+     * Loads the transport dropdown menu with items from the database.
+     */
+    private void loadTransportItems() {
+
+        transportList.addAll("Walking",
+                "By bike",
+                "Public transport",
+                "By car");
+        transportChoices.setItems(transportList);
+    }
+
 
     /**
      * This method appends the foodWindow.fxml to the 3rd node i.e. the foodButton
      */
     @FXML
     public void foodButtonAction(javafx.scene.input.MouseEvent event) {
+        String path = "/client/windows/fxml/foodWindow.fxml";
 
         try {
-            foodWindow = FXMLLoader.load(getClass().getResource("/client/windows/fxml/foodWindow.fxml"));
+            foodWindow = FXMLLoader.load(getClass().getResource(path));
         } catch (IOException e) {
+            e.printStackTrace();
         }
 
+        if (!popOver2.isShowing()) {
+            popOver2 = new PopOver(foodWindow);
+            popOver2.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+            popOver2.setDetachable(false);
+            popOver2.show(ssbutton3);
+        }
 
-        PopOver popOver = new PopOver(foodWindow);
-        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-        popOver.show(ssbutton3);
     }
+
 
     /**
      * Loads the food dropdown menu with items.
      */
-
     private void loadFoodItems() {
-
         //Clears everything in the observable list
-        if (foodList.size() < 1)
-            foodList.addAll(Main.items.stream().filter(item -> item.getType().equals("food")).map(item -> item.getName()).collect(Collectors.toList()));
-
+        if (foodList.size() < 1) {
+            foodList.addAll(Main.items.stream().filter(item ->
+                    item.getType().equals("food")).map(item ->
+                    item.getName()).collect(Collectors.toList()));
+        }
         foodChoices.setItems(foodList);
         //mainScreen.getChildren().add(foodChoices);
-    }
-
-    /**
-     * Loads the transport dropdown menu with items from the database
-     */
-    private void loadTransportItems() {
-
-        //Clears everything in the observable list
-        if (transportList.size() < 1)
-            transportList.addAll(Main.items.stream().filter(item -> item.getType().equals("transport")).map(item -> item.getName()).collect(Collectors.toList()));
-
-        transportChoices.setItems(transportList);
-        //mainScreen.getChildren().add(foodChoices);
-
     }
 
 
@@ -384,76 +412,159 @@ public class AgendaController extends Controller implements Initializable {
      * Creates an empty white popup box for energy button popup.
      * To be finished.
      */
-
     public void energyButtonAction(javafx.scene.input.MouseEvent event) {
+        String path = "/client/windows/fxml/energyWindow.fxml";
+
         try {
-            energyWindow = FXMLLoader.load(getClass().getResource("/client/windows/fxml/energyWindow.fxml"));
+            energyWindow = FXMLLoader.load(getClass().getResource(path));
         } catch (IOException e) {
+            e.printStackTrace();
         }
-
-
-        PopOver popOver = new PopOver(energyWindow);
-        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-        popOver.show(ssbutton4);
-
-//        VBox vBox = new VBox();
-//        vBox.setPrefHeight(250.0);
-//        vBox.setPrefWidth(200.0);
-//
-//        vBox.setStyle("-fx-background-color: white");
-//
-//        PopOver popOver = new PopOver(vBox);
-//        popOver.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
-//        popOver.show(ssbutton4);
-
+        if (!popOver3.isShowing()) {
+            popOver3 = new PopOver(energyWindow);
+            popOver3.setArrowLocation(PopOver.ArrowLocation.RIGHT_BOTTOM);
+            popOver3.setDetachable(false);
+            popOver3.show(ssbutton4);
+        }
     }
 
     /**
-     * Loads the energy dropdown menu with items from the database
+     * Loads the energy dropdown menu with items from the database.
      */
-
     private void loadEnergyItems() {
 
         //Clears everything in the observable list
-        if (energyList.size() < 1)
-            energyList.addAll(Main.items.stream().filter(item -> item.getType().equals("energy")).map(item -> item.getName()).collect(Collectors.toList()));
-
+        if (energyList.size() < 1) {
+            energyList.addAll(Main.items.stream().filter(item ->
+                    item.getType().equals("energy")).map(item ->
+                    item.getName()).collect(Collectors.toList()));
+        }
         energyChoices.setItems(energyList);
         //mainScreen.getChildren().add(foodChoices);
     }
 
+    @FXML
+    void applyTransport(MouseEvent event) {
+        itemName = transportChoices.getValue();
+        if (itemName.equals("By car")) {
+            itemName = Main.clientUser.getCarEmissionType() + ", " + Main.clientUser.getCarType();
+        }
+        applyButton(itemName);
+    }
+
+    @FXML
+    void applyFood(MouseEvent event) {
+        itemName = foodChoices.getValue();
+        applyButton(itemName);
+    }
+
+    @FXML
+    void applyEnergy(MouseEvent event) {
+        itemName = energyChoices.getValue();
+        applyButton(itemName);
+    }
+
+
     /**
-     * applyButton event
-     * Applies the activity to the agenda, still needs a restart of the application
+     * applyButton event.
+     * Applies the activity to the agenda
      */
     @FXML
-    void applyButton(MouseEvent event) {
-        String itemName = foodChoices.getValue();
+    private void applyButton(String itemName) {
+
+        ProfileController profileController = new ProfileController();
+
         ServerRequests sv = new ServerRequests();
-        double parsedAmount = Double.parseDouble(amount.getText());
+        double parsedAmount = -1;
+        if (amount.getText() != null && amount.getText().length() > 0) {
+            parsedAmount = Double.parseDouble(amount.getText());
+        }
+
         LocalDate date = datepicker.getValue();
 
+        if (itemName.equals("Solar panel")) {
+            profileController.updateAgenda(itemName, parsedAmount);
+            Main.clientUser.setSolarPower((int) parsedAmount);
+            sv.updateClientUserProfile();
+            showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
+            return;
+        } else if (itemName.equals("Lower Temperature")) {
+            profileController.updateAgenda(itemName, parsedAmount);
+            Main.clientUser.setRoomTemp(21 - (int) parsedAmount);
+            sv.updateClientUserProfile();
+            showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
+            return;
+        } else if (itemName.equals("LEDs")) {
+            profileController.updateAgenda(itemName, parsedAmount);
+            Main.clientUser.setLeds((int) parsedAmount);
+            sv.updateClientUserProfile();
+            showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
+            return;
+        }
+
+        addActivity(itemName, parsedAmount, date);
+    }
+
+    private void addActivity(String itemName, double parsedAmount, LocalDate date) {
+        ServerRequests sv = new ServerRequests();
         if (itemName != null && parsedAmount > 0 && date != null) {
             System.out.println(date.toString());
-            int itemID = Main.items.stream().filter(x -> x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
+            int itemID = Main.items.stream().filter(x ->
+                    x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
             Activity activity = new Activity(itemID, parsedAmount, date);
             if (sv.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
-                //refresh agenda
+
+                increaseTotalCO2(activity);
 
                 showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             }
         }
     }
 
-
-    public JFXNodesList getNodesList() {
-        return nodesList;
+    private void increaseTotalCO2(Activity activity) {
+        ServerRequests sv = new ServerRequests();
+        Main.clientUser.increaseTotalCo2(findValueFromActivity(activity));
+        sv.updateClientUserProfile();
     }
 
-    @Override
+    private void decreaseTotalCO2(Activity activity) {
+        ServerRequests sv = new ServerRequests();
+        Main.clientUser.increaseTotalCo2(-findValueFromActivity(activity));
+        sv.updateClientUserProfile();
+    }
+
+    private double findValueFromActivity(Activity activity) {
+        Item item = Main.items.get(activity.getItemID() - 1);
+        double value = Main.round(activity.getAmount() * item.getCo2(), 2);
+        if (item.getType().equals("food")) {
+            value /= 1000.0;
+        }
+        return value;
+    }
+
+
+    public PopOver getPopOver1() {
+        return popOver1;
+    }
+
+    public PopOver getPopOver2() {
+        return popOver2;
+    }
+
+    public PopOver getPopOver3() {
+        return popOver3;
+    }
+
+    public static GridPane getGridPane() {
+        return gridPane;
+    }
+
+    public static VBox getAgendaBox() {
+        return agendaBox;
+    }
+
     public void update() {
 
     }
 }
-

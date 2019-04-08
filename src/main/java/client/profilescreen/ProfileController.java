@@ -2,30 +2,41 @@ package client.profilescreen;
 
 import client.Main;
 import client.ServerRequests;
+import client.helper.RowCount;
+import client.objects.Activity;
+import client.objects.Item;
 import client.user.ClientUser;
+import client.windows.AgendaController;
 import client.windows.Controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 
 import java.awt.image.BufferedImage;
+import java.time.LocalDate;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 /**
  * The type Controller profile.
  */
 public class ProfileController extends Controller {
+
+    ObservableList transportList = FXCollections.observableArrayList();
+
+    String itemName = null;
 
     @FXML
     private javafx.scene.control.Button imageButton;
@@ -42,22 +53,19 @@ public class ProfileController extends Controller {
     @FXML
     private JFXTextField countryField;
     @FXML
-    private JFXComboBox carTypeField;
+    private JFXComboBox transportField;
     @FXML
-    private JFXComboBox emissionTypeField;
+    private JFXTextField ledsField;
     @FXML
-    private JFXToggleButton leds;
+    private JFXTextField solarPanelsField;
     @FXML
-    private JFXToggleButton solarPanels;
-    @FXML
-    private JFXTextField tempratureField;
+    private JFXTextField temperatureField;
     @FXML
     private JFXButton discardButton;
     @FXML
     private JFXButton saveButton;
 
     private ClientUser newSettings;
-
 
     /**
      * Instantiates a new Controller profile.
@@ -80,15 +88,15 @@ public class ProfileController extends Controller {
     private void syncUI(ClientUser settings) {
         usernameField.setText("Username: " + settings.getUsername());
         emailField.setText(settings.getEmail());
-        pointsField.setText("CO2 saved: " + Main.clientUser.getTotalCo2());
+        pointsField.setText("CO2 saved: " + Main.round(Main.clientUser.getTotalCo2(), 2) + " kg");
         streakField.setText("Streak: " + Main.clientUser.getStreakLength());
-        solarPanels.setSelected(settings.hasSolarPower());
-        leds.setSelected(settings.hasLeds());
+        solarPanelsField.setText("" + Main.clientUser.getSolarPower());
+        ledsField.setText("" + Main.clientUser.getLeds());
         countryField.setText(settings.getCountry());
-        tempratureField.setText("" + settings.getRoomTemp());
+        temperatureField.setText("" + settings.getRoomTemp());
         setButtonsDisable(true);
         setProfileImage(settings.getProfileImage());
-        setCarFields(settings.getCarType(), settings.getCarEmissionType());
+        setTransportField(settings.getCarType(), settings.getCarEmissionType());
         if (mainScreenController != null) {
             mainScreenController.setUsernameField(settings.getUsername());
 
@@ -99,11 +107,8 @@ public class ProfileController extends Controller {
     }
 
 
-    /**
-     * Initialize.
-     */
-    @FXML
-    public void initialize() {
+    @Override
+    public void init() {
 
         UnaryOperator<TextFormatter.Change> filter = change -> {
             String text = change.getText();
@@ -115,12 +120,14 @@ public class ProfileController extends Controller {
             return null;
         };
         TextFormatter<String> textFormatter = new TextFormatter<>(filter);
-        tempratureField.setTextFormatter(textFormatter);
-    }
-
-    @Override
-    public void init() {
+        temperatureField.setTextFormatter(textFormatter);
+        textFormatter = new TextFormatter<String>(filter);
+        ledsField.setTextFormatter(textFormatter);
+        textFormatter = new TextFormatter<String>(filter);
+        solarPanelsField.setTextFormatter(textFormatter);
+        initTransportField();
         update();
+        updateAgendaCaller();
     }
 
     /**
@@ -128,11 +135,7 @@ public class ProfileController extends Controller {
      */
     @FXML
     private void buttonPressed() {
-        if (leds.isFocused()) {
-            newSettings.setLeds(leds.isSelected());
-        } else if (solarPanels.isFocused()) {
-            newSettings.setSolarPower(solarPanels.isSelected());
-        } else if (discardButton.isFocused()) {
+        if (discardButton.isFocused()) {
             discardChanges();
         } else if (saveButton.isFocused()) {
             saveChanges();
@@ -144,40 +147,49 @@ public class ProfileController extends Controller {
 
     @FXML
     private void comboBoxSelected() {
-        if (carTypeField.isFocused()) {
-            String[] carType = carTypeField.getValue().toString().split("'");
-            if (carType.length == 1) {
-                newSettings.setCarType(carType[0]);
-            } else {
-                newSettings.setCarType(carType[1]);
-            }
-        } else if (emissionTypeField.isFocused()) {
-            String[] carEmissionType = emissionTypeField.getValue().toString().split("'");
-            if (carEmissionType.length == 1) {
-                newSettings.setCarEmissionType(carEmissionType[0]);
-            } else {
-                newSettings.setCarEmissionType(carEmissionType[1]);
-            }
+        String[] tranportTypes = transportField.getValue().toString().split(", ");
+        if (tranportTypes.length > 1) {
+            newSettings.setCarEmissionType(tranportTypes[0]);
+            newSettings.setCarType(tranportTypes[1]);
         }
-
         checkNewSettings();
     }
 
     @FXML
     private void keyPressed(KeyEvent keyEvent) {
         if (keyEvent.getCode().equals(KeyCode.ENTER) || keyEvent.getCode().equals(KeyCode.TAB)) {
-            newSettings.setEmail(emailField.getText());
-            newSettings.setCountry(countryField.getText());
-            newSettings.setRoomTemp(Integer.parseInt(tempratureField.getText()));
+            if (emailField.getText().length() > 0 && countryField.getText().length() > 0
+                    && temperatureField.getText().length() > 0 && ledsField.getText().length() > 0
+                    && solarPanelsField.getText().length() > 0) {
+                newSettings.setEmail(emailField.getText());
+                newSettings.setCountry(countryField.getText());
+                newSettings.setRoomTemp(Integer.parseInt(temperatureField.getText()));
+                newSettings.setLeds(Integer.parseInt(ledsField.getText()));
+                newSettings.setSolarPower(Integer.parseInt(solarPanelsField.getText()));
 
-            checkNewSettings();
-            profileImage.requestFocus();
+                checkNewSettings();
+                profileImage.requestFocus();
+            }
         }
     }
 
+    /**
+     * Function to choose a profile image.
+     */
     private void chooseImage() {
         ImageChooser imageChooser = new ImageChooser();
         BufferedImage image = imageChooser.getBufferedImage();
+        changeProfileImage(image);
+        ServerRequests sv = new ServerRequests();
+        sv.uploadProfileImage(image);
+    }
+
+    /**
+     * Function to change the profile image.
+     *
+     * @param image profileImage
+     */
+    public void changeProfileImage(BufferedImage image) {
         if (image != null) {
             Main.clientUser.setProfileImage(SwingFXUtils.toFXImage(image, null));
             setProfileImage(Main.clientUser.getProfileImage());
@@ -185,6 +197,7 @@ public class ProfileController extends Controller {
             setButtonsDisable(false);
         }
     }
+
 
     private void discardChanges() {
         newSettings = Main.clientUser.deepCopy();
@@ -197,6 +210,69 @@ public class ProfileController extends Controller {
         setButtonsDisable(true);
         sv.updateClientUserProfile();
         update();
+        updateAgendaCaller();
+    }
+
+
+    /**
+     * This method checks if the activity is present today if not apply it.
+     * The method also checks if the amount on the profilepage matches the agenda's activity,
+     * if not update it
+     *
+     * @param itemName name of the item
+     * @param amount   amount of the item
+     */
+    public void updateAgenda(String itemName, double amount) {
+
+        AgendaController agendaController = new AgendaController();
+
+        Boolean isPresent = false;
+
+        // If itemName(solar panel, leds, lower temp) matches then dont apply on agenda
+        for (Activity activity : Main.clientUser.getFilteredList()) {
+            Item item = Main.items.get(activity.getItemID() - 1);
+            if ((item.getName().equals(itemName)) && !isPresent) {
+                isPresent = true;
+
+                // if activity present check if amount is the same if not update it
+                if (activity.getAmount() != amount) {
+                    int activityIndex = Main.clientUser.getFilteredList().indexOf(activity);
+
+                    ServerRequests sv = new ServerRequests();
+                    int activityID = Main.clientUser.getActivityList().get(
+                            activityIndex + 1).getActivityID();
+                    sv.removeActivity(activityID);
+                    AgendaController.getGridPane().getChildren().removeIf(node ->
+                            GridPane.getRowIndex(node) == activityIndex + 2);
+                    // If there are no activities for that day, delete the date
+                    AgendaController.getAgendaBox().getChildren().removeIf(dateText ->
+                            RowCount.getRowCount(AgendaController.getGridPane()) == 0);
+                    Main.clientUser.removeFromActivityList(activity);
+                    applyActivity(itemName, amount);
+                }
+            }
+        }
+
+        if (!isPresent) {
+            applyActivity(itemName, amount);
+        }
+        // if user adds solarpanel, led, temperature on agenda
+        // update it on the userprofile and save it.
+    }
+
+    /**
+     * Update the agenda with the text fields from Profile.
+     */
+    public void updateAgendaCaller() {
+        if (solarPanelsField.getText() != null && solarPanelsField.getText().length() > 0) {
+            updateAgenda("Solar panel", Double.parseDouble(solarPanelsField.getText()));
+        }
+        if (temperatureField.getText() != null && temperatureField.getText().length() > 0) {
+            updateAgenda("Lower temperature", 21 - Double.parseDouble(temperatureField.getText()));
+        }
+        if (ledsField.getText() != null && ledsField.getText().length() > 0) {
+            updateAgenda("LEDs", Double.parseDouble(ledsField.getText()));
+        }
     }
 
     private void checkNewSettings() {
@@ -216,11 +292,10 @@ public class ProfileController extends Controller {
     public void setPageDisable(boolean disable) {
         emailField.setDisable(disable);
         countryField.setDisable(disable);
-        carTypeField.setDisable(disable);
-        emissionTypeField.setDisable(disable);
-        leds.setDisable(disable);
-        solarPanels.setDisable(disable);
-        tempratureField.setDisable(disable);
+        transportField.setDisable(disable);
+        ledsField.setDisable(disable);
+        solarPanelsField.setDisable(disable);
+        temperatureField.setDisable(disable);
     }
 
 
@@ -230,14 +305,23 @@ public class ProfileController extends Controller {
      * @param carType      the car type
      * @param emissionType the emission type
      */
-    public void setCarFields(String carType, String emissionType) {
+    public void setTransportField(String carType, String emissionType) {
+        Object object = transportList.filtered(e ->
+                e.toString().equals(emissionType + ", " + carType)).get(0);
+        transportField.getSelectionModel().select(object);
 
-        Label car = (Label) carTypeField.getItems().filtered(e ->
-                ((Label) e).getText().equals(carType)).get(0);
-        Label emission = (Label) emissionTypeField.getItems().filtered(e ->
-                ((Label) e).getText().equals(emissionType)).get(0);
-        carTypeField.getSelectionModel().select(car);
-        emissionTypeField.getSelectionModel().select(emission);
+    }
+
+    private void initTransportField() {
+
+        if (transportList.size() < 1) {
+            transportList.addAll(Main.items.stream().filter(item ->
+                    item.getType().equals("transport")).map(item ->
+                    item.getName()).collect(Collectors.toList()));
+            transportList = transportList.filtered(e -> e.toString().split(", ").length > 1);
+            transportField.setItems(transportList);
+            transportField.getSelectionModel().clearSelection();
+        }
     }
 
 
@@ -249,6 +333,40 @@ public class ProfileController extends Controller {
     public void setProfileImage(Image image) {
         if (image != null) {
             profileImage.setFill(new ImagePattern(image));
+        }
+    }
+
+    /**
+     * applyActivity event.
+     * Applies the activity to the agenda
+     */
+    @FXML
+    private void applyActivity(String itemName, double amount) {
+
+        AgendaController agendaController = new AgendaController();
+
+        ServerRequests sv = new ServerRequests();
+        double parsedAmount = amount;
+        LocalDate date = LocalDate.now();
+
+        if (itemName != null && parsedAmount > 0) {
+            System.out.println(date.toString());
+            int itemID = Main.items.stream().filter(x ->
+                    x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
+            Activity activity = new Activity(itemID, parsedAmount, date);
+            if (sv.addActivity(activity)) {
+                Main.clientUser.addToActivityList(activity);
+
+                Item item = Main.items.get(activity.getItemID() - 1);
+                double addition = activity.getAmount() * item.getCo2();
+                if (!item.getType().equals("energy")) {
+                    addition /= 1000.0;
+                }
+                Main.clientUser.increaseTotalCo2(addition);
+                sv.updateClientUserProfile();
+                agendaController.showAgendaActivities(agendaController.activityMap(
+                        Main.clientUser.getActivityList()));
+            }
         }
     }
 }

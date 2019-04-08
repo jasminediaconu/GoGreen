@@ -92,7 +92,7 @@ public class Activity {
     /**
      * This function changes the current date to a new date.
      *
-     * @param date
+     * @param date LocalDate type.
      */
     public void setDate(LocalDate date) {
         this.date = date;
@@ -101,18 +101,18 @@ public class Activity {
     /**
      * This function compares this Activity with another Activity to check if they are equal.
      *
-     * @param o Object type
+     * @param object Object type
      * @return a boolean, whether they are equal or not
      */
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object object) {
+        if (this == object) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Activity activity = (Activity) o;
+        Activity activity = (Activity) object;
         return activityID == activity.activityID
                 && Double.compare(activity.amount, amount) == 0
                 && itemID == activity.itemID

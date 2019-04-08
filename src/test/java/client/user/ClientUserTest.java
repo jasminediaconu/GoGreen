@@ -18,7 +18,7 @@ class ClientUserTest {
 
     @BeforeEach
     void setUp() {
-        user = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "default", "SUV", "Gas");
+        user = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "SUV", "Gas");
         User newuser = new User("admin", "Netherlands", 10);
         List<User> following = new ArrayList<>();
         user.addFollowing(newuser);
@@ -93,7 +93,7 @@ class ClientUserTest {
 
     @Test
     void equalsSimilar() {
-        ClientUser user3 = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "default", "SUV", "Gas");
+        ClientUser user3 = new ClientUser("username", "country", 10.0, 3, 0, 0, 21, "email", "SUV", "Gas");
         user3.setUsername("usernaem");
         Assert.assertEquals(user.equals(user3), false);
         user3.setUsername("username");

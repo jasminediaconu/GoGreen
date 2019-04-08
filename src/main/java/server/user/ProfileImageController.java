@@ -1,13 +1,12 @@
 package server.user;
 
-import org.apache.commons.io.FileUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import server.ServerApp;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +15,16 @@ public class ProfileImageController {
 
     private static Map<Integer, String> profilePictures = new HashMap<>();
 
+    /**
+     * Function to save the profile image the user saved.
+     *
+     * @param sessionID of the user
+     * @param encodedImage the image that has been encoded
+     * @return "success" if the image has been uploaded
+     */
     @RequestMapping(value = "/uploadProfileImage", method = RequestMethod.POST)
-    public String uploadProfileImage(@RequestParam String sessionID, @RequestBody String encodedImage) {
+    public String uploadProfileImage(@RequestParam String sessionID,
+                                     @RequestBody String encodedImage) {
         int userID = ServerApp.getUserIDfromSession(sessionID);
         if (userID == -1) {
             return null;
@@ -28,6 +35,12 @@ public class ProfileImageController {
         return "success";
     }
 
+    /**
+     * Function to get the profile image of the client.
+     *
+     * @param sessionID of the user
+     * @return null if there is no image
+     */
     @RequestMapping(value = "/getProfileImage", method = RequestMethod.POST)
     public String getProfileImage(@RequestParam String sessionID) {
         int userID = ServerApp.getUserIDfromSession(sessionID);
@@ -36,7 +49,7 @@ public class ProfileImageController {
         }
 
         String response = profilePictures.get(userID);
-        if(response == null || response.length() <= 1) {
+        if (response == null || response.length() <= 1) {
             response = "iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjS"
                     + "FJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QA/wD/AP+gvaeTA"
                     + "AAAB3RJTUUH4wQHCDYEtDFZIQAABP5JREFUeNrtm2lTG0cQhp/eU9LqwhDOkLgq//9HxUb3fe09O"

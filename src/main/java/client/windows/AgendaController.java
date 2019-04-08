@@ -197,8 +197,8 @@ public class AgendaController extends Controller implements Initializable {
         int activityID = Main.clientUser.getActivityList().get(activityIndex).getActivityID();
 
         if (sv.removeActivity(activityID)) {
-            for(Activity activity:Main.clientUser.getActivityList()) {
-                if(activity.getActivityID() == activityID) {
+            for (Activity activity:Main.clientUser.getActivityList()) {
+                if (activity.getActivityID() == activityID) {
                     decreaseTotalCO2(activity);
                 }
             }

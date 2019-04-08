@@ -5,7 +5,6 @@ import client.ServerRequests;
 import client.user.ClientUser;
 import com.victorlaerte.asynctask.AsyncTask;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.image.Image;
 
 /**
  * The type Login request.

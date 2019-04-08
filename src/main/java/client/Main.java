@@ -1,6 +1,5 @@
 package client;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.google.common.hash.Hashing;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,16 +11,11 @@ import client.serializer.LocalDateSerializer;
 import client.user.Achievement;
 import client.user.ClientUser;
 
-import com.google.gson.JsonElement;
 import javafx.application.Application;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 

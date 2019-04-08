@@ -173,6 +173,9 @@ public class ProfileController extends Controller {
         }
     }
 
+    /**
+     * Function to choose a profile image.
+     */
     private void chooseImage() {
         ImageChooser imageChooser = new ImageChooser();
         BufferedImage image = imageChooser.getBufferedImage();
@@ -181,6 +184,11 @@ public class ProfileController extends Controller {
         sv.uploadProfileImage(image);
     }
 
+    /**
+     * Function to change the profile image.
+     *
+     * @param image profileImage
+     */
     public void changeProfileImage(BufferedImage image) {
         if (image != null) {
             Main.clientUser.setProfileImage(SwingFXUtils.toFXImage(image, null));

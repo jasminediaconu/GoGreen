@@ -14,7 +14,6 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -24,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 
 public class ServerRequests {
 
@@ -363,7 +363,8 @@ public class ServerRequests {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(image, "jpg", baos);
             String encodedImage = Base64.getEncoder().encodeToString(baos.toByteArray());
-            String response = sendRequestToServer("/uploadProfileImage?sessionID=" + Main.sessionID, Main.gson.toJson(encodedImage));
+            String response = sendRequestToServer("/uploadProfileImage?sessionID="
+                    + Main.sessionID, Main.gson.toJson(encodedImage));
             System.out.println(response);
         } catch (IOException e) {
             e.printStackTrace();
@@ -375,11 +376,12 @@ public class ServerRequests {
      */
     public BufferedImage getProfileImage() {
         try {
-            String response = sendRequestToServer("/getProfileImage?sessionID=" + Main.sessionID, null);
+            String response = sendRequestToServer("/getProfileImage?sessionID="
+                    + Main.sessionID, null);
             byte[] decodedBytes = Base64.getMimeDecoder().decode(response);
             BufferedImage image = ImageIO.read(new ByteArrayInputStream(decodedBytes));
             return image;
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             return null;
         }

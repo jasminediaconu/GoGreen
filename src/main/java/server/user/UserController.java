@@ -39,14 +39,14 @@ public class UserController {
             );
 
             selectClientUser = ServerApp.dbConnection.prepareStatement(
-                    "SELECT username, countryname, email, imageurl, totalco2, cartype, "
+                    "SELECT username, countryname, email, totalco2, cartype, "
                             + "caremissiontype, lastonline, streaklength, solarpower, leds, "
                             + "roomtemp FROM user_login AS ul JOIN user_profile "
                             + "AS up ON ul.userid = up.userid WHERE ul.userid = ?;"
             );
 
             updateClientUserProfile = ServerApp.dbConnection.prepareStatement(
-                    "UPDATE user_profile SET countryname = ?, imageurl = ?, totalco2 = ?, "
+                    "UPDATE user_profile SET countryname = ?, totalco2 = ?, "
                             + "cartype = ?, caremissiontype = ?, solarpower = ?, leds = ?, "
                             + "roomtemp = ? WHERE userid = ?;"
             );
@@ -129,7 +129,7 @@ public class UserController {
 
                 ClientUserClass clientUser = new ClientUserClass(result.getString("username"),
                         result.getString("countryname"), result.getString("email"),
-                        result.getString("imageurl"), result.getDouble("totalco2"),
+                        result.getDouble("totalco2"),
                         result.getString("cartype"), result.getString("caremissiontype"),
                         streakLength, result.getInt("solarpower"), result.getInt("leds"),
                         result.getInt("roomtemp")
@@ -162,14 +162,13 @@ public class UserController {
 
         try {
             updateClientUserProfile.setString(1, client.country);
-            updateClientUserProfile.setString(2, client.imageUrl);
-            updateClientUserProfile.setDouble(3, client.totalCo2);
-            updateClientUserProfile.setString(4, client.carType);
-            updateClientUserProfile.setString(5, client.carEmissionType);
-            updateClientUserProfile.setInt(6, client.solarPower);
-            updateClientUserProfile.setInt(7, client.leds);
-            updateClientUserProfile.setInt(8, client.roomTemp);
-            updateClientUserProfile.setInt(9, userID);
+            updateClientUserProfile.setDouble(2, client.totalCo2);
+            updateClientUserProfile.setString(3, client.carType);
+            updateClientUserProfile.setString(4, client.carEmissionType);
+            updateClientUserProfile.setInt(5, client.solarPower);
+            updateClientUserProfile.setInt(6, client.leds);
+            updateClientUserProfile.setInt(7, client.roomTemp);
+            updateClientUserProfile.setInt(8, userID);
             updateClientUserProfile.executeUpdate();
 
             updateClientUserLogin.setString(1, client.email);

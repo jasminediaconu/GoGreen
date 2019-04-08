@@ -24,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import org.apache.catalina.Server;
 import org.controlsfx.control.PopOver;
 
 import java.io.IOException;
@@ -180,11 +181,12 @@ public class OverviewController extends Controller implements Initializable {
     @FXML
     private JFXComboBox<String> comboBox = new JFXComboBox<>();
 
+    private static boolean firstInitialize = false;
+
     @Override
     public void update() {
         // This checks if the badges are unlocked or not
-        ServerRequests sv = new ServerRequests();
-        sv.getAchievements();
+        new ServerRequests().getAchievements();
         updateProgress();
     }
 
@@ -203,7 +205,9 @@ public class OverviewController extends Controller implements Initializable {
         }
     }
 
-    private void updateGraphWithActivities(String period) {
+    @FXML
+    void updateGraphWithActivities() {
+        String period = comboBox.getValue();
         String stringPeriod = "w";
         if (period.equals("Month")) {
             stringPeriod = "m";
@@ -215,15 +219,6 @@ public class OverviewController extends Controller implements Initializable {
 
         ServerRequests sv = new ServerRequests();
         List<Activity> activities = sv.retrieveActivities(stringPeriod);
-
-        //System.out.println("\n\n\n\n\n\n\nShowing graph data");
-        //Iterator it = mapActivitiesToGraph(activities, period).entrySet().iterator();
-        //while (it.hasNext()) {
-        //  Map.Entry pair = (Map.Entry) it.next();
-        //    System.out.println(pair.getKey() + " = " + pair.getValue());
-
-        //    it.remove(); // avoids a ConcurrentModificationException
-        //}
 
         if (barChart != null) {
             barChart.getData().clear();
@@ -244,21 +239,17 @@ public class OverviewController extends Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<String> periodList
-                = FXCollections.observableArrayList("Week", "Month", "Half a year", "Year");
+        if(!firstInitialize) {
+            ObservableList<String> periodList
+                    = FXCollections.observableArrayList("Week", "Month", "Half a year", "Year");
 
-        comboBox.setValue("Week");
-        comboBox.setItems(periodList);
+            comboBox.setValue("Week");
+            comboBox.setItems(periodList);
 
-        updateGraphWithActivities("Week");
+            updateGraphWithActivities();
 
-        comboBox.valueProperty().addListener(new ChangeListener<>() {
-            @Override
-            public void changed(ObservableValue ov, String time, String time1) {
-                updateGraphWithActivities(time1);
-            }
-        });
-
+            firstInitialize = true;
+        }
 
         retrieveAchievementsInfo();
 
@@ -306,7 +297,7 @@ public class OverviewController extends Controller implements Initializable {
     }
 
     //CHECKSTYLE:OFF
-    // Supressing the warning [CyclomaticComplexityCheck] because there are more than 10 popups to load and the function cannot be splitted.
+    // Suppressing the warning [CyclomaticComplexityCheck] because there are more than 10 popups to load and the function cannot be splitted.
 
     /**
      * This function loads the popup for each button.

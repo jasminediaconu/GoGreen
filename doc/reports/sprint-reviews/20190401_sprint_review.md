@@ -23,6 +23,8 @@ No extra meeting, so better communication via GitLab and Discord needed.
 - We didn't encounter many problems during this sprint and the ones we had are fixed
 
 ### Giuliano (gforghieri)
+- Most of the project is done thanks to the group putting in a lot of effort in the prior weeks.
+- Now we are focusing on checkstyle, making sure tests are above 95%, report and the presentation.
 
 ### Mandy (mchang)
 - Not many changes were made.

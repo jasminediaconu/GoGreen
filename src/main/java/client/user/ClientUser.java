@@ -28,7 +28,6 @@ public class ClientUser extends User {
 
     private String email;
 
-    private String imageUrl;
     private String carType;
     private String carEmissionType;
 
@@ -57,7 +56,6 @@ public class ClientUser extends User {
      * @param leds            the leds
      * @param roomTemp        the room temp
      * @param email           the email
-     * @param imageUrl        the image url
      * @param carType         the car type
      * @param carEmissionType the car emission type
      */
@@ -65,14 +63,13 @@ public class ClientUser extends User {
     @SuppressWarnings("ParameterNumberCheck")//We need these parameters for Gson.
     public ClientUser(String username, String country, double totalCo2, int streakLength,
                       int solarPower, int leds, int roomTemp, String email,
-                      String imageUrl, String carType, String carEmissionType) {
+                      String carType, String carEmissionType) {
         super(username, country, totalCo2);
         this.streakLength = streakLength;
         this.solarPower = solarPower;
         this.leds = leds;
         this.roomTemp = roomTemp;
         this.email = email;
-        this.imageUrl = imageUrl;
         this.carType = carType;
         this.carEmissionType = carEmissionType;
     }
@@ -193,26 +190,6 @@ public class ClientUser extends User {
      */
     public void setProfileImage(Image profileImage) {
         this.profileImage = profileImage;
-    }
-
-    /**
-     * Gets image url.
-     *
-     * @return the image url
-     */
-    @SuppressWarnings("abbriviationaswordinnamecheck")
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-
-    /**
-     * Sets image url.
-     *
-     * @param imageUrl the image url
-     */
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     /**
@@ -348,7 +325,6 @@ public class ClientUser extends User {
         clientUser.setEmail(email);
         clientUser.setUsername(username);
         clientUser.setCountry(country);
-        clientUser.setImageUrl(imageUrl);
         clientUser.setSolarPower(solarPower);
         clientUser.setRoomTemp(roomTemp);
         clientUser.setLeds(leds);

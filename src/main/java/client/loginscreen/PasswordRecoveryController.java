@@ -1,15 +1,19 @@
 package client.loginscreen;
 
 import client.ServerRequests;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -35,6 +39,14 @@ public class PasswordRecoveryController implements Initializable {
 
     @FXML
     private TextField tfEmail;
+    @FXML
+    private TextField tfCode;
+    @FXML
+    private PasswordField pfPassword;
+    @FXML
+    private Text txterror1;
+    @FXML
+    private Text txterror2;
 
     /**
      * This function handles the closing of the window, with the cross button.
@@ -79,13 +91,57 @@ public class PasswordRecoveryController implements Initializable {
     }
 
     /**
-     * Function to recover the password.
-     * A mail is created and a message is sent.
+     * This function will send a request to the server to send a code to recover the password of the account linked to the email to the email.
+     *
+     * @param event Event type.
      */
     @FXML
-    private void recover(MouseEvent event) {
-        String mailAddress = tfEmail.getText();
-        new ServerRequests().recoverPassword(mailAddress);
+    private void recoveryCode(Event event){
+        String keycode = "";
+        if (event instanceof KeyEvent) {
+            KeyEvent keyevent = (KeyEvent) event;
+            keycode = keyevent.getCode().toString();
+        }
+        if (event instanceof MouseEvent || keycode.equals("ENTER")) {
+            String mail = tfEmail.getText();
+            ServerRequests sv = new ServerRequests();
+            String response = sv.recoverPassword(mail);
+            txterror2.setVisible(false);
+            if (response.equals("syntax")) {
+                txterror1.setText("Please enter a valid Email address.");
+                txterror1.setVisible(true);
+            } else if (response.equals("fail")) {
+                txterror1.setText("Something went wrong, please try again later.");
+                txterror1.setVisible(true);
+            }
+        }
+
+
+    }
+
+    /**
+     * This function will send a request to the server to change the password of the account linked to the recovery code.
+     *
+     * @param event Event type.
+     */
+    @FXML
+    private void recoverPassword(Event event) {
+        String keycode = "";
+        if (event instanceof KeyEvent) {
+            KeyEvent keyevent = (KeyEvent) event;
+            keycode = keyevent.getCode().toString();
+        }
+        if (event instanceof MouseEvent || keycode.equals("ENTER")) {
+            String code = tfCode.getText();
+            String password = pfPassword.getText();
+            ServerRequests sv = new ServerRequests();
+            String response = sv.changePassword(code, password);
+            txterror1.setVisible(false);
+            if (response.equals("fail")) {
+                txterror2.setText("Something went wrong, please try again later.");
+                txterror2.setVisible(true);
+            }
+        }
     }
 
     /**

@@ -305,6 +305,7 @@
                         <exclude>**/server/user/**</exclude>
                         <exclude>**/server/InfoController.*</exclude>
                         <exclude>**/server/SessionController.*</exclude>
+                        <exclude>**/server/RecoveryController.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

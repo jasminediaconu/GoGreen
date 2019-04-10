@@ -135,6 +135,11 @@ public class PasswordRecoveryController implements Initializable {
             } else if (response.equals("fail")) {
                 txterror2.setText("Something went wrong, please try again later.");
                 txterror2.setVisible(true);
+            } else if (response.equals("success")){
+                try{login(event);
+                } catch (IOException exception){
+                    exception.printStackTrace();
+                }
             }
         }
     }
@@ -146,7 +151,7 @@ public class PasswordRecoveryController implements Initializable {
      * @throws IOException if there is no input
      */
     @FXML
-    private void login(MouseEvent event) throws IOException {
+    private void login(Event event) throws IOException {
 
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         fillScene(root, event);
@@ -158,7 +163,7 @@ public class PasswordRecoveryController implements Initializable {
      * @param root  Parent type
      * @param event MouseEvent event
      */
-    private void fillScene(Parent root, MouseEvent event) {
+    private void fillScene(Parent root, Event event) {
         Node node = (Node) event.getSource();
 
         Stage stage = (Stage) node.getScene().getWindow();

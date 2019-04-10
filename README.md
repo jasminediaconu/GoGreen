@@ -1,7 +1,7 @@
 # CSE1105 Group 72
 
 ## Name: Wout Haakman, whaakman
-![Wout Haakman](/images/readmePictures/WoutHaakman.jpg)<br/>
+![Wout Haakman](/images/readmePictures/haakmanwout.jpg)<br/>
 #### Personal Development Plan:
 ##### 2 strong points:
 - Good at programming, I have some years of programming and I am a quick learner.

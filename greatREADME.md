@@ -21,20 +21,20 @@ To install:
 
 ## Features
 #### Login and SignUp<br/>
-![Login](/images/readmePictures/LoginSignup.gif)<br/>
+![Login](/images/readmePictures/newLoginSignup.gif)<br/>
 Here you see the workflow of how to sign up as a new user if you don't have an acount already, where you automaticly log in on signup.<br/>
 Afterwards you see the workflow of how to login as an already existing user.<br/><br/> 
 #### Agenda <br/>
 ![Agenda](/images/readmePictures/newActivity1.gif)<br/>
 Here you see how to add an activity to your agenda.<br/><br/>
-![Agenda](/images/readmePictures/ActivityDeletion.gif)<br/>
+![Agenda](/images/readmePictures/newActivityDeletion.gif)<br/>
 Here you see how to delete an activity from you agenda, both from today and past and future dates. <br/><br/>
 #### Leaderboard and Profile <br/>
-![overall](/images/readmePictures/ProfileOverviewAgenda.gif)<br/>
+![overall](/images/readmePictures/newProfileOverviewAgenda.gif)<br/>
 Here you see how to change some personal information in your profile screen.<br/>
 Afterwards you see how to follow and un-follow someone in the leaderboard.<br/><br/>
 #### Overview <br/>
-![Overview](/images/readmePictures/ProfileOverviewAgenda.gif)<br/>
+![Overview](/images/readmePictures/newProfileOverviewAgenda.gif)<br/>
 Here you see the overview page with a graph of how much CO2 you saved and all the badges you earned.<br/><br/>
 
 

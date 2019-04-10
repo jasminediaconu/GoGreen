@@ -37,8 +37,8 @@ Focused on improving metrics, worked on the report and fixed the bugs in the app
 -
 
 ### Gino (gtramontina)
--
--
+- Everyone worked really well on the report and presentation and all the tasks that still had to be done.
+- Because the application is mostly finished everyone mostly worked on fixing bus in terms of code.
 
 ### Svetoslav (sstanoev)
 -

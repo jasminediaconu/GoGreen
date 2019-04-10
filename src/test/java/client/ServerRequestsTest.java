@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -103,6 +104,7 @@ class ServerRequestsTest {
         ServerRequests.requestUrl = "";
         Assert.assertEquals("fail", sv.signUp("username", "email@email.com", "password"));
     }
+
 
     @Test
     void endSessionOK() {
@@ -245,7 +247,43 @@ class ServerRequestsTest {
         Assert.assertEquals(true, sv.unFollowUser("ashdlfjas345dfasdjfasfhskdfjhasjdf"));
     }
 
+    @Test
+    void recoverPasswordFail(){
+        Assert.assertEquals("syntax", sv.recoverPassword("messy"));
+    }
 
+    @Test
+    void recoverPasswordSucces(){
+        Assert.assertEquals("oopproject72@gmail.com", sv.recoverPassword("oopproject72@gmail.com"));
+    }
+
+    @Test
+    void changePasswordNoPassword(){
+        Assert.assertEquals("syntax", sv.changePassword("0000", ""));
+    }
+
+    @Test
+    void changePasswordNullID(){
+        Assert.assertEquals("fail", sv.changePassword(null, "342423"));
+    }
+
+    @Test
+    void changePasswordNullPassword(){
+        Assert.assertEquals("fail", sv.changePassword("0000", "000000"));
+    }
+
+    @Test
+    void changePasswordFail(){
+        Assert.assertEquals("fail", sv.changePassword("000", "000000"));
+    }
+
+    @Test
+    void getAchievementsFail(){
+        String id = Main.sessionID;
+        Main.sessionID = "";
+        sv.getAchievements();
+        Main.sessionID = id;
+    }
 
     @Test
     void getFollowingProfileOK() {
@@ -259,6 +297,13 @@ class ServerRequestsTest {
         ServerRequests.requestUrl = "";
         List<User> users = sv.getFollowingProfile();
         Assert.assertEquals(0, users.size());
+    }
+
+    @Test
+    void unFollowNoSession(){
+        String id = Main.sessionID;
+        Main.sessionID = "";
+        Assert.assertEquals(false, sv.unFollowUser("admin"));
     }
 
     @Test

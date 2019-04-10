@@ -5,6 +5,7 @@ clone git repos via http: https://gitlab.ewi.tudelft.nl/cse1105/2018-2019/oopp-g
 
 If you want to contribute to the application: Follow the steps under Installation - For Developers.
 
+
 ## Installation
 ### For Developers
 Requirements:
@@ -12,11 +13,11 @@ Requirements:
 - Maven
 
 To install:
-- clone the project from the git repos
-- open the project as a maven project
-- open the project folder in the command line or use the command line in your IDE
-- compile the program by using the command: "mvn clean install" without quotation marks in the command line
-- run the program by using the command: "mvn exec:java" without quotation marks  in the command line
+- Clone the project from the git repos.
+- Open the project as a maven project.
+- Open the project folder in the command line or use the command line in your IDE.
+- Compile the program by using the command: "mvn clean install" without quotation marks in the command line.
+- Run the program by using the command: "mvn exec:java" without quotation marks  in the command line.
 
 ## Features
 #### Login and SignUp<br/>
@@ -31,13 +32,46 @@ Here you see how to delete an activity from you agenda, both from today and past
 #### Leaderboard and Profile <br/>
 ![overall](/images/readmePictures/ProfileOverviewAgenda.gif)<br/>
 Here you see how to change some personal information in your profile screen.<br/>
-Afterwards you see how to follow and un-follow someone in the leaderboard.<br/>
+Afterwards you see how to follow and un-follow someone in the leaderboard.<br/><br/>
+#### Overview <br/>
+![Overview](/images/readmePictures/ProfileOverviewAgenda.gif)<br/>
+Here you see the overview page with a graph of how much CO2 you saved and all the badges you earned.<br/><br/>
 
 
+## Tools and software
+#### Libraries
+Jfoenix <br/>
+Control FX <br/>
+Spring Boot <br/>
+Spring mail <br/>
+Apache httpcomponents <br/>
+Gson <br/>
+Jfx-AsyncTask <br/>
+ 
+
+#### Services
+Heroku <br/>
+Git/Gitlab <br/>
+flaticon.com <br/>
+fontawsome.io <br/>
+ 
+
+#### Tools/Software
+IntelliJ IDE <br/>
+SceneBuilder <br/>
+Java 11 <br/>
+JavaFX <br/>
+JUnit 5 Jupiter <br/>
+Maven <br/>
+Mockito <br/>
+Checkstyle <br/>
+PostgreSQL <br/>
+Apache <br/>
+ <br/>
 
 ## About us
 ### Name: Wout Haakman, whaakman
-![Wout Haakman](/images/readmePictures/WoutHaakman.jpg)<br/>
+![Wout Haakman](/images/readmePictures/haakmanwout.jpg)<br/>
 #### Personal Development Plan:
 ##### 2 strong points:
 - Good at programming, I have some years of programming and I am a quick learner.

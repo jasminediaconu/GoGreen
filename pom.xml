@@ -298,8 +298,7 @@
                         <exclude>**/server/login/**</exclude>
                         <exclude>**/server/objects/**</exclude>
                         <exclude>**/server/user/**</exclude>
-                        <exclude>**/server/InfoController.*</exclude>
-                        <exclude>**/server/SessionController.*</exclude>
+                        <exclude>**/server/*Controller.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

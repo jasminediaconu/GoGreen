@@ -25,8 +25,8 @@ Focused on improving metrics, worked on the report and fixed the bugs in the app
 - Most of the application bugs were fixed, higher importance was given to the Checkstyle warnings and to the Tests.
 
 ### Wout (whaakman)
--
--
+- The report final draft went well, except for some small spelling errors.
+- There are still some small bugs left, but those will be fixed before the next presentation.
 
 ### Giuliano (gforghieri)
 -

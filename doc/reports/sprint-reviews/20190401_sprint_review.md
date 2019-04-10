@@ -17,6 +17,8 @@ No extra meeting, so better communication via GitLab and Discord needed.
 ## Reflection on the previous sprint
 
 ### Wout Haakman (whaakman)
+- We can finally focus on the smaller stuff.
+- Everything was done in time.
 
 ### Jasmine (jdiaconu)
 - We completed most of the main tasks so we had more time to focus on small fixes, bonus features, the presentation and report

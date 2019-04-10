@@ -5,7 +5,7 @@
 'Go through report making it formal'
 
 ## Giuliano
-* Presentation: Slides 1-4, 9-13, 18
+* Presentation: Slides 1-'The problem', 'Login screen' - 'Profile', 'Reflection' - 'Questions'
 * Can we upload our project on GitHub
 * Report check spelling, sentence structure and add references
 
@@ -23,7 +23,7 @@
 * Report check spelling, sentence structure and add references
 
 ## Wout
-* Presentation: Slides 5 - 8, 14 - 17 maybe demo split with Giuliano, buy Wout starts
+* Presentation: Slides 'What have we built?' - 'Main features', 'Overview' - 'Demo time', 'End slide'
 * Export as application
 * Fix bugs
 * Clear and prepare database for demo

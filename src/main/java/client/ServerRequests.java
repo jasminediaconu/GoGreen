@@ -384,7 +384,7 @@ public class ServerRequests {
             return "syntax";
         }
         password = Main.hashString(password);
-        if (id == null || id.length() != 4 || password == null) {
+        if (id == null || id.length() != 4) {
             return "fail";
         } else {
             String response = sendRequestToServer("changePassword?id="

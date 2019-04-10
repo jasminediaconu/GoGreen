@@ -135,9 +135,10 @@ public class PasswordRecoveryController implements Initializable {
             } else if (response.equals("fail")) {
                 txterror2.setText("Something went wrong, please try again later.");
                 txterror2.setVisible(true);
-            } else if (response.equals("success")){
-                try{login(event);
-                } catch (IOException exception){
+            } else if (response.equals("success")) {
+                try {
+                    login(event);
+                } catch (IOException exception) {
                     exception.printStackTrace();
                 }
             }

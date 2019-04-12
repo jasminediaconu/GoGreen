@@ -29,7 +29,7 @@ Focused on improving metrics, worked on the report and fixed the bugs in the app
 - There are still some small bugs left, but those will be fixed before the next presentation.
 
 ### Giuliano (gforghieri)
--
+- We have completed numerous misc
 -
 
 ### Mandy (mchang)

@@ -29,7 +29,7 @@ Focused on improving metrics, worked on the report and fixed the bugs in the app
 -
 
 ### Giuliano (gforghieri)
--
+- We have completed numerous misc
 -
 
 ### Mandy (mchang)

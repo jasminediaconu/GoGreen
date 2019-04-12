@@ -54,7 +54,6 @@ public class ActivityController {
      * @param activity  ActivityClass type
      * @return int containing the id of the activity
      */
-    @SuppressWarnings("naming") // Abstraction of parameter name for security reasons
     @RequestMapping(value = "/addActivity", method = RequestMethod.POST)
     public int addActivity(@RequestParam String sessionID, @RequestBody ActivityClass activity) {
         try {
@@ -81,7 +80,6 @@ public class ActivityController {
      * @param activityID int type.
      * @return a String telling the client whether the transaction succeeded.
      */
-    @SuppressWarnings("naming") // Abstraction of parameter name for security reasons
     @RequestMapping(value = "/removeActivity", method = RequestMethod.POST)
     public String removeActivity(@RequestParam String sessionID, @RequestBody int activityID) {
         try {
@@ -106,7 +104,6 @@ public class ActivityController {
      *                  split by a whitespace character
      * @return a JSON with a list of activities
      */
-    @SuppressWarnings("naming") // Abstraction of parameter name for security reasons
     @RequestMapping(value = "/retrieveActivities", method = RequestMethod.POST)
     public String retrieveActivities(@RequestParam String sessionID, @RequestBody String period) {
         try {
@@ -141,7 +138,6 @@ public class ActivityController {
      * @param period String type
      * @return a LocalDate that is w size removed from the current date
      */
-    @SuppressWarnings("naming") // Abstraction of parameter name for security reasons
     private LocalDate selectDomain(String period) {
         LocalDate now = LocalDate.now();
         LocalDate domain = now.minusWeeks(1);

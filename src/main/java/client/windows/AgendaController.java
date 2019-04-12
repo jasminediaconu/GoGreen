@@ -223,7 +223,6 @@ public class AgendaController extends Controller implements Initializable {
         return multimap;
     }
 
-    int count = 0;
     /**
      * This function shows the activity on the agenda.
      * Takes in a multimap(date from datepicker and activity object)
@@ -231,7 +230,6 @@ public class AgendaController extends Controller implements Initializable {
      * @param activityMap Multimap type.
      */
     public void showAgendaActivities(Multimap<LocalDate, Activity> activityMap) {
-        System.out.println("\n\n\n\n\n\n\n\n This function has been called " + count++ + " times.\n\n\n\n");
         gridPane.getChildren().clear();
 
         String path = "/client/windows/images/delete.png";
@@ -508,7 +506,7 @@ public class AgendaController extends Controller implements Initializable {
                     x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
             Activity activity = new Activity(itemID, parsedAmount, date);
             if (sv.addActivity(activity)) {
-                //Main.clientUser.addToActivityList(activity);
+                Main.clientUser.addToActivityList(activity);
 
                 increaseTotalCO2(activity);
 

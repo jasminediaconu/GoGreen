@@ -129,9 +129,9 @@ public class UserController {
 
                 ClientUserClass clientUser = new ClientUserClass(result.getString("username"),
                         result.getString("countryname"), result.getString("email"),
-                        result.getDouble("totalco2"),
-                        result.getString("cartype"), result.getString("caremissiontype"),
-                        streakLength, result.getInt("solarpower"), result.getInt("leds"),
+                        result.getDouble("totalco2"), result.getString("cartype"),
+                        result.getString("caremissiontype"), streakLength,
+                        result.getInt("solarpower"), result.getInt("leds"),
                         result.getInt("roomtemp")
                 );
 

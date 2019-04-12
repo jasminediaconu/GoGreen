@@ -25,8 +25,8 @@ Focused on improving metrics, worked on the report and fixed the bugs in the app
 - Most of the application bugs were fixed, higher importance was given to the Checkstyle warnings and to the Tests.
 
 ### Wout (whaakman)
--
--
+- The report final draft went well, except for some small spelling errors.
+- There are still some small bugs left, but those will be fixed before the next presentation.
 
 ### Giuliano (gforghieri)
 - We have completed numerous misc
@@ -37,8 +37,8 @@ Focused on improving metrics, worked on the report and fixed the bugs in the app
 -
 
 ### Gino (gtramontina)
--
--
+- Everyone worked really well on the report and presentation and all the tasks that still had to be done.
+- Because the application is mostly finished everyone mostly worked on fixing bus in terms of code.
 
 ### Svetoslav (sstanoev)
 -

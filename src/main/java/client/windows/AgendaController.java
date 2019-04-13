@@ -501,7 +501,6 @@ public class AgendaController extends Controller implements Initializable {
     private void addActivity(String itemName, double parsedAmount, LocalDate date) {
         ServerRequests sv = new ServerRequests();
         if (itemName != null && parsedAmount > 0 && date != null) {
-            System.out.println(date.toString());
             int itemID = Main.items.stream().filter(x ->
                     x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
             Activity activity = new Activity(itemID, parsedAmount, date);

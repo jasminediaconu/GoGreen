@@ -215,8 +215,8 @@ class ServerRequestsTest {
 
     @Test
     void followUserSuccess(){
-        sv.unFollowUser("TestAccount2811");
-        Assert.assertEquals(true, sv.followUser("TestAccount2811"));
+        sv.unFollowUser("admin");
+        Assert.assertEquals(true, sv.followUser("admin"));
     }
 
     @Test

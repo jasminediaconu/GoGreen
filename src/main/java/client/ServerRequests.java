@@ -178,7 +178,6 @@ public class ServerRequests {
         if (activityID == -1) {
             return false;
         } else {
-            System.out.println("\n\n\n\n\n Rubber duck \n\n\n\n\n");
             activity.setActivityID(activityID);
             return true;
         }

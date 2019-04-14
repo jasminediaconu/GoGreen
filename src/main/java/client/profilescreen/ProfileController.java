@@ -1,6 +1,5 @@
 package client.profilescreen;
 
-import ch.qos.logback.core.net.server.Client;
 import client.Main;
 import client.ServerRequests;
 import client.helper.RowCount;

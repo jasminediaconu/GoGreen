@@ -1,13 +1,11 @@
 package client.user;
 
-import client.ServerRequests;
 import com.google.gson.annotations.Expose;
 
 import client.Main;
 
 import client.objects.Activity;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 import java.time.LocalDate;
@@ -20,6 +18,8 @@ import java.util.Objects;
  * The type Client user.
  */
 public class ClientUser extends User {
+    @Expose(deserialize = false, serialize = false)
+    public static Image profileImage;
 
     private int streakLength;
 
@@ -33,8 +33,6 @@ public class ClientUser extends User {
     private String carType;
     private String carEmissionType;
 
-    @Expose(deserialize = false, serialize = false)
-    public static Image profileImage;
     @Expose(deserialize = false, serialize = false)
     private List<User> following = new ArrayList<>();
     @Expose(deserialize = false, serialize = false)

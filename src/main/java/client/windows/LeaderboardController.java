@@ -167,7 +167,7 @@ public class LeaderboardController extends Controller implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            if(this.getTableRow() != null) {
+                            if (this.getTableRow() != null) {
                                 String data = usernameColumn.getCellObservableValue(
                                         this.getTableRow().getIndex()).getValue();
                                 if (data.equals(Main.clientUser.getUsername())) {

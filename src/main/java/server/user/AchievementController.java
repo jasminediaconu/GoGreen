@@ -30,9 +30,6 @@ public class AchievementController {
     private static PreparedStatement[] achQueries;
 
     private static PreparedStatement selectAchievements;
-    private static PreparedStatement insertUserAchievements;
-    private static PreparedStatement selectUserAchievements;
-    private static PreparedStatement updateUserAchievements;
 
     static {
         try {
@@ -116,21 +113,6 @@ public class AchievementController {
             selectAchievements = ServerApp.dbConnection.prepareStatement(
                     "SELECT * FROM achievements;"
             );
-
-            insertUserAchievements = ServerApp.dbConnection.prepareStatement(
-                    "INSERT INTO user_achievements (\"userid\") VALUES (?);"
-            );
-
-            selectUserAchievements = ServerApp.dbConnection.prepareStatement(
-                    "SELECT * FROM user_achievements WHERE userid = ?;"
-            );
-
-            updateUserAchievements = ServerApp.dbConnection.prepareStatement(
-                    "UPDATE user_achievements SET ach1 = ?, ach2 = ?, ach3 = ?,"
-                    + " ach4 = ?, ach5 = ?, ach6 = ?, ach7 = ?, ach8 = ?, ach9 = ?,"
-                    + " ach10 = ?, ach11= ?, ach12 = ?, ach13 = ?, ach14 = ?, ach15 = ? "
-                    + " WHERE userid = ?;"
-            );
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -149,7 +131,7 @@ public class AchievementController {
         }
 
         try {
-            boolean[] achBooleans = getAchievementsArray(userID);
+            boolean[] achBooleans = new boolean[15];
 
             List<AchievementClass> achievements = new ArrayList<AchievementClass>();
             ResultSet result = selectAchievements.executeQuery();
@@ -165,10 +147,6 @@ public class AchievementController {
                 int progress = getProgress(userID, achQueries[i]);
                 achievement.progress = progress;
 
-                if (achBooleans[i]) {
-                    achievement.achieved = true;
-                    continue;
-                }
 
                 if ((i == 6 || i == 10 || i ==  11) && progress <= achievement.goal) {
                     achBooleans[i] = true;
@@ -178,8 +156,6 @@ public class AchievementController {
                     achievement.achieved = true;
                 }
             }
-
-            updateAchievementsArray(userID, achBooleans);
 
             return ServerApp.gson.toJson(achievements);
         } catch (SQLException e) {
@@ -199,40 +175,5 @@ public class AchievementController {
             return -1;
         }
 
-    }
-
-    private boolean[] getAchievementsArray(int userID) {
-        try {
-            insertUserAchievements.setInt(1, userID);
-            insertUserAchievements.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            selectUserAchievements.setInt(1, userID);
-            ResultSet result = selectUserAchievements.executeQuery();
-            result.next();
-            boolean[] achBooleans = new boolean[15];
-            for (int i = 0; i < achBooleans.length; i++) {
-                achBooleans[i] = result.getBoolean("ach" + (i + 1));
-            }
-            return achBooleans;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return new boolean[0];
-        }
-    }
-
-    private void updateAchievementsArray(int userID, boolean[] achBooleans) {
-        try {
-            for (int i = 0; i < achBooleans.length; i++) {
-                updateUserAchievements.setBoolean(i + 1, achBooleans[i]);
-            }
-            updateUserAchievements.setInt(16, userID);
-            updateUserAchievements.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 }

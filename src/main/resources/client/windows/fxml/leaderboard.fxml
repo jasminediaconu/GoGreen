@@ -41,8 +41,8 @@
                             <columns>
                                 <TableColumn fx:id="rankColumn" editable="false" prefWidth="50" resizable="false" sortable="false" text="rank" />
                                 <TableColumn fx:id="usernameColumn" editable="false" prefWidth="170" resizable="false" sortable="false" text="Username" />
-                                <TableColumn fx:id="countryColumn" editable="false" prefWidth="125" resizable="false" sortable="false" text="country" />
-                                <TableColumn fx:id="totalCo2Column" editable="false" prefWidth="84" resizable="false" sortable="false" text="CO2 reduced" />
+                                <TableColumn fx:id="countryColumn" editable="false" prefWidth="100" resizable="false" sortable="false" text="country" />
+                                <TableColumn fx:id="totalCo2Column" editable="false" prefWidth="100" resizable="false" sortable="false" text="CO2 reduced" />
                             </columns>
                         </TableView>
                     </children>

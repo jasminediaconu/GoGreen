@@ -32,40 +32,35 @@ class ServerRequestsTest {
 
     @Test
     void loginNull() {
-        Assert.assertNull(sv.login(null, "password", false));
-        Assert.assertNull(sv.login("username", null, false));
+        Assert.assertNull(sv.login(null, "password"));
+        Assert.assertNull(sv.login("username", null));
     }
 
     @Test
     void loginSyntax() {
-        Assert.assertEquals("syntax", sv.login("usr", "password", false));
-        Assert.assertEquals("syntax", sv.login("username", "pwd", false));
+        Assert.assertEquals("syntax", sv.login("usr", "password"));
+        Assert.assertEquals("syntax", sv.login("username", "pwd"));
     }
 
     @Test
     void loginUsername() {
-        Assert.assertEquals("username", sv.login("dafdsfsfgsrfsdafafasfas", "password", false));
+        Assert.assertEquals("username", sv.login("dafdsfsfgsrfsdafafasfas", "password"));
     }
 
     @Test
     void loginPassword() {
-        Assert.assertEquals("password", sv.login("admin", "test", false));
+        Assert.assertEquals("password", sv.login("admin", "test"));
     }
 
     @Test
     void loginSuccess() {
-        Assert.assertEquals("success", sv.login("admin", "admin", false));
-    }
-
-    @Test
-    void loginHashedFail(){
-        Assert.assertEquals("password", sv.login("admin", "admin", true));
+        Assert.assertEquals("success", sv.login("admin", "admin"));
     }
 
     @Test
     void loginFail() {
         ServerRequests.requestUrl = "";
-        Assert.assertEquals("fail", sv.login("username", "password", false));
+        Assert.assertEquals("fail", sv.login("username", "password"));
     }
 
     @Test
@@ -215,14 +210,14 @@ class ServerRequestsTest {
 
     @Test
     void followUserSuccess(){
-        sv.unFollowUser("admin");
-        Assert.assertEquals(true, sv.followUser("admin"));
+        sv.unFollowUser("wouthaakman");
+        Assert.assertEquals(true, sv.followUser("wouthaakman"));
     }
 
     @Test
     void followUserAlreadyFollow(){
-        sv.followUser("TestAccount2811");
-        Assert.assertEquals(false, sv.followUser("TestAccount2811"));
+        sv.followUser("wouthaakman");
+        Assert.assertEquals(false, sv.followUser("wouthaakman"));
     }
 
     @Test
@@ -232,14 +227,14 @@ class ServerRequestsTest {
 
     @Test
     void unFollowUserSucces(){
-        sv.followUser("TestAccount2811");
-        Assert.assertEquals(true, sv.unFollowUser("TestAccount2811"));
+        sv.followUser("wouthaakman");
+        Assert.assertEquals(true, sv.unFollowUser("wouthaakman"));
     }
 
     @Test
     void unFollowUserAlready(){
-        sv.unFollowUser("TestAccount2811");
-        Assert.assertEquals(true, sv.unFollowUser("TestAccount2811"));
+        sv.unFollowUser("wouthaakman");
+        Assert.assertEquals(true, sv.unFollowUser("wouthaakman"));
     }
 
     @Test

@@ -18,8 +18,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
-
 /**
  * The Main class of the GoGreen application.
  * This application is made by:

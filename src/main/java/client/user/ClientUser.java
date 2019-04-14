@@ -1,11 +1,13 @@
 package client.user;
 
+import client.ServerRequests;
 import com.google.gson.annotations.Expose;
 
 import client.Main;
 
 import client.objects.Activity;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 
 import java.time.LocalDate;
@@ -32,7 +34,7 @@ public class ClientUser extends User {
     private String carEmissionType;
 
     @Expose(deserialize = false, serialize = false)
-    private Image profileImage;
+    public static Image profileImage;
     @Expose(deserialize = false, serialize = false)
     private List<User> following = new ArrayList<>();
     @Expose(deserialize = false, serialize = false)
@@ -172,24 +174,6 @@ public class ClientUser extends User {
      */
     public void setSolarPower(int solarPower) {
         this.solarPower = solarPower;
-    }
-
-    /**
-     * Gets profile image.
-     *
-     * @return the profile image
-     */
-    public Image getProfileImage() {
-        return profileImage;
-    }
-
-    /**
-     * Sets profile image.
-     *
-     * @param profileImage the profile image
-     */
-    public void setProfileImage(Image profileImage) {
-        this.profileImage = profileImage;
     }
 
     /**

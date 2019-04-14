@@ -96,7 +96,7 @@ public class LoginRequest extends AsyncTask {
     public void getUserProfile() {
         ServerRequests sv = new ServerRequests();
         clientUser = sv.getClientUserProfile();
-        clientUser.setProfileImage(SwingFXUtils.toFXImage(sv.getProfileImage(), null));
+        ClientUser.profileImage = SwingFXUtils.toFXImage(sv.getProfileImage(), null);
         clientUser.setActivityList(sv.retrieveActivities("w"));
         clientUser = clientUser.deepCopy();
     }

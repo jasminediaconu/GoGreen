@@ -1,5 +1,6 @@
 package client.profilescreen;
 
+import ch.qos.logback.core.net.server.Client;
 import client.Main;
 import client.ServerRequests;
 import client.helper.RowCount;
@@ -95,13 +96,13 @@ public class ProfileController extends Controller {
         countryField.setText(settings.getCountry());
         temperatureField.setText("" + settings.getRoomTemp());
         setButtonsDisable(true);
-        setProfileImage(settings.getProfileImage());
+        setProfileImage(ClientUser.profileImage);
         setTransportField(settings.getCarType(), settings.getCarEmissionType());
         if (mainScreenController != null) {
             mainScreenController.setUsernameField(settings.getUsername());
 
-            if (settings.getProfileImage() != null) {
-                mainScreenController.setProfileImage(settings.getProfileImage());
+            if (ClientUser.profileImage != null) {
+                mainScreenController.setProfileImage(ClientUser.profileImage);
             }
         }
     }
@@ -191,9 +192,9 @@ public class ProfileController extends Controller {
      */
     public void changeProfileImage(BufferedImage image) {
         if (image != null) {
-            Main.clientUser.setProfileImage(SwingFXUtils.toFXImage(image, null));
-            setProfileImage(Main.clientUser.getProfileImage());
-            mainScreenController.setProfileImage(Main.clientUser.getProfileImage());
+            ClientUser.profileImage = SwingFXUtils.toFXImage(image, null);
+            setProfileImage(ClientUser.profileImage);
+            mainScreenController.setProfileImage(ClientUser.profileImage);
             setButtonsDisable(false);
         }
     }

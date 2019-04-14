@@ -11,10 +11,6 @@ public class MainScreen extends Application {
 
     private static Stage primaryStage;
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     /**
      * Gets primary stage.
      *

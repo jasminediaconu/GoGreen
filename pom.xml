@@ -212,6 +212,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -294,11 +300,6 @@
                         <exclude>**/client/loginscreen/*App**</exclude>
                         <exclude>**/client/profilescreen/**</exclude>
                         <exclude>**/client/windows/**</exclude>
-                        <exclude>**/server/helper/*Class.*</exclude>
-                        <exclude>**/server/login/**</exclude>
-                        <exclude>**/server/objects/**</exclude>
-                        <exclude>**/server/user/**</exclude>
-                        <exclude>**/server/*Controller.*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

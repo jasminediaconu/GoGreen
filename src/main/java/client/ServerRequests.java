@@ -38,11 +38,8 @@ public class ServerRequests {
      * @param username type.
      * @param password type.
      */
-    public String login(String username, String password, boolean ishashed) {
-        String hashedPassword = password;
-        if (!ishashed) {
-            hashedPassword = Main.hashString(password);
-        }
+    public String login(String username, String password) {
+        String hashedPassword = Main.hashString(password);
 
         if (username == null || hashedPassword == null) {
             return null;
@@ -100,10 +97,10 @@ public class ServerRequests {
 
         String response = sendRequestToServer("signup",
                 Main.gson.toJson(new String[]{username, email, hashedPassword}));
-        return checkSignupResponse(response);
+        return checkSignUpResponse(response);
     }
 
-    private String checkSignupResponse(String response) {
+    private String checkSignUpResponse(String response) {
         if ("username".equals(response)) {
             System.out.println("[ERROR] This username has already been taken");
             return response;
@@ -384,7 +381,7 @@ public class ServerRequests {
             return "syntax";
         }
         password = Main.hashString(password);
-        if (id == null || id.length() != 4 || password == null) {
+        if (id == null || id.length() != 4) {
             return "fail";
         } else {
             String response = sendRequestToServer("changePassword?id="

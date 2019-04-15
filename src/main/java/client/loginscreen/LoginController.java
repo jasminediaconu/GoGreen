@@ -1,6 +1,5 @@
 package client.loginscreen;
 
-import client.Main;
 import client.windows.Controller;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -19,7 +18,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.apache.commons.lang.StringUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -28,8 +26,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-//import com.sun.security.ntlm.Server;
 
 /**
  * The type Login controller.
@@ -120,30 +116,16 @@ public class LoginController extends Controller implements Initializable {
 
         String username = tfUsername.getText();
         String password = pfPassword.getText();
-        boolean ishashed = false;
-        String userpass = null;
         String keycode = "";
-        int passwordlength = password.length();
 
         if (event instanceof KeyEvent) {
             KeyEvent keyevent = (KeyEvent) event;
             keycode = keyevent.getCode().toString();
         }
         if (event instanceof MouseEvent || keycode.equals("ENTER")) {
-            try {
-                if (remembered) {
-                    FileReader freader = new FileReader("rememberme.txt");
-                    BufferedReader reader = new BufferedReader(freader);
-                    userpass = reader.readLine();
-                    reader.close();
-                    freader.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            rememberme(username, password, ishashed, passwordlength);
+            rememberme(username, password);
 
-            LoginRequest loginRequest = new LoginRequest(username, password, ishashed, this);
+            LoginRequest loginRequest = new LoginRequest(username, password, this);
             loginRequest.setDaemon(false);
             loginRequest.execute();
             setDisableScreen(true);
@@ -266,19 +248,12 @@ public class LoginController extends Controller implements Initializable {
      * @param password String type
      * @throws IOException if there is no input
      */
-    private void rememberme(String username, String password, boolean ishashed,
-                            int passwordlength) {
-        String hashedpassword = "";
-        if (!ishashed) {
-            hashedpassword = Main.hashString(password);
-        } else {
-            hashedpassword = password;
-        }
+    private void rememberme(String username, String password) {
         try {
             FileWriter writer = new FileWriter("rememberme.txt");
             writer.write("");
             if (rememberBox.isSelected()) {
-                writer.write(username + ";" + hashedpassword + ";" + passwordlength);
+                writer.write(username + ";" + password);
             }
             writer.close();
         } catch (IOException e) {
@@ -297,7 +272,7 @@ public class LoginController extends Controller implements Initializable {
         if (!remembered) {
             FileReader fread = new FileReader("rememberme.txt");
             BufferedReader reader = new BufferedReader(fread);
-            String userpass = null;
+            String userpass;
             userpass = reader.readLine();
             reader.close();
             fread.close();
@@ -306,9 +281,7 @@ public class LoginController extends Controller implements Initializable {
                 rememberBox.setSelected(true);
                 String[] userpassparts = userpass.split(";");
                 tfUsername.setText(userpassparts[0]);
-                int passlength = Integer.parseInt(userpassparts[2]);
-                String passwordfiller = StringUtils.repeat("a", passlength);
-                pfPassword.setText(passwordfiller);
+                pfPassword.setText(userpassparts[1]);
                 remembered = true;
             } else if (userpass == null) {
                 rememberBox.setSelected(false);

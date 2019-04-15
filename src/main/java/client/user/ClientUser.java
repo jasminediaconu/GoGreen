@@ -18,6 +18,8 @@ import java.util.Objects;
  * The type Client user.
  */
 public class ClientUser extends User {
+    @Expose(deserialize = false, serialize = false)
+    public static Image profileImage;
 
     private int streakLength;
 
@@ -31,8 +33,6 @@ public class ClientUser extends User {
     private String carType;
     private String carEmissionType;
 
-    @Expose(deserialize = false, serialize = false)
-    private Image profileImage;
     @Expose(deserialize = false, serialize = false)
     private List<User> following = new ArrayList<>();
     @Expose(deserialize = false, serialize = false)
@@ -172,24 +172,6 @@ public class ClientUser extends User {
      */
     public void setSolarPower(int solarPower) {
         this.solarPower = solarPower;
-    }
-
-    /**
-     * Gets profile image.
-     *
-     * @return the profile image
-     */
-    public Image getProfileImage() {
-        return profileImage;
-    }
-
-    /**
-     * Sets profile image.
-     *
-     * @param profileImage the profile image
-     */
-    public void setProfileImage(Image profileImage) {
-        this.profileImage = profileImage;
     }
 
     /**

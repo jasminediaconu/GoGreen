@@ -1,4 +1,3 @@
-
 # Sprint Review of Sprint 6
 
 ## Main problems  Encountered
@@ -19,7 +18,8 @@ Finish with the code part of the application by Friday, we have a meeting schedu
 
 ## Reflection on the previous sprint
 ### Wout Haakman (whaakman)
-- Had complications with the MIL requests and has been doing maintenance on the server
+- We completed the requirements for the demo
+- Almost all server stuff is done too
 
 ### Jasmine (jdiaconu)
 - Working on the achievement popups has been difficult but interesting

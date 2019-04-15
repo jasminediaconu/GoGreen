@@ -9,6 +9,7 @@ import com.google.gson.GsonBuilder;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,40 +32,35 @@ class ServerRequestsTest {
 
     @Test
     void loginNull() {
-        Assert.assertNull(sv.login(null, "password", false));
-        Assert.assertNull(sv.login("username", null, false));
+        Assert.assertNull(sv.login(null, "password"));
+        Assert.assertNull(sv.login("username", null));
     }
 
     @Test
     void loginSyntax() {
-        Assert.assertEquals("syntax", sv.login("usr", "password", false));
-        Assert.assertEquals("syntax", sv.login("username", "pwd", false));
+        Assert.assertEquals("syntax", sv.login("usr", "password"));
+        Assert.assertEquals("syntax", sv.login("username", "pwd"));
     }
 
     @Test
     void loginUsername() {
-        Assert.assertEquals("username", sv.login("dafdsfsfgsrfsdafafasfas", "password", false));
+        Assert.assertEquals("username", sv.login("dafdsfsfgsrfsdafafasfas", "password"));
     }
 
     @Test
     void loginPassword() {
-        Assert.assertEquals("password", sv.login("admin", "test", false));
+        Assert.assertEquals("password", sv.login("admin", "test"));
     }
 
     @Test
     void loginSuccess() {
-        Assert.assertEquals("success", sv.login("admin", "admin", false));
-    }
-
-    @Test
-    void loginHashedFail(){
-        Assert.assertEquals("password", sv.login("admin", "admin", true));
+        Assert.assertEquals("success", sv.login("admin", "admin"));
     }
 
     @Test
     void loginFail() {
         ServerRequests.requestUrl = "";
-        Assert.assertEquals("fail", sv.login("username", "password", false));
+        Assert.assertEquals("fail", sv.login("username", "password"));
     }
 
     @Test
@@ -103,6 +99,7 @@ class ServerRequestsTest {
         ServerRequests.requestUrl = "";
         Assert.assertEquals("fail", sv.signUp("username", "email@email.com", "password"));
     }
+
 
     @Test
     void endSessionOK() {
@@ -213,14 +210,14 @@ class ServerRequestsTest {
 
     @Test
     void followUserSuccess(){
-        sv.unFollowUser("TestAccount2811");
-        Assert.assertEquals(true, sv.followUser("TestAccount2811"));
+        sv.unFollowUser("wouthaakman");
+        Assert.assertEquals(true, sv.followUser("wouthaakman"));
     }
 
     @Test
     void followUserAlreadyFollow(){
-        sv.followUser("TestAccount2811");
-        Assert.assertEquals(false, sv.followUser("TestAccount2811"));
+        sv.followUser("wouthaakman");
+        Assert.assertEquals(false, sv.followUser("wouthaakman"));
     }
 
     @Test
@@ -230,14 +227,14 @@ class ServerRequestsTest {
 
     @Test
     void unFollowUserSucces(){
-        sv.followUser("TestAccount2811");
-        Assert.assertEquals(true, sv.unFollowUser("TestAccount2811"));
+        sv.followUser("wouthaakman");
+        Assert.assertEquals(true, sv.unFollowUser("wouthaakman"));
     }
 
     @Test
     void unFollowUserAlready(){
-        sv.unFollowUser("TestAccount2811");
-        Assert.assertEquals(true, sv.unFollowUser("TestAccount2811"));
+        sv.unFollowUser("wouthaakman");
+        Assert.assertEquals(true, sv.unFollowUser("wouthaakman"));
     }
 
     @Test
@@ -245,7 +242,43 @@ class ServerRequestsTest {
         Assert.assertEquals(true, sv.unFollowUser("ashdlfjas345dfasdjfasfhskdfjhasjdf"));
     }
 
+    @Test
+    void recoverPasswordFail(){
+        Assert.assertEquals("syntax", sv.recoverPassword("messy"));
+    }
 
+    @Test
+    void recoverPasswordSucces(){
+        Assert.assertEquals("oopproject72@gmail.com", sv.recoverPassword("oopproject72@gmail.com"));
+    }
+
+    @Test
+    void changePasswordNoPassword(){
+        Assert.assertEquals("syntax", sv.changePassword("0000", ""));
+    }
+
+    @Test
+    void changePasswordNullID(){
+        Assert.assertEquals("fail", sv.changePassword(null, "342423"));
+    }
+
+    @Test
+    void changePasswordNullPassword(){
+        Assert.assertEquals("fail", sv.changePassword("0000", "000000"));
+    }
+
+    @Test
+    void changePasswordFail(){
+        Assert.assertEquals("fail", sv.changePassword("000", "000000"));
+    }
+
+    @Test
+    void getAchievementsFail(){
+        String id = Main.sessionID;
+        Main.sessionID = "";
+        sv.getAchievements();
+        Main.sessionID = id;
+    }
 
     @Test
     void getFollowingProfileOK() {
@@ -259,6 +292,13 @@ class ServerRequestsTest {
         ServerRequests.requestUrl = "";
         List<User> users = sv.getFollowingProfile();
         Assert.assertEquals(0, users.size());
+    }
+
+    @Test
+    void unFollowNoSession(){
+        String id = Main.sessionID;
+        Main.sessionID = "";
+        Assert.assertEquals(false, sv.unFollowUser("admin"));
     }
 
     @Test

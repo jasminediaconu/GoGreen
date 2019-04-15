@@ -95,13 +95,13 @@ public class ProfileController extends Controller {
         countryField.setText(settings.getCountry());
         temperatureField.setText("" + settings.getRoomTemp());
         setButtonsDisable(true);
-        setProfileImage(settings.getProfileImage());
+        setProfileImage(ClientUser.profileImage);
         setTransportField(settings.getCarType(), settings.getCarEmissionType());
         if (mainScreenController != null) {
             mainScreenController.setUsernameField(settings.getUsername());
 
-            if (settings.getProfileImage() != null) {
-                mainScreenController.setProfileImage(settings.getProfileImage());
+            if (ClientUser.profileImage != null) {
+                mainScreenController.setProfileImage(ClientUser.profileImage);
             }
         }
     }
@@ -191,9 +191,9 @@ public class ProfileController extends Controller {
      */
     public void changeProfileImage(BufferedImage image) {
         if (image != null) {
-            Main.clientUser.setProfileImage(SwingFXUtils.toFXImage(image, null));
-            setProfileImage(Main.clientUser.getProfileImage());
-            mainScreenController.setProfileImage(Main.clientUser.getProfileImage());
+            ClientUser.profileImage = SwingFXUtils.toFXImage(image, null);
+            setProfileImage(ClientUser.profileImage);
+            mainScreenController.setProfileImage(ClientUser.profileImage);
             setButtonsDisable(false);
         }
     }
@@ -236,18 +236,22 @@ public class ProfileController extends Controller {
 
                 // if activity present check if amount is the same if not update it
                 if (activity.getAmount() != amount) {
-                    int activityIndex = Main.clientUser.getFilteredList().indexOf(activity);
-
+                    int activityIndex = Main.clientUser.getActivityList().indexOf(activity);
                     ServerRequests sv = new ServerRequests();
                     int activityID = Main.clientUser.getActivityList().get(
-                            activityIndex + 1).getActivityID();
+                            activityIndex).getActivityID();
                     sv.removeActivity(activityID);
+
                     AgendaController.getGridPane().getChildren().removeIf(node ->
                             GridPane.getRowIndex(node) == activityIndex + 2);
                     // If there are no activities for that day, delete the date
                     AgendaController.getAgendaBox().getChildren().removeIf(dateText ->
                             RowCount.getRowCount(AgendaController.getGridPane()) == 0);
+
+                    decreaseTotalCO2(activity);
                     Main.clientUser.removeFromActivityList(activity);
+
+
                     applyActivity(itemName, amount);
                 }
             }
@@ -350,23 +354,38 @@ public class ProfileController extends Controller {
         LocalDate date = LocalDate.now();
 
         if (itemName != null && parsedAmount > 0) {
-            System.out.println(date.toString());
             int itemID = Main.items.stream().filter(x ->
                     x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
             Activity activity = new Activity(itemID, parsedAmount, date);
             if (sv.addActivity(activity)) {
                 Main.clientUser.addToActivityList(activity);
 
-                Item item = Main.items.get(activity.getItemID() - 1);
-                double addition = activity.getAmount() * item.getCo2();
-                if (!item.getType().equals("energy")) {
-                    addition /= 1000.0;
-                }
-                Main.clientUser.increaseTotalCo2(addition);
-                sv.updateClientUserProfile();
-                agendaController.showAgendaActivities(agendaController.activityMap(
-                        Main.clientUser.getActivityList()));
+                increaseTotalCO2(activity);
+
+                agendaController.showAgendaActivities(
+                        agendaController.activityMap(Main.clientUser.getActivityList()));
             }
         }
+    }
+
+    private void increaseTotalCO2(Activity activity) {
+        ServerRequests sv = new ServerRequests();
+        Main.clientUser.increaseTotalCo2(findValueFromActivity(activity));
+        sv.updateClientUserProfile();
+    }
+
+    private void decreaseTotalCO2(Activity activity) {
+        ServerRequests sv = new ServerRequests();
+        Main.clientUser.increaseTotalCo2(-findValueFromActivity(activity));
+        sv.updateClientUserProfile();
+    }
+
+    private double findValueFromActivity(Activity activity) {
+        Item item = Main.items.get(activity.getItemID() - 1);
+        double value = Main.round(activity.getAmount() * item.getCo2(), 2);
+        if (item.getType().equals("food")) {
+            value /= 1000.0;
+        }
+        return value;
     }
 }

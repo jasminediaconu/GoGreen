@@ -147,7 +147,6 @@ public class AgendaController extends Controller implements Initializable {
         }
 
         gridPane.setHgap(20);
-        //        agendaBox.getChildren().add(gridPane);
 
         agendaBox.getChildren().add(gridPane);
 
@@ -238,9 +237,6 @@ public class AgendaController extends Controller implements Initializable {
         int rowCounter = 0;
         int activityCounter = 0;
         for (LocalDate date : activityMap.keySet()) {
-            if (rowCounter > 0) {
-                rowCounter++;
-            }
             String css = "-fx-background-position: 20; -fx-font-size: 28;";
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM, yyy");
             dateText = new Text(formatter.format(date));
@@ -251,7 +247,7 @@ public class AgendaController extends Controller implements Initializable {
                 rowCounter++;
                 Item item = Main.items.get(activity.getItemID() - 1);
                 String unit = "";
-                Double co2Saved = Main.round(item.getCo2() * activity.getAmount(), 2);
+                double co2Saved = Main.round(item.getCo2() * activity.getAmount(), 2);
 
 
                 if (item.getType().equals("food")) {
@@ -271,6 +267,8 @@ public class AgendaController extends Controller implements Initializable {
                 int iii = rowCounter;
                 button.setOnMouseClicked(e -> deleteActivityDialog(ii, iii));
             }
+
+            rowCounter++;
         }
     }
 
@@ -404,7 +402,6 @@ public class AgendaController extends Controller implements Initializable {
                     item.getName()).collect(Collectors.toList()));
         }
         foodChoices.setItems(foodList);
-        //mainScreen.getChildren().add(foodChoices);
     }
 
 
@@ -440,7 +437,6 @@ public class AgendaController extends Controller implements Initializable {
                     item.getName()).collect(Collectors.toList()));
         }
         energyChoices.setItems(energyList);
-        //mainScreen.getChildren().add(foodChoices);
     }
 
     @FXML
@@ -471,9 +467,6 @@ public class AgendaController extends Controller implements Initializable {
      */
     @FXML
     private void applyButton(String itemName) {
-
-        ProfileController profileController = new ProfileController();
-
         ServerRequests sv = new ServerRequests();
         double parsedAmount = -1;
         if (amount.getText() != null && amount.getText().length() > 0) {
@@ -483,19 +476,19 @@ public class AgendaController extends Controller implements Initializable {
         LocalDate date = datepicker.getValue();
 
         if (itemName.equals("Solar panel")) {
-            profileController.updateAgenda(itemName, parsedAmount);
+            new ProfileController().updateAgenda(itemName, parsedAmount);
             Main.clientUser.setSolarPower((int) parsedAmount);
             sv.updateClientUserProfile();
             showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             return;
         } else if (itemName.equals("Lower Temperature")) {
-            profileController.updateAgenda(itemName, parsedAmount);
+            new ProfileController().updateAgenda(itemName, parsedAmount);
             Main.clientUser.setRoomTemp(21 - (int) parsedAmount);
             sv.updateClientUserProfile();
             showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
             return;
         } else if (itemName.equals("LEDs")) {
-            profileController.updateAgenda(itemName, parsedAmount);
+            new ProfileController().updateAgenda(itemName, parsedAmount);
             Main.clientUser.setLeds((int) parsedAmount);
             sv.updateClientUserProfile();
             showAgendaActivities(activityMap(Main.clientUser.getActivityList()));
@@ -508,7 +501,6 @@ public class AgendaController extends Controller implements Initializable {
     private void addActivity(String itemName, double parsedAmount, LocalDate date) {
         ServerRequests sv = new ServerRequests();
         if (itemName != null && parsedAmount > 0 && date != null) {
-            System.out.println(date.toString());
             int itemID = Main.items.stream().filter(x ->
                     x.getName().equals(itemName)).collect(Collectors.toList()).get(0).getItemID();
             Activity activity = new Activity(itemID, parsedAmount, date);

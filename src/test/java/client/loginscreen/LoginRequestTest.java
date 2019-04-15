@@ -27,7 +27,7 @@ public class LoginRequestTest {
 
     @Test
     public void loginSucces() {
-        loginRequest = new LoginRequest("root", "root", false, new LoginController());
+        loginRequest = new LoginRequest("admin", "admin", new LoginController());
         boolean res = loginRequest.doInBackground(null);
         loginRequest.onPostExecute(null);
         loginRequest.progressCallback(null);
@@ -37,19 +37,19 @@ public class LoginRequestTest {
 
     @Test
     public void loginFail() {
-        loginRequest = new LoginRequest("adsf", "admin", false, null);
+        loginRequest = new LoginRequest("adsf", "admin", null);
         boolean res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
-        loginRequest = new LoginRequest("admin", "adfsdfghfd", false, null);
+        loginRequest = new LoginRequest("admin", "adfsdfghfd", null);
         res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
-        loginRequest = new LoginRequest(null, null, false, null);
+        loginRequest = new LoginRequest(null, null, null);
         res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 
-        loginRequest = new LoginRequest("", "", false, new LoginController());
+        loginRequest = new LoginRequest("", "", new LoginController());
         res = loginRequest.doInBackground(null);
         Assert.assertFalse(res);
 

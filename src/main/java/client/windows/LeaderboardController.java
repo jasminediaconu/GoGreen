@@ -167,19 +167,21 @@ public class LeaderboardController extends Controller implements Initializable {
                         if (empty) {
                             setGraphic(null);
                         } else {
-                            String data = usernameColumn.getCellObservableValue(
-                                    this.getTableRow().getIndex()).getValue();
-                            if (data.equals(Main.clientUser.getUsername())) {
-                                setGraphic(null);
-                            } else {
-                                if (followingUsernames.contains(data)) {
-                                    setGraphic(followButton);
-                                    followButton.setText("unfollow");
-                                    followButton.setStyle("-fx-background-color: #8c8686");
+                            if (this.getTableRow() != null) {
+                                String data = usernameColumn.getCellObservableValue(
+                                        this.getTableRow().getIndex()).getValue();
+                                if (data.equals(Main.clientUser.getUsername())) {
+                                    setGraphic(null);
                                 } else {
-                                    setGraphic(followButton);
-                                    followButton.setText("follow");
-                                    followButton.setStyle("-fx-background-color : #95e743;");
+                                    if (followingUsernames.contains(data)) {
+                                        setGraphic(followButton);
+                                        followButton.setText("unfollow");
+                                        followButton.setStyle("-fx-background-color: #8c8686");
+                                    } else {
+                                        setGraphic(followButton);
+                                        followButton.setText("follow");
+                                        followButton.setStyle("-fx-background-color : #95e743;");
+                                    }
                                 }
                             }
                         }
@@ -190,6 +192,7 @@ public class LeaderboardController extends Controller implements Initializable {
         };
 
         followButtonColumn.setCellFactory(cellFactory);
+        followButtonColumn.setPrefWidth(90);
 
         table.getColumns().add(followButtonColumn);
     }

@@ -3,16 +3,13 @@ package client.windows;
 import client.Main;
 import client.ServerRequests;
 import client.user.User;
-
 import com.jfoenix.controls.JFXButton;
-
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -20,14 +17,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 
 
 
-public class LeaderboardController extends Controller implements Initializable {
+public class LeaderboardController extends Controller  {
 
     @FXML
     public TableView<User> table = new TableView<>();
@@ -50,13 +45,8 @@ public class LeaderboardController extends Controller implements Initializable {
 
     ArrayList<String> followingUsernames = new ArrayList<>();
 
-    /**
-     * Initialize the Leaderboard with global top 10.
-     *
-     * @param url            URL
-     * @param resourceBundle ResourceBundle
-     */
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    @Override
+    public void update() {
         usernameColumn.setCellValueFactory(new PropertyValueFactory<User, String>("username"));
         countryColumn.setCellValueFactory(new PropertyValueFactory<User, String>("country"));
         totalCo2Column.setCellValueFactory(new PropertyValueFactory<User, Double>("totalCo2"));
@@ -225,10 +215,5 @@ public class LeaderboardController extends Controller implements Initializable {
             followingUsernames.add(usernameColumn.getCellObservableValue(user).getValue());
         }
         return followingUsernames;
-    }
-
-    @Override
-    public void update() {
-
     }
 }

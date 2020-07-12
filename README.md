@@ -69,7 +69,7 @@ Apache <br/>
  <br/>
 
 ## About us
-University project developed in a team of 7 peope. 
+University project developed in a team of 7 peope for the course CSE1105 - Object-Oriented Programming Progect (TU Delft).
 
 Credits to:
 - Jasmine Diaconu

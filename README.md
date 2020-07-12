@@ -1,4 +1,4 @@
-# Greenly <br> ![Greenly_logo](/images/logo.jpg)
+![Greenly_logo](/images/logo.jpg)
 Greenly is a activity tracker showing you how much CO2 you save trough you daily actions.
 
 If you want to contribute to the application: Follow the steps under Installation - For Developers.
